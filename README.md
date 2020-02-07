@@ -1,7 +1,7 @@
 # ConUNav
 
 ## Team Members
-[Samiha Rahman](https://github.com/samiha-rahman)
+[Samiha Rahman](https://github.com/samiha-rahman) - Team Lead
 
 [David Chen](https://github.com/david0455)
 
