@@ -1,4 +1,4 @@
-# ConUNav
+# NavConU
 
 ## Team Members
 [Samiha Rahman](https://github.com/samiha-rahman) - Team Lead
