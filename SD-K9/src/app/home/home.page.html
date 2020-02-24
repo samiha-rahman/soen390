@@ -8,7 +8,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-        ConUnav
+        NavConU
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,21 +19,21 @@
   </div>
 </ion-content>
 
-<lib-ionic-pullup>
-    <ion-toolbar color="light" (onclick)="toggleFooter()" #ionDragFooter>
-      <ion-buttons slot="primary">
+<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
+  <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
+      <!-- <ion-buttons slot="primary">
         <ion-button (click)="clickedSearch()">
         </ion-button>
-      </ion-buttons>
+      </ion-buttons> -->
       <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
     </ion-toolbar>
 
-    <ion-content>        
+    <ion-content>
       <ion-content>
         <ion-list >
           <ion-item><ion-button>Shuttle Schedule</ion-button></ion-item>
           <ion-item><ion-button>App Settings</ion-button></ion-item>
-        </ion-list>            
+        </ion-list>
         <ion-grid>
               <ion-row>
                 <div>Favorites</div>
@@ -53,9 +53,6 @@
                 <div>Recent</div>
               </ion-row>
         </ion-grid>
-      </ion-content> 
-    </ion-content> 
+      </ion-content>
+    </ion-content>
 </lib-ionic-pullup>
-
-
-
