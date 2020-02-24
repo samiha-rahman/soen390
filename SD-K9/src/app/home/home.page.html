@@ -21,23 +21,32 @@
 
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
-      <!-- <ion-buttons slot="primary">
+      <ion-buttons slot="primary">
         <ion-button (click)="clickedSearch()">
         </ion-button>
-      </ion-buttons> -->
+      </ion-buttons>
       <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
     </ion-toolbar>
 
     <ion-content>
       <ion-content>
         <ion-list >
-          <ion-item><ion-button>Shuttle Schedule</ion-button></ion-item>
-          <ion-item><ion-button>App Settings</ion-button></ion-item>
+          <ion-button expand="block">
+            <ion-icon name="time"></ion-icon>
+              Shuttle Schedule
+          </ion-button>
+          <ion-button expand="block">
+            <ion-icon name="settings"></ion-icon>
+              App Settings
+          </ion-button>
         </ion-list>
+<!-- FAVORITES -->
+        <ion-card>
+  <ion-card-header>
+    <ion-card-title>Favorites</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
         <ion-grid>
-              <ion-row>
-                <div>Favorites</div>
-              </ion-row>
               <ion-row>
                 <ion-col>
                   <ion-button>SOEN-390</ion-button>
@@ -49,10 +58,25 @@
                   <ion-button>COMP-335</ion-button>
                 </ion-col>
               </ion-row>
-              <ion-row>
-                <div>Recent</div>
-              </ion-row>
         </ion-grid>
+      </ion-card-content>
+    </ion-card>
+
+<!-- RECENT EXAMPLE -->
+
+<ion-item>
+  <ion-label>Recent</ion-label>
+  <ion-input></ion-input>
+</ion-item>
+<ion-card>
+  <ion-card-header>
+
+    <ion-card-title>H building 534 <div class="ion-text-end">2 min</div></ion-card-title>
+    <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
+  </ion-card-header>
+
+</ion-card>
+
       </ion-content>
     </ion-content>
 </lib-ionic-pullup>
