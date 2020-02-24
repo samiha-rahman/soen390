@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
+import { IonicPullupModule } from 'ionic-pullup';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicPullupModule,
     RouterModule.forChild([
       {
         path: '',

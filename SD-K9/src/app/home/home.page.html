@@ -1,14 +1,61 @@
+<style>
+  .ion-item {
+    text-align: center;
+  }
+</style>
+
+
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+        ConUnav
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+    Map here
   </div>
 </ion-content>
+
+<lib-ionic-pullup>
+    <ion-toolbar color="light" (onclick)="toggleFooter()" #ionDragFooter>
+      <ion-buttons slot="primary">
+        <ion-button (click)="clickedSearch()">
+        </ion-button>
+      </ion-buttons>
+      <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
+    </ion-toolbar>
+
+    <ion-content>        
+      <ion-content>
+        <ion-list >
+          <ion-item><ion-button>Shuttle Schedule</ion-button></ion-item>
+          <ion-item><ion-button>App Settings</ion-button></ion-item>
+        </ion-list>            
+        <ion-grid>
+              <ion-row>
+                <div>Favorites</div>
+              </ion-row>
+              <ion-row>
+                <ion-col>
+                  <ion-button>SOEN-390</ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button>SOEN-344</ion-button>
+                </ion-col>
+                <ion-col>
+                  <ion-button>COMP-335</ion-button>
+                </ion-col>
+              </ion-row>
+              <ion-row>
+                <div>Recent</div>
+              </ion-row>
+        </ion-grid>
+      </ion-content> 
+    </ion-content> 
+</lib-ionic-pullup>
+
+
+
