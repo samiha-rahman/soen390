@@ -4,8 +4,11 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-import { HomePage } from './home.page';
 import { IonicPullupModule } from 'ionic-pullup';
+
+import { HomePage } from './home.page';
+import { BusPage } from '../modals/bus/bus.page';
+
 
 @NgModule({
   imports: [
@@ -20,6 +23,7 @@ import { IonicPullupModule } from 'ionic-pullup';
       }
     ])
   ],
-  declarations: [HomePage]
+  declarations: [HomePage, BusPage],
+  entryComponents: [BusPage]
 })
 export class HomePageModule {}

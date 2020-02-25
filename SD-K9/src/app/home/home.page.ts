@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonPullUpFooterState } from 'ionic-pullup';
+import { ModalController } from '@ionic/angular';
+import { BusPage } from '../modals/bus/bus.page';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +12,13 @@ import { IonPullUpFooterState } from 'ionic-pullup';
 export class HomePage implements OnInit{
   footerState: IonPullUpFooterState;
 
-  constructor() {}
+  constructor(private modalController: ModalController) {}
+  async openModal(){
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
+  }
 
   ngOnInit() {
     this.footerState = IonPullUpFooterState.Collapsed;
