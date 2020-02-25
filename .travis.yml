@@ -7,14 +7,9 @@ node_js:
 addons:
   chrome: stable
 
-before_cache:
-  - cd ./sd-k9
-
-cache:
-  directories:
-    - node_modules
-
 before_install:
+  - pwd
+  - ls -l
   - cd ./sd-k9
 
 install:
@@ -22,7 +17,7 @@ install:
 
 before_script:
   - cd ./sd-k9
-  
+
 script:
   - npm run test -- --watch=false --no-progress 
 
