@@ -9,7 +9,6 @@ addons:
 
 before_install:
   - cd SD-K9
-  - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
 
 install:
