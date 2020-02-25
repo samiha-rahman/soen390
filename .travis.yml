@@ -16,5 +16,5 @@ install:
   - npm install
 
 script:
-  - xvfb start npm run test -- --watch=false --no-progress 
+  - xvfb-run npm run test -- --watch=false --no-progress 
 
