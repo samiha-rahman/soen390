@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { ModalController } from '@ionic/angular';
 import { BusPage } from '../modals/bus/bus.page';
+import { AppsettingsPage } from '../modals/appsettings/appsettings.page';
 
 @Component({
   selector: 'app-home',
@@ -16,6 +17,13 @@ export class HomePage implements OnInit{
   async openModal(){
     const modal = await this.modalController.create({
       component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async openModal1(){
+    const modal = await this.modalController.create({
+      component: AppsettingsPage
     });
     return await modal.present();
   }

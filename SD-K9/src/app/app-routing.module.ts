@@ -8,7 +8,11 @@ const routes: Routes = [
   {
     path: 'bus',
     loadChildren: () => import('./modals/bus/bus.module').then( m => m.BusPageModule)
+  },  {
+    path: 'appsettings',
+    loadChildren: () => import('./modals/appsettings/appsettings.module').then( m => m.AppsettingsPageModule)
   },
+
 ];
 
 @NgModule({
