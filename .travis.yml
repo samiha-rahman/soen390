@@ -9,13 +9,20 @@ addons:
 
 before_cache:
   - cd ./sd-k9
+
 cache:
   directories:
     - node_modules
 
+before_install:
+  - cd ./sd-k9
+
 install:
   - npm install
 
+before_script:
+  - cd ./sd-k9
+  
 script:
   - npm run test -- --watch=false --no-progress 
 
