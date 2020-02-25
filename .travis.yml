@@ -10,13 +10,13 @@ addons:
 before_install:
   - pwd
   - ls -l
-  - cd ./sd-k9
+  - cd SD-K9
 
 install:
   - npm install
 
 before_script:
-  - cd ./sd-k9
+  - cd SD-K9
 
 script:
   - npm run test -- --watch=false --no-progress 
