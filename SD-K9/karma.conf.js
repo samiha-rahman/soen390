@@ -25,7 +25,7 @@ module.exports = function (config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome'],
+    browsers: ['Chrome', 'ChromeHeadless'],
     customLaunchers: {
       ChromeTravisCI: {
         base: 'Chrome',
@@ -36,7 +36,7 @@ module.exports = function (config) {
   };
 
   if (process.env.TRAVIS) {
-    configuration.browsers = ['ChromeTravisCI'];
+    configuration.browsers = ['ChromeHeadless'];
   }
 
   config.set(configuration);
