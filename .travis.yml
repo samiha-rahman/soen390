@@ -1,4 +1,5 @@
-sudo: false
+dist: trusty
+sudo: required 
 
 language: node_js
 node_js:
@@ -8,14 +9,14 @@ addons:
   chrome: stable
 
 before_install:
-  - export CHROME_BIN=chromium-browser
-  - export DISPLAY=:99.0
-  - export NO_PROXY="localhost, 0.0.0.0/4201, 0.0.0.0/9876"
+  # - export CHROME_BIN=google-chrome-stable
+  # - export DISPLAY=:99.0
   - cd SD-K9
 
 install:
   - npm install
 
 script:
-  - xvfb-run npm run test -- --watch=false --no-progress 
+  # - xvfb-run npm run test -- --watch=false --no-progress
+  - npm run test -- --watch=false --no-progress 
 
