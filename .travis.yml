@@ -10,6 +10,7 @@ addons:
 before_install:
   - export CHROME_BIN=chromium-browser
   - export DISPLAY=:99.0
+  - export NO_PROXY="localhost, 0.0.0.0/4201, 0.0.0.0/9876"
   - cd SD-K9
 
 install:
