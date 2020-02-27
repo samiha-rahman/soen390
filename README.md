@@ -1,4 +1,4 @@
-# NavConU
+# NavConU [![Build Status](https://travis-ci.com/samiha-rahman/soen390.svg?branch=master)](https://travis-ci.com/samiha-rahman/soen390)
 
 ## Team Members
 [Samiha Rahman](https://github.com/samiha-rahman) - Team Lead
