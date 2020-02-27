@@ -1,20 +1,17 @@
-import { Injectable } from '@angular/core';
 import { MapBuilder } from '../interfaces/map-builder';
 import { Map } from '../interfaces/map';
-import { IndoorMapData } from '../data-models/indoor-map-data';
-import { OutdoorMapData } from '../data-models/outdoor-map-data';
-import { ConcordiaCampus } from '../data-models/concordia-campus-data';
+import { ConcordiaCampus } from '../interfaces/concordia-campus';
 
-@Injectable()
 export class MapDirector {
     constructor(){}
 
-    makeIndoorMap(iMapBuilder: MapBuilder) : Map {
+    makeIndoorMap(iMapBuilder: MapBuilder, iConcordiaCampus: ConcordiaCampus) : Map {
         // iMapBuilder.setLocation();
         // iMapBuilder.setPOI();
-        // iMapBuilder.setBuilding(iConcordiaCampus: ConcordiaCampus);
+        iMapBuilder.setBuilding(iConcordiaCampus);
         let map: Map = iMapBuilder.buildMap();
         console.log(map);
+
         return map;
     }
 

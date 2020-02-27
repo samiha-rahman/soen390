@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { MapBuilder } from "../interfaces/map-builder";
 import { OutdoorMapData } from '../data-models/outdoor-map-data';
 
@@ -13,6 +13,8 @@ export class OutdoorMapBuilder implements MapBuilder {
     setLocation(iLocation: Location) { }
 
     setPOI(iLocations: Location[]) {}
+
+    setBuilding() {}
 
     buildMap() : OutdoorMapData {
         return this.outdoorMapData;

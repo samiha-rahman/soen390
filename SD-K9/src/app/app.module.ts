@@ -6,17 +6,18 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
-import { MapDirector } from './providers/map-director.service';
-import { Location } from './providers/location.service';
+import { IndoorRouteBuilder } from './providers/indoor-route-builder.service';
+import { OutdoorRouteBuilder } from './providers/outdoor-route-builder.service';
 import { IndoorMapBuilder } from './providers/indoor-map-builder.service';
 import { OutdoorMapBuilder } from './providers/outdoor-map-builder.service';
 
 import { IndoorMapData } from './data-models/indoor-map-data';
 import { OutdoorMapData } from './data-models/outdoor-map-data';
+import { HallBuildingData } from './data-models/hall-building-data';
+import { LoyolaCampusData } from './data-models/loyola-campus-data';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
-import { ConcordiaCampus } from './data-models/concordia-campus-data';
 
 @NgModule({
   declarations: [
@@ -25,13 +26,14 @@ import { ConcordiaCampus } from './data-models/concordia-campus-data';
   entryComponents: [],
   imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
   providers: [
-    MapDirector,
+    IndoorRouteBuilder,
+    OutdoorRouteBuilder,
     IndoorMapBuilder,
     OutdoorMapBuilder,
-    Location,
     IndoorMapData,
     OutdoorMapData,
-    ConcordiaCampus,
+    HallBuildingData,
+    LoyolaCampusData,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
