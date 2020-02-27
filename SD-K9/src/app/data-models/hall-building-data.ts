@@ -22,6 +22,6 @@ export class HallBuildingData implements ConcordiaCampus {
         throw new Error("Method not implemented.");
     }
     containsPoint(iLocation: Location): boolean {
-        return iLocation.getCoordinate().latitude == 45.495398 && iLocation.getCoordinate().longitude == -73;
+        return iLocation.getCoordinate().y == 45.495398 && iLocation.getCoordinate().x == -73;
     }
 }

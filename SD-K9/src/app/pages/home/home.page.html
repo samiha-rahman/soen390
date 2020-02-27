@@ -7,33 +7,27 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-  <div class="ion-padding">
-    <ion-button (click)="getMapTest(1)">
-      Hall Bldg
-    </ion-button>
-    <ion-button (click)="getMapTest(2)">
-      Loyola Campus
-    </ion-button>
-    <ion-button (click)="getMapTest(0)">
-      Outdoor
-    </ion-button>
-  </div>
-  <div class="ion-padding">
-    <ion-item>
-      <ion-label>Initial Location</ion-label>
-      <ion-input type="number" [(ngModel)]="currentLoc"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Final Location</ion-label>
-      <ion-input type="number" [(ngModel)]="finalLoc"></ion-input>
-    </ion-item>
-    <ion-button (click)="getRouteTest()">Get Directions</ion-button>
-  </div>
-  <div class="ion-padding">
-    {{returnedData}}
+
+  <div class="floorplan-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Select a route</ion-card-subtitle>
+        <ion-card-title>Get Directions</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-input clearInput [(ngModel)]="start"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input clearInput [(ngModel)]="end"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <floor-plan
+      [building]="building"
+      [floor]="floor"
+    ></floor-plan>
   </div>
 </ion-content>

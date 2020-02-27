@@ -22,6 +22,6 @@ export class LoyolaCampusData implements ConcordiaCampus {
         throw new Error("Method not implemented.");
     }
     containsPoint(iLocation: Location): boolean {
-        return iLocation.getCoordinate().latitude == 48 && iLocation.getCoordinate().longitude == -80;
+        return iLocation.getCoordinate().y == 48 && iLocation.getCoordinate().x == -80;
     }
 }

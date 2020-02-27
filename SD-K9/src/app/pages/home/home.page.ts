@@ -2,19 +2,25 @@ import { Component, OnDestroy } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { Map } from 'src/app/interfaces/map';
-import { Coordinate } from 'src/app/interfaces/coordinate.model';
-import { TestService } from '../../helpers/test-service';
+import { GoogleCoordinate } from 'src/app/interfaces/google-coordinate.model';
+import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+import { IndoorRouteBuilder } from 'src/app/providers/indoor-route-builder.service';
 
+/** Use this Component to test manually */
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnDestroy {
-  returnedData: string;
-  currentCoordinate: Coordinate = {latitude: 0, longitude: 0};
-  currentLoc: number;
-  finalLoc: number;
+export class HomePage {
+  showFloorPlan: boolean = true;
+  
+  start: string = 'class-1';
+  end: string = 'class-12';
+
+  floor:number = 10;
+  building:string = 'hall'
+
   private _initLocation: Location;
   private _destination: Location;
 
@@ -22,43 +28,25 @@ export class HomePage implements OnDestroy {
     private _mapCoordinator: MapCoordinator,
     ) {}
 
-  ngOnInit() {
+  ngOnInit() { 
     this._initLocation = new Location();
     this._destination = new Location();
   }
 
-  checkLocation(iNumber: number) : Coordinate {
-    let tempCoordinate: Coordinate = {latitude: 0, longitude: 0};
-    if (iNumber == 1) {
-      tempCoordinate = {latitude: 45.495398, longitude: -73};
-    }
-    else if (iNumber == 2) {
-      tempCoordinate = {latitude: 48, longitude: -80};
-    }
-    else {
-      tempCoordinate = {latitude: 0, longitude: 0};
-    }
-    console.log(tempCoordinate);
-    return tempCoordinate;
+  toSVGCoordinate(id: string, building: string, floor: number): SVGCoordinate {
+    return {
+      id: id,
+      x: parseInt(document.getElementById(id)["cx"].baseVal.value),
+      y: parseInt(document.getElementById(id)["cy"].baseVal.value),
+      building: building,
+      floor:floor
+    };
   }
 
-  getMapTest(iNumber: number) {
-    this.currentCoordinate = this.checkLocation(iNumber);
-    this._initLocation.setCoordinate(this.currentCoordinate);
-    let map : Map = this._mapCoordinator.getMap(this._initLocation);
-
-    this.returnedData = map.testText;
-  }
-
+  // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
   getRouteTest() {
-    console.log(this.currentLoc + ", " + this.finalLoc);
-    this._initLocation.setCoordinate(this.checkLocation(this.currentLoc));
-    this._destination.setCoordinate(this.checkLocation(this.finalLoc));
-    this._mapCoordinator.getRoute(this._initLocation, this._destination);
+    this._initLocation.setCoordinate(this.toSVGCoordinate(this.start, this.building, this.floor));
+    this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.floor));
+    this._mapCoordinator.getRoute(this._initLocation, this._destination, );
   }
-
-  ngOnDestroy() {
-    // implement destroy
-  }
-
 }
