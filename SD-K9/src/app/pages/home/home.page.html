@@ -1,0 +1,39 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>
+      Ionic Blank
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    The world is your oyster.
+    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
+  </div>
+  <div class="ion-padding">
+    <ion-button (click)="getMapTest(1)">
+      Hall Bldg
+    </ion-button>
+    <ion-button (click)="getMapTest(2)">
+      Loyola Campus
+    </ion-button>
+    <ion-button (click)="getMapTest(0)">
+      Outdoor
+    </ion-button>
+  </div>
+  <div class="ion-padding">
+    <ion-item>
+      <ion-label>Initial Location</ion-label>
+      <ion-input type="number" [(ngModel)]="currentLoc"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label>Final Location</ion-label>
+      <ion-input type="number" [(ngModel)]="finalLoc"></ion-input>
+    </ion-item>
+    <ion-button (click)="getRouteTest()">Get Directions</ion-button>
+  </div>
+  <div class="ion-padding">
+    {{returnedData}}
+  </div>
+</ion-content>
