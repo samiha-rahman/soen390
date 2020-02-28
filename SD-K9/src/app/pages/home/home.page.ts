@@ -14,12 +14,15 @@ import { IndoorRouteBuilder } from 'src/app/providers/indoor-route-builder.servi
 })
 export class HomePage {
   showFloorPlan: boolean = true;
+  hasNextRoute: boolean = false;
   
   start: string = 'class-1';
   end: string = 'class-12';
 
   floor:number = 10;
-  building:string = 'hall'
+  initialFloor: number = 10;
+  finalFloor:number = 9;
+  building:string = 'hall';
 
   private _initLocation: Location;
   private _destination: Location;
@@ -46,7 +49,14 @@ export class HomePage {
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
   getRouteTest() {
     this._initLocation.setCoordinate(this.toSVGCoordinate(this.start, this.building, this.floor));
-    this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.floor));
+    this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.finalFloor));
     this._mapCoordinator.getRoute(this._initLocation, this._destination, );
+
+    this.hasNextRoute = this._mapCoordinator.hasNextRoute();
+  }
+
+  nextRoute() {
+    this._mapCoordinator.nextRoute();
+    this.floor = this.finalFloor;
   }
 }

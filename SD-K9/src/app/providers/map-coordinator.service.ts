@@ -18,6 +18,7 @@ export class MapCoordinator {
     map: Map = {testText: ''};
     private _initLocation: Location;
     private _finalLocation: Location;
+    private _hasNextRoute: boolean = false;
 
     constructor(
         private _hallBuildingData: HallBuildingData,
@@ -72,10 +73,44 @@ export class MapCoordinator {
 
         // TODO: check if SVGCoordinate of GoogleCoordinate
         if (this._initLocation.getCoordinate().id && this._finalLocation.getCoordinate().id) {
-            let hallRouteNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
-            hallRouteNavigator.getRoute(this._initLocation, this._finalLocation);
+            if (this._initLocation.getCoordinate().floor === this._finalLocation.getCoordinate().floor) {
+                let hallRouteNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
+                hallRouteNavigator.getRoute(this._initLocation, this._finalLocation);
+                this._hasNextRoute = false;
+            } else {
+                let hallRouteNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
+                hallRouteNavigator.getRoute(this._initLocation,
+                    this.getVerticalTransportation("escalator",
+                        this._initLocation.getCoordinate().building,
+                        this._initLocation.getCoordinate().floor));
+                this._hasNextRoute = true;
+            }
         }
 
+    }
+
+    hasNextRoute() {
+        return this._hasNextRoute;
+    }
+
+    nextRoute() {
+        let hallRouteNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
+        hallRouteNavigator.getRoute(this.getVerticalTransportation("escalator",
+                this._initLocation.getCoordinate().building,
+                this._initLocation.getCoordinate().floor),
+            this._finalLocation);
+    }
+
+    getVerticalTransportation(mode: string, building: string, floor: number) {
+        let verticalTransportation = new Location();
+        verticalTransportation.setCoordinate({
+            id: mode,
+            x: parseInt(document.getElementById(mode)["cx"].baseVal.value),
+            y: parseInt(document.getElementById(mode)["cy"].baseVal.value),
+            building: building,
+            floor: floor
+        });
+        return verticalTransportation;
     }
 
 }

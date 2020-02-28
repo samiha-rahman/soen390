@@ -25,6 +25,12 @@
         <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
       </ion-card-content>
     </ion-card>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Floor {{floor}}</ion-card-title>
+        <ion-button *ngIf="hasNextRoute" (click)="nextRoute()">Next Route</ion-button>
+      </ion-card-header>
+    </ion-card>
     <floor-plan
       [building]="building"
       [floor]="floor"
