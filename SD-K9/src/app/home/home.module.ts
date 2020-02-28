@@ -19,7 +19,7 @@ import { AppsettingsPage } from '../modals/appsettings/appsettings.page';
     RouterModule.forChild([
       {
         path: '',
-        component: HomePage
+        component: HomePage, 
       }
     ])
   ],

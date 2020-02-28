@@ -7,8 +7,6 @@ import { RouterModule } from '@angular/router';
 import { IonicPullupModule } from 'ionic-pullup';
 
 import { HomePage } from './home.page';
-import { BusPage } from '../modals/bus/bus.page';
-import { AppsettingsPage } from '../modals/appsettings/appsettings.page';
 
 @NgModule({
   imports: [
@@ -23,7 +21,7 @@ import { AppsettingsPage } from '../modals/appsettings/appsettings.page';
       }
     ])
   ],
-  declarations: [HomePage, BusPage, AppsettingsPage],
-  entryComponents: [BusPage, AppsettingsPage]
+  declarations: [HomePage]//, BusPage, AppsettingsPage],
+  //entryComponents: [BusPage, AppsettingsPage]
 })
 export class HomePageModule {}
