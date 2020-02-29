@@ -17,7 +17,9 @@ export class HomePage implements OnInit{
   footerState: IonPullUpFooterState;
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
+  userMarker: any;
   mapInitialised: boolean = false;
+  currentPos: any;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
 
   constructor(private modalController: ModalController, public platform: Platform, public nav: NavController, private geolocation: Geolocation) {
@@ -81,10 +83,10 @@ export class HomePage implements OnInit{
 
     this.geolocation.getCurrentPosition().then((position) => {
 
-      let currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+      this.currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
       let mapOptions = {
-        center: currentPos,
+        center: this.currentPos,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
         disableDefaultUI: true
@@ -99,30 +101,31 @@ export class HomePage implements OnInit{
         anchor: new google.maps.Point(12, 44)
       };
 
-      var marker = new google.maps.Marker({
-        position: currentPos,
+      this.userMarker = new google.maps.Marker({
+        position: this.currentPos,
         map: this.map,
         title: 'You are here',
         icon: markerIcon
       });
 
-      this.drawBuildings(this.map);
+      this.drawBuildings();
 
-      this.maintainMap(marker);
+      this.maintainMap();
 
     }).catch((error) => {
       console.log('Error getting location', error);
     });
 }
 
-  maintainMap(userMarker){
+  maintainMap(){
       let watch = this.geolocation.watchPosition();
       watch.subscribe((data) => {
-        userMarker.setPosition( new google.maps.LatLng( data.coords.latitude, data.coords.longitude ) );
+        this.currentPos = new google.maps.LatLng( data.coords.latitude, data.coords.longitude );
+        this.userMarker.setPosition( this.currentPos );
       });
   }
 
-  drawBuildings(map){
+  drawBuildings(){
     // TODO : draw all buildings
     let EV_BOUNDS = [
         {"lat": 45.495176, "lng": -73.577883},
@@ -140,7 +143,19 @@ export class HomePage implements OnInit{
         fillColor: '#FF0000',
         fillOpacity: 0.35
       });
-    evOverlay.setMap(map);
+    evOverlay.setMap(this.map);
+  }
+
+  toggleCampus(event){
+    if(event.detail.value == "sgw"){
+      this.map.panTo(new google.maps.LatLng(45.4967982,-73.5805984));
+    }else if(event.detail.value == "lyl"){
+      this.map.panTo(new google.maps.LatLng(45.458246,-73.6426491));
+    }
+  }
+
+  locateUser(){
+    this.map.panTo(this.currentPos);
   }
 
 }
