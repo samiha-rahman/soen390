@@ -14,21 +14,21 @@ import { IndoorRouteBuilder } from 'src/app/providers/indoor-route-builder.servi
 })
 export class HomePage {
   showFloorPlan: boolean = true;
-  
-  start: string = 'class-1';
-  end: string = 'class-12';
 
-  floor:number = 10;
-  building:string = 'hall'
+  start: string = 'H-831';
+  end: string = 'H-815';
+
+  floor: number = 8;
+  building: string = 'hall'
 
   private _initLocation: Location;
   private _destination: Location;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
-    ) {}
+  ) { }
 
-  ngOnInit() { 
+  ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
   }
@@ -39,7 +39,7 @@ export class HomePage {
       x: parseInt(document.getElementById(id)["cx"].baseVal.value),
       y: parseInt(document.getElementById(id)["cy"].baseVal.value),
       building: building,
-      floor:floor
+      floor: floor
     };
   }
 
@@ -47,6 +47,6 @@ export class HomePage {
   getRouteTest() {
     this._initLocation.setCoordinate(this.toSVGCoordinate(this.start, this.building, this.floor));
     this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.floor));
-    this._mapCoordinator.getRoute(this._initLocation, this._destination, );
+    this._mapCoordinator.getRoute(this._initLocation, this._destination);
   }
 }

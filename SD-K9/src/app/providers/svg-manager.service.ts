@@ -10,7 +10,7 @@ import { SVGCoordinate } from "../interfaces/svg-coordinate.model"
 })
 export class SVGManager {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   /**
    * returns the text from an svg file in the assets folder.
@@ -66,10 +66,9 @@ export class SVGManager {
   public drawSVGPath(coordinates: SVGCoordinate[], isFocused: boolean) {
     let draw = SVG()
       .addTo("#floorplan")
-      .size(664.7, 364.7);
     let path: string = "";
 
-    let color = isFocused ? "#3880ff": "#85b1ff";
+    let color = isFocused ? "#3880ff" : "#85b1ff";
 
     coordinates.forEach((coordinate: SVGCoordinate) => {
       path = `${path}${coordinate.x},${coordinate.y} `;
@@ -85,6 +84,7 @@ export class SVGManager {
       linecap: "round",
       linejoin: "round"
     });
+    polylinePath.front();
   }
 
   /**

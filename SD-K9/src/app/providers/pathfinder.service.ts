@@ -6,7 +6,7 @@ import { SVGManager } from "./svg-manager.service";
 
 @Injectable()
 export class Pathfinder {
-  constructor(private svgManager: SVGManager) {}
+  constructor(private svgManager: SVGManager) { }
 
   /**
    * Returns the nodes needed to be traversed to go from A to B.
@@ -26,10 +26,6 @@ export class Pathfinder {
 
     /* Getting the walkable nodes */
     let walkablePath = await this.svgManager.getWalkableNodes(building, floor);
-
-    /* Adding point A and B to the walkable path */
-    walkablePath.push(pointA);
-    walkablePath.push(pointB);
 
     /* Creating the start node */
     let startHeuristic = this.distance(pointA, pointB);
@@ -52,12 +48,13 @@ export class Pathfinder {
     while (open.heapSize() > 0) {
 
       /* prevents an infinite loop if something goes wrong */
-      if (count > 2000) {
+      if (count > 20000) {
         throw Error("Cannot find path");
       }
 
       /* Getting and removing the next node from the open list */
       let current: AStarNode = open.extractMin();
+      // console.log(`testing (${current.value.x}, ${current.value.y})`)
       /* Putting it in the closed list */
       closed.push(current);
 
@@ -66,11 +63,14 @@ export class Pathfinder {
       }
 
       /* Getting the nodes that are possible to visit from the current node */
-      let neihbors = this.getNeighbors(current, walkablePath, pointB);
+      let neighbors = this.getNeighbors(current, walkablePath, pointB);
 
-      for (let neighbor of neihbors) {
+      for (let neighbor of neighbors) {
         /* Skip if it is already in the closed list */
-        if (closed.some(node => node.value.id === neighbor.value.id)) {
+        if (
+          closed.some(node => node.value.x === neighbor.value.x
+            && node.value.y === neighbor.value.y)
+        ) {
           continue;
         }
 
@@ -82,6 +82,7 @@ export class Pathfinder {
         if (!old.node) {
           open.insert(neighbor);
         } else if (neighbor.g < old.node.g) {
+
           let updatedNode: AStarNode = {
             parent: current,
             value: old.node.value,
@@ -93,6 +94,7 @@ export class Pathfinder {
         }
       }
     }
+    return []
   }
 
   /**
@@ -110,6 +112,27 @@ export class Pathfinder {
   }
 
   /**
+   * Allows for small missalignments in the nodes of the svg file
+   * 
+   * @param x 
+   * @param y 
+   * @param tolerence 
+   */
+  private inRange(x, y, tolerence) {
+    return x >= y - tolerence && x <= y + tolerence;
+  }
+
+  /**
+   * Checks if two nodes are close to eachother (so that the algo doesn't go through walls)
+   * 
+   * @param a point A
+   * @param b point B
+   */
+  private isClose(a: SVGCoordinate, b: SVGCoordinate) {
+    return this.distance(a, b) < 20;
+  }
+
+  /**
    * returns the possible nodes to visit from a parent node.
    * @param parentNode the node who's neighbors we are looking for
    */
@@ -120,11 +143,13 @@ export class Pathfinder {
   ) {
     let neighbors: AStarNode[] = [];
 
+
     possibleNeighbors.forEach(possibleNode => {
       if (
         // TODO: add a check for proximity (I'll add after making the hall svgs)
-        possibleNode.x == parentNode.value.x ||
-        possibleNode.y == parentNode.value.y
+        (this.inRange(possibleNode.x, parentNode.value.x, 1) ||
+          this.inRange(possibleNode.y, parentNode.value.y, 1))
+        && this.isClose(possibleNode, parentNode.value)
       ) {
         let g = parentNode.g + this.distance(possibleNode, parentNode.value);
         let h = this.distance(possibleNode, goalNode);
@@ -175,7 +200,11 @@ export class Pathfinder {
    * @param a position node A
    * @param b  position node B
    */
-  private distance(a: SVGCoordinate, b: SVGCoordinate) {
-    return Math.hypot(a.x - b.x, a.y - b.y);
+  distance(a: SVGCoordinate, b: SVGCoordinate): number {
+    if (typeof a.x === 'undefined' || typeof a.y === 'undefined' || typeof b.y === 'undefined' || typeof b.x === 'undefined') {
+      return 0;
+    } else {
+      return Math.hypot(a.x - b.x, a.y - b.y);
+    }
   }
 }
