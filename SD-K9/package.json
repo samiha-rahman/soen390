@@ -9,7 +9,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "test-coverage": "karma start ./karma.conf.js --coverage"
   },
   "private": true,
   "dependencies": {
@@ -24,6 +25,7 @@
     "@ionic-native/status-bar": "^5.21.6",
     "@ionic/angular": "^4.7.1",
     "core-js": "^2.5.4",
+    "karma-firefox-launcher": "^1.3.0",
     "rxjs": "~6.5.1",
     "@svgdotjs/svg.js": "^3.0.16",
     "tslib": "^1.11.0",
@@ -34,7 +36,7 @@
     "@angular-devkit/build-angular": "^0.803.24",
     "@angular-devkit/core": "~8.1.2",
     "@angular-devkit/schematics": "~8.1.2",
-    "@angular/cli": "~8.1.2",
+    "@angular/cli": "8.1.3",
     "@angular/compiler": "~8.1.2",
     "@angular/compiler-cli": "~8.1.2",
     "@angular/language-service": "~8.1.2",
@@ -46,9 +48,9 @@
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "~4.1.0",
-    "karma-chrome-launcher": "~2.2.0",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
-    "karma-jasmine": "~2.0.1",
+    "karma-jasmine": "^2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",

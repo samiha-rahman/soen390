@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { FloorPlanComponent } from './floor-plan.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('FloorPlanComponent', () => {
   let component: FloorPlanComponent;
@@ -9,8 +10,8 @@ describe('FloorPlanComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FloorPlanComponent ],
-      imports: [IonicModule.forRoot()]
+      declarations: [FloorPlanComponent],
+      imports: [IonicModule.forRoot(), HttpClientModule]
     }).compileComponents();
 
     fixture = TestBed.createComponent(FloorPlanComponent);
