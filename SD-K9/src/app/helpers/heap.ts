@@ -1,4 +1,4 @@
-import { AStarNode } from "../interfaces/a-star.model";
+import { AStarNode } from '../interfaces/a-star.model';
 
 /**
  * * Heap as a Tree:
@@ -6,7 +6,7 @@ import { AStarNode } from "../interfaces/a-star.model";
  * parent(i) = i/2
  * left(i) = 2i
  * right(i) = 2i + 1
- * 
+ *
  * * Min Heap Property :
  * The key of a node is smaller than to the keys of its children
  */
@@ -30,8 +30,8 @@ export class MinHeap {
    * returns element of the heap with the smallest key and removes it
    */
   extractMin() {
-    let last = this.heapArray[this.heapSize() - 1];
-    let root = this.heapArray[0];
+    const last = this.heapArray[this.heapSize() - 1];
+    const root = this.heapArray[0];
 
     this.heapArray[0] = last;
     this.heapArray.splice(this.heapSize() - 1, 1);
@@ -44,18 +44,17 @@ export class MinHeap {
    */
   insert(element) {
     this.heapArray.push(element);
-    let index = this.heapSize();
+    const index = this.heapSize();
     this.bubbleUp(index);
   }
 
   /**
    * updates the element at a specified index
-   * 
+   *
    * @param index Index needed to be updated
-   * @param newElement 
    */
   update(index, newElement) {
-    let oldElement = this.heapArray[index];
+    const oldElement = this.heapArray[index];
     this.heapArray[index] = newElement;
 
     if (oldElement.g > newElement.g) {
@@ -86,7 +85,6 @@ export class MinHeap {
 
   /**
    * fixes the minHeap by bubbling up
-   * @param index 
    */
   private bubbleUp(index) {
     let parent = this.parent(index);
@@ -121,8 +119,8 @@ export class MinHeap {
    * ! and right(i) are min heaps
    */
   private minHeapify(index) {
-    let left = this.left(index);
-    let right = this.right(index);
+    const left = this.left(index);
+    const right = this.right(index);
     let smallest;
 
     if (
@@ -142,7 +140,7 @@ export class MinHeap {
       smallest = right;
     }
 
-    if (smallest != index) {
+    if (smallest !== index) {
       this.swap(smallest, index);
       this.minHeapify(smallest);
     }
@@ -152,20 +150,20 @@ export class MinHeap {
     return this.heapArray.length;
   }
 
-  private left(index) {
+  private left(index: number) {
     return 2 * index;
   }
 
-  private right(index) {
+  private right(index: number) {
     return 2 * index + 1;
   }
 
-  private parent(index) {
+  private parent(index: number) {
     return Math.floor(index / 2);
   }
 
   private swap(a, b) {
-    let temp = this.heapArray[a - 1];
+    const temp = this.heapArray[a - 1];
     this.heapArray[a - 1] = this.heapArray[b - 1];
     this.heapArray[b - 1] = temp;
   }

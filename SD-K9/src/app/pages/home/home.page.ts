@@ -19,7 +19,7 @@ export class HomePage {
   end: string = 'H-815';
 
   floor: number = 8;
-  building: string = 'hall'
+  building: string = 'hall';
 
   private _initLocation: Location;
   private _destination: Location;
