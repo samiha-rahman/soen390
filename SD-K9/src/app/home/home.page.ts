@@ -73,13 +73,17 @@ export class HomePage implements OnInit{
 
 	map.one( GoogleMapsEvent.MAP_READY ).then( ( data: any ) => {
 
+    const defaultPos = {
+      target : {
+        lat: 45.494568,
+        lng: -73.5795662
+      },
+      zoom: 9
+    };
+
+    map.moveCamera(defaultPos);
+
     this.geolocation.getCurrentPosition().then((resp) => {
-
-        const defaultPos = {
-          lat: 45.494568,
-          lng: -73.5795662
-        };
-
        let coordinates: LatLng = new LatLng( resp.coords.latitude, resp.coords.longitude );
        let position = {
          target: coordinates,
