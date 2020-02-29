@@ -41,8 +41,8 @@ export class SVGManager {
             /* Create a PositionNode Obj */
             const walkableNode: SVGCoordinate = {
               id: node.id,
-              x: parseInt(node.cx.baseVal.value),
-              y: parseInt(node.cy.baseVal.value),
+              x: parseInt(node["cx"].baseVal.value),
+              y: parseInt(node["cy"].baseVal.value),
               building,
               floor
             };
