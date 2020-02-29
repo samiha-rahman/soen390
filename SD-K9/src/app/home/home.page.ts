@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { ModalController, Platform, NavController } from '@ionic/angular';
 import { BusPage } from '../modals/bus/bus.page';
 import { AppsettingsPage } from '../modals/appsettings/appsettings.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+declare var google;
 
 @Component({
   selector: 'app-home',
@@ -13,8 +15,14 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 export class HomePage implements OnInit{
   footerState: IonPullUpFooterState;
+  @ViewChild('map', {static: false}) mapElement: ElementRef;
+  map: any;
+  mapInitialised: boolean = false;
+  apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
 
-  constructor(private modalController: ModalController, public platform: Platform, public nav: NavController, private geolocation: Geolocation) {}
+  constructor(private modalController: ModalController, public platform: Platform, public nav: NavController, private geolocation: Geolocation) {
+    this.loadGMaps();
+  }
   async openModal(){
     const modal = await this.modalController.create({
       component: BusPage
@@ -49,91 +57,90 @@ export class HomePage implements OnInit{
   }
 
   ngAfterViewInit() {
-
-		this.platform.ready().then( () => {
-
-			this.loadMap();
-		});
 	}
 
-  loadMap() {
+  loadGMaps() {
+    if(typeof google == "undefined" || typeof google.maps == "undefined"){
+      console.log("Google maps JavaScript needs to be loaded.");
+      //Load the SDK
+      window['initMap'] = () => {
+        this.initMap();
+      }
+      let script = document.createElement("script");
+      script.id = "googleMaps";
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      document.body.appendChild(script);
+    }else{
+      this.initMap();
+    }
+  }
 
-    let map =
+  initMap() {
 
-	// let map = GoogleMaps.create( 'map' );
-  //
-	// map.one( GoogleMapsEvent.MAP_READY ).then( ( data: any ) => {
-  //
-  //   const defaultPos = {
-  //     target : {
-  //       lat: 45.494568,
-  //       lng: -73.5795662
-  //     },
-  //     zoom: 9
-  //   };
-  //
-  //   map.moveCamera(defaultPos);
-  //
-  //   let EV_BOUNDS: ILatLng[] = [
-  //       {"lat": 45.495176, "lng": -73.577883},
-  //       {"lat": 45.495815, "lng": -73.577223},
-  //       {"lat": 45.496030, "lng": -73.577695},
-  //       {"lat": 45.495755, "lng": -73.578012},
-  //       {"lat": 45.496116, "lng": -73.578800},
-  //       {"lat": 45.495778, "lng": -73.579101}
-  //     ];
-  //
-  //   let options: PolygonOptions = {
-  //     'points': EV_BOUNDS,
-  //     'strokeColor' : '#AA00FF',
-  //     'fillColor' : '#00FFAA',
-  //     'strokeWidth': 10
-  //   };
-  //
-  //   map.addPolygon(options).then((polygon: Polygon) => {
-  //
-  //   });
-  //
-  //   this.geolocation.getCurrentPosition().then((resp) => {
-  //      let coordinates: LatLng = new LatLng( resp.coords.latitude, resp.coords.longitude );
-  //      let position = {
-  //        target: coordinates,
-  //        zoom: 14
-  //      };
-  //
-  //      map.animateCamera( position );
-  //      let customMapPin: MarkerIcon = {
-  //         url: 'assets/images/map-pin.png',
-  //         size: {
-  //           width: 25,
-  //           height: 44
-  //         }
-  //       };
-  //      let markerOptions: MarkerOptions = {
-  //        position: coordinates,
-  //        icon: customMapPin,
-  //        title: 'You are here'
-  //      };
-  //      const marker = map.addMarker( markerOptions )
-  //      .then( ( marker: Marker ) => {
-  //        marker.showInfoWindow();
-  //      });
-  //   }).catch((error) => {
-  //     console.log('Error getting location', error);
-  //   });
-  //
-  //   let watch = this.geolocation.watchPosition();
-  //   watch.subscribe((data) => {
-  //    const currentPos = {
-  //      target : {
-  //        lat: data.coords.latitude,
-  //        lng: data.coords.longitude
-  //      }
-  //    };
-  //    map.animateCamera(currentPos);
-  //   });
-  //
-	// })
+    this.mapInitialised = true;
+
+    this.geolocation.getCurrentPosition().then((position) => {
+
+      let currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+      let mapOptions = {
+        center: currentPos,
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: true
+      }
+
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      var markerIcon = {
+        url: 'assets/images/map-pin.png',
+        scaledSize: new google.maps.Size(25, 44),
+        origin: new google.maps.Point(0,0),
+        anchor: new google.maps.Point(12, 44)
+      };
+
+      var marker = new google.maps.Marker({
+        position: currentPos,
+        map: this.map,
+        title: 'You are here',
+        icon: markerIcon
+      });
+
+      this.drawBuildings(this.map);
+
+      this.maintainMap(marker);
+
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
 }
+
+  maintainMap(userMarker){
+      let watch = this.geolocation.watchPosition();
+      watch.subscribe((data) => {
+        userMarker.setPosition( new google.maps.LatLng( data.coords.latitude, data.coords.longitude ) );
+      });
+  }
+
+  drawBuildings(map){
+    // TODO : draw all buildings
+    let EV_BOUNDS = [
+        {"lat": 45.495176, "lng": -73.577883},
+        {"lat": 45.495815, "lng": -73.577223},
+        {"lat": 45.496030, "lng": -73.577695},
+        {"lat": 45.495755, "lng": -73.578012},
+        {"lat": 45.496116, "lng": -73.578800},
+        {"lat": 45.495778, "lng": -73.579101}
+      ];
+    let evOverlay = new google.maps.Polygon({
+        paths: EV_BOUNDS,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+      });
+    evOverlay.setMap(map);
+  }
 
 }
