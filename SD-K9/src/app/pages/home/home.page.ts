@@ -1,10 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
-import { Map } from 'src/app/interfaces/map';
-import { GoogleCoordinate } from 'src/app/interfaces/google-coordinate.model';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
-import { IndoorRouteBuilder } from 'src/app/providers/indoor-route-builder.service';
 
 /** Use this Component to test manually */
 @Component({
