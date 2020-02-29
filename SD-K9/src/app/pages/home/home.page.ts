@@ -3,7 +3,6 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { Map } from 'src/app/interfaces/map';
 import { Coordinate } from 'src/app/interfaces/coordinate.model';
-import { TestService } from '../../helpers/test-service';
 import { ModalController } from '@ionic/angular';
 import { BusPage } from 'src/app/modals/bus/bus.page';
 import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
@@ -31,6 +30,8 @@ export class HomePage implements OnDestroy, OnInit {
     this._initLocation = new Location();
     this._destination = new Location();
     this.footerState = IonPullUpFooterState.Collapsed;
+    this.currentLoc = 0;
+    this.finalLoc = 0;
   }
 
   checkLocation(iNumber: number) : Coordinate {
