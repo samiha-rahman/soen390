@@ -11,7 +11,11 @@ import {
   LatLng,
   MarkerOptions,
   MarkerIcon,
-  Marker
+  Marker,
+  ILatLng,
+  GroundOverlay,
+  PolygonOptions,
+  Polygon
 } from "@ionic-native/google-maps";
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -83,6 +87,26 @@ export class HomePage implements OnInit{
 
     map.moveCamera(defaultPos);
 
+    let EV_BOUNDS: ILatLng[] = [
+        {"lat": 45.495176, "lng": -73.577883},
+        {"lat": 45.495815, "lng": -73.577223},
+        {"lat": 45.496030, "lng": -73.577695},
+        {"lat": 45.495755, "lng": -73.578012},
+        {"lat": 45.496116, "lng": -73.578800},
+        {"lat": 45.495778, "lng": -73.579101}
+      ];
+
+    let options: PolygonOptions = {
+      'points': EV_BOUNDS,
+      'strokeColor' : '#AA00FF',
+      'fillColor' : '#00FFAA',
+      'strokeWidth': 10
+    };
+
+    map.addPolygon(options).then((polygon: Polygon) => {
+
+    });
+
     this.geolocation.getCurrentPosition().then((resp) => {
        let coordinates: LatLng = new LatLng( resp.coords.latitude, resp.coords.longitude );
        let position = {
@@ -110,6 +134,7 @@ export class HomePage implements OnInit{
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+
 
 	})
 }
