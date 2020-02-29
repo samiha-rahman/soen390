@@ -21,7 +21,6 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicPullupModule } from 'ionic-pullup';
 
-import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 @NgModule({
@@ -42,8 +41,7 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     StatusBar,
     SplashScreen,
     Geolocation,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-    GoogleMaps
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 
