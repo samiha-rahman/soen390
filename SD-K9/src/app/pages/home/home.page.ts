@@ -1,16 +1,20 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { Map } from 'src/app/interfaces/map';
 import { Coordinate } from 'src/app/interfaces/coordinate.model';
 import { TestService } from '../../helpers/test-service';
+import { ModalController } from '@ionic/angular';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { IonPullUpFooterState } from 'ionic-pullup';
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnDestroy {
+export class HomePage implements OnDestroy, OnInit {
   returnedData: string;
   currentCoordinate: Coordinate = {latitude: 0, longitude: 0};
   currentLoc: number;
@@ -20,11 +24,13 @@ export class HomePage implements OnDestroy {
 
   constructor(
     private _mapCoordinator: MapCoordinator,
+    private modalController: ModalController
     ) {}
 
   ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
+    this.footerState = IonPullUpFooterState.Collapsed;
   }
 
   checkLocation(iNumber: number) : Coordinate {
@@ -61,4 +67,36 @@ export class HomePage implements OnDestroy {
     // implement destroy
   }
 
+  footerState: IonPullUpFooterState;
+
+  async openModal(){
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async openModal1(){
+    const modal = await this.modalController.create({
+      component: AppsettingsPage
+    });
+    return await modal.present();
+  }
+
+  //optional capture events
+  footerExpanded() {
+      console.log('Footer expanded!');
+  }
+
+  // optional capture events
+  footerCollapsed() {
+      console.log('Footer collapsed!');
+  }
+
+  // toggle footer states
+  toggleFooter() {
+      this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
+
 }
+
