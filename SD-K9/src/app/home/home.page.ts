@@ -135,6 +135,16 @@ export class HomePage implements OnInit{
       console.log('Error getting location', error);
     });
 
+    let watch = this.geolocation.watchPosition();
+    watch.subscribe((data) => {
+     const currentPos = {
+       target : {
+         lat: data.coords.latitude,
+         lng: data.coords.longitude
+       }
+     };
+     map.animateCamera(currentPos);
+    });
 
 	})
 }
