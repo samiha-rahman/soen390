@@ -95,4 +95,51 @@ export class SVGManager {
       path.remove();
     }
   }
+
+  /**
+   * Returns the SVGCoordinate for a classroom using the ID, building and floor
+   * @param classID is the classroom's ID
+   * @param building is the building in which the classroom is located
+   * @param floor is the floor on which the classroom is located
+   */
+  public async getClassroom(classID: string, building: string, floor: number) {
+    return this.getSVG(`${building}/${floor}`)
+        .pipe(
+            map(svgFile => {
+              // return svgFile
+              const classrooms = SVG(svgFile).find('circle.classroom');
+              const classroom = classrooms.filter((element) => element.node.id === classID)[0];
+              return {
+                id: classID,
+                x: parseInt(classroom.node.cx.baseVal.value),
+                y: parseInt(classroom.node.cy.baseVal.value),
+                building,
+                floor
+              };
+            })
+        )
+        .toPromise();
+  }
+
+  public async getVerticalTransportation(mode: string, direction: string, building: string, floor: number) {
+    return this.getSVG(`${building}/${floor}`)
+        .pipe(
+            map(svgFile => {
+              // return svgFile
+              const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
+              const vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
+              // console.log(floor);
+              // console.log(vtransports);
+              // console.log(vtransport);
+              return {
+                id: vtransport.id(),
+                x: parseInt(vtransport.node.cx.baseVal.value),
+                y: parseInt(vtransport.node.cy.baseVal.value),
+                building,
+                floor
+              };
+            })
+        )
+        .toPromise();
+  }
 }

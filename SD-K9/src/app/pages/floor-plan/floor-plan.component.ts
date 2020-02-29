@@ -45,6 +45,7 @@ export class FloorPlanComponent implements OnInit {
       /* find the svg container, clear it and replace with new floorplan */
       this.draw = SVG("#floorplan");
       this.draw.clear();
+      console.log("cleared");
       this.draw.svg(floorplan);
     });
   }

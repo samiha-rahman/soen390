@@ -1,5 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
+import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
 import { Map } from 'src/app/interfaces/map';
 import { GoogleCoordinate } from 'src/app/interfaces/google-coordinate.model';
@@ -17,7 +18,7 @@ export class HomePage {
   hasNextRoute: boolean = false;
  
   start: string = 'H-831';
-  end: string = 'H-815';
+  end: string = 'H-615';
 
   floor: number = 8;
   building: string = 'hall';
@@ -27,6 +28,7 @@ export class HomePage {
 
   constructor(
     private _mapCoordinator: MapCoordinator,
+    private _svgService: SVGManager
   ) { }
 
   ngOnInit() {
@@ -34,7 +36,7 @@ export class HomePage {
     this._destination = new Location();
   }
 
-  toSVGCoordinate(id: string): SVGCoordinate {
+  async toSVGCoordinate(id: string) {
     let building;
     let floor;
     if (id.split('-')[0] === 'H') {
@@ -47,27 +49,25 @@ export class HomePage {
     } else {
       floor = parseInt(id.split('-')[1].substr(0, 2));
     }
-    console.log(id, floor, building);
-    return {
-      id: id,
-      x: parseInt(document.getElementById(id)["cx"].baseVal.value),
-      y: parseInt(document.getElementById(id)["cy"].baseVal.value),
-      building: building,
-      floor: floor
-    };
+    let svgCoordinate: SVGCoordinate;
+    svgCoordinate = await this._svgService.getClassroom(id, building, floor);
+
+    return(svgCoordinate);
   }
 
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
-  getRouteTest() {
-    this._initLocation.setCoordinate(this.toSVGCoordinate(this.start));
-    this._destination.setCoordinate(this.toSVGCoordinate(this.end));
+  async getRouteTest() {
+    this._initLocation.setCoordinate(await this.toSVGCoordinate(this.start));
+    this._destination.setCoordinate(await this.toSVGCoordinate(this.end));
+    this.floor = this._initLocation.getCoordinate().floor;
 
-    this._mapCoordinator.getRoute(this._initLocation, this._destination);
-
+    await this._mapCoordinator.getRoute(this._initLocation, this._destination);
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
   }
 
-  nextRoute() {
-    this._mapCoordinator.nextRoute();
+  async nextRoute() {
     this.floor = this._destination.getCoordinate().floor;
+    await this._mapCoordinator.nextRoute();
+    this.hasNextRoute = this._mapCoordinator.hasNextRoute();
+  }
 }
