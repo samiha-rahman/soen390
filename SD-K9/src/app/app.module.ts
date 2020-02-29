@@ -19,12 +19,14 @@ import { LoyolaCampusData } from './data-models/loyola-campus-data';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { IonicPullupModule } from 'ionic-pullup';
+
 @NgModule({
   declarations: [
     AppComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicPullupModule],
   providers: [
     IndoorRouteBuilder,
     OutdoorRouteBuilder,
@@ -39,5 +41,7 @@ import { AppRoutingModule } from './app-routing.module';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
+
 })
 export class AppModule {}
+
