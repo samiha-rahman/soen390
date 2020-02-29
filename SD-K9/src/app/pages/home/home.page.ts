@@ -16,12 +16,14 @@ export class HomePage {
   showFloorPlan: boolean = true;
   hasNextRoute: boolean = false;
   
-  start: string = 'class-1';
-  end: string = 'class-12';
+  start: string = 'H-1020';
+  end: string = 'H-937';
+  // start: string = 'class-1';
+  // end: string = 'class-12';
 
   floor:number = 10;
-  initialFloor: number = 10;
-  finalFloor:number = 9;
+  // initialFloor: number = 10;
+  // finalFloor:number = 9;
   building:string = 'hall';
 
   private _initLocation: Location;
@@ -36,7 +38,20 @@ export class HomePage {
     this._destination = new Location();
   }
 
-  toSVGCoordinate(id: string, building: string, floor: number): SVGCoordinate {
+  toSVGCoordinate(id: string): SVGCoordinate {
+    let building;
+    let floor;
+    if (id.split('-')[0] === 'H') {
+      building = 'hall';
+    } else {
+      building = 'loyola';
+    };
+    if (id.split('-')[1].length === 3) {
+      floor = parseInt(id.split('-')[1].substr(0, 1));
+    } else {
+      floor = parseInt(id.split('-')[1].substr(0, 2));
+    }
+    console.log(id, floor, building);
     return {
       id: id,
       x: parseInt(document.getElementById(id)["cx"].baseVal.value),
@@ -48,8 +63,11 @@ export class HomePage {
 
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
   getRouteTest() {
-    this._initLocation.setCoordinate(this.toSVGCoordinate(this.start, this.building, this.floor));
-    this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.finalFloor));
+    this._initLocation.setCoordinate(this.toSVGCoordinate(this.start));
+    this._destination.setCoordinate(this.toSVGCoordinate(this.end));
+    // this.floor = this._initLocation.getCoordinate().floor;
+    // this.building = this._initLocation.getCoordinate().building;
+
     this._mapCoordinator.getRoute(this._initLocation, this._destination, );
 
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
@@ -57,6 +75,6 @@ export class HomePage {
 
   nextRoute() {
     this._mapCoordinator.nextRoute();
-    this.floor = this.finalFloor;
+    this.floor = this._destination.getCoordinate().floor;
   }
 }

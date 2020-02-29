@@ -27,7 +27,7 @@
             </g>
 
             <g id="class">
-                <circle class="classroom" id="class-1" fill="#2DB34A" cx="115.9" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="H-1020" fill="#2DB34A" cx="115.9" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-2" fill="#2DB34A" cx="152.9" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-3" fill="#2DB34A" cx="385.2" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-4" fill="#2DB34A" cx="411.2" cy="82.6" r="3.3"/>
@@ -38,7 +38,7 @@
                 <circle class="classroom" id="escalator" fill="#FFFF00" cx="561.7" cy="153.4" r="3.3"/>
                 <circle class="classroom" id="class-10"  fill="#2DB34A" cx="561.7" cy="181" r="3.3"/>
                 <circle class="classroom" id="class-11"  fill="#2DB34A" cx="545.9" cy="246.4" r="3.3"/>
-                <circle class="classroom" id="class-12"  fill="#2DB34A" cx="251.9" cy="282.1" r="3.3"/>
+                <circle class="classroom" id="H-1037"  fill="#2DB34A" cx="251.9" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-13"  fill="#2DB34A" cx="385.2" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-14"  fill="#2DB34A" cx="411.2" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-15"  fill="#2DB34A" cx="211.6" cy="217.4" r="3.3"/>
