@@ -3,7 +3,6 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { Map } from 'src/app/interfaces/map';
 import { Coordinate } from 'src/app/interfaces/coordinate.model';
-import { TestService } from '../../helpers/test-service';
 
 @Component({
   selector: 'app-home',
@@ -25,6 +24,8 @@ export class HomePage implements OnDestroy {
   ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
+    this.currentLoc = 0;
+    this.finalLoc = 0;
   }
 
   checkLocation(iNumber: number) : Coordinate {
