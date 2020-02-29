@@ -10,6 +10,7 @@ import {
   GoogleMapsEvent,
   LatLng,
   MarkerOptions,
+  MarkerIcon,
   Marker
 } from "@ionic-native/google-maps";
 
@@ -73,15 +74,29 @@ export class HomePage implements OnInit{
 	map.one( GoogleMapsEvent.MAP_READY ).then( ( data: any ) => {
 
     this.geolocation.getCurrentPosition().then((resp) => {
+
+        const defaultPos = {
+          lat: 45.494568,
+          lng: -73.5795662
+        };
+
        let coordinates: LatLng = new LatLng( resp.coords.latitude, resp.coords.longitude );
        let position = {
          target: coordinates,
          zoom: 14
        };
+
        map.animateCamera( position );
+       let customMapPin: MarkerIcon = {
+          url: 'assets/images/map-pin.png',
+          size: {
+            width: 25,
+            height: 44
+          }
+        };
        let markerOptions: MarkerOptions = {
          position: coordinates,
-         icon: "assets/icon/favicon.png",
+         icon: customMapPin,
          title: 'You are here'
        };
        const marker = map.addMarker( markerOptions )
@@ -90,21 +105,6 @@ export class HomePage implements OnInit{
        });
     }).catch((error) => {
       console.log('Error getting location', error);
-      let coordinates: LatLng = new LatLng( 45.494568, -73.5795662 );
-      let position = {
-        target: coordinates,
-        zoom: 14
-      };
-      map.animateCamera( position );
-      let markerOptions: MarkerOptions = {
-        position: coordinates,
-        icon: "assets/icon/favicon.png",
-        title: 'You are here'
-      };
-      const marker = map.addMarker( markerOptions )
-      .then( ( marker: Marker ) => {
-        marker.showInfoWindow();
-      });
     });
 
 	})
