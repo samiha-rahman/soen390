@@ -4,7 +4,6 @@
   }
 </style>
 
-
 <ion-header>
   <ion-toolbar>
     <ion-title>
@@ -14,9 +13,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    Map here
-  </div>
+  <div id="map" style="height:90%;"></div>
 </ion-content>
 
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">

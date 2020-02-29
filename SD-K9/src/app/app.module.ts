@@ -21,6 +21,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { IonicPullupModule } from 'ionic-pullup';
 
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -38,10 +41,11 @@ import { IonicPullupModule } from 'ionic-pullup';
     LoyolaCampusData,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    Geolocation,
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    GoogleMaps
   ],
   bootstrap: [AppComponent]
 
 })
 export class AppModule {}
-
