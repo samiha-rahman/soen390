@@ -12,6 +12,11 @@ const routes: Routes = [
     path: 'appsettings',
     loadChildren: () => import('src/app/modals/appsettings/appsettings.module').then(m => m.AppsettingsPageModule)
   },
+  {
+    path: 'demo',
+    loadChildren: () => import('./pages/demo-indoor-nav/demo-indoor-nav.module').then( m => m.DemoIndoorNavPageModule)
+  },
+
 ];
 
 @NgModule({

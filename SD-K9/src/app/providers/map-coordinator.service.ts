@@ -111,9 +111,9 @@ export class MapCoordinator {
                 direction = 'down';
             }
             const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
-                initLocation.getCoordinate().building,
-                initLocation.getCoordinate().floor,
-                initLocation);
+                finalLocation.getCoordinate().building,
+                finalLocation.getCoordinate().floor,
+                finalLocation);
             firstvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
                 vTransportationId,
                 this._verticalTransportationMode,
