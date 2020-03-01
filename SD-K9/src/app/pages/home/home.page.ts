@@ -64,6 +64,9 @@ export class HomePage {
 
   async nextRoute() {
     this.floor = this._destination.getCoordinate().floor;
+    // TODO: Call nextRoute only after floorplan has updated
+    // sleep for 5ms
+    await new Promise(r => setTimeout(r, 5));
     await this._mapCoordinator.nextRoute();
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
   }
