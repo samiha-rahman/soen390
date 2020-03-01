@@ -1,30 +1,41 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
-import { Map } from 'src/app/interfaces/map';
-import { Coordinate } from 'src/app/interfaces/coordinate.model';
-import { TestService } from '../../helpers/test-service';
+import { ModalController, NavController } from '@ionic/angular';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { IonPullUpFooterState } from 'ionic-pullup';
+import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+
+declare var google;
+
 
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage implements OnDestroy {
-  returnedData: string;
-  currentCoordinate: Coordinate = {latitude: 0, longitude: 0};
-  currentLoc: number;
-  finalLoc: number;
+export class HomePage implements OnInit {
+  showFloorPlan = true;
+
+  start = 'H-831';
+  end = 'H-815';
+
+  floor = 8;
+  building = 'hall';
+
   private _initLocation: Location;
   private _destination: Location;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
-    ) {}
+    private modalController: ModalController
+    ) { }
 
   ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
+<<<<<<< HEAD
 
     // BELOW IS GOOGLE PLACES API
     var input = document.getElementById('search-input'); // Retrieves input location of search bar
@@ -76,40 +87,57 @@ export class HomePage implements OnDestroy {
       infowindow.open(map, marker); // Display the information when clicking on marker
     });
     // END OF GOOGLE PLACES API
+=======
+    this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  checkLocation(iNumber: number) : Coordinate {
-    let tempCoordinate: Coordinate = {latitude: 0, longitude: 0};
-    if (iNumber == 1) {
-      tempCoordinate = {latitude: 45.495398, longitude: -73};
-    }
-    else if (iNumber == 2) {
-      tempCoordinate = {latitude: 48, longitude: -80};
-    }
-    else {
-      tempCoordinate = {latitude: 0, longitude: 0};
-    }
-    console.log(tempCoordinate);
-    return tempCoordinate;
+  toSVGCoordinate(id: string, building: string, floor: number): SVGCoordinate {
+    return {
+      id,
+      x: parseInt(document.getElementById(id)["cx"].baseVal.value),
+      y: parseInt(document.getElementById(id)["cy"].baseVal.value),
+      building,
+      floor
+    };
+>>>>>>> acf2b51bb9f8e01be45cba78706cf39d04e23d47
   }
 
-  getMapTest(iNumber: number) {
-    this.currentCoordinate = this.checkLocation(iNumber);
-    this._initLocation.setCoordinate(this.currentCoordinate);
-    let map : Map = this._mapCoordinator.getMap(this._initLocation);
-
-    this.returnedData = map.testText;
-  }
-
+  // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
   getRouteTest() {
-    console.log(this.currentLoc + ", " + this.finalLoc);
-    this._initLocation.setCoordinate(this.checkLocation(this.currentLoc));
-    this._destination.setCoordinate(this.checkLocation(this.finalLoc));
+    this._initLocation.setCoordinate(this.toSVGCoordinate(this.start, this.building, this.floor));
+    this._destination.setCoordinate(this.toSVGCoordinate(this.end, this.building, this.floor));
     this._mapCoordinator.getRoute(this._initLocation, this._destination);
   }
 
-  ngOnDestroy() {
-    // implement destroy
+  footerState: IonPullUpFooterState;
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
   }
 
+  async openModal1() {
+    const modal = await this.modalController.create({
+      component: AppsettingsPage
+    });
+    return await modal.present();
+  }
+
+  //optional capture events
+  footerExpanded() {
+    console.log('Footer expanded!');
+  }
+
+  // optional capture events
+  footerCollapsed() {
+    console.log('Footer collapsed!');
+  }
+
+  // toggle footer states
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
+  
 }

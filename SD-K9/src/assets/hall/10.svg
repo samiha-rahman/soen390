@@ -1,0 +1,77 @@
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680.7 364.7">
+
+    <g id="hall">
+
+            <g id="floor">
+                <rect (click)="onClickFloor()" class ="floor" fill="#C7C8CA" stroke="#000000" stroke-width="7" stroke-miterlimit="10" width="665.7" height="364.7"/>
+            </g>
+            <g id="room">
+                <rect id="room-1" class="room" x="2" y="0" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-2" class="room" x="134.4" y="0" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-3" class="room" x="266.7" y="0" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-4" class="room" x="399" y="0" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-5" class="room" x="531.4" y="0" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="134.3" height="82.6"/>
+                <rect id="room-6" class="room" x="2" y="82.6" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="100.3" height="82.6"/>
+                <rect id="room-7" class="room" x="2" y="165.2" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="99.8" height="82.6"/>
+                <rect id="room-8" class="room" x="2" y="247.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="115.9"/>
+                <rect id="room-9" class="room" x="561.7" y="82.6" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="103" height="82.6"/>
+                <rect id="room-10"  class="room" x="562.5" y="165.2" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="102.2" height="82.6"/>
+                <rect id="room-11"  class="room" x="532.4" y="247.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="115.9"/>
+                <rect id="room-12"  class="room" x="134.4" y="282.1" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-13"  class="room" x="266.7" y="282.1" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-14"  class="room" x="399" y="282.1" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
+                <rect id="room-15"  class="room" x="200.5" y="134.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="66.7" height="82.6"/>
+                <rect id="room-16"  class="room" x="398.8" y="134.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="66.4" height="82.6"/>
+                <rect id="room-17"  class="room" x="267.2" y="134.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="66.7" height="82.6"/>
+                <rect id="room-18"  class="room" x="333.9" y="134.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="65.4" height="82.6"/>
+            </g>
+
+            <g id="class">
+                <circle class="classroom" id="class-1" fill="#2DB34A" cx="115.9" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="class-2" fill="#2DB34A" cx="152.9" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="class-3" fill="#2DB34A" cx="385.2" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="class-4" fill="#2DB34A" cx="411.2" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="class-5" fill="#2DB34A" cx="545.9" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="class-6" fill="#2DB34A" cx="102.4" cy="154.7" r="3.3"/>
+                <circle class="classroom" id="class-7" fill="#2DB34A" cx="102.4" cy="177.7" r="3.3"/>
+                <circle class="classroom" id="class-8" fill="#2DB34A" cx="115.9" cy="247.8" r="3.3"/>
+                <circle class="classroom" id="class-9" fill="#2DB34A" cx="561.7" cy="153.4" r="3.3"/>
+                <circle class="classroom" id="class-10"  fill="#2DB34A" cx="561.7" cy="181" r="3.3"/>
+                <circle class="classroom" id="class-11"  fill="#2DB34A" cx="545.9" cy="246.4" r="3.3"/>
+                <circle class="classroom" id="class-12"  fill="#2DB34A" cx="251.9" cy="282.1" r="3.3"/>
+                <circle class="classroom" id="class-13"  fill="#2DB34A" cx="385.2" cy="282.1" r="3.3"/>
+                <circle class="classroom" id="class-14"  fill="#2DB34A" cx="411.2" cy="282.1" r="3.3"/>
+                <circle class="classroom" id="class-15"  fill="#2DB34A" cx="211.6" cy="217.4" r="3.3"/>
+                <circle class="classroom" id="class-16"  fill="#2DB34A" cx="411.2" cy="134.8" r="3.3"/>
+                <circle class="classroom" id="class-17"  fill="#2DB34A" cx="279.2" cy="134.8" r="3.3"/>
+                <circle class="classroom" id="class-18"  fill="#2DB34A" cx="343.2" cy="217.4" r="3.3"/>
+            </g>
+
+            <g id="nodes">
+                <circle class="node" id="node-1" fill="#71EADE" cx="115.9" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-2" fill="#71EADE" cx="152.9" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-3" fill="#71EADE" cx="167.9" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-4" fill="#71EADE" cx="278.9" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-5" fill="#71EADE" cx="385.2" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-6" fill="#71EADE" cx="411.2" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-7" fill="#71EADE" cx="486.4" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-8" fill="#71EADE" cx="545.9" cy="108.7" r="3.3"/>
+                <circle class="node" id="node-9" fill="#71EADE" cx="545.9" cy="153.4" r="3.3"/>
+                <circle class="node" id="node-10" fill="#71EADE" cx="545.9" cy="181" r="3.3"/>
+                <circle class="node" id="node-11" fill="#71EADE" cx="545.9" cy="229.7" r="3.3"/>
+                <circle class="node" id="node-12" fill="#71EADE" cx="486.4" cy="229.7" r="3.3"/>
+                <circle class="node" id="node-13" fill="#71EADE" cx="486.4" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-14" fill="#71EADE" cx="411.2" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-15" fill="#71EADE" cx="385.2" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-16" fill="#71EADE" cx="279.2" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-17" fill="#71EADE" cx="251.9" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-18" fill="#71EADE" cx="167.9" cy="251.1" r="3.3"/>
+                <circle class="node" id="node-19" fill="#71EADE" cx="167.9" cy="229.7" r="3.3"/>
+                <circle class="node" id="node-20" fill="#71EADE" cx="115.9" cy="229.7" r="3.3"/>
+                <circle class="node" id="node-21" fill="#71EADE" cx="115.9" cy="177.7" r="3.3"/>
+                <circle class="node" id="node-22" fill="#71EADE" cx="115.9" cy="154.7" r="3.3"/>
+                <circle class="node" id="node-23" fill="#71EADE" cx="211.6" cy="229.7" r="3.3"/>
+                <circle class="node" id="node-24" fill="#71EADE" cx="343.2" cy="229.7" r="3.3"/>
+            </g>
+        </g>
+</svg>

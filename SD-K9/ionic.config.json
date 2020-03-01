@@ -1,5 +1,7 @@
 {
   "name": "SD-K9",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
