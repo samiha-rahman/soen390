@@ -210,7 +210,23 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="171.518" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="175.547" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="179.575" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="286.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="290.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="294.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="298.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="302.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="306.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="310.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="314.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="318.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="322.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="326.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="330.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="334.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="338.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="342.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="346.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/><circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="187.633" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="195.832" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="200.002" r="0.5"/>
@@ -1013,5 +1029,110 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="179.415" cy="452.65" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="179.415" cy="448.444" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="542.122" cy="89.088" r="0.5"/>
+</g>
+<g id="POIs-Labels">
+	<g class="elevator-icon">
+		<rect x="390.4" y="375.6" fill="#FFFFFF" stroke="#ABB6DC" width="10.1" height="14.5"/>
+		<g>
+			<g>
+				<line fill="none" stroke="#ABB6DC" stroke-dasharray="8.0319" x1="393.8" y1="386.9" x2="393.8" y2="378.8"/>
+				<g>
+					<path fill="#ABB6DC" d="M393.8,388.4c0.3-0.7,0.7-1.6,1.2-2.1l-1.2,0.4l-1.2-0.4C393,386.8,393.5,387.7,393.8,388.4z"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<line fill="none" stroke="#ABB6DC" stroke-dasharray="8.0319" x1="397" y1="380.3" x2="397" y2="388.4"/>
+				<g>
+					<path fill="#ABB6DC" d="M397,378.8c-0.3,0.7-0.7,1.6-1.2,2.1l1.2-0.4l1.2,0.4C397.7,380.4,397.3,379.5,397,378.8z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g class="elevator-icon">
+		<rect x="416.1" y="375.6" fill="#FFFFFF" stroke="#ABB6DC" width="10.1" height="14.5"/>
+		<g>
+			<g>
+				<line fill="none" stroke="#ABB6DC" stroke-dasharray="8.0319" x1="419.5" y1="386.9" x2="419.5" y2="378.8"/>
+				<g>
+					<path fill="#ABB6DC" d="M419.5,388.4c0.3-0.7,0.7-1.6,1.2-2.1l-1.2,0.4l-1.2-0.4C418.8,386.8,419.2,387.7,419.5,388.4z"/>
+				</g>
+			</g>
+		</g>
+		<g>
+			<g>
+				<line fill="none" stroke="#ABB6DC" stroke-dasharray="8.0319" x1="422.8" y1="380.3" x2="422.8" y2="388.4"/>
+				<g>
+					<path fill="#ABB6DC" d="M422.8,378.8c-0.3,0.7-0.7,1.6-1.2,2.1l1.2-0.4l1.2,0.4C423.5,380.4,423,379.5,422.8,378.8z"/>
+				</g>
+			</g>
+		</g>
+	</g>
+	<g class="man-bath-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="225.3" cy="408.2" rx="7.2" ry="6.8"/>
+		<g id="man-icon">
+			
+				<path id="path2558" fill="#ABB6DC" d="
+				M224.4,413.3c-0.2-0.1-0.3-0.2-0.3-0.3c0-0.1,0-1.1,0-3.2l0-3.1H224h-0.1v1.2c0,1.2,0,1.2,0,1.3c-0.1,0.1-0.1,0.1-0.2,0.2
+				c-0.2,0-0.4,0-0.4-0.2c0-0.1,0-2.8,0-2.9c0.1-0.4,0.4-0.7,0.8-0.8c0.2,0,2,0,2.2,0c0.2,0,0.4,0.1,0.5,0.3
+				c0.2,0.2,0.2,0.3,0.3,0.5c0,0.1,0,0.2,0,1.5c0,1.2,0,1.3,0,1.4c0,0.1-0.1,0.1-0.2,0.2c-0.2,0.1-0.4,0-0.4-0.1l0-0.1l0-1.2l0-1.2
+				h-0.1h-0.1v3.2c0,3.5,0,3.2-0.1,3.4c-0.1,0.1-0.2,0.1-0.4,0.1c-0.2,0-0.3,0-0.4-0.1c-0.1-0.1-0.1,0-0.1-2.1v-1.9h-0.1H225v1.9
+				c0,1.5,0,1.9,0,1.9c0,0.1-0.1,0.2-0.2,0.2C224.6,413.3,224.4,413.3,224.4,413.3L224.4,413.3z"/>
+			<circle fill="#ABB6DC" cx="225.1" cy="404.3" r="0.8"/>
+		</g>
+	</g>
+	<g class="woman-bath-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="385" cy="419.3" rx="7.2" ry="6.8"/>
+		<g transform="matrix(2.08276,0,0,2.08276,-786.0753,-421.7896)">
+			<path display="none" fill="#ABB6DC" d="M562.6,401.7c0,0.2-0.2,0.4-0.4,0.4s-0.4-0.2-0.4-0.4l0,0c0-0.2,0.2-0.4,0.4-0.4
+				S562.6,401.5,562.6,401.7z"/>
+			<path fill="#ABB6DC" d="M561.3,404.7h0.5l0,1.4c0,0,0,0.2,0.2,0.2c0.2,0,0.2-0.2,0.2-0.2l0-1.4l0.1,0v1.4c0,0,0,0.2,0.2,0.2
+				c0.2,0,0.2-0.2,0.2-0.2l0-1.4l0.5,0l-0.6-1.9l0.1,0l0,0l0.3,1.1c0,0,0.1,0.2,0.2,0.1c0.1-0.1,0.1-0.2,0.1-0.2l-0.4-1.3
+				c0,0-0.1-0.1-0.2-0.2c-0.1-0.1-0.2-0.1-0.2-0.1l-0.7,0c0,0-0.1,0-0.2,0.1s-0.2,0.2-0.2,0.2l-0.4,1.2c0,0,0,0.2,0.1,0.2
+				c0.2,0.1,0.2-0.1,0.2-0.1l0.3-1.1h0.1L561.3,404.7z"/>
+		</g>
+		<g>
+			<circle fill="#ABB6DC" cx="384.9" cy="414.9" r="0.9"/>
+		</g>
+	</g>
+	<g class="man-bath-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="359.7" cy="380.1" rx="7.2" ry="6.8"/>
+		<g id="man-icon_1_" inkscape:label="Layer 1" inkscape:groupmode="layer">
+			
+				<path id="path2558_1_" sodipodi:nodetypes="ccscccsccssscssscsscccccscscscccscccc" inkscape:connector-curvature="0" fill="#ABB6DC" d="
+				M358.8,385.2c-0.2-0.1-0.3-0.2-0.3-0.3c0-0.1,0-1.1,0-3.2l0-3.1h-0.1h-0.1v1.2c0,1.2,0,1.2,0,1.3c-0.1,0.1-0.1,0.1-0.2,0.2
+				c-0.2,0-0.4,0-0.4-0.2c0-0.1,0-2.8,0-2.9c0.1-0.4,0.4-0.7,0.8-0.8c0.2,0,2,0,2.2,0c0.2,0,0.4,0.1,0.5,0.3
+				c0.2,0.2,0.2,0.3,0.3,0.5c0,0.1,0,0.2,0,1.5c0,1.2,0,1.3,0,1.4c0,0.1-0.1,0.1-0.2,0.2c-0.2,0.1-0.4,0-0.4-0.1l0-0.1l0-1.2l0-1.2
+				h-0.1h-0.1v3.2c0,3.5,0,3.2-0.1,3.4c-0.1,0.1-0.2,0.1-0.4,0.1s-0.3,0-0.4-0.1c-0.1-0.1-0.1,0-0.1-2.1v-1.9h-0.1h-0.1v1.9
+				c0,1.5,0,1.9,0,1.9c0,0.1-0.1,0.2-0.2,0.2C359.1,385.2,358.9,385.3,358.8,385.2L358.8,385.2z"/>
+			<circle fill="#ABB6DC" cx="359.5" cy="376.2" r="0.8"/>
+		</g>
+	</g>
+	<g class="escalator-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="323.1" cy="276.7" rx="7.2" ry="6.8"/>
+		<polyline fill="#FFFFFF" stroke="#ABB6DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="319.3,279.1 
+			321.4,279 324.5,275.4 326.8,275.4 		"/>
+	</g>
+	<g class="stairs-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="180.4" cy="158.4" rx="7.2" ry="6.8"/>
+		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="179.3,160.1 176.4,160.1 176.4,162.1 176.4,160.1 179.3,160.1 179.3,158.1 
+			182.3,158.1 182.3,156.1 185.2,156.1 		"/>
+	</g>
+	<g class="stairs-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="433" cy="156.4" rx="7.2" ry="6.8"/>
+		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="432.3,157.8 429.3,157.8 429.3,159.8 429.3,157.8 432.3,157.8 432.3,155.8 
+			435.2,155.8 435.2,153.8 438.1,153.8 		"/>
+	</g>
+	<g class="stairs-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="453.7" cy="394.5" rx="7.2" ry="6.8"/>
+		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="452.9,396 450,396 450,398 450,396 452.9,396 452.9,394 455.9,394 455.9,392 
+			458.8,392 		"/>
+	</g>
+	<g class="stairs-icon">
+		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="180.8" cy="408.2" rx="7.2" ry="6.8"/>
+		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="180,409.7 177.1,409.7 177.1,411.7 177.1,409.7 180,409.7 180,407.7 183,407.7 
+			183,405.7 185.9,405.7 		"/>
+	</g>
 </g>
 </svg>
