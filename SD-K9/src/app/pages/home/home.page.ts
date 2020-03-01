@@ -39,19 +39,29 @@ export class HomePage implements OnInit {
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  async toSVGCoordinate(id: string) {
+  parseBuilding(id: string) {
     let building;
-    let floor;
     if (id.split('-')[0] === 'H') {
       building = 'hall';
     } else {
       building = 'loyola';
     };
+    return building;
+  }
+
+  parseFloor(id: string) {
+    let floor;
     if (id.split('-')[1].length === 3) {
       floor = parseInt(id.split('-')[1].substr(0, 1));
     } else {
       floor = parseInt(id.split('-')[1].substr(0, 2));
     }
+    return floor;
+  }
+
+  async toSVGCoordinate(id: string) {
+    const building = this.parseBuilding(id);
+    const floor = this.parseFloor(id);
     let svgCoordinate: SVGCoordinate;
     svgCoordinate = await this._svgService.getClassroom(id, building, floor);
 
