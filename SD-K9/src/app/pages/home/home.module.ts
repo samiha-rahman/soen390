@@ -4,7 +4,11 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { IonicPullupModule } from 'ionic-pullup';
+
 import { HomePage } from './home.page';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 
 @NgModule({
@@ -12,6 +16,7 @@ import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
     CommonModule,
     FormsModule,
     IonicModule,
+    IonicPullupModule,
     RouterModule.forChild([
       {
         path: '',
@@ -19,6 +24,7 @@ import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
       }
     ])
   ],
-  declarations: [HomePage, FloorPlanComponent]
+  declarations: [HomePage, BusPage, AppsettingsPage, FloorPlanComponent],
+  entryComponents: [BusPage, AppsettingsPage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

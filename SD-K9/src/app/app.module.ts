@@ -19,16 +19,21 @@ import { LoyolaCampusData } from './data-models/loyola-campus-data';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
-import { Pathfinder } from './providers/pathfinder.service'
+import { Pathfinder } from './providers/pathfinder.service';
 import { HttpClientModule } from '@angular/common/http';
-import { FloorPlanComponent } from './pages/floor-plan/floor-plan.component';
+import { IonicPullupModule } from 'ionic-pullup';
 
 @NgModule({
   declarations: [
     AppComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, HttpClientModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicPullupModule,
+    HttpClientModule],
   providers: [
     IndoorRouteBuilder,
     OutdoorRouteBuilder,
@@ -44,5 +49,7 @@ import { FloorPlanComponent } from './pages/floor-plan/floor-plan.component';
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
+
 })
-export class AppModule {}
+export class AppModule { }
+
