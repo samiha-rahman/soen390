@@ -12,6 +12,7 @@ const routes: Routes = [
     path: 'appsettings',
     loadChildren: () => import('src/app/modals/appsettings/appsettings.module').then(m => m.AppsettingsPageModule)
   },
+  {
     path: 'outdoor',
     loadChildren: () => import('./pages/outdoor/outdoor.module').then( m => m.OutdoorPageModule)
   },
