@@ -1,31 +1,24 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      NavConU
+      Outdoor view
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="floorplan-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Select a route</ion-card-subtitle>
-        <ion-card-title>Get Directions</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="start"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="end"></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
-      </ion-card-content>
-    </ion-card>
-    <floor-plan [building]="building" [floor]="floor"></floor-plan>
-  </div>
+  <ion-segment (ionChange)="toggleCampus($event)" class="campusTgl">
+    <ion-segment-button value="sgw">
+      <ion-label>SGW</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="lyl">
+      <ion-label>Layola</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div #map id="map">
+  <ion-fab class="locate-me-btn-wrapper">
+    <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png" width="20px" /></ion-fab-button>
+  </ion-fab>
 </ion-content>
 
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">

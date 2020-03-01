@@ -8,9 +8,6 @@ import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
 
-declare var google;
-
-
 describe('HomePage', () => {
   let component: HomePage;
   let fixture: ComponentFixture<HomePage>;
@@ -19,7 +16,7 @@ describe('HomePage', () => {
     TestBed.configureTestingModule({
       declarations: [HomePage, FloorPlanComponent],
       imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule, HttpClientModule],
-      providers: [{ provide: MapCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } },Geolocation]
+      providers: [{ provide: MapCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } }]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);
@@ -29,10 +26,6 @@ describe('HomePage', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('Should initialize the map', () =>{
-    expect(component.mapInitialised).toBeTruthy();
   });
 
 });
