@@ -23,6 +23,8 @@ import { Pathfinder } from './providers/pathfinder.service';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicPullupModule } from 'ionic-pullup';
 
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -45,6 +47,7 @@ import { IonicPullupModule } from 'ionic-pullup';
     LoyolaCampusData,
     StatusBar,
     SplashScreen,
+    Geolocation,
     Pathfinder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
@@ -52,4 +55,3 @@ import { IonicPullupModule } from 'ionic-pullup';
 
 })
 export class AppModule { }
-
