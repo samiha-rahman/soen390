@@ -77,7 +77,7 @@ export class OutdoorPage implements OnInit {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
       document.body.appendChild(script);
     }else{
       this.initMap();
@@ -118,6 +118,8 @@ export class OutdoorPage implements OnInit {
       this.drawBuildings();
 
       this.maintainMap();
+
+      this.searchautocomplete();
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -163,6 +165,58 @@ export class OutdoorPage implements OnInit {
 
   locateUser(){
     this.map.panTo(this.currentPos);
+  }
+
+  searchautocomplete(){
+    var input = document.getElementById('search-input'); // Retrieves input location of search bar
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    // Bind the map's bounds (viewport) property to the autocomplete object,
+    // so that the autocomplete requests use the current map bounds for the
+    // bounds option in the request.
+    autocomplete.bindTo('bounds', this.map);
+    // Set the data fields to return when the user selects a place.
+    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+    var infowindow = new google.maps.InfoWindow();
+    var infowindowContent = document.getElementById('infowindow-content');
+    infowindow.setContent(infowindowContent);
+    var marker = new google.maps.Marker({
+      map: this.map,
+      anchorPoint: new google.maps.Point(0, -29)
+    });
+    autocomplete.addListener('place_changed', function () {
+      infowindow.close();
+      marker.setVisible(false);
+      var place = autocomplete.getPlace();
+      if (!place.geometry) {
+        // User entered the name of a Place that was not suggested and
+        // pressed the Enter key, or the Place Details request failed.
+        window.alert("No details available for input: '" + place.name + "'");
+        return;
+      }
+      // If the place has a geometry, then present it on a map.
+      if (place.geometry.viewport) {
+        this.map.fitBounds(place.geometry.viewport);
+      }
+      else {
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
+      }
+      marker.setPosition(place.geometry.location);
+      marker.setVisible(true);
+      var address = '';
+      if (place.address_components) {
+        address = [
+          (place.address_components[0] && place.address_components[0].short_name || ''),
+          (place.address_components[1] && place.address_components[1].short_name || ''),
+          (place.address_components[2] && place.address_components[2].short_name || '')
+        ].join(' ');
+      }
+      infowindowContent.children['place-icon'].src = place.icon;
+      infowindowContent.children['place-name'].textContent = place.name;
+      infowindowContent.children['place-address'].textContent = address;
+      infowindow.open(this.map, marker); // Display the information of marker
+    });
+
   }
 
 }
