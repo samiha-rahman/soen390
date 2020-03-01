@@ -4,6 +4,8 @@ import { map } from 'rxjs/operators';
 import { SVG } from '@svgdotjs/svg.js';
 import { Observable } from 'rxjs';
 import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
+import {forEach} from '@angular-devkit/schematics';
+import { Location } from '../helpers/location';
 
 @Injectable({
   providedIn: 'root'
@@ -122,21 +124,47 @@ export class SVGManager {
         .toPromise();
   }
 
-  public async getVerticalTransportation(mode: string, direction: string, building: string, floor: number) {
+  public async getClosestVerticalTransportationId(mode: string, direction: string, building: string, floor: number, location: Location) {
+      return this.getSVG(`${building}/${floor}`)
+          .pipe(
+              map(svgFile => {
+                  // return svgFile
+                  const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
+                  let vtransport;
+                  if (mode === 'escalators') {
+                      vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
+                  } else {
+                      let minOption = 0;
+                      let minDistance = 1000;
+                      const locX = location.getCoordinate().x;
+                      const locY = location.getCoordinate().y;
+                      for (let x = 0; x < vtransports.length; x++) {
+                          const el: SVGCircleElement = vtransports[x].node as any;
+                          const distance = Math.sqrt(Math.pow(locX - el.cx.baseVal.value, 2) + Math.pow(locY - el.cy.baseVal.value, 2));
+                          if (distance < minDistance) {
+                              minDistance = distance;
+                              minOption = x;
+                          }
+                      }
+                      vtransport = vtransports[minOption];
+                  }
+                  const node: SVGCircleElement = vtransport.node as any;
+                  return (node.id);
+              })
+          )
+          .toPromise();
+  }
+
+  public async getVerticalTransportation(transportationID: string, mode: string, building: string, floor: number) {
     return this.getSVG(`${building}/${floor}`)
         .pipe(
             map(svgFile => {
               // return svgFile
               const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
-              let vtransport;
-              if (mode === 'escalators') {
-                  vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
-              } else {
-                  vtransport = vtransports[0];
-              }
+              const vtransport = vtransports.filter((element) => element.node.id === transportationID)[0];
               const node: SVGCircleElement = vtransport.node as any;
               return {
-                id: vtransport.id(),
+                id: node.id,
                 x: parseInt(node.cx.baseVal.value.toString()),
                 y: parseInt(node.cy.baseVal.value.toString()),
                 building,

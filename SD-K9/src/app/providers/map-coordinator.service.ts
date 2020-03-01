@@ -101,8 +101,8 @@ export class MapCoordinator {
     }
 
     async generateRouteLocations(initLocation: Location, finalLocation: Location) {
-        let firstvTransportation = new Location();
-        let secondvTransportation = new Location();
+        const firstvTransportation = new Location();
+        const secondvTransportation = new Location();
         let direction;
         if (initLocation.getCoordinate().building === finalLocation.getCoordinate().building){
             if (initLocation.getCoordinate().floor < finalLocation.getCoordinate().floor) {
@@ -110,13 +110,19 @@ export class MapCoordinator {
             } else {
                 direction = 'down';
             }
+            const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
+                initLocation.getCoordinate().building,
+                initLocation.getCoordinate().floor,
+                initLocation);
             firstvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                this._verticalTransportationMode, direction,
+                vTransportationId,
+                this._verticalTransportationMode,
                 initLocation.getCoordinate().building,
                 initLocation.getCoordinate().floor));
             this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
             secondvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                this._verticalTransportationMode, direction,
+                vTransportationId,
+                this._verticalTransportationMode,
                 finalLocation.getCoordinate().building,
                 finalLocation.getCoordinate().floor));
             this._routeLocationList.push(this.routeLocation(secondvTransportation, finalLocation));
@@ -129,7 +135,7 @@ export class MapCoordinator {
     }
 
     async nextRoute() {
-        let routeNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
+        const routeNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
         routeNavigator.getRoute(this._routeLocationList[0].from, this._routeLocationList[0].to);
         this._routeLocationList.shift();
         if (this._routeLocationList.length === 0) {
