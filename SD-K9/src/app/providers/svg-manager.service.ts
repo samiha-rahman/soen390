@@ -109,10 +109,11 @@ export class SVGManager {
               // return svgFile
               const classrooms = SVG(svgFile).find('circle.classroom');
               const classroom = classrooms.filter((element) => element.node.id === classID)[0];
+              const node: SVGCircleElement = classroom.node as any;
               return {
                 id: classID,
-                x: parseInt(classroom.node.cx.baseVal.value),
-                y: parseInt(classroom.node.cy.baseVal.value),
+                  x: parseInt(node.cx.baseVal.value.toString()),
+                  y: parseInt(node.cy.baseVal.value.toString()),
                 building,
                 floor
               };
@@ -128,13 +129,11 @@ export class SVGManager {
               // return svgFile
               const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
               const vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
-              // console.log(floor);
-              // console.log(vtransports);
-              // console.log(vtransport);
+              const node: SVGCircleElement = vtransport.node as any;
               return {
                 id: vtransport.id(),
-                x: parseInt(vtransport.node.cx.baseVal.value),
-                y: parseInt(vtransport.node.cy.baseVal.value),
+                x: parseInt(node.cx.baseVal.value.toString()),
+                y: parseInt(node.cy.baseVal.value.toString()),
                 building,
                 floor
               };
