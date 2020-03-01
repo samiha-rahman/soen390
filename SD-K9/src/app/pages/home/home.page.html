@@ -24,17 +24,43 @@
         <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
       </ion-card-content>
     </ion-card>
+
+    <ion-radio-group>
+      <ion-row>
+        <ion-col>
+          <ion-item>
+            <ion-label>Stairs</ion-label>
+            <ion-radio value="stairs" (ionSelect)="setMode('stairs')"></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Escalator</ion-label>
+            <ion-radio value="escalators" (ionSelect)="setMode('escalators')" checked></ion-radio>
+          </ion-item>
+        </ion-col>
+        <ion-col>
+          <ion-item>
+            <ion-label>Elevator</ion-label>
+            <ion-radio value="elevators" (ionSelect)="setMode('elevators')"></ion-radio>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-radio-group>
+
     <ion-card>
-      <ion-card-header>
-        <ion-card-title>Floor {{floor}}</ion-card-title>
-      </ion-card-header>
+      <ion-row>
+        <ion-col>
+          <ion-card-content>
+            <ion-card-title>Floor {{floor}}</ion-card-title>
+          </ion-card-content>
+        </ion-col>
+        <ion-col>
+          <ion-button expand="block" *ngIf="hasNextRoute" (click)="nextRoute()">Next</ion-button>
+        </ion-col>
+      </ion-row>
     </ion-card>
     <floor-plan [building]="building" [floor]="floor"></floor-plan>
-    <ion-card>
-      <ion-card-header>
-        <ion-button *ngIf="hasNextRoute" (click)="nextRoute()">Next</ion-button>
-      </ion-card-header>
-    </ion-card>
   </div>
 </ion-content>
 

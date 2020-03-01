@@ -18,7 +18,7 @@ export class HomePage implements OnInit {
   showFloorPlan = true;
   hasNextRoute = false;
 
-  start = 'H-831';
+  start = 'H-631';
   end = 'H-815';
 
   floor = 8;
@@ -61,8 +61,8 @@ export class HomePage implements OnInit {
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
   async getRouteTest() {
     this._initLocation.setCoordinate(await this.toSVGCoordinate(this.start));
-    this._destination.setCoordinate(await this.toSVGCoordinate(this.end));
     this.floor = this._initLocation.getCoordinate().floor;
+    this._destination.setCoordinate(await this.toSVGCoordinate(this.end));
 
     await this._mapCoordinator.getRoute(this._initLocation, this._destination);
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
@@ -75,6 +75,10 @@ export class HomePage implements OnInit {
     await new Promise(r => setTimeout(r, 5));
     await this._mapCoordinator.nextRoute();
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
+  }
+
+  setMode(mode: string) {
+    this._mapCoordinator.setVerticalTransportationMode(mode);
   }
 
   footerState: IonPullUpFooterState;

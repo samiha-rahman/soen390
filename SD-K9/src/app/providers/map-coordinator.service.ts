@@ -19,6 +19,7 @@ export class MapCoordinator {
     map: Map = {testText: ''};
     private _initLocation: Location;
     private _finalLocation: Location;
+    private _verticalTransportationMode = 'escalators';
     private _hasNextRoute: boolean = false;
     private _routeLocationList = [];
 
@@ -110,17 +111,21 @@ export class MapCoordinator {
                 direction = 'down';
             }
             firstvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                'escalators', direction,
+                this._verticalTransportationMode, direction,
                 initLocation.getCoordinate().building,
                 initLocation.getCoordinate().floor));
             this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
             secondvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                'escalators', direction,
+                this._verticalTransportationMode, direction,
                 finalLocation.getCoordinate().building,
                 finalLocation.getCoordinate().floor));
             this._routeLocationList.push(this.routeLocation(secondvTransportation, finalLocation));
         }
         this._hasNextRoute = true;
+    }
+
+    setVerticalTransportationMode(mode: string) {
+        this._verticalTransportationMode = mode;
     }
 
     async nextRoute() {

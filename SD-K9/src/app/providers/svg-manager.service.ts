@@ -128,7 +128,12 @@ export class SVGManager {
             map(svgFile => {
               // return svgFile
               const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
-              const vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
+              let vtransport;
+              if (mode === 'escalators') {
+                  vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
+              } else {
+                  vtransport = vtransports[0];
+              }
               const node: SVGCircleElement = vtransport.node as any;
               return {
                 id: vtransport.id(),
