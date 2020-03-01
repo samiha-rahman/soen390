@@ -1,101 +1,94 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-        NavConU
+      NavConU
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-  <div class="ion-padding">
-    <ion-button (click)="getMapTest(1)">
-      Hall Bldg
-    </ion-button>
-    <ion-button (click)="getMapTest(2)">
-      Loyola Campus
-    </ion-button>
-    <ion-button (click)="getMapTest(0)">
-      Outdoor
-    </ion-button>
-  </div>
-  <div class="ion-padding">
-    <ion-item>
-      <ion-label>Initial Location</ion-label>
-      <ion-input type="number" [(ngModel)]="currentLoc"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label>Final Location</ion-label>
-      <ion-input type="number" [(ngModel)]="finalLoc"></ion-input>
-    </ion-item>
-    <ion-button (click)="getRouteTest()">Get Directions</ion-button>
-  </div>
-  <div class="ion-padding">
-    {{returnedData}}
+  <div class="floorplan-container">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-subtitle>Select a route</ion-card-subtitle>
+        <ion-card-title>Get Directions</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-item>
+          <ion-input clearInput [(ngModel)]="start"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input clearInput [(ngModel)]="end"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
+      </ion-card-content>
+    </ion-card>
+    <floor-plan [building]="building" [floor]="floor"></floor-plan>
   </div>
 </ion-content>
 
+
+<!-- TODO: Move this section into a seperate component -->
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
-      <ion-buttons slot="primary">
-        <ion-button (click)="clickedSearch()">
-        </ion-button>
-      </ion-buttons>
-      <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
-    </ion-toolbar>
+    <ion-buttons slot="primary">
+      <ion-button (click)="clickedSearch()">
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
+  </ion-toolbar>
 
+  <ion-content>
     <ion-content>
-      <ion-content>
-        <ion-list >
-          <ion-button (click)="openModal()" expand="block">
-            <ion-icon name="time"></ion-icon>
-              Shuttle Schedule
-          </ion-button>
-          <ion-button (click)="openModal1()"expand="block">
-            <ion-icon name="settings"></ion-icon>
-              App Settings
-          </ion-button>
-        </ion-list>
-<!-- FAVORITES -->
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>Favorites</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
+      <ion-list>
+        <ion-button (click)="openModal()" expand="block">
+          <ion-icon name="time"></ion-icon>
+          Shuttle Schedule
+        </ion-button>
+        <ion-button (click)="openModal1()" expand="block">
+          <ion-icon name="settings"></ion-icon>
+          App Settings
+        </ion-button>
+      </ion-list>
+      <!-- FAVORITES -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Favorites</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
           <ion-grid>
-                <ion-row>
-                  <ion-col>
-                    <ion-button>SOEN-390</ion-button>
-                  </ion-col>
-                  <ion-col>
-                    <ion-button>SOEN-344</ion-button>
-                  </ion-col>
-                  <ion-col>
-                    <ion-button>COMP-335</ion-button>
-                  </ion-col>
-                </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-button>SOEN-390</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>SOEN-344</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>COMP-335</ion-button>
+              </ion-col>
+            </ion-row>
           </ion-grid>
         </ion-card-content>
-    </ion-card>
+      </ion-card>
 
-<!-- RECENT EXAMPLE -->
+      <!-- RECENT EXAMPLE -->
 
-<ion-item>
-  <ion-label>Recent</ion-label>
-  <ion-input></ion-input>
-</ion-item>
-<ion-card>
-  <ion-card-header>
+      <ion-item>
+        <ion-label>Recent</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-card>
+        <ion-card-header>
 
-    <ion-card-title>H building 534 <div class="ion-text-end">2 min</div></ion-card-title>
-    <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
-  </ion-card-header>
+          <ion-card-title>H building 534 <div class="ion-text-end">2 min</div>
+          </ion-card-title>
+          <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
+        </ion-card-header>
 
-</ion-card>
+      </ion-card>
 
-      </ion-content>
     </ion-content>
+  </ion-content>
 </lib-ionic-pullup>
