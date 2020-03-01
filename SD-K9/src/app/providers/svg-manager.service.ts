@@ -74,7 +74,7 @@ export class SVGManager {
 
     const polylinePath = draw.polyline(path);
 
-    polylinePath.attr({ id: 'path' });
+    polylinePath.attr({ class: 'path' });
     polylinePath.fill('none');
     polylinePath.stroke({
       color,
@@ -90,7 +90,7 @@ export class SVGManager {
    */
   public removeSVGPath() {
     // Removing the old path
-    const path = SVG('#path');
+    const path = SVG('.path');
     if (path) {
       path.remove();
     }
