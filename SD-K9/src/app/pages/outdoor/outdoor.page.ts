@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { ModalController } from '@ionic/angular';
@@ -17,7 +17,7 @@ declare var google;
   templateUrl: './outdoor.page.html',
   styleUrls: ['./outdoor.page.scss'],
 })
-export class OutdoorPage implements OnInit, AfterViewInit {
+export class OutdoorPage implements OnInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   userMarker: any;
