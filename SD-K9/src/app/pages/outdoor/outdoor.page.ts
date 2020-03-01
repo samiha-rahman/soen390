@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
 import { ModalController } from '@ionic/angular';
@@ -7,6 +7,7 @@ import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 
 declare var google;
 
@@ -16,7 +17,7 @@ declare var google;
   templateUrl: './outdoor.page.html',
   styleUrls: ['./outdoor.page.scss'],
 })
-export class OutdoorPage implements OnInit {
+export class OutdoorPage implements OnInit, AfterViewInit {
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   userMarker: any;
@@ -24,10 +25,17 @@ export class OutdoorPage implements OnInit {
   currentPos: any;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
 
+  //Google direction service  
+  directionsService = new google.maps.DirectionsService;
+  directionsDisplay = new google.maps.DirectionsRenderer;
+  transportMode: String = "DRIVING"; //Default travel mode
+  directionForm: FormGroup;
+
   constructor(
     private _mapCoordinator: MapCoordinator,
     private modalController: ModalController,
-    private geolocation: Geolocation
+    private geolocation: Geolocation,
+    private fb: FormBuilder
     ) {
       this.loadGMaps();
     }
@@ -163,6 +171,47 @@ export class OutdoorPage implements OnInit {
 
   locateUser(){
     this.map.panTo(this.currentPos);
+  }
+  //Display direction on map
+  ngAfterViewInit(): void {
+    this.directionsDisplay.setMap(this.map);
+    //this.directionsDisplay.setPanel(document.getElementById('directionsPanel'));
+  }
+
+  //Verify form
+  createDirectionForm() {
+    this.directionForm = this.fb.group({
+      source: ['', Validators.required],
+      destination: ['', Validators.required]
+    });
+  }
+
+  //Calculate shortest path for outdoor map
+  calculateAndDisplayRoute(formValues) {
+    this.directionsService.route({
+      origin: formValues.source,
+      destination: formValues.destination,
+      travelMode: this.transportMode
+    }, (response, status) => {
+      if (status === 'OK') {
+        this.directionsDisplay.setDirections(response);
+      } else {
+        window.alert('Directions request failed due to ' + status);
+      }
+    });
+  }
+  //Travel mode selected
+  mode(event){
+    if(event.detail.value == "DRIVING"){
+      this.transportMode = "DRIVING"
+    }else if(event.detail.value == "WALKING"){
+      this.transportMode = "WALKING"
+    }else if(event.detail.value == "BICYCLING"){
+      this.transportMode = "BYCYCLING"
+    }else if(event.detail.value == "TRANSIT"){
+      this.transportMode = "TRANSIT"
+    }
+    return this.transportMode;
   }
 
 }
