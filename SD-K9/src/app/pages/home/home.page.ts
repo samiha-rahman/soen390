@@ -1,11 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { BusPage } from 'src/app/modals/bus/bus.page';
 import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+
+declare var google;
+
 
 @Component({
   selector: 'app-home',
@@ -27,7 +30,7 @@ export class HomePage implements OnInit {
   constructor(
     private _mapCoordinator: MapCoordinator,
     private modalController: ModalController
-  ) { }
+    ) { }
 
   ngOnInit() {
     this._initLocation = new Location();
@@ -82,5 +85,5 @@ export class HomePage implements OnInit {
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
-
+  
 }
