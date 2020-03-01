@@ -30,4 +30,9 @@ describe('HomePage', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('Should initialize the map', () =>{
+    expect(component.mapInitialised).toBeTruthy();
+  });
+
 });
