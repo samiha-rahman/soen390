@@ -3,6 +3,9 @@
     <ion-title>
       Outdoor view
     </ion-title>
+    <ion-buttons>
+      <ion-button [routerLink]="['/home']">Go to home</ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +18,7 @@
       <ion-label>Layola</ion-label>
     </ion-segment-button>
   </ion-segment>
-  <div #map id="map">
+  <div #map id="map"></div>
   <ion-fab class="locate-me-btn-wrapper">
     <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png" width="20px" /></ion-fab-button>
   </ion-fab>

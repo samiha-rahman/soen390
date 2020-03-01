@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { Location } from '../../helpers/location';
-import { ModalController } from '@ionic/angular';
+import { ModalController, NavController } from '@ionic/angular';
 import { BusPage } from 'src/app/modals/bus/bus.page';
 import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
