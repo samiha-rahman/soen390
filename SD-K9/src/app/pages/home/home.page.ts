@@ -1,36 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
+import { ModalController } from '@ionic/angular';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { IonPullUpFooterState } from 'ionic-pullup';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
 
-/** Use this Component to test manually */
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss']
 })
-export class HomePage {
-  showFloorPlan: boolean = true;
-  hasNextRoute: boolean = false;
- 
-  start: string = 'H-831';
-  end: string = 'H-615';
 
-  floor: number = 8;
-  building: string = 'hall';
+export class HomePage implements OnInit {
+  showFloorPlan = true;
+  hasNextRoute = false;
+
+  start = 'H-831';
+  end = 'H-815';
+
+  floor = 8;
+  building = 'hall';
 
   private _initLocation: Location;
   private _destination: Location;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
-    private _svgService: SVGManager
+    private _svgService: SVGManager,
+    private modalController: ModalController
   ) { }
 
   ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
+    this.footerState = IonPullUpFooterState.Collapsed;
   }
 
   async toSVGCoordinate(id: string) {
@@ -70,4 +76,36 @@ export class HomePage {
     await this._mapCoordinator.nextRoute();
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
   }
+
+  footerState: IonPullUpFooterState;
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async openModal1() {
+    const modal = await this.modalController.create({
+      component: AppsettingsPage
+    });
+    return await modal.present();
+  }
+
+  //optional capture events
+  footerExpanded() {
+    console.log('Footer expanded!');
+  }
+
+  // optional capture events
+  footerCollapsed() {
+    console.log('Footer collapsed!');
+  }
+
+  // toggle footer states
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
+
 }
