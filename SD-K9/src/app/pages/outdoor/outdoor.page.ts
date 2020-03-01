@@ -26,8 +26,8 @@ export class OutdoorPage implements OnInit, AfterViewInit {
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
 
   //Google direction service  
-  directionsService = new google.maps.DirectionsService;
-  directionsDisplay = new google.maps.DirectionsRenderer;
+  directionsService: any;
+  directionsDisplay: any;
   transportMode: String = "DRIVING"; //Default travel mode
   directionForm: FormGroup;
 
@@ -38,6 +38,7 @@ export class OutdoorPage implements OnInit, AfterViewInit {
     private fb: FormBuilder
     ) {
       this.loadGMaps();
+      this.createDirectionForm();
     }
 
   ngOnInit() {
@@ -95,6 +96,8 @@ export class OutdoorPage implements OnInit, AfterViewInit {
   initMap() {
 
     this.mapInitialised = true;
+    this.directionsService = new google.maps.DirectionsService;
+    this.directionsDisplay = new google.maps.DirectionsRenderer;
 
     this.geolocation.getCurrentPosition().then((position) => {
 
@@ -126,6 +129,10 @@ export class OutdoorPage implements OnInit, AfterViewInit {
       this.drawBuildings();
 
       this.maintainMap();
+      //Display direction on map
+      this.directionsDisplay.setMap(this.map);
+      //TODO: Find container to put text directions
+      //this.directionsDisplay.setPanel(document.getElementById('directionsPanel'));
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -171,11 +178,6 @@ export class OutdoorPage implements OnInit, AfterViewInit {
 
   locateUser(){
     this.map.panTo(this.currentPos);
-  }
-  //Display direction on map
-  ngAfterViewInit(): void {
-    this.directionsDisplay.setMap(this.map);
-    //this.directionsDisplay.setPanel(document.getElementById('directionsPanel'));
   }
 
   //Verify form
