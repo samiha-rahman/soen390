@@ -6,6 +6,10 @@ import { HomePage } from './home.page';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule } from 'ionic-pullup';
 import { IonPullUpFooterState } from 'ionic-pullup';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+
+declare var google;
+
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -15,7 +19,7 @@ describe('HomePage', () => {
     TestBed.configureTestingModule({
       declarations: [ HomePage ],
       imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule],
-      providers: [{provide: MapCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}]
+      providers: [{provide: MapCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},Geolocation]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);

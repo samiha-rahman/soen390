@@ -7,11 +7,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-  <div class="ion-padding">
+  <!-- <div class="ion-padding">
     <ion-button (click)="getMapTest(1)">
       Hall Bldg
     </ion-button>
@@ -35,10 +31,23 @@
   </div>
   <div class="ion-padding">
     {{returnedData}}
+  </div> -->
+  <ion-segment (ionChange)="toggleCampus($event)" class="campusTgl">
+    <ion-segment-button value="sgw">
+      <ion-label>SGW</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="lyl">
+      <ion-label>Layola</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div #map id="map">
   </div>
+  <ion-fab class="locate-me-btn-wrapper">
+    <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png" width="20px" /></ion-fab-button>
+  </ion-fab>
 </ion-content>
 
-<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
+<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
       <ion-buttons slot="primary">
         <ion-button (click)="clickedSearch()">
