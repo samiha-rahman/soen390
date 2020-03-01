@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { HomePage } from './home.page';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
+import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('HomePage', () => {
   let component: HomePage;
@@ -12,8 +14,8 @@ describe('HomePage', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomePage],
-      imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule],
+      declarations: [HomePage, FloorPlanComponent],
+      imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule, HttpClientModule],
       providers: [{ provide: MapCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } }]
     }).compileComponents();
 
