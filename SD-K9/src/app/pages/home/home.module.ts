@@ -9,6 +9,7 @@ import { IonicPullupModule } from 'ionic-pullup';
 import { HomePage } from './home.page';
 import { BusPage } from 'src/app/modals/bus/bus.page';
 import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,7 @@ import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
       }
     ])
   ],
-  declarations: [HomePage, BusPage, AppsettingsPage],
+  declarations: [HomePage, BusPage, AppsettingsPage, FloorPlanComponent],
   entryComponents: [BusPage, AppsettingsPage]
 })
-export class HomePageModule {}
+export class HomePageModule { }

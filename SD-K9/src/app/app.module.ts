@@ -19,6 +19,8 @@ import { LoyolaCampusData } from './data-models/loyola-campus-data';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
+import { Pathfinder } from './providers/pathfinder.service';
+import { HttpClientModule } from '@angular/common/http';
 import { IonicPullupModule } from 'ionic-pullup';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -28,7 +30,12 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     AppComponent
   ],
   entryComponents: [],
-  imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule, IonicPullupModule],
+  imports: [
+    BrowserModule,
+    IonicModule.forRoot(),
+    AppRoutingModule,
+    IonicPullupModule,
+    HttpClientModule],
   providers: [
     IndoorRouteBuilder,
     OutdoorRouteBuilder,
@@ -41,9 +48,10 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     StatusBar,
     SplashScreen,
     Geolocation,
+    Pathfinder,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
 
 })
-export class AppModule {}
+export class AppModule { }
