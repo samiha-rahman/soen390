@@ -14,7 +14,7 @@
                 <rect id="room-6" class="room" x="2" y="82.6" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="100.3" height="82.6"/>
                 <rect id="room-7" class="room" x="2" y="165.2" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="99.8" height="82.6"/>
                 <rect id="room-8" class="room" x="2" y="247.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="115.9"/>
-                <rect id="room-9" class="room" x="561.7" y="82.6" fill="#FDFD96" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="103" height="82.6"/>
+                <rect id="room-9" class="room" x="561.7" y="82.6" fill="#FD9696" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="103" height="82.6"/>
                 <rect id="room-10"  class="room" x="562.5" y="165.2" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="102.2" height="82.6"/>
                 <rect id="room-11"  class="room" x="532.4" y="247.8" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="115.9"/>
                 <rect id="room-12"  class="room" x="134.4" y="282.1" fill="none" stroke="#000000" stroke-width="4" stroke-miterlimit="10" width="132.3" height="82.6"/>
@@ -27,7 +27,7 @@
             </g>
 
             <g id="class">
-                <circle class="classroom" id="H-1020" fill="#2DB34A" cx="115.9" cy="82.6" r="3.3"/>
+                <circle class="classroom" id="H-920" fill="#2DB34A" cx="115.9" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-2" fill="#2DB34A" cx="152.9" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-3" fill="#2DB34A" cx="385.2" cy="82.6" r="3.3"/>
                 <circle class="classroom" id="class-4" fill="#2DB34A" cx="411.2" cy="82.6" r="3.3"/>
@@ -35,10 +35,10 @@
                 <circle class="classroom" id="class-6" fill="#2DB34A" cx="102.4" cy="154.7" r="3.3"/>
                 <circle class="classroom" id="class-7" fill="#2DB34A" cx="102.4" cy="177.7" r="3.3"/>
                 <circle class="classroom" id="class-8" fill="#2DB34A" cx="115.9" cy="247.8" r="3.3"/>
-                <circle class="classroom" id="escalator" fill="#FFFF00" cx="561.7" cy="153.4" r="3.3"/>
+                <circle class="classroom" id="escalator" fill="#FF0000" cx="561.7" cy="153.4" r="3.3"/>
                 <circle class="classroom" id="class-10"  fill="#2DB34A" cx="561.7" cy="181" r="3.3"/>
                 <circle class="classroom" id="class-11"  fill="#2DB34A" cx="545.9" cy="246.4" r="3.3"/>
-                <circle class="classroom" id="H-1037"  fill="#2DB34A" cx="251.9" cy="282.1" r="3.3"/>
+                <circle class="classroom" id="H-937"  fill="#2DB34A" cx="251.9" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-13"  fill="#2DB34A" cx="385.2" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-14"  fill="#2DB34A" cx="411.2" cy="282.1" r="3.3"/>
                 <circle class="classroom" id="class-15"  fill="#2DB34A" cx="211.6" cy="217.4" r="3.3"/>

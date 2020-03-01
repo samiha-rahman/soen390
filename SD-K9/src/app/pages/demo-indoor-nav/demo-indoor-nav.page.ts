@@ -1,23 +1,23 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
+
+export class DemoIndoorNavPageModule {}
+
+import { Component, OnInit } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
-import { ModalController, NavController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
 import { BusPage } from 'src/app/modals/bus/bus.page';
 import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
 
-declare var google;
-
-
 @Component({
-  selector: 'app-home',
-  templateUrl: 'home.page.html',
-  styleUrls: ['home.page.scss']
+  selector: 'app-demo',
+  templateUrl: 'demo-indoor-nav.page.html',
+  styleUrls: ['demo-indoor-nav.page.scss']
 })
 
-export class HomePage implements OnInit {
+export class DemoIndoorNavPage implements OnInit {
   showFloorPlan = true;
   hasNextRoute = false;
 
@@ -31,10 +31,10 @@ export class HomePage implements OnInit {
   private _destination: Location;
 
   constructor(
-    private _mapCoordinator: MapCoordinator,
-    private _svgService: SVGManager,
-    private modalController: ModalController
-    ) { }
+      private _mapCoordinator: MapCoordinator,
+      private _svgService: SVGManager,
+      private modalController: ModalController
+  ) { }
 
   ngOnInit() {
     this._initLocation = new Location();
@@ -42,29 +42,19 @@ export class HomePage implements OnInit {
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  parseBuilding(id: string) {
+  async toSVGCoordinate(id: string) {
     let building;
+    let floor;
     if (id.split('-')[0] === 'H') {
       building = 'hall';
     } else {
       building = 'loyola';
     };
-    return building;
-  }
-
-  parseFloor(id: string) {
-    let floor;
     if (id.split('-')[1].length === 3) {
       floor = parseInt(id.split('-')[1].substr(0, 1));
     } else {
       floor = parseInt(id.split('-')[1].substr(0, 2));
     }
-    return floor;
-  }
-
-  async toSVGCoordinate(id: string) {
-    const building = this.parseBuilding(id);
-    const floor = this.parseFloor(id);
     let svgCoordinate: SVGCoordinate;
     svgCoordinate = await this._svgService.getClassroom(id, building, floor);
 
@@ -124,5 +114,5 @@ export class HomePage implements OnInit {
   toggleFooter() {
     this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
   }
-  
+
 }

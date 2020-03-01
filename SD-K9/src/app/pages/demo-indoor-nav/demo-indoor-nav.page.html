@@ -3,9 +3,6 @@
     <ion-title>
       NavConU
     </ion-title>
-    <ion-buttons>
-      <ion-button [routerLink]="['/outdoor']">Go to outdoor</ion-button>
-    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
@@ -67,7 +64,9 @@
   </div>
 </ion-content>
 
-<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
+
+<!-- TODO: Move this section into a seperate component -->
+<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
     <ion-buttons slot="primary">
       <ion-button (click)="clickedSearch()">
