@@ -114,8 +114,8 @@ export class SVGManager {
               const node: SVGCircleElement = classroom.node as any;
               return {
                 id: classID,
-                  x: parseInt(node.cx.baseVal.value.toString()),
-                  y: parseInt(node.cy.baseVal.value.toString()),
+                x: parseInt(node.cx.baseVal.value.toString()),
+                y: parseInt(node.cy.baseVal.value.toString()),
                 building,
                 floor
               };

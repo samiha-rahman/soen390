@@ -8,10 +8,12 @@ import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { IndoorMapBuilder } from './indoor-map-builder.service';
 import { OutdoorMapBuilder } from './outdoor-map-builder.service';
 import { IndoorMapData } from '../data-models/indoor-map-data';
+import { HttpClientModule } from '@angular/common/http';
 
 describe('MapCoordinator', () => {
   beforeEach(() => {
       TestBed.configureTestingModule({
+        imports: [HttpClientModule],
         providers: [
             {provide: HallBuildingData, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
             {provide: LoyolaCampusData, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
