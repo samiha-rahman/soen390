@@ -30,7 +30,12 @@
       <ion-button (click)="clickedSearch()">
       </ion-button>
     </ion-buttons>
-    <input id="search-input" type="text" placeholder="Enter a location">  
+    <input id="search-input" type="text" placeholder="Enter a location">
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>  
   </ion-toolbar>
 
   <ion-content>
