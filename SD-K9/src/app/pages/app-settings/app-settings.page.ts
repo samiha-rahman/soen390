@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 
 @Component({
-  selector: 'app-appsettings',
-  templateUrl: './appsettings.page.html',
-  styleUrls: ['./appsettings.page.scss'],
+  selector: 'app-settings',
+  templateUrl: './app-settings.page.html',
+  styleUrls: ['./app-settings.page.scss'],
 })
-export class AppsettingsPage implements OnInit {
+export class AppSettings implements OnInit {
 
   constructor(private modalController: ModalController) { }
 

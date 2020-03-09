@@ -3,8 +3,8 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
 import { ModalController, NavController } from '@ionic/angular';
-import { BusPage } from 'src/app/modals/bus/bus.page';
-import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { BusPage } from 'src/app/components/bus/bus.page';
+import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
 
@@ -105,7 +105,7 @@ export class HomePage implements OnInit {
 
   async openModal1() {
     const modal = await this.modalController.create({
-      component: AppsettingsPage
+      component: AppSettings
     });
     return await modal.present();
   }

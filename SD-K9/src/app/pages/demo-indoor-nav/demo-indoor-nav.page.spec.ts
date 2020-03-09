@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 import { DemoIndoorNavPage } from './demo-indoor-nav.page';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
-import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
+import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('DemoIndoorNavPage', () => {

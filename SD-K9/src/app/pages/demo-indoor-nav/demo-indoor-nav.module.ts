@@ -8,9 +8,9 @@ import { IonicPullupModule } from 'ionic-pullup';
 import { DemoIndoorNavPageRoutingModule } from './demo-indoor-nav-routing.module';
 
 import { DemoIndoorNavPage } from './demo-indoor-nav.page';
-import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
-import {BusPage} from '../../modals/bus/bus.page';
-import {AppsettingsPage} from '../../modals/appsettings/appsettings.page';
+import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
+import {BusPage} from '../../components/bus/bus.page';
+import {AppSettings} from '../app-settings/app-settings.page';
 
 @NgModule({
   imports: [
@@ -20,7 +20,7 @@ import {AppsettingsPage} from '../../modals/appsettings/appsettings.page';
     IonicPullupModule,
     DemoIndoorNavPageRoutingModule
   ],
-  declarations: [DemoIndoorNavPage, BusPage, AppsettingsPage, FloorPlanComponent],
-  entryComponents: [BusPage, AppsettingsPage]
+  declarations: [DemoIndoorNavPage, BusPage, AppSettings, FloorPlanComponent],
+  entryComponents: [BusPage, AppSettings]
 })
 export class DemoIndoorNavPageModule {}

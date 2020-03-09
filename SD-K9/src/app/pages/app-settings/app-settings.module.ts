@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AppsettingsPageRoutingModule } from './appsettings-routing.module';
+import { AppsettingsPageRoutingModule } from './app-settings-routing.module';
 
-import { AppsettingsPage } from './appsettings.page';
+import { AppSettings } from './app-settings.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { AppsettingsPage } from './appsettings.page';
     IonicModule,
     AppsettingsPageRoutingModule
   ],
-  declarations: [AppsettingsPage]
+  declarations: [AppSettings]
 })
 export class AppsettingsPageModule {}
