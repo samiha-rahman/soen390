@@ -1,6 +1,4 @@
-import { GoogleCoordinate } from '../interfaces/google-coordinate.model';
-import { Coordinate } from '../interfaces/coordinate';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
 
 export class Location {
     // TODO: create an interface for Coordinate and PositionNode

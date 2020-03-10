@@ -1,3 +1,3 @@
-export declare interface Map {
-    testText: string;
+export interface Map {
+    data: any;
 }

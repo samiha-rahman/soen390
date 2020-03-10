@@ -1,70 +1,28 @@
-import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
-import { ModalController } from '@ionic/angular';
-import { BusPage } from 'src/app/components/bus/bus.page';
-import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
-import { IonPullUpFooterState } from 'ionic-pullup';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { Map } from '../../interfaces/map';
 
 declare var google;
 
-
 @Component({
-  selector: 'app-outdoor',
-  templateUrl: './outdoor.page.html',
-  styleUrls: ['./outdoor.page.scss'],
+  selector: 'app-outdoor-map',
+  templateUrl: './outdoor-map.component.html',
+  styleUrls: ['./outdoor-map.component.scss'],
 })
-export class OutdoorPage implements OnInit {
-  @ViewChild('map', {static: false}) mapElement: ElementRef;
+export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
+  @Input() data: any;
+  @ViewChild('map', {static: true}) mapElement: ElementRef;
   map: any;
   userMarker: any;
   mapInitialised: boolean = false;
   currentPos: any;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
 
-  constructor(
-    private _mapCoordinator: MapCoordinator,
-    private modalController: ModalController,
-    private geolocation: Geolocation
-    ) {
-      this.loadGMaps();
-    }
-
-  ngOnInit() {
-    this.footerState = IonPullUpFooterState.Collapsed;
+  constructor(private _geolocation: Geolocation) {
+    this.loadGMaps();
   }
 
-
-  footerState: IonPullUpFooterState;
-
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: BusPage
-    });
-    return await modal.present();
-  }
-
-  async openModal1() {
-    const modal = await this.modalController.create({
-      component: AppSettings
-    });
-    return await modal.present();
-  }
-
-  //optional capture events
-  footerExpanded() {
-    console.log('Footer expanded!');
-  }
-
-  // optional capture events
-  footerCollapsed() {
-    console.log('Footer collapsed!');
-  }
-
-  // toggle footer states
-  toggleFooter() {
-    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
-  }
+  ngOnInit() {}
 
   loadGMaps() {
     if(typeof google == "undefined" || typeof google.maps == "undefined"){
@@ -86,7 +44,7 @@ export class OutdoorPage implements OnInit {
 
     this.mapInitialised = true;
 
-    this.geolocation.getCurrentPosition().then((position) => {
+    this._geolocation.getCurrentPosition().then((position) => {
 
       this.currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -115,20 +73,22 @@ export class OutdoorPage implements OnInit {
 
       this.drawBuildings();
 
-      this.maintainMap();
+      // this.maintainMap(); //this doesn't release the map. So the FactoryComponent wasnt able to create a second map.
 
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
+  /*
   maintainMap(){
-      let watch = this.geolocation.watchPosition();
+      let watch = this._geolocation.watchPosition();
       watch.subscribe((data) => {
         this.currentPos = new google.maps.LatLng( data.coords.latitude, data.coords.longitude );
         this.userMarker.setPosition( this.currentPos );
       });
   }
+  */
 
   drawBuildings(){
     // TODO : draw all buildings
@@ -161,6 +121,10 @@ export class OutdoorPage implements OnInit {
 
   locateUser(){
     this.map.panTo(this.currentPos);
+  }
+
+  ngOnDestroy() {
+    this.mapInitialised = false;
   }
 
 }

@@ -6,7 +6,7 @@ import { ModalController, NavController } from '@ionic/angular';
 import { BusPage } from 'src/app/components/bus/bus.page';
 import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
 import { IonPullUpFooterState } from 'ionic-pullup';
-import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+import { SVGCoordinate } from 'src/app/models/svg-coordinate.model';
 
 declare var google;
 

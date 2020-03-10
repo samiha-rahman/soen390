@@ -1,4 +1,4 @@
-import { AStarNode } from '../interfaces/a-star.model';
+import { AStarNode } from '../models/a-star.model';
 
 /**
  * * Heap as a Tree:

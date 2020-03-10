@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { SVG } from '@svgdotjs/svg.js';
 import { Observable } from 'rxjs';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
 import {forEach} from '@angular-devkit/schematics';
 import { Location } from '../helpers/location';
 

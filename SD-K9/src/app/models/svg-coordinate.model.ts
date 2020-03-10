@@ -1,4 +1,4 @@
-import { Coordinate } from './coordinate';
+import { Coordinate } from '../interfaces/coordinate';
 
 export interface SVGCoordinate extends Coordinate {
     id: string,

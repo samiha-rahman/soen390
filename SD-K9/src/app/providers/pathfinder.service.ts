@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
-import { AStarNode } from '../interfaces/a-star.model';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
+import { AStarNode } from '../models/a-star.model';
 import { MinHeap } from '../helpers/heap';
 import { SVGManager } from './svg-manager.service';
 

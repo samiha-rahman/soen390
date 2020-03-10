@@ -24,6 +24,7 @@
   </ion-fab>
 </ion-content>
 
+<!-- TODO: Make pull-up menu as its own Component -->
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
     <ion-buttons slot="primary">
