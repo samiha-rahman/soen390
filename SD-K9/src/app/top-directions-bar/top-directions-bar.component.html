@@ -1,0 +1,36 @@
+<ion-header translucent>
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar color="medium" mode="md">
+    <div class="container">
+
+      <ion-searchbar placeholder="Starting point" search-icon="locate-outline" color="light" [(ngModel)]="start"
+        debounce="1000" (ionChange)="sendMessage()">
+      </ion-searchbar>
+      <ion-searchbar placeholder="Destination" search-icon="location-outline" color="light" [(ngModel)]="end"
+        debounce="1000" (ionChange)="sendMessage()">
+      </ion-searchbar>
+
+      <ion-segment scrollable value="TRANSIT" (ionChange)="segmentChanged($event)">
+        <ion-segment-button value="DRIVING" layout="icon-top">
+          <ion-label>Drive</ion-label>
+          <ion-icon name="car-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="WALKING" layout="icon-top">
+          <ion-label>Walk</ion-label>
+          <ion-icon name="walk-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="TRANSIT" layout="icon-top">
+          <ion-label>Transit</ion-label>
+          <ion-icon name="bus-outline"></ion-icon>
+        </ion-segment-button>
+        <ion-segment-button value="BICYCLING" layout="icon-top">
+          <ion-label>Bike</ion-label>
+          <ion-icon name="bicycle-outline"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+
+    </div>
+  </ion-toolbar>
+</ion-header>

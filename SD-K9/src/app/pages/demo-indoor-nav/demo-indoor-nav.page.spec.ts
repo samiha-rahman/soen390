@@ -5,8 +5,10 @@ import { FormsModule } from '@angular/forms';
 import { DemoIndoorNavPage } from './demo-indoor-nav.page';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
+import { Location } from '../../helpers/location';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TopDirectionsBarComponent } from 'src/app/top-directions-bar/top-directions-bar.component';
 import { RoutePullupFooterComponent } from 'src/app/route-pullup-footer/route-pullup-footer.component';
 import { IndoorFloorSelectorComponent } from 'src/app/indoor-floor-selector/indoor-floor-selector.component';
 
@@ -19,8 +21,10 @@ describe('DemoIndoorNavPage', () => {
       declarations: [
         DemoIndoorNavPage,
         FloorPlanComponent,
+        TopDirectionsBarComponent,
         RoutePullupFooterComponent,
         IndoorFloorSelectorComponent,
+        Location
       ],
       imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule, HttpClientModule],
       providers: [{ provide: MapCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } }]
