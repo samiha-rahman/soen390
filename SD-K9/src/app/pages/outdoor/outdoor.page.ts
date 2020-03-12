@@ -168,11 +168,11 @@ export class OutdoorPage implements OnInit {
   }
 
   searchautocomplete(){
-    var map2 = new google.maps.Map(
-  		this.mapElement.nativeElement, 
-  		{	center: {lat: 45.497277, lng: -73.579015},
-  			zoom: 18
-      });
+    // var map2 = new google.maps.Map(
+  	// 	this.mapElement.nativeElement, 
+  	// 	{	center: {lat: 45.497277, lng: -73.579015},
+  	// 		zoom: 18
+    //   });
     let EV_BOUNDS = [
         {"lat": 45.495176, "lng": -73.577883},
         {"lat": 45.495815, "lng": -73.577223},
@@ -189,21 +189,21 @@ export class OutdoorPage implements OnInit {
         fillColor: '#FF0000',
         fillOpacity: 0.35
     });
-    evOverlay.setMap(map2);
+    evOverlay.setMap(this.map);
     
     var input = document.getElementById('search-input'); // Retrieves input location of search bar
     var autocomplete = new google.maps.places.Autocomplete(input);
     // Bind the map's bounds (viewport) property to the autocomplete object,
     // so that the autocomplete requests use the current map bounds for the
     // bounds option in the request.
-    autocomplete.bindTo('bounds', map2);
+    autocomplete.bindTo('bounds', this.map);
     // Set the data fields to return when the user selects a place.
     autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
     var infowindow = new google.maps.InfoWindow();
     var infowindowContent = document.getElementById('infowindow-content');
     infowindow.setContent(infowindowContent);
     var marker = new google.maps.Marker({
-      map: map2,
+      map: this.map,
       anchorPoint: new google.maps.Point(0, -29)
     });
     autocomplete.addListener('place_changed', function () {
@@ -224,11 +224,11 @@ export class OutdoorPage implements OnInit {
         if(typeof this.map == "undefined"){
           console.log('map is undefined before fitbounds');
         }
-        map2.fitBounds(place.geometry.viewport);
+        this.map.fitBounds(place.geometry.viewport);
       }
       else {
-        map2.setCenter(place.geometry.location);
-        map2.setZoom(17);
+        this.map.setCenter(place.geometry.location);
+        this.map.setZoom(17);
       }
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
@@ -243,7 +243,7 @@ export class OutdoorPage implements OnInit {
       infowindowContent.children['place-icon'].src = place.icon;
       infowindowContent.children['place-name'].textContent = place.name;
       infowindowContent.children['place-address'].textContent = address;
-      infowindow.open(map2, marker); // Display the information of marker
+      infowindow.open(this.map, marker); // Display the information of marker
     });
 
   }
