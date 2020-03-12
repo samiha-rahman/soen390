@@ -14,11 +14,11 @@ const routes: Routes = [
   },
   {
     path: 'outdoor',
-    loadChildren: () => import('./pages/outdoor/outdoor.module').then( m => m.OutdoorPageModule)
+    loadChildren: () => import('./pages/outdoor/outdoor.module').then(m => m.OutdoorPageModule)
   },
   {
-    path: 'demo',
-    loadChildren: () => import('./pages/demo-indoor-nav/demo-indoor-nav.module').then( m => m.DemoIndoorNavPageModule)
+    path: 'indoor',
+    loadChildren: () => import('./pages/demo-indoor-nav/demo-indoor-nav.module').then(m => m.DemoIndoorNavPageModule)
   },
 ];
 

@@ -25,6 +25,8 @@ export class DemoIndoorNavPage implements OnInit {
   end = 'H-815';
 
   floor = 8;
+  // TODO: GET FLOORS AUTOMATICALLY BASED ON BUILDING
+  floors = [6, 8];
   building = 'hall';
 
   private _initLocation: Location;
@@ -103,6 +105,8 @@ export class DemoIndoorNavPage implements OnInit {
   //optional capture events
   footerExpanded() {
     console.log('Footer expanded!');
+  changeFloor(event) {
+    this.floor = event.floor;
   }
 
   // optional capture events
