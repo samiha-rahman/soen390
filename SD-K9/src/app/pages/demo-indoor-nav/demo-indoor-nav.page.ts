@@ -1,14 +1,10 @@
 
-export class DemoIndoorNavPageModule {}
+export class DemoIndoorNavPageModule { }
 
 import { Component, OnInit } from '@angular/core';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
-import { ModalController } from '@ionic/angular';
-import { BusPage } from 'src/app/modals/bus/bus.page';
-import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
-import { IonPullUpFooterState } from 'ionic-pullup';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
 
 @Component({
@@ -29,19 +25,20 @@ export class DemoIndoorNavPage implements OnInit {
   floors = [6, 8];
   building = 'hall';
 
+  steps: any[];
+
   private _initLocation: Location;
   private _destination: Location;
 
   constructor(
-      private _mapCoordinator: MapCoordinator,
-      private _svgService: SVGManager,
-      private modalController: ModalController
+    private _mapCoordinator: MapCoordinator,
+    private _svgService: SVGManager,
   ) { }
 
   ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
-    this.footerState = IonPullUpFooterState.Collapsed;
+    this.steps = this.getRouteSteps();
   }
 
   async toSVGCoordinate(id: string) {
@@ -51,7 +48,7 @@ export class DemoIndoorNavPage implements OnInit {
       building = 'hall';
     } else {
       building = 'loyola';
-    };
+    }
     if (id.split('-')[1].length === 3) {
       floor = parseInt(id.split('-')[1].substr(0, 1));
     } else {
@@ -60,7 +57,7 @@ export class DemoIndoorNavPage implements OnInit {
     let svgCoordinate: SVGCoordinate;
     svgCoordinate = await this._svgService.getClassroom(id, building, floor);
 
-    return(svgCoordinate);
+    return (svgCoordinate);
   }
 
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
@@ -86,37 +83,34 @@ export class DemoIndoorNavPage implements OnInit {
     this._mapCoordinator.setVerticalTransportationMode(mode);
   }
 
-  footerState: IonPullUpFooterState;
-
-  async openModal() {
-    const modal = await this.modalController.create({
-      component: BusPage
-    });
-    return await modal.present();
+  startRoute(event) {
+    console.log(event)
   }
 
-  async openModal1() {
-    const modal = await this.modalController.create({
-      component: AppsettingsPage
-    });
-    return await modal.present();
-  }
-
-  //optional capture events
-  footerExpanded() {
-    console.log('Footer expanded!');
   changeFloor(event) {
     this.floor = event.floor;
   }
 
-  // optional capture events
-  footerCollapsed() {
-    console.log('Footer collapsed!');
+  getRouteSteps() {
+    // TODO: GENERATE STEPS DYNAMICALLY
+    return [
+      { icon: 'arrow-forward-circle', text: 'Turn right in 100m' },
+      { icon: 'arrow-back-circle', text: 'Turn left in 100m' },
+      { icon: 'arrow-forward-circle', text: 'Turn right in 100m' },
+      { icon: 'arrow-back-circle', text: 'Turn left in 100m' },
+      { icon: 'arrow-back-circle', text: 'Turn left in 100m' },
+      { icon: 'arrow-forward-circle', text: 'Turn right in 100m' },
+      { icon: 'arrow-forward-circle', text: 'Turn right in 100m' },
+      { icon: 'arrow-back-circle', text: 'Turn left in 100m' },
+      { icon: 'arrow-back-circle', text: 'Turn left in 100m' }
+    ]
   }
 
-  // toggle footer states
-  toggleFooter() {
-    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  getRouteDetails() {
+    return {
+      time: '2min',
+      distance: '0.4 km'
+    }
   }
 
 }

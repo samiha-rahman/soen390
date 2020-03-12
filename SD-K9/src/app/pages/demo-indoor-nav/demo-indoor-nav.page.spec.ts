@@ -7,6 +7,7 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
+import { RoutePullupFooterComponent } from 'src/app/route-pullup-footer/route-pullup-footer.component';
 import { IndoorFloorSelectorComponent } from 'src/app/indoor-floor-selector/indoor-floor-selector.component';
 
 describe('DemoIndoorNavPage', () => {
@@ -18,6 +19,7 @@ describe('DemoIndoorNavPage', () => {
       declarations: [
         DemoIndoorNavPage,
         FloorPlanComponent,
+        RoutePullupFooterComponent,
         IndoorFloorSelectorComponent,
       ],
       imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule, HttpClientModule],

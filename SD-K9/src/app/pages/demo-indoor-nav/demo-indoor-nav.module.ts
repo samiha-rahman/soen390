@@ -9,8 +9,11 @@ import { DemoIndoorNavPageRoutingModule } from './demo-indoor-nav-routing.module
 
 import { DemoIndoorNavPage } from './demo-indoor-nav.page';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
-import {BusPage} from '../../modals/bus/bus.page';
-import {AppsettingsPage} from '../../modals/appsettings/appsettings.page';
+import { BusPage } from '../../modals/bus/bus.page';
+import { AppsettingsPage } from '../../modals/appsettings/appsettings.page';
+import { TopDirectionsBarComponent } from 'src/app/top-directions-bar/top-directions-bar.component';
+import { IndoorFloorSelectorComponent } from 'src/app/indoor-floor-selector/indoor-floor-selector.component';
+import { RoutePullupFooterComponent } from 'src/app/route-pullup-footer/route-pullup-footer.component';
 
 @NgModule({
   imports: [
@@ -20,7 +23,15 @@ import {AppsettingsPage} from '../../modals/appsettings/appsettings.page';
     IonicPullupModule,
     DemoIndoorNavPageRoutingModule
   ],
-  declarations: [DemoIndoorNavPage, BusPage, AppsettingsPage, FloorPlanComponent],
+  declarations: [
+    DemoIndoorNavPage,
+    BusPage,
+    AppsettingsPage,
+    FloorPlanComponent,
+    TopDirectionsBarComponent,
+    IndoorFloorSelectorComponent,
+    RoutePullupFooterComponent
+  ],
   entryComponents: [BusPage, AppsettingsPage]
 })
-export class DemoIndoorNavPageModule {}
+export class DemoIndoorNavPageModule { }
