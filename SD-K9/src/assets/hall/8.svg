@@ -1,7 +1,8 @@
 <svg version="1.1" x="0px" y="0px" viewBox="0 0 617.875 566.875">
-<g id="Floor">
+<!-- TODO: INCLUDE ONCE STATE PATTERN FOR INDOOR ROUTES IS IMPLEMENTED -->
+<!-- <g id="Floor">
 	<rect x="1.143" y="1.083" style="fill:#FFF7F0;stroke:#B79065;stroke-width:2;" width="615.712" height="564.779"/>
-</g>
+</g> --> 
 <g id="Rooms">
 	<polygon style="fill:#F2E0CC;stroke:#B79065;" points="404.743,194.176 404.743,169.447 419.892,169.44 419.898,184.181 
 		444.391,184.185 444.391,211.264 420.697,211.264 420.859,194.161 	"/>

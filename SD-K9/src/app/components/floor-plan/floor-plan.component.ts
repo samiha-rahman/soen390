@@ -21,7 +21,8 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
 
   private _draw;
 
-  constructor(private _svgManager: SVGManager) {}
+  constructor(private _svgManager: SVGManager) {
+  }
 
   ngOnInit() {
     this._drawFloorplan(this.data.building, this.data.floor);
@@ -31,7 +32,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
     this._svgManager.getSVG(`${building}/${floor}`).subscribe(floorplan => {
       /* find the svg container, clear it and replace with new floorplan */
       this._draw = SVG("#floorplan");
-      this._draw.clear();
+      // this._draw.clear();
       this._draw.svg(floorplan);
     });
   }
