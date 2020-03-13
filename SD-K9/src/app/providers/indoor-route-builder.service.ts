@@ -21,9 +21,7 @@ export class IndoorRouteBuilder implements RouteBuilder {
         // TODO: get the building and floor dynamically from class id
         // TODO: make it work for multiple floors
         /* Getting the shortest path as a list of nodes */
-        let partOne = await this._pathfinder.getShortestPath(initCoordinate, finalCoordinate, building, floor);
-
-        this._svgManager.drawSVGPath(partOne, true);
-
+        let path = await this._pathfinder.getShortestPath(initCoordinate, finalCoordinate, building, floor);
+        this._svgManager.drawSVGPath(path, true);
     }
 }

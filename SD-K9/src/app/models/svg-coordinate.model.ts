@@ -1,6 +1,6 @@
-import { Coordinate } from '../interfaces/coordinate';
+import { StateAction } from '../interfaces/state-action';
 
-export interface SVGCoordinate extends Coordinate {
+export interface SVGCoordinate {
     id: string,
     building: string,
     floor: number,
