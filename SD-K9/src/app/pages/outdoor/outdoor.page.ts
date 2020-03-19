@@ -168,29 +168,6 @@ export class OutdoorPage implements OnInit {
   }
 
   searchautocomplete(){
-    // var map2 = new google.maps.Map(
-  	// 	this.mapElement.nativeElement, 
-  	// 	{	center: {lat: 45.497277, lng: -73.579015},
-  	// 		zoom: 18
-    //   });
-    let EV_BOUNDS = [
-        {"lat": 45.495176, "lng": -73.577883},
-        {"lat": 45.495815, "lng": -73.577223},
-        {"lat": 45.496030, "lng": -73.577695},
-        {"lat": 45.495755, "lng": -73.578012},
-        {"lat": 45.496116, "lng": -73.578800},
-        {"lat": 45.495778, "lng": -73.579101}
-    ];
-    let evOverlay = new google.maps.Polygon({
-        paths: EV_BOUNDS,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35
-    });
-    evOverlay.setMap(this.map);
-    
     var input = document.getElementById('search-input'); // Retrieves input location of search bar
     var autocomplete = new google.maps.places.Autocomplete(input);
     // Bind the map's bounds (viewport) property to the autocomplete object,
