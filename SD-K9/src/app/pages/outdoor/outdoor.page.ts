@@ -119,7 +119,7 @@ export class OutdoorPage implements OnInit {
 
       this.maintainMap();
 
-      this.searchautocomplete();
+      this.searchplaces();
 
     }).catch((error) => {
       console.log('Error getting location', error);
@@ -167,7 +167,7 @@ export class OutdoorPage implements OnInit {
     this.map.panTo(this.currentPos);
   }
 
-  searchautocomplete(){
+  searchplaces(){
     var input = document.getElementById('search-input'); // Retrieves input location of search bar
     var autocomplete = new google.maps.places.Autocomplete(input);
     // Bind the map's bounds (viewport) property to the autocomplete object,
@@ -183,10 +183,8 @@ export class OutdoorPage implements OnInit {
       map: this.map,
       anchorPoint: new google.maps.Point(0, -29)
     });
+    let map = this.map;
     autocomplete.addListener('place_changed', function () {
-      if(typeof this.map == "undefined"){
-        console.log('map is undefined after addlistener');
-      }
       infowindow.close();
       marker.setVisible(false);
       var place = autocomplete.getPlace();
@@ -198,14 +196,11 @@ export class OutdoorPage implements OnInit {
       }
       // If the place has a geometry, then present it on a map.
       if (place.geometry.viewport) {
-        if(typeof this.map == "undefined"){
-          console.log('map is undefined before fitbounds');
-        }
-        this.map.fitBounds(place.geometry.viewport);
+        map.fitBounds(place.geometry.viewport);
       }
       else {
-        this.map.setCenter(place.geometry.location);
-        this.map.setZoom(17);
+        map.setCenter(place.geometry.location);
+        map.setZoom(17);
       }
       marker.setPosition(place.geometry.location);
       marker.setVisible(true);
@@ -220,7 +215,7 @@ export class OutdoorPage implements OnInit {
       infowindowContent.children['place-icon'].src = place.icon;
       infowindowContent.children['place-name'].textContent = place.name;
       infowindowContent.children['place-address'].textContent = address;
-      infowindow.open(this.map, marker); // Display the information of marker
+      infowindow.open(map, marker); // Display the information of marker
     });
 
   }
