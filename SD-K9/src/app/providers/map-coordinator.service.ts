@@ -1,22 +1,17 @@
 import { Injectable } from "@angular/core";
-import { MapDirector } from '../helpers/map-director';
-import { Map } from '../interfaces/map';
+import { MapItem } from '../helpers/map-item';
 import { Location } from '../helpers/location';
-import { IndoorMapBuilder } from './indoor-map-builder.service';
-import { OutdoorMapBuilder } from './outdoor-map-builder.service';
-import { HallBuildingData } from '../data-models/hall-building-data';
-import { LoyolaCampusData } from '../data-models/loyola-campus-data';
 import { RouteNavigator } from '../helpers/route-navigator';
 import { IndoorRouteBuilder } from './indoor-route-builder.service';
-import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
 import { SVGManager } from './svg-manager.service';
+import { FloorPlanComponent } from '../components/floor-plan/floor-plan.component';
+import { OutdoorMapComponent } from '../components/outdoor-map/outdoor-map.component';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MapCoordinator {
-    map: Map = {testText: ''};
+    map: MapItem = new MapItem(Location, '');
     private _initLocation: Location;
     private _finalLocation: Location;
     private _verticalTransportationMode = 'escalators';
@@ -24,12 +19,7 @@ export class MapCoordinator {
     private _routeLocationList = [];
 
     constructor(
-        private _hallBuildingData: HallBuildingData,
-        private _loyolaCampusData: LoyolaCampusData,
-        private _indoorMapBuilder: IndoorMapBuilder,
-        private _outdoorMapBuilder: OutdoorMapBuilder,
         private _indoorRouteBuilder: IndoorRouteBuilder,
-        private _outdoorRouteBuilder: OutdoorRouteBuilder,
         private _svgManager: SVGManager
     ) {}
 
@@ -39,34 +29,13 @@ export class MapCoordinator {
     }
     
     // Refactor code once google maps is integrated
-    getMap(iInitLocation: Location, iDestination?: Location) : Map {
-        let mapDirector = new MapDirector();
-        this._initLocation = iInitLocation;
-        
-        if (iDestination) {
-            this._finalLocation = iDestination;
+    getMap(type: string) : MapItem {
+        if (type == 'hall') {
+            return new MapItem(FloorPlanComponent, {floor: 8, building: type});
         }
-
-        // if Location is within boundary of campus
-        //    load indoorMapBuilder.
-        // i.e if Point exists in Polygon 
-        //     -> Google Maps
-        // for testing pattern, polygon is one point only :)
-        if (this._hallBuildingData.containsPoint(this._initLocation)) {
-            console.log("inside Hall Building")
-            this.map = mapDirector.makeIndoorMap(this._indoorMapBuilder, this._hallBuildingData);
+        else {
+            return new MapItem(OutdoorMapComponent, {});
         }
-        else if (this._loyolaCampusData.containsPoint(this._initLocation)) {
-            console.log("inside Loyola Campus");
-            this.map = mapDirector.makeIndoorMap(this._indoorMapBuilder, this._loyolaCampusData);
-        }
-        else  {
-            console.log("outside campus")
-            this.map = mapDirector.makeOutdoorMap(this._outdoorMapBuilder);
-        }
-        // console.log(this.map);
-
-        return this.map;
     }
     
     // Refactor code

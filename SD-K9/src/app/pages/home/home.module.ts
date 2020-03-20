@@ -7,9 +7,9 @@ import { RouterModule } from '@angular/router';
 import { IonicPullupModule } from 'ionic-pullup';
 
 import { HomePage } from './home.page';
-import { BusPage } from 'src/app/modals/bus/bus.page';
-import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
-import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
+import { BusPage } from 'src/app/components/bus/bus.page';
+import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
+import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
 
 @NgModule({
   imports: [
@@ -24,7 +24,7 @@ import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
       }
     ])
   ],
-  declarations: [HomePage, BusPage, AppsettingsPage, FloorPlanComponent],
-  entryComponents: [BusPage, AppsettingsPage]
+  declarations: [HomePage, BusPage, AppSettings, FloorPlanComponent],
+  entryComponents: [BusPage, AppSettings]
 })
 export class HomePageModule { }

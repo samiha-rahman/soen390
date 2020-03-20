@@ -3,7 +3,7 @@ import { RouteBuilder } from "../interfaces/route-builder";
 import { Location } from '../helpers/location';
 import { SVGManager } from './svg-manager.service';
 import { Pathfinder } from './pathfinder.service';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
 
 @Injectable()
 export class IndoorRouteBuilder implements RouteBuilder {

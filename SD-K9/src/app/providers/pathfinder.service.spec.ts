@@ -3,7 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { Location } from '../helpers/location';
 import { Pathfinder } from './pathfinder.service';
 import { HttpClientModule } from '@angular/common/http';
-import { SVGCoordinate } from '../interfaces/svg-coordinate.model';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
 
 describe('Pathfinder', () => {
     beforeEach(() => {

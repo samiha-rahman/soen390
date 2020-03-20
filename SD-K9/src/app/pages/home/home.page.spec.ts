@@ -5,7 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HomePage } from './home.page';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
-import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
+import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
 
 describe('HomePage', () => {
