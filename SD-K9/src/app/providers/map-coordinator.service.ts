@@ -18,6 +18,7 @@ import { Route } from '../interfaces/route';
 })
 export class MapCoordinator {
     map: MapItem = new MapItem(Location, '');
+    private _outdoorIndex: number = 1;
 
     constructor(
         private _outdoorRouteBuilder: OutdoorRouteBuilder,
@@ -41,7 +42,7 @@ export class MapCoordinator {
             return new MapItem(FloorPlanComponent, {id: 1, floor: 1, building: 'loyola'});
         }
         else if (!parsedLocation) {
-            return new MapItem(OutdoorMapComponent, {id: 1});
+            return new MapItem(OutdoorMapComponent, {id: this._outdoorIndex});
         }
         else {
             let data: any = parsedLocation.valueOf();       // TODO: Give this a type (depends on return type of _parseLocation()) 
@@ -85,14 +86,14 @@ export class MapCoordinator {
         let parsedSource = this._parseLocation(route.source);
         let parsedDestination = this._parseLocation(route.destination);
 
-        if (typeof parsedSource == "string" && typeof parsedDestination == "string") {
+        if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
             this._outdoorRouteBuilder.buildRoute(route)
         }
-        else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {
+        else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
             /* 
             * Outdoor map
             */
-            this._prepareOutdoor(index, maps, route.source, this._buildingPostalCode(parsedDestination.building));
+            this._prepareOutdoor(maps, route.source, this._buildingPostalCode(parsedDestination.building));
 
             /*
             * Indoor map 
@@ -101,18 +102,17 @@ export class MapCoordinator {
             this._prepareIndoor(maps, route.destination, parsedDestination);
             
         }
-        else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {
+        else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
             /*
             * Indoor Map 1
             */
-           parsedSource.id = index;
+            parsedSource.id = index;
             this._prepareIndoor(maps, route.source, parsedSource);
 
             /*
             * Outdoor Map
             */
-            let outdoorIndex = 1;
-            this._prepareOutdoor(outdoorIndex, maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
 
             /*
             * Indoor Map 2
@@ -120,14 +120,26 @@ export class MapCoordinator {
             parsedDestination.id = ++index;
             this._prepareIndoor(maps, route.destination, parsedDestination);
         }
+        else if (typeof parsedSource != "string" && typeof parsedDestination == "string") {     // Indoor to Outdoor
+            /*
+            * Indoor Map
+            */
+            parsedSource.id = index;
+            this._prepareIndoor(maps, route.source, parsedSource);
+
+            /* 
+            * Outdoor map
+            */
+            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), route.destination);
+        }
         return maps;
     }
 
-    private _prepareOutdoor(index: number, maps: MapItem[], startPlace: string, endPlace: string) {
-        maps.push(new MapItem(OutdoorMapComponent, {id: index}));
+    private _prepareOutdoor(maps: MapItem[], startPlace: string, endPlace: string) {
+        maps.push(new MapItem(OutdoorMapComponent, {id: this._outdoorIndex}));
 
         let sourceDestination: SourceDestination = {source: startPlace, destination: endPlace};
-        let route: Route = {id: index, route: sourceDestination};
+        let route: Route = {id: this._outdoorIndex, route: sourceDestination};
         this._routeStore.storeRoute(route);
 
         this._outdoorRouteBuilder.buildRoute(sourceDestination);
