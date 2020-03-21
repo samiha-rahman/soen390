@@ -46,7 +46,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       this.map = this._googleStore.getGoogleMapState().map;
 
       this._outdoorRouteBuilder.buildRoute(this._routeStore.getRoute(this.data.id).route);
-      console.log(this._routeStore.getRoute(this.data.id).route);
     }
   }
 

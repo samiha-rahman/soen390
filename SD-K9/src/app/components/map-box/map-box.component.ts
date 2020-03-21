@@ -4,8 +4,6 @@ import { MapDirective } from '../../directives/map.directive';
 import { Map } from '../../interfaces/map';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
-import { Route } from 'src/app/interfaces/route';
-import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 
 @Component({
   selector: 'app-map-box',
@@ -25,10 +23,10 @@ export class MapBoxComponent implements OnInit, OnDestroy {
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
     private _routeStore: RouteStore,
-    private _mapCoordinator: MapCoordinator
   ) {
     this._unsubscribe = this._routeStore.subscribe(() => {
       this._numRoutes = this._routeStore.getRouteState().routes.length - 1;
+      this.numRoutes = this._numRoutes;
     });
    }
 
@@ -37,8 +35,7 @@ export class MapBoxComponent implements OnInit, OnDestroy {
   }
   
   ngOnChanges() {
-    this._currentMapIndex = -1;;
-    this.numRoutes = 1;
+    this._currentMapIndex = -1;
     this._loadComponent(1);
   }
 
@@ -54,12 +51,6 @@ export class MapBoxComponent implements OnInit, OnDestroy {
     const componentRef = viewContainerRef.createComponent(componentFactory); //adds selected component to the ViewContainerRef
     (<Map>componentRef.instance).data = mapItem.data;
     this.currentMapIndex = this._currentMapIndex;
-
-    // TODO: refactor below: move this in better place
-    if (this._currentMapIndex === 1) {
-      let indoorRoute: Route = this._routeStore.getRoute(2);
-      this._mapCoordinator.getRoute(indoorRoute.route.source, indoorRoute.route.destination);
-    }
   }
 
   nextMap() {

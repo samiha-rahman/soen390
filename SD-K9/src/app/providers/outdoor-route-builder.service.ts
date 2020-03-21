@@ -1,6 +1,4 @@
 import { Injectable } from "@angular/core";
-import { RouteBuilder } from "../interfaces/route-builder";
-import { Location } from '../helpers/location';
 import { GoogleStore } from './state-stores/google-store.service';
 import { RouteStore } from './state-stores/route-store.service';
 import { Route } from '../interfaces/route';
@@ -33,10 +31,18 @@ export class OutdoorRouteBuilder {
     }
 
     buildRoute(formValues: SourceDestination) {
-        if (!this._googleStore.getGoogleMapState().route) {
-            this._addRouteState(formValues);
-        }
-        this._calculateAndDisplayRoute(formValues);
+        this.directionsService.route({
+            origin: formValues.source,
+            destination: formValues.destination,
+            travelMode: this.transportMode
+        }, (response, status) => {
+            if (status === 'OK') {
+            this.directionsDisplay.setDirections(response);
+            } else {
+            window.alert('Directions request failed due to ' + status);
+            }
+        });
+        this.directionsDisplay.setMap(this.map);
     }
 
     private _addRouteState(formValues: SourceDestination) {
@@ -60,6 +66,10 @@ export class OutdoorRouteBuilder {
             }
         });
         this.directionsDisplay.setMap(this.map);
+    }
+
+    clearRoute() {
+        this._googleStore.removeRoute();
     }
 
     //Travel mode selected
