@@ -99,33 +99,57 @@ export class MapCoordinator {
             * Indoor map 
             */
             parsedDestination.id = index;
-            this._prepareIndoor(maps, route.destination, parsedDestination);
+            this._prepareIndoor(maps, parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
             
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
-            /*
-            * Indoor Map 1
-            */
-            parsedSource.id = index;
-            this._prepareIndoor(maps, route.source, parsedSource);
+            if(parsedSource.building === parsedDestination.building) {
+                let difference = parsedDestination.floor - parsedSource.floor;
 
-            /*
-            * Outdoor Map
-            */
-            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+                this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.floor));
 
-            /*
-            * Indoor Map 2
-            */
-            parsedDestination.id = ++index;
-            this._prepareIndoor(maps, route.destination, parsedDestination);
+                if (difference >= 0) {
+                    let nextFloor: number = parsedSource.floor + 1;
+                    let beforeDestFloor: number = parsedDestination.floor - 1;
+                    for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
+                        this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                    }
+                }
+                else {
+                    let nextFloor: number = parsedSource.floor - 1;
+                    let beforeDestFloor: number = parsedDestination.floor + 1;
+                    for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
+                        this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                    }
+                }
+
+                parsedDestination.id = ++index;
+                this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.floor));
+            } else {
+                /*
+                * Indoor Map 1
+                */
+                parsedSource.id = index;
+                this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+    
+                /*
+                * Outdoor Map
+                */
+                this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+    
+                /*
+                * Indoor Map 2
+                */
+                parsedDestination.id = ++index;
+                this._prepareIndoor(maps,parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
+            }
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination == "string") {     // Indoor to Outdoor
             /*
             * Indoor Map
             */
             parsedSource.id = index;
-            this._prepareIndoor(maps, route.source, parsedSource);
+            this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
 
             /* 
             * Outdoor map
@@ -144,20 +168,24 @@ export class MapCoordinator {
 
         this._outdoorRouteBuilder.buildRoute(sourceDestination);
     }
+    // this._buildingEntry(parsedRoute.building)
 
-    private async _prepareIndoor(maps: MapItem[], classID: string, parsedRoute: FloorPlanIdentifier) {
+    private async _prepareIndoor(maps: MapItem[], parsedRoute: FloorPlanIdentifier, classID?: string, entryID?: string) {
         maps.push(new MapItem(FloorPlanComponent, parsedRoute));
-        // TODO: remove Location layer and simplify to reate SVGCoordinate directly
-        // Setup initial SVGCoordinate 
-        let initLocation: Location = new Location();
-        let iSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(this._buildingEntry(parsedRoute.building), parsedRoute.building, parsedRoute.floor); // TODO: get building entry point from config
-        initLocation.setCoordinate(await iSvgCoordinate);
-        // Setup final SVGCoordinate
-        let finalLocation: Location = new Location();
-        let fSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(classID, parsedRoute.building, parsedRoute.floor);
-        finalLocation.setCoordinate(await fSvgCoordinate);
-        // activate pathfinder
-        this._routeStore.storeRoute({id: parsedRoute.id, route: {source: initLocation, destination: finalLocation}});
+
+        if (classID && entryID) {
+            // TODO: remove Location layer and simplify to reate SVGCoordinate directly
+            // Setup initial SVGCoordinate 
+            let initLocation: Location = new Location();
+            let iSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(entryID, parsedRoute.building, parsedRoute.floor); // TODO: get building entry point from config
+            initLocation.setCoordinate(await iSvgCoordinate);
+            // Setup final SVGCoordinate
+            let finalLocation: Location = new Location();
+            let fSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(classID, parsedRoute.building, parsedRoute.floor);
+            finalLocation.setCoordinate(await fSvgCoordinate);
+            // activate pathfinder
+            this._routeStore.storeRoute({id: parsedRoute.id, route: {source: initLocation, destination: finalLocation}});
+        }
     }
     
     // TODO: delete when routes are extracted from map-coordinator to route-coordinator
@@ -197,6 +225,15 @@ export class MapCoordinator {
                 return "H-806";
             case 'loyola':
                 return "L-101";
+        }
+    }
+    // Temp: to test for indoor in H only!!!
+    private _floorEntry(floor: number): string {
+        switch(floor) {
+            case 6:
+                return "H-606";
+            case 8:
+                return "H-806";
         }
     }
 

@@ -18,7 +18,7 @@ export class MapBoxComponent implements OnInit, OnDestroy {
   private _unsubscribe: UnsubscribeCallback;
   
   public currentMapIndex: number = -1;
-  public numRoutes: number = -1;
+  public numMaps: number;
 
   constructor(
     private _componentFactoryResolver: ComponentFactoryResolver,
@@ -26,16 +26,18 @@ export class MapBoxComponent implements OnInit, OnDestroy {
   ) {
     this._unsubscribe = this._routeStore.subscribe(() => {
       this._numRoutes = this._routeStore.getRouteState().routes.length - 1;
-      this.numRoutes = this._numRoutes;
+      this.numMaps = this.maps.length - 1;
     });
    }
 
   ngOnInit() {
+    this.numMaps = this.maps.length - 1;
     this._loadComponent(1);
   }
   
   ngOnChanges() {
     this._currentMapIndex = -1;
+    this.numMaps = this.maps.length - 1;
     this._loadComponent(1);
   }
 
