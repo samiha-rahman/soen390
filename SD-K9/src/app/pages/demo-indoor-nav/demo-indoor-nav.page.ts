@@ -6,6 +6,9 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
 import { Location } from '../../helpers/location';
 import { SVGCoordinate } from 'src/app/interfaces/svg-coordinate.model';
+import { LoadingController } from '@ionic/angular';
+import { RouteOptions } from 'src/app/interfaces/route-options';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-demo',
@@ -17,15 +20,15 @@ export class DemoIndoorNavPage implements OnInit {
   showFloorPlan = true;
   hasNextRoute = false;
 
-  start = 'H-631';
-  end = 'H-815';
-
   floor = 8;
   // TODO: GET FLOORS AUTOMATICALLY BASED ON BUILDING
   floors = [6, 8];
   building = 'hall';
 
   steps: any[];
+  options: RouteOptions;
+
+  routeDetails;
 
   private _initLocation: Location;
   private _destination: Location;
@@ -33,9 +36,11 @@ export class DemoIndoorNavPage implements OnInit {
   constructor(
     private _mapCoordinator: MapCoordinator,
     private _svgService: SVGManager,
+    private _loadingController: LoadingController,
+    private _toastController: ToastController
   ) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this._initLocation = new Location();
     this._destination = new Location();
     this.steps = this.getRouteSteps();
@@ -44,7 +49,10 @@ export class DemoIndoorNavPage implements OnInit {
   async toSVGCoordinate(id: string) {
     let building;
     let floor;
-    if (id.split('-')[0] === 'H') {
+    if (id.split('-').length !== 2) {
+      throw { message: 'Invalid classroom format.' };
+    }
+    if (id.split('-')[0].toUpperCase() === 'H') {
       building = 'hall';
     } else {
       building = 'loyola';
@@ -61,12 +69,16 @@ export class DemoIndoorNavPage implements OnInit {
   }
 
   // TODO: Base on user input, determine if we must use SVGCoordinate or GoogleCoordinate for Location.Coordinate
-  async getRouteTest() {
-    this._initLocation.setCoordinate(await this.toSVGCoordinate(this.start));
+  async getRoute(start, end) {
+    this._initLocation.setCoordinate(await this.toSVGCoordinate(start));
     this.floor = this._initLocation.getCoordinate().floor;
-    this._destination.setCoordinate(await this.toSVGCoordinate(this.end));
+    this._destination.setCoordinate(await this.toSVGCoordinate(end));
 
-    await this._mapCoordinator.getRoute(this._initLocation, this._destination);
+    this._mapCoordinator.getRoute(this._initLocation, this._destination)
+      .catch((e) => {
+        console.log(e);
+      });
+
     this.hasNextRoute = this._mapCoordinator.hasNextRoute();
   }
 
@@ -83,8 +95,49 @@ export class DemoIndoorNavPage implements OnInit {
     this._mapCoordinator.setVerticalTransportationMode(mode);
   }
 
+  async previewRoute(event) {
+    const loading = await this._loadingController.create({
+      message: 'Please wait...'
+    });
+    await loading.present();
+
+    this.options = event;
+    this.getRoute(this.options.start, this.options.end)
+      .catch(async (error) => {
+        let toast: HTMLIonToastElement;
+
+        if (error && error.status === 404) {
+          console.log(this.floor, this.building)
+          toast = await this._toastController.create({
+            message: 'Input Floor plan was not implemented.',
+            color: 'danger',
+            duration: 2000
+          });
+        } else {
+          toast = await this._toastController.create({
+            message: error.message,
+            color: 'danger',
+            duration: 2000
+          });
+        }
+        loading.dismiss();
+        toast.present();
+      });
+
+    this.routeDetails = {
+      time: '2min',
+      distance: '0.4 km'
+    };
+
+    loading.dismiss();
+  }
+
   startRoute(event) {
-    console.log(event)
+    // TODO: IMPLEMENT STARTROUTE
+    if (this.options) {
+      console.log(event);
+      console.log(this.options);
+    }
   }
 
   changeFloor(event) {
@@ -107,10 +160,12 @@ export class DemoIndoorNavPage implements OnInit {
   }
 
   getRouteDetails() {
-    return {
-      time: '2min',
-      distance: '0.4 km'
-    }
+    // TODO: GENERATE DETAILS DYNAMICALLY
+    return this.routeDetails;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
 
 }

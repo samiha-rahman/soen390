@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, OnChanges } from '@angular/core';
 import { IonPullUpFooterState } from 'ionic-pullup';
 
 @Component({
@@ -10,11 +10,13 @@ export class RoutePullupFooterComponent implements OnInit {
 
   @Input() routeType: string;
   @Input() steps: any[];
-  @Input() timeToDest: string;
-  @Input() distanceToDest: string;
+  @Input() details: string;
+
+  @Output() startRouteEvent: EventEmitter<any> = new EventEmitter();
 
 
   footerState: IonPullUpFooterState;
+  hasRouteOptions = false;
 
   constructor() { }
 
@@ -40,7 +42,11 @@ export class RoutePullupFooterComponent implements OnInit {
 
   startRoute() {
     this.footerState = IonPullUpFooterState.Expanded;
-    // TODO: ADD LOGIC
+    this.sendMessage();
+  }
+
+  sendMessage() {
+    this.startRouteEvent.emit('start route button pressed');
   }
 
 }

@@ -12,7 +12,7 @@
         debounce="1000" (ionChange)="sendMessage()">
       </ion-searchbar>
 
-      <ion-segment scrollable value="TRANSIT" (ionChange)="segmentChanged($event)">
+      <ion-segment scrollable value="TRANSIT" (ionChange)="transportModeChanged($event)">
         <ion-segment-button value="DRIVING" layout="icon-top">
           <ion-label>Drive</ion-label>
           <ion-icon name="car-outline"></ion-icon>
@@ -28,6 +28,19 @@
         <ion-segment-button value="BICYCLING" layout="icon-top">
           <ion-label>Bike</ion-label>
           <ion-icon name="bicycle-outline"></ion-icon>
+        </ion-segment-button>
+      </ion-segment>
+
+      <ion-segment *ngIf="indoor" scrollable value="ESCALATOR" (ionChange)="verticalModeChanged($event)">
+
+        <ion-segment-button value="ESCALATOR">
+          <ion-label>Escalator</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="ELEVATOR">
+          <ion-label>Elevator</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="STAIRS">
+          <ion-label>Stairs</ion-label>
         </ion-segment-button>
       </ion-segment>
 

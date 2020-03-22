@@ -1,4 +1,4 @@
-<top-directions-bar (formCompleteEvent)="startRoute($event)"> </top-directions-bar>
+<top-directions-bar (formCompleteEvent)="previewRoute($event)" indoor="true"> </top-directions-bar>
 
 <ion-content>
   <indoor-floor-selector [current-floor]='floor' [floors]='floors' (floorChangeEvent)="changeFloor($event)">
@@ -61,7 +61,7 @@
 </ion-content>
 
 <ion-footer>
-  <route-pullup-footer [steps]="getRouteSteps()" routeType='indoor' [timeToDest]="getRouteDetails().time"
-    [distanceToDest]="getRouteDetails().distance">
+  <route-pullup-footer [steps]="getRouteSteps()" routeType='indoor' [details]="getRouteDetails()"
+    (startRouteEvent)="startRoute($event)">
   </route-pullup-footer>
 </ion-footer>

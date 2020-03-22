@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'top-directions-bar',
@@ -12,25 +12,35 @@ export class TopDirectionsBarComponent implements OnInit {
   start: string;
   end: string;
   transport: string;
+  vertical: string;
+
+  @Input() indoor: boolean;
 
   constructor() { }
 
   ngOnInit() {
     this.transport = 'TRANSIT';
+    this.vertical = 'ESCALATOR';
   }
 
-  segmentChanged(event) {
+  transportModeChanged(event) {
     this.transport = event.detail.value;
     this.sendMessage();
   }
 
+  verticalModeChanged(event) {
+    this.vertical = event.detail.value;
+    this.sendMessage();
+  }
+
   sendMessage() {
-    if (this.start && this.end && this.transport) {
+    if (this.start && this.end && this.transport && this.vertical) {
       this.formCompleteEvent.emit(
         {
           start: this.start,
           end: this.end,
-          transport: this.transport
+          transport: this.transport,
+          vertical: this.vertical
         }
       );
     }

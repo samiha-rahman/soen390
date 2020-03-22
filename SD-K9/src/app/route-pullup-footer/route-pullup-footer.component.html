@@ -1,6 +1,9 @@
 <ion-footer mode='ios'>
-  <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState"
-    [toolbarTopMargin]="20" [minBottomVisible]="0">
+  <ion-toolbar *ngIf="!details">
+    <ion-title>Hall - 8th Floor</ion-title>
+  </ion-toolbar>
+  <lib-ionic-pullup *ngIf="details" (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()"
+    [(state)]="footerState" [toolbarTopMargin]="20" [minBottomVisible]="0">
 
     <ion-toolbar color="medium" mode="ios" (click)="toggleFooter()" #ionDragFooter>
 
@@ -8,7 +11,7 @@
       <div class="dragger"></div>
 
       <div class="container">
-        <h1 class="title">{{timeToDest}} <span>({{distanceToDest}})</span></h1>
+        <h1 class="title">{{details.time}} <span>({{details.distance}})</span></h1>
 
         <ion-grid>
           <ion-row>
