@@ -17,6 +17,7 @@ declare var google;
   styleUrls: ['./outdoor.page.scss'],
 })
 export class OutdoorPage implements OnInit {
+  @ViewChild('searchbar', {read: ElementRef}) searchbar: ElementRef;
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   userMarker: any;
@@ -168,7 +169,7 @@ export class OutdoorPage implements OnInit {
   }
 
   searchplaces(){
-    var input = document.getElementById('search-input'); // Retrieves input location of search bar
+    var input = this.searchbar.nativeElement.querySelector('.searchbar-input');
     var autocomplete = new google.maps.places.Autocomplete(input);
     // Bind the map's bounds (viewport) property to the autocomplete object,
     // so that the autocomplete requests use the current map bounds for the
