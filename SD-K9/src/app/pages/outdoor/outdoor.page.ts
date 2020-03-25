@@ -17,7 +17,7 @@ declare var google;
   styleUrls: ['./outdoor.page.scss'],
 })
 export class OutdoorPage implements OnInit {
-  @ViewChild('searchbar', {read: ElementRef}) searchbar: ElementRef;
+  @ViewChild('searchbar', {read: ElementRef, static: false}) searchbar: ElementRef;
   @ViewChild('map', {static: false}) mapElement: ElementRef;
   map: any;
   userMarker: any;

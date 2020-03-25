@@ -7,6 +7,7 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
 import { FloorPlanComponent } from '../floor-plan/floor-plan.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { By } from '@angular/platform-browser';
 
 
 declare var google;
@@ -35,5 +36,14 @@ describe('OutdoorPage', () => {
   it('Should initialize the map', () =>{
     expect(component.mapInitialised).toBeTruthy();
   });
+
+  it('Should have something for search bar', async(() => {
+    fixture.whenStable().then(() => {
+      let input = fixture.debugElement.query(By.css('ion-searchbar'));
+      let element = input.nativeElement;
+      element.value = 'something';
+      expect(element.value).toContain('something');
+    });
+  }));
 
 });
