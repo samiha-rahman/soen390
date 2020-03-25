@@ -1,79 +1,42 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      NavConU
+      Outdoor view
     </ion-title>
     <ion-buttons>
-      <ion-button [routerLink]="['/outdoor']">Go to outdoor</ion-button>
+      <ion-button [routerLink]="['/home']">Go to home</ion-button>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="floorplan-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Select a route</ion-card-subtitle>
-        <ion-card-title>Get Directions</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="start"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="end"></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-radio-group>
-      <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Stairs</ion-label>
-            <ion-radio value="stairs" (ionSelect)="setMode('stairs')"></ion-radio>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>Escalator</ion-label>
-            <ion-radio value="escalators" (ionSelect)="setMode('escalators')" checked></ion-radio>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>Elevator</ion-label>
-            <ion-radio value="elevators" (ionSelect)="setMode('elevators')"></ion-radio>
-          </ion-item>
-        </ion-col>
-      </ion-row>
-    </ion-radio-group>
-
-    <ion-card>
-      <ion-row>
-        <ion-col>
-          <ion-card-content>
-            <ion-card-title>Floor {{floor}}</ion-card-title>
-          </ion-card-content>
-        </ion-col>
-        <ion-col>
-          <ion-button expand="block" *ngIf="hasNextRoute" (click)="nextRoute()">Next</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <!-- <floor-plan [building]="building" [floor]="floor"></floor-plan> -->
-  </div>
+  <ion-segment (ionChange)="toggleCampus($event)" class="campusTgl">
+    <ion-segment-button value="sgw">
+      <ion-label>SGW</ion-label>
+    </ion-segment-button>
+    <ion-segment-button value="lyl">
+      <ion-label>Layola</ion-label>
+    </ion-segment-button>
+  </ion-segment>
+  <div #map id="map"></div>
+  <ion-fab class="locate-me-btn-wrapper">
+    <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png" width="20px" /></ion-fab-button>
+  </ion-fab>
 </ion-content>
 
+<!-- TODO: Make pull-up menu as its own Component -->
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
   <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
     <ion-buttons slot="primary">
       <ion-button (click)="clickedSearch()">
       </ion-button>
     </ion-buttons>
-    <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
+    <ion-searchbar #searchbar placeholder="Search for a place or classroom"></ion-searchbar>
+    <div id="infowindow-content">
+      <img src="" width="16" height="16" id="place-icon">
+      <span id="place-name"  class="title"></span><br>
+      <span id="place-address"></span>
+    </div>  
   </ion-toolbar>
 
   <ion-content>
