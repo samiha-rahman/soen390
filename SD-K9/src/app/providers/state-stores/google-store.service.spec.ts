@@ -3,10 +3,18 @@ import { TestBed } from '@angular/core/testing';
 import { GoogleStore } from './google-store.service';
 
 describe('GoogleStore', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: GoogleStore;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.get(GoogleStore);
+  });
+
+  afterEach(() => {
+    service = null;
+  });
 
   it('should be created', () => {
-    const service: GoogleStore = TestBed.get(GoogleStore);
     expect(service).toBeTruthy();
   });
 });

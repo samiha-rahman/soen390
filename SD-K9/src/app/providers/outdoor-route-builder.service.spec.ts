@@ -4,7 +4,11 @@ import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { Location } from '../helpers/location';
 import { HttpClientModule } from '@angular/common/http';
 
+declare var google;
+
 describe('OutdoorRouteBuilder', () => {
+  let service: OutdoorRouteBuilder;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -12,10 +16,15 @@ describe('OutdoorRouteBuilder', () => {
         Location
       ]
     }).compileComponents();
+
+    service = TestBed.get(OutdoorRouteBuilder);
+  });
+
+  afterEach(() => {
+    service = null;
   });
 
   it('should be created', () => {
-    const service: OutdoorRouteBuilder = TestBed.get(OutdoorRouteBuilder);
     expect(service).toBeTruthy();
   });
 });

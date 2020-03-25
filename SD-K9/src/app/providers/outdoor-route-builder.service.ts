@@ -52,22 +52,6 @@ export class OutdoorRouteBuilder {
         this._routeStore.storeRoute(route);
     }
 
-    //Calculate shortest path for outdoor map
-    private _calculateAndDisplayRoute(formValues: SourceDestination) {
-        this.directionsService.route({
-            origin: formValues.source,
-            destination: formValues.destination,
-            travelMode: this.transportMode
-        }, (response, status) => {
-            if (status === 'OK') {
-            this.directionsDisplay.setDirections(response);
-            } else {
-            window.alert('Directions request failed due to ' + status);
-            }
-        });
-        this.directionsDisplay.setMap(this.map);
-    }
-
     clearRoute() {
         this._googleStore.removeRoute();
     }
