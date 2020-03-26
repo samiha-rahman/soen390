@@ -7,8 +7,9 @@ import {
 import { SVG } from "@svgdotjs/svg.js";
 
 import { SVGManager } from '../../providers/svg-manager.service';
-import { svgPanZoom } from 'svg-pan-zoom/src/svg-pan-zoom.js';
+import * as svgPanZoom from 'svg-pan-zoom';
 import { Map } from 'src/app/interfaces/map';
+import {isNumber} from 'util';
 
 @Component({
   selector: "floor-plan",
@@ -27,7 +28,6 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
 
   ngOnInit() {
     this._drawFloorplan(this.data.building, this.data.floor);
-    this._setPanZoom();
   }
 
   private _drawFloorplan(building: string, floor: number) {
@@ -36,18 +36,47 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
       this._draw = SVG('#floorplan');
       this._draw.clear();
       this._draw.svg(floorplan);
+      this._setPanZoom();
     });
   }
 
   private _setPanZoom() {
+    let beforePan;
+
+    beforePan = function(oldPan, newPan) {
+      const stopHorizontal = false
+          , stopVertical = false
+          // , gutterWidth = 400
+          // , gutterHeight = 400
+          // Computed variables
+          , sizes = this.getSizes()
+          , leftLimit = - (sizes.viewBox.width * sizes.realZoom) + sizes.viewBox.width
+          , rightLimit = 0
+          , topLimit = - (sizes.viewBox.height * sizes.realZoom) + sizes.viewBox.height
+          , bottomLimit = 0;
+
+      const x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
+      const y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
+
+      return {x, y};
+    };
+
     this._panZoomInstance = svgPanZoom('#floorplan', {
       zoomEnabled: true,
-      controlIconsEnabled: true,
-      fit: true,
+      panEnabled: true,
+      controlIconsEnabled: false,
+      beforePan: beforePan,
       center: true,
-      minZoom: 0.5,
+      minZoom: 1,
       maxZoom: 2
     });
+
+    const svg = document.getElementsByTagName("svg")[0];
+    const bbox = svg.getBBox();
+
+    svg.setAttribute("width", '100%');
+    // svg.setAttribute("height", bbox.height + "px");
+    svg.setAttribute("viewBox", `0 0 ${bbox.width} ${bbox.height}`);
   }
 
   ngOnDestroy() {
