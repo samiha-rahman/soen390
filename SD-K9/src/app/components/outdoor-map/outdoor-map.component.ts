@@ -67,8 +67,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
   initMap() {
 
-    this.mapInitialised = true;
-
     this._geolocation.getCurrentPosition().then((position) => {
 
       this.currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -83,10 +81,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
       if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
         this._googleStore.storeMap({id: this.data.id, google: google, map: this.map, route: false});        // new map state
-      } 
+      }
       else {
         this._googleStore.updateGoogleMap({id: this.data.id, google: google, map: this.map, route: true}); // reload old map state
-      } 
+      }
 
       var markerIcon = {
         url: 'assets/images/map-pin.png',
@@ -103,6 +101,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       });
 
       this.drawBuildings();
+
+      //switch flag to load map nav components
+      this.mapInitialised = true;
 
     }).catch((error) => {
       console.log('Error getting location', error);
