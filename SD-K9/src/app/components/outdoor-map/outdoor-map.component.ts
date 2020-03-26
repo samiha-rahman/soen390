@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input,ChangeDetectorRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Map } from '../../interfaces/map';
 import { GoogleCoordinate } from '../../models/google-coordinate.model';
@@ -31,7 +31,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     private _geolocation: Geolocation,
     private _googleStore: GoogleStore,
     private _routeStore: RouteStore,
-    private _outdoorRouteBuilder: OutdoorRouteBuilder
+    private _outdoorRouteBuilder: OutdoorRouteBuilder,
+    private cd: ChangeDetectorRef
     ) {
       // subscribe to mapstore
       this._unsubscribe = this._googleStore.subscribe(() => {
@@ -107,6 +108,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
+      //need to tell angular we changed something for ngIf to reload on template
+      this.refresh();
+
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -137,6 +141,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
   locateUser(){
     this.map.panTo(this.currentPos);
+  }
+
+  refresh(){
+    this.cd.detectChanges();
   }
 
   ngOnDestroy() {
