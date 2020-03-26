@@ -6,6 +6,13 @@ import { GoogleStore } from '../../providers/state-stores/google-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import {
+  trigger,
+  state,
+  style,
+  animate,
+  transition
+} from '@angular/animations';
 import * as campusData from '../../../local-configs/campus.json';
 
 
@@ -15,6 +22,25 @@ declare var google;
   selector: 'app-outdoor-map',
   templateUrl: './outdoor-map.component.html',
   styleUrls: ['./outdoor-map.component.scss'],
+  animations: [
+    // the fade-in/fade-out animation.
+    trigger('cardAnimation', [
+      state('hidden', style({
+        opacity: 0,
+        transform: "translate(0px,100px)"
+      })),
+      state('shown', style({
+        opacity: 1,
+        transform: "translate(0px,0px)"
+      })),
+      transition('hidden => shown', [
+        animate('0.2s')
+      ]),
+      transition('shown => hidden', [
+        animate('0.2s')
+      ]),
+    ])
+  ]
 })
 export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   @Input() data: any;
@@ -23,6 +49,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   //cannot set type to google.maps.marker because google maps is not loaded yet
   buildingMarkers: any[] = [];
   userMarker: any;
+  buildingInfoCardIsShown: boolean = false;
   campusConfig: any = campusData.default;
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
