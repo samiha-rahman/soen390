@@ -20,6 +20,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   @Input() data: any;
   @ViewChild('map', {static: true}) mapElement: ElementRef;
   map: any;
+  //cannot set type to google.maps.marker because google maps is not loaded yet
+  buildingMarkers: any[] = [];
   userMarker: any;
   campusConfig: any = campusData.default;
   mapInitialised: boolean = false;
@@ -106,6 +108,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       this.drawBuildings();
 
+      let _self = this;
+      google.maps.event.addListener(this.map, 'zoom_changed', function() {
+          _self.hideShowMarkers(_self);
+      });
+
       //switch flag to load map nav components
       this.mapInitialised = true;
       //need to tell angular we changed something for ngIf to reload on template
@@ -117,11 +124,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   drawBuildings(){
-
-    for (const building in this.campusConfig) {
-      for (const polygon in this.campusConfig[building]["bounds"]) {
-        let polygonBounds = this.campusConfig[building]["bounds"][polygon];
-        let evOverlay = new google.maps.Polygon({
+    for (const campus in this.campusConfig) {
+      for (const building in this.campusConfig[campus]["buildings"]) {
+        let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
+        let overlay = new google.maps.Polygon({
           paths: polygonBounds,
           strokeColor: '#FF0000',
           strokeOpacity: 0.8,
@@ -129,22 +135,46 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           fillColor: '#FF0000',
           fillOpacity: 0.35
         });
-        evOverlay.setMap(this.map);
+        overlay.setMap(this.map);
+        let marker = new google.maps.Marker({
+          position: this.campusConfig[campus]["buildings"][building]["markerPos"],
+          label: {
+            text: this.campusConfig[campus]["buildings"][building]["markerText"],
+            color: "white",
+            fontSize: "26px"
+          },
+          visible: true,
+          icon:{
+            url: 'assets/images/transparent.png',
+          },
+          map: this.map
+        });
+        this.buildingMarkers.push(marker);
       }
     }
   }
 
   toggleCampus(event){
     let currentCampus = this.campusConfig[event.detail.value];
-    this.map.panTo(new google.maps.LatLng(currentCampus["coords"]["lat"],currentCampus["coords"]["long"]));
+    this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
+    this.hideShowMarkers(this);
   }
 
   locateUser(){
     this.map.panTo(this.currentPos);
+    this.hideShowMarkers(this);
   }
 
   refresh(){
     this.cd.detectChanges();
+  }
+
+  hideShowMarkers(self){
+    let zoom = self.map.getZoom();
+    // hide markers if too zoomed out
+    for(let i = 0; i < self.buildingMarkers.length; i++) {
+      self.buildingMarkers[i].setVisible(zoom >= 17);
+    }
   }
 
   ngOnDestroy() {
