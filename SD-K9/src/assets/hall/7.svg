@@ -1,7 +1,7 @@
 <svg version="1.1" x="0px" y="0px" viewBox="0 0 617.875 566.875">
 <g id="Floor">
 	<rect x="1.143" y="1.083" style="fill:#FFF7F0;stroke:#B79065;stroke-width:2;" width="615.712" height="564.779"/>
-</g> 
+</g>
 <g id="Rooms">
 	<polygon style="fill:#F2E0CC;stroke:#B79065;" points="404.743,194.176 404.743,169.447 419.892,169.44 419.898,184.181 
 		444.391,184.185 444.391,211.264 420.697,211.264 420.859,194.161 	"/>
@@ -106,54 +106,54 @@
 	<rect x="1.143" y="1.083" style="fill:none;stroke:#B79065;stroke-width:2;" width="615.712" height="564.779"/>
 </g>
 <g id="classes">
-	<circle class="classroom" id="H-831" style="fill:#F2E0CC;stroke:#B79065;" cx="79.622" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-833" style="fill:#F2E0CC;stroke:#B79065;" cx="137.288" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-835" style="fill:#F2E0CC;stroke:#B79065;" cx="193.705" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-837" style="fill:#F2E0CC;stroke:#B79065;" cx="204.288" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-841" style="fill:#F2E0CC;stroke:#B79065;" cx="321.122" cy="89.411" r="1"/>
-	<circle class="classroom" id="H-843" style="fill:#F2E0CC;stroke:#B79065;" cx="413.667" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-845" style="fill:#F2E0CC;stroke:#B79065;" cx="469.246" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-847" style="fill:#F2E0CC;stroke:#B79065;" cx="481.372" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-849" style="fill:#F2E0CC;stroke:#B79065;" cx="542.122" cy="89.088" r="1"/>
-	<circle class="classroom" id="H-851" style="fill:#F2E0CC;stroke:#B79065;" cx="557.83" cy="99.888" r="1"/>
-	<circle class="classroom" id="H-851.03" style="fill:#F2E0CC;stroke:#B79065;" cx="571.402" cy="99.888" r="1"/>
-	<circle class="classroom" id="H-851.02" style="fill:#F2E0CC;stroke:#B79065;" cx="566.205" cy="118.101" r="1"/>
-	<circle class="classroom" id="H-851.01" style="fill:#F2E0CC;stroke:#B79065;" cx="542.122" cy="110.364" r="1"/>
-	<circle class="classroom" id="H-853" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="155.286" r="1"/>
-	<circle class="classroom" id="H-855" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="248.453" r="1"/>
-	<circle class="classroom" id="H-857" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="305.286" r="1"/>
-	<circle class="classroom" id="H-859" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="357.286" r="1"/>
-	<circle class="classroom" id="H-861" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="375.286" r="1"/>
-	<circle class="classroom" id="H-863" style="fill:#F2E0CC;stroke:#B79065;" cx="537.872" cy="468.12" r="1"/>
-	<circle class="classroom" id="H-865" style="fill:#F2E0CC;stroke:#B79065;" cx="546.58" cy="488.786" r="1"/>
-	<circle class="classroom" id="H-867" style="fill:#F2E0CC;stroke:#B79065;" cx="537.872" cy="502.841" r="1"/>
-	<circle class="classroom" id="H-801" style="fill:#F2E0CC;stroke:#B79065;" cx="482.205" cy="482.693" r="1"/>
-	<circle class="classroom" id="H-803" style="fill:#F2E0CC;stroke:#B79065;" cx="424.372" cy="482.693" r="1"/>
-	<circle class="classroom" id="H-805" style="fill:#F2E0CC;stroke:#B79065;" cx="409.705" cy="482.693" r="1"/>
-	<circle class="classroom" id="H-807" style="fill:#F2E0CC;stroke:#B79065;" cx="317.372" cy="482.693" r="1"/>
-	<circle class="classroom" id="H-811" style="fill:#F2E0CC;stroke:#B79065;" cx="209.075" cy="482.693" r="1"/>
-	<circle class="classroom" id="H-815" style="fill:#F2E0CC;stroke:#B79065;" cx="103.205" cy="491.961" r="1"/>
-	<circle class="classroom" id="H-817" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="491.961" r="1"/>
-	<circle class="classroom" id="H-819" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="469.12" r="1"/>
-	<circle class="classroom" id="H-821" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="380.665" r="1"/>
-	<circle class="classroom" id="H-823" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="359.911" r="1"/>
-	<circle class="classroom" id="H-825" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="265.036" r="1"/>
-	<circle class="classroom" id="H-827" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="249.661" r="1"/>
-	<circle class="classroom" id="H-829" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="191.661" r="1"/>
-	<circle class="classroom" id="H-899" style="fill:#F2E0CC;stroke:#B79065;" cx="79.622" cy="104.161" r="1"/>
-	<circle class="classroom" id="H-822" style="fill:#F2E0CC;stroke:#B79065;" cx="122.029" cy="220.854" r="1"/>
-	<circle class="classroom" id="H-832" style="fill:#F2E0CC;stroke:#B79065;" cx="229.195" cy="125.032" r="1"/>
-	<circle class="classroom" id="H-820" style="fill:#F2E0CC;stroke:#B79065;" cx="147.272" cy="276.357" r="1"/>
-	<circle class="classroom" id="H-820" style="fill:#F2E0CC;stroke:#B79065;" cx="147.272" cy="350.274" r="1"/>
-	<circle class="classroom" id="H-886" style="fill:#F2E0CC;stroke:#B79065;" cx="123.029" cy="377.465" r="1"/>
-	<circle class="classroom" id="H-838" style="fill:#F2E0CC;stroke:#B79065;" cx="307.533" cy="154.447" r="1"/>
-	<circle class="classroom" id="H-842" style="fill:#F2E0CC;stroke:#B79065;" cx="372.333" cy="184.669" r="1"/>
-	<circle class="classroom" id="H-881" style="fill:#F2E0CC;stroke:#B79065;" cx="413.667" cy="122.786" r="1"/>
-	<circle class="classroom" id="H-852" style="fill:#F2E0CC;stroke:#B79065;" cx="492.101" cy="199.333" r="1"/>
-	<circle class="classroom" id="H-854" style="fill:#F2E0CC;stroke:#B79065;" cx="492.101" cy="210.007" r="1"/>
-	<circle class="classroom" id="H-860" style="fill:#F2E0CC;stroke:#B79065;" cx="456.423" cy="282.438" r="1"/>
-	<circle class="classroom" id="H-862" style="fill:#F2E0CC;stroke:#B79065;" cx="413.833" cy="336.663" r="1"/>
-	<circle class="classroom" id="H-806" style="fill:#F2E0CC;stroke:#B79065;" cx="307.327" cy="430.667" r="1"/>
+	<circle class="classroom" id="H-631" style="fill:#F2E0CC;stroke:#B79065;" cx="79.622" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-633" style="fill:#F2E0CC;stroke:#B79065;" cx="137.288" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-635" style="fill:#F2E0CC;stroke:#B79065;" cx="193.705" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-637" style="fill:#F2E0CC;stroke:#B79065;" cx="204.288" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-641" style="fill:#F2E0CC;stroke:#B79065;" cx="321.122" cy="89.411" r="1"/>
+	<circle class="classroom" id="H-643" style="fill:#F2E0CC;stroke:#B79065;" cx="413.667" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-645" style="fill:#F2E0CC;stroke:#B79065;" cx="469.246" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-647" style="fill:#F2E0CC;stroke:#B79065;" cx="481.372" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-649" style="fill:#F2E0CC;stroke:#B79065;" cx="542.122" cy="89.088" r="1"/>
+	<circle class="classroom" id="H-651" style="fill:#F2E0CC;stroke:#B79065;" cx="557.83" cy="99.888" r="1"/>
+	<circle class="classroom" id="H-651.03" style="fill:#F2E0CC;stroke:#B79065;" cx="571.402" cy="99.888" r="1"/>
+	<circle class="classroom" id="H-651.02" style="fill:#F2E0CC;stroke:#B79065;" cx="566.205" cy="118.101" r="1"/>
+	<circle class="classroom" id="H-651.01" style="fill:#F2E0CC;stroke:#B79065;" cx="542.122" cy="110.364" r="1"/>
+	<circle class="classroom" id="H-653" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="155.286" r="1"/>
+	<circle class="classroom" id="H-655" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="248.453" r="1"/>
+	<circle class="classroom" id="H-657" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="305.286" r="1"/>
+	<circle class="classroom" id="H-659" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="357.286" r="1"/>
+	<circle class="classroom" id="H-661" style="fill:#F2E0CC;stroke:#B79065;" cx="530.784" cy="375.286" r="1"/>
+	<circle class="classroom" id="H-663" style="fill:#F2E0CC;stroke:#B79065;" cx="537.872" cy="468.12" r="1"/>
+	<circle class="classroom" id="H-665" style="fill:#F2E0CC;stroke:#B79065;" cx="546.58" cy="488.786" r="1"/>
+	<circle class="classroom" id="H-667" style="fill:#F2E0CC;stroke:#B79065;" cx="537.872" cy="502.841" r="1"/>
+	<circle class="classroom" id="H-601" style="fill:#F2E0CC;stroke:#B79065;" cx="482.205" cy="482.693" r="1"/>
+	<circle class="classroom" id="H-603" style="fill:#F2E0CC;stroke:#B79065;" cx="424.372" cy="482.693" r="1"/>
+	<circle class="classroom" id="H-605" style="fill:#F2E0CC;stroke:#B79065;" cx="409.705" cy="482.693" r="1"/>
+	<circle class="classroom" id="H-607" style="fill:#F2E0CC;stroke:#B79065;" cx="317.372" cy="482.693" r="1"/>
+	<circle class="classroom" id="H-611" style="fill:#F2E0CC;stroke:#B79065;" cx="209.075" cy="482.693" r="1"/>
+	<circle class="classroom" id="H-615" style="fill:#F2E0CC;stroke:#B79065;" cx="103.205" cy="491.961" r="1"/>
+	<circle class="classroom" id="H-617" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="491.961" r="1"/>
+	<circle class="classroom" id="H-619" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="469.12" r="1"/>
+	<circle class="classroom" id="H-621" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="380.665" r="1"/>
+	<circle class="classroom" id="H-623" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="359.911" r="1"/>
+	<circle class="classroom" id="H-625" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="265.036" r="1"/>
+	<circle class="classroom" id="H-627" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="249.661" r="1"/>
+	<circle class="classroom" id="H-629" style="fill:#F2E0CC;stroke:#B79065;" cx="86.246" cy="191.661" r="1"/>
+	<circle class="classroom" id="H-699" style="fill:#F2E0CC;stroke:#B79065;" cx="79.622" cy="104.161" r="1"/>
+	<circle class="classroom" id="H-622" style="fill:#F2E0CC;stroke:#B79065;" cx="122.029" cy="220.854" r="1"/>
+	<circle class="classroom" id="H-632" style="fill:#F2E0CC;stroke:#B79065;" cx="229.195" cy="125.032" r="1"/>
+	<circle class="classroom" id="H-620" style="fill:#F2E0CC;stroke:#B79065;" cx="147.272" cy="276.357" r="1"/>
+	<circle class="classroom" id="H-620" style="fill:#F2E0CC;stroke:#B79065;" cx="147.272" cy="350.274" r="1"/>
+	<circle class="classroom" id="H-686" style="fill:#F2E0CC;stroke:#B79065;" cx="123.029" cy="377.465" r="1"/>
+	<circle class="classroom" id="H-638" style="fill:#F2E0CC;stroke:#B79065;" cx="307.533" cy="154.447" r="1"/>
+	<circle class="classroom" id="H-642" style="fill:#F2E0CC;stroke:#B79065;" cx="372.333" cy="184.669" r="1"/>
+	<circle class="classroom" id="H-681" style="fill:#F2E0CC;stroke:#B79065;" cx="413.667" cy="122.786" r="1"/>
+	<circle class="classroom" id="H-652" style="fill:#F2E0CC;stroke:#B79065;" cx="492.101" cy="199.333" r="1"/>
+	<circle class="classroom" id="H-654" style="fill:#F2E0CC;stroke:#B79065;" cx="492.101" cy="210.007" r="1"/>
+	<circle class="classroom" id="H-660" style="fill:#F2E0CC;stroke:#B79065;" cx="456.423" cy="282.438" r="1"/>
+	<circle class="classroom" id="H-662" style="fill:#F2E0CC;stroke:#B79065;" cx="413.833" cy="336.663" r="1"/>
+	<circle class="classroom" id="H-606" style="fill:#F2E0CC;stroke:#B79065;" cx="307.327" cy="430.667" r="1"/>
 </g>
 <g id="elevators">
 	<circle id="elevator-1" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
@@ -166,7 +166,7 @@
 </g>
 <g id="escalators">
 	<g id="up">
-		<circle id="up-escalator-1" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="309.874" r="1"/>
+		<circle id="up-escalator-1" style="fill:none;stroke:#FF0000;" cx="307.278" cy="309.874" r="1"/>
 	</g>
 	<g id="down">
 		<circle id="down-escalator-1" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="240.5" r="1"/>
@@ -210,7 +210,23 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="171.518" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="175.547" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="179.575" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="286.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="290.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="294.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="298.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="302.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="306.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="310.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="314.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="318.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="322.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="326.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="330.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="334.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="338.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="342.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="346.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/><circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="187.633" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="195.832" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="200.002" r="0.5"/>
@@ -652,23 +668,6 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="282.332" cy="114.958" r="0.425"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="282.332" cy="111.009" r="0.46"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="282.332" cy="107.06" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="286.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="290.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="294.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="298.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="302.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="306.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="310.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="314.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="318.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="322.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="326.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="330.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="334.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="338.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="342.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="346.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="511.443" cy="465.769" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="511.443" cy="461.835" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="511.443" cy="457.901" r="0.5"/>
@@ -1032,7 +1031,7 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="542.122" cy="89.088" r="0.5"/>
 </g>
 <g id="POIs-Labels">
-	<g id="elevator-icon">
+	<g class="elevator-icon">
 		<rect x="390.4" y="375.6" fill="#FFFFFF" stroke="#ABB6DC" width="10.1" height="14.5"/>
 		<g>
 			<g>
@@ -1051,7 +1050,7 @@
 			</g>
 		</g>
 	</g>
-	<g id="elevator-icon_copy">
+	<g class="elevator-icon">
 		<rect x="416.1" y="375.6" fill="#FFFFFF" stroke="#ABB6DC" width="10.1" height="14.5"/>
 		<g>
 			<g>
@@ -1070,11 +1069,11 @@
 			</g>
 		</g>
 	</g>
-	<g id="man-bath-icon">
+	<g class="man-bath-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="225.3" cy="408.2" rx="7.2" ry="6.8"/>
-		<g id="man-icon" inkscape:label="Layer 1" inkscape:groupmode="layer">
+		<g id="man-icon">
 			
-				<path id="path2558" sodipodi:nodetypes="ccscccsccssscssscsscccccscscscccscccc" inkscape:connector-curvature="0" fill="#ABB6DC" d="
+				<path id="path2558" fill="#ABB6DC" d="
 				M224.4,413.3c-0.2-0.1-0.3-0.2-0.3-0.3c0-0.1,0-1.1,0-3.2l0-3.1H224h-0.1v1.2c0,1.2,0,1.2,0,1.3c-0.1,0.1-0.1,0.1-0.2,0.2
 				c-0.2,0-0.4,0-0.4-0.2c0-0.1,0-2.8,0-2.9c0.1-0.4,0.4-0.7,0.8-0.8c0.2,0,2,0,2.2,0c0.2,0,0.4,0.1,0.5,0.3
 				c0.2,0.2,0.2,0.3,0.3,0.5c0,0.1,0,0.2,0,1.5c0,1.2,0,1.3,0,1.4c0,0.1-0.1,0.1-0.2,0.2c-0.2,0.1-0.4,0-0.4-0.1l0-0.1l0-1.2l0-1.2
@@ -1083,7 +1082,7 @@
 			<circle fill="#ABB6DC" cx="225.1" cy="404.3" r="0.8"/>
 		</g>
 	</g>
-	<g id="woman-bath-icon_copy">
+	<g class="woman-bath-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="385" cy="419.3" rx="7.2" ry="6.8"/>
 		<g transform="matrix(2.08276,0,0,2.08276,-786.0753,-421.7896)">
 			<path display="none" fill="#ABB6DC" d="M562.6,401.7c0,0.2-0.2,0.4-0.4,0.4s-0.4-0.2-0.4-0.4l0,0c0-0.2,0.2-0.4,0.4-0.4
@@ -1093,11 +1092,11 @@
 				c0,0-0.1-0.1-0.2-0.2c-0.1-0.1-0.2-0.1-0.2-0.1l-0.7,0c0,0-0.1,0-0.2,0.1s-0.2,0.2-0.2,0.2l-0.4,1.2c0,0,0,0.2,0.1,0.2
 				c0.2,0.1,0.2-0.1,0.2-0.1l0.3-1.1h0.1L561.3,404.7z"/>
 		</g>
-		<g id="Layer_13">
+		<g>
 			<circle fill="#ABB6DC" cx="384.9" cy="414.9" r="0.9"/>
 		</g>
 	</g>
-	<g id="man-bath-icon_1_">
+	<g class="man-bath-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="359.7" cy="380.1" rx="7.2" ry="6.8"/>
 		<g id="man-icon_1_" inkscape:label="Layer 1" inkscape:groupmode="layer">
 			
@@ -1110,27 +1109,27 @@
 			<circle fill="#ABB6DC" cx="359.5" cy="376.2" r="0.8"/>
 		</g>
 	</g>
-	<g id="escalator-icon">
+	<g class="escalator-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="323.1" cy="276.7" rx="7.2" ry="6.8"/>
 		<polyline fill="#FFFFFF" stroke="#ABB6DC" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="319.3,279.1 
 			321.4,279 324.5,275.4 326.8,275.4 		"/>
 	</g>
-	<g id="stairs-icon">
+	<g class="stairs-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="180.4" cy="158.4" rx="7.2" ry="6.8"/>
 		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="179.3,160.1 176.4,160.1 176.4,162.1 176.4,160.1 179.3,160.1 179.3,158.1 
 			182.3,158.1 182.3,156.1 185.2,156.1 		"/>
 	</g>
-	<g id="stairs-icon_copy">
+	<g class="stairs-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="433" cy="156.4" rx="7.2" ry="6.8"/>
 		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="432.3,157.8 429.3,157.8 429.3,159.8 429.3,157.8 432.3,157.8 432.3,155.8 
 			435.2,155.8 435.2,153.8 438.1,153.8 		"/>
 	</g>
-	<g id="stairs-icon_copy_2">
+	<g class="stairs-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="453.7" cy="394.5" rx="7.2" ry="6.8"/>
 		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="452.9,396 450,396 450,398 450,396 452.9,396 452.9,394 455.9,394 455.9,392 
 			458.8,392 		"/>
 	</g>
-	<g id="stairs-icon_copy_3">
+	<g class="stairs-icon">
 		<ellipse fill="#FFFFFF" stroke="#ABB6DC" cx="180.8" cy="408.2" rx="7.2" ry="6.8"/>
 		<polyline fill="#FFFFFF" stroke="#ABB6DC" points="180,409.7 177.1,409.7 177.1,411.7 177.1,409.7 180,409.7 180,407.7 183,407.7 
 			183,405.7 185.9,405.7 		"/>

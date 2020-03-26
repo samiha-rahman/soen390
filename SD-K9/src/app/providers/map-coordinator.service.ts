@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { MapItem } from '../helpers/map-item';
-import { Location } from '../helpers/location';
 import { SVGManager } from './svg-manager.service';
 import { FloorPlanComponent } from '../components/floor-plan/floor-plan.component';
 import { OutdoorMapComponent } from '../components/outdoor-map/outdoor-map.component';
@@ -17,7 +16,7 @@ import { Route } from '../interfaces/route';
     providedIn: 'root'
 })
 export class MapCoordinator {
-    map: MapItem = new MapItem(Location, '');
+    map: MapItem;
     private _outdoorIndex: number = 1;
 
     constructor(
@@ -25,8 +24,6 @@ export class MapCoordinator {
         private _svgManager: SVGManager,
         private _routeStore: RouteStore,
         private _floorPlanStore: FloorPlanStore,
-        private _routeCoordinator: RouteCoordinator
-        
     ) {}
 
     ngOnInit() {}
@@ -103,28 +100,33 @@ export class MapCoordinator {
             
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
-            if(parsedSource.building === parsedDestination.building) {
-                let difference = parsedDestination.floor - parsedSource.floor;
-
-                this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.floor));
-
-                if (difference >= 0) {
-                    let nextFloor: number = parsedSource.floor + 1;
-                    let beforeDestFloor: number = parsedDestination.floor - 1;
-                    for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
-                        this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
-                    }
+            if(parsedSource.building === parsedDestination.building) {                              /* Same Floor */
+                if(parsedSource.floor === parsedDestination.floor) {
+                    this._prepareIndoor(maps, parsedSource, route.source, route.destination);
                 }
-                else {
-                    let nextFloor: number = parsedSource.floor - 1;
-                    let beforeDestFloor: number = parsedDestination.floor + 1;
-                    for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
-                        this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                else {                                                                              /* Multi-Floor */
+                    let difference = parsedDestination.floor - parsedSource.floor;
+    
+                    this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.floor));
+    
+                    if (difference >= 0) {
+                        let nextFloor: number = parsedSource.floor + 1;
+                        let beforeDestFloor: number = parsedDestination.floor - 1;
+                        for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
+                            this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                        }
                     }
+                    else {
+                        let nextFloor: number = parsedSource.floor - 1;
+                        let beforeDestFloor: number = parsedDestination.floor + 1;
+                        for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
+                            this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                        }
+                    }
+    
+                    parsedDestination.id = ++index;
+                    this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.floor));
                 }
-
-                parsedDestination.id = ++index;
-                this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.floor));
             } else {
                 /*
                 * Indoor Map 1
@@ -174,38 +176,13 @@ export class MapCoordinator {
         maps.push(new MapItem(FloorPlanComponent, parsedRoute));
 
         if (classID && entryID) {
-            // TODO: remove Location layer and simplify to reate SVGCoordinate directly
             // Setup initial SVGCoordinate 
-            let initLocation: Location = new Location();
             let iSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(entryID, parsedRoute.building, parsedRoute.floor); // TODO: get building entry point from config
-            initLocation.setCoordinate(await iSvgCoordinate);
             // Setup final SVGCoordinate
-            let finalLocation: Location = new Location();
             let fSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(classID, parsedRoute.building, parsedRoute.floor);
-            finalLocation.setCoordinate(await fSvgCoordinate);
             // activate pathfinder
-            this._routeStore.storeRoute({id: parsedRoute.id, route: {source: initLocation, destination: finalLocation}});
+            this._routeStore.storeRoute({id: parsedRoute.id, route: {source: iSvgCoordinate, destination: fSvgCoordinate}});
         }
-    }
-    
-    // TODO: delete when routes are extracted from map-coordinator to route-coordinator
-    async getRoute(iInitLocation: Location, iDestination: Location) {
-        this._routeCoordinator.getIndoorRoute(iInitLocation, iDestination);
-    }
-
-    // TODO: delete when routes are extracted from map-coordinator to route-coordinator
-    setVerticalTransportationMode(mode: string) {
-        this._routeCoordinator.setVerticalTransportationMode(mode);
-    }
-
-    // TODO: delete when routes are extracted from map-coordinator to route-coordinator
-    async nextRoute() {
-        this._routeCoordinator.nextRoute();
-    }
-
-    // TODO: delete when routes are extracted from map-coordinator to route-coordinator
-    hasNextRoute() {
-        return this._routeCoordinator.hasNextRoute();
     }
 
     // TODO: replace with config

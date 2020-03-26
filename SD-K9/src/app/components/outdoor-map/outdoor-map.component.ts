@@ -104,25 +104,13 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       this.drawBuildings();
 
-      // this.maintainMap(); //this doesn't release the map. So the FactoryComponent wasnt able to create a second map.
-
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
-  /*
-  maintainMap(){
-      let watch = this._geolocation.watchPosition();
-      watch.subscribe((data) => {
-        this.currentPos = new google.maps.LatLng( data.coords.latitude, data.coords.longitude );
-        this.userMarker.setPosition( this.currentPos );
-      });
-  }
-  */
-
   drawBuildings(){
-    // TODO : draw all buildings
+    // TODO : draw all buildings & put in config
     let EV_BOUNDS = [
         {"lat": 45.495176, "lng": -73.577883},
         {"lat": 45.495815, "lng": -73.577223},

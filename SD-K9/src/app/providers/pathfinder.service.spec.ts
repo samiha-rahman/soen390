@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Location } from '../helpers/location';
 import { Pathfinder } from './pathfinder.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
@@ -12,8 +11,7 @@ describe('Pathfinder', () => {
         TestBed.configureTestingModule({
             imports: [HttpClientModule],
             providers: [
-                Pathfinder,
-                Location
+                Pathfinder
             ]
         }).compileComponents();
         service = TestBed.get(Pathfinder);

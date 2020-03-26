@@ -1,8 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
 import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
-import { Location } from '../helpers/location';
-import { HttpClientModule } from '@angular/common/http';
 
 declare var google;
 
@@ -13,7 +11,6 @@ describe('OutdoorRouteBuilder', () => {
     TestBed.configureTestingModule({
       providers: [
         OutdoorRouteBuilder,
-        Location
       ]
     }).compileComponents();
 

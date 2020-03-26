@@ -4,19 +4,16 @@ import { RouteCoordinator } from './route-coordinator.service';
 import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { IndoorRouteBuilder } from './indoor-route-builder.service';
 import { SVGManager } from './svg-manager.service';
-import { Location } from '../helpers/location';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
-import { RouteNavigator } from '../helpers/route-navigator';
-import { loadavg } from 'os';
+import { doesNotThrow } from 'assert';
 
 describe('RouteCoordinatorService', () => {
   let service: RouteCoordinator;
-  let location: Location;
+  let svgCoordinate: SVGCoordinate;
   let spy: any;
-  let routeNavigator: RouteNavigator;
 
   class MockRouteBuilder {
-    async buildRoute(iInitialLocation: Location, iDestination: Location) {}
+    async buildRoute(iInitialLocation: SVGCoordinate, iDestination: SVGCoordinate) {}
   }
 
   beforeEach(() => {
@@ -38,18 +35,24 @@ describe('RouteCoordinatorService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('#getIndoorRoute should call `getCoordinate` method of `Location`', () => {
-    const coordinate: SVGCoordinate = {
+  it('#getIndoorRoute should call `generateRouteLocations` method for multiple floors', async() => {
+    const coordinateA: SVGCoordinate = {
       id: 'H-815',
       building: 'hall',
       floor: 8,
       x: 103.205,
       y: 491.961
     }
-    location = new Location();
-    spy = spyOn(location, 'getCoordinate').and.returnValue(coordinate);
-    
-    service.getIndoorRoute(location, location);
+
+    const coordinateB: SVGCoordinate = {
+      id: 'H-631',
+      building: 'hall',
+      floor: 6,
+      x: 79.622,
+      y: 89.088
+    }
+    spy = spyOn(service, 'generateRouteLocations');
+    service.getIndoorRoute(coordinateA, coordinateB);
     expect(spy).toHaveBeenCalled();
   });
 });
