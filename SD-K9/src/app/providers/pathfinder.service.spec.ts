@@ -1,28 +1,31 @@
 import { TestBed } from '@angular/core/testing';
 
-import { Location } from '../helpers/location';
 import { Pathfinder } from './pathfinder.service';
 import { HttpClientModule } from '@angular/common/http';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 
 describe('Pathfinder', () => {
+    let service: Pathfinder;
+
     beforeEach(() => {
         TestBed.configureTestingModule({
             imports: [HttpClientModule],
             providers: [
-                Pathfinder,
-                Location
+                Pathfinder
             ]
         }).compileComponents();
+        service = TestBed.get(Pathfinder);
     });
 
+    afterEach(() => {
+        service = null;
+      });
+
     it('should be created', () => {
-        const service: Pathfinder = TestBed.get(Pathfinder);
         expect(service).toBeTruthy();
     });
 
-    it('should get distance between 2 nodes', () => {
-        const service: Pathfinder = TestBed.get(Pathfinder);
+    it('#distance should get distance between 2 nodes', () => {
         const nodeA: SVGCoordinate = {
             id: 'A',
             building: 'test',

@@ -52,7 +52,6 @@ export class Pathfinder {
 
       /* Getting and removing the next node from the open list */
       const current: AStarNode = open.extractMin();
-      // console.log(`testing (${current.value.x}, ${current.value.y})`)
       /* Putting it in the closed list */
       closed.push(current);
 

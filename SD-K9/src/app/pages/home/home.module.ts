@@ -1,30 +1,35 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-import { IonicPullupModule } from 'ionic-pullup';
+import { IonicModule } from '@ionic/angular';
+
+import { HomeTempPageRoutingModule } from './home-routing.module';
 
 import { HomePage } from './home.page';
-import { BusPage } from 'src/app/components/bus/bus.page';
-import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
-import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
+import { FloorPlanComponent } from 'src/app/components/floor-plan/floor-plan.component';
+import { MapBoxComponent } from 'src/app/components/map-box/map-box.component';
+import { MapDirective } from 'src/app/directives/map.directive';
+import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    IonicPullupModule,
-    RouterModule.forChild([
-      {
-        path: '',
-        component: HomePage
-      }
-    ])
+    ReactiveFormsModule,
+    HomeTempPageRoutingModule
   ],
-  declarations: [HomePage, BusPage, AppSettings, FloorPlanComponent],
-  entryComponents: [BusPage, AppSettings]
+  declarations: [
+    HomePage,
+    MapBoxComponent,
+    MapDirective,
+    FloorPlanComponent,
+    OutdoorMapComponent
+  ],
+  entryComponents: [
+    FloorPlanComponent,
+    OutdoorMapComponent
+  ]
 })
-export class HomePageModule { }
+export class HomeTempPageModule {}

@@ -1,48 +1,49 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { FormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
+
 import { HomePage } from './home.page';
-import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
-import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
-import { FloorPlanComponent } from '../../components/floor-plan/floor-plan.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MapCoordinator } from '../../providers/map-coordinator.service';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MapItem } from '../../helpers/map-item';
 import { HttpClientModule } from '@angular/common/http';
+import { MockComponent } from '../../test-helpers/mock-component.component';
 
 describe('HomePage', () => {
-  let component: HomePage;
-  let fixture: ComponentFixture<HomePage>;
+    let component: HomePage;
+    let fixture: ComponentFixture<HomePage>;
+    let formBuilder: FormBuilder = new FormBuilder();
+
+    let map = new MapItem(MockComponent, {data: ''});
+    let mockMapCoordinator = jasmine.createSpyObj(['getMap']);
+    mockMapCoordinator.getMap.and.returnValue([map]);
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [HomePage, FloorPlanComponent],
-      imports: [IonicModule.forRoot(), FormsModule, IonicPullupModule, HttpClientModule, RouterTestingModule],
-      providers: [{ provide: MapCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } }]
+      declarations: [ HomePage ],
+      schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+      imports: [ IonicModule.forRoot(), ReactiveFormsModule, HttpClientModule ],
+      providers: [
+        // MapCoordinator,
+        {provide: FormGroup, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+        {provide: FormBuilder, useValue: formBuilder },
+        {provide: MapCoordinator, useValue: mockMapCoordinator}
+      ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(HomePage);
     component = fixture.componentInstance;
+    component.directionForm = formBuilder.group({source: '', destination: ''});
     fixture.detectChanges();
   }));
 
-  it('should create', () => {
+  afterEach(() => {
+      formBuilder = null;
+      map = null;
+  })
+
+  it('should be created', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('should find building from class ID', () => {
-    const id1 = 'H-625';
-    const id2 = 'CC-312';
-    const building1 = component.parseBuilding(id1);
-    expect(building1).toEqual('hall');
-    const building2 = component.parseBuilding(id2);
-    expect(building2).toEqual('loyola');
-  });
-
-  it('should find floor from class ID', () => {
-    const id1 = 'H-625';
-    const id2 = 'H-1025';
-    const floor1 = component.parseFloor(id1);
-    expect(floor1).toEqual(6);
-    const floor2 = component.parseFloor(id2);
-    expect(floor2).toEqual(10);
   });
 });
