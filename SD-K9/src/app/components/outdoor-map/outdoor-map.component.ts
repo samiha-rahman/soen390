@@ -58,7 +58,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   loadGMaps() {
     if(typeof google == "undefined" || typeof google.maps == "undefined"){
       console.log("Google maps JavaScript needs to be loaded.");
-      //Load the SDK
+      //Load the API
       window['initMap'] = () => {
         this.initMap();
       }
@@ -85,6 +85,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      //update or load from google map state
       if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
         this._googleStore.storeMap({id: this.data.id, google: google, map: this.map, route: false});        // new map state
       }
@@ -92,22 +94,23 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         this._googleStore.updateGoogleMap({id: this.data.id, google: google, map: this.map, route: true}); // reload old map state
       }
 
-      var markerIcon = {
-        url: 'assets/images/map-pin.png',
-        scaledSize: new google.maps.Size(25, 44),
-        origin: new google.maps.Point(0,0),
-        anchor: new google.maps.Point(12, 44)
-      };
-
+      //add a marker on the current position
       this.userMarker = new google.maps.Marker({
         position: this.currentPos,
         map: this.map,
         title: 'You are here',
-        icon: markerIcon
+        icon: {
+          url: 'assets/images/map-pin.png',
+          scaledSize: new google.maps.Size(25, 44),
+          origin: new google.maps.Point(0,0),
+          anchor: new google.maps.Point(12, 44)
+        }
       });
 
+      //draw buildings overlay from config file
       this.drawBuildings();
 
+      //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
       google.maps.event.addListener(this.map, 'zoom_changed', function() {
           _self.hideShowMarkers(_self);
@@ -115,6 +118,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
+
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -124,9 +128,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   drawBuildings(){
+    //loop through both campus and all the buildings in each campus from the config file
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
+        //overlay each building
         let overlay = new google.maps.Polygon({
           paths: polygonBounds,
           strokeColor: '#FF0000',
@@ -135,7 +141,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           fillColor: '#FF0000',
           fillOpacity: 0.35
         });
+        //add the overlay to the map
         overlay.setMap(this.map);
+
+        //add a marker to the overlay with the building label
         let marker = new google.maps.Marker({
           position: this.campusConfig[campus]["buildings"][building]["markerPos"],
           label: {
@@ -149,6 +158,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           },
           map: this.map
         });
+
+        //keep track of the markers to hide/show them later
         this.buildingMarkers.push(marker);
       }
     }
