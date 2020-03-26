@@ -2,23 +2,42 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
 import { OutdoorMapComponent } from './outdoor-map.component';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 
-// describe('OutdoorMapComponent', () => {
-//   let component: OutdoorMapComponent;
-//   let fixture: ComponentFixture<OutdoorMapComponent>;
+var geolocate = require('mock-geolocation');
 
-//   beforeEach(async(() => {
-//     TestBed.configureTestingModule({
-//       declarations: [ OutdoorMapComponent ],
-//       imports: [IonicModule.forRoot()]
-//     }).compileComponents();
+describe('OutdoorMapComponent', () => {
+  let component: OutdoorMapComponent;
+  let fixture: ComponentFixture<OutdoorMapComponent>;
 
-//     fixture = TestBed.createComponent(OutdoorMapComponent);
-//     component = fixture.componentInstance;
-//     fixture.detectChanges();
-//   }));
+  let point = [54.980206086231, 82.898068362003];
 
-//   it('should create', () => {
-//     expect(component).toBeTruthy();
-//   });
-// });
+  class MockGeolocation extends Geolocation {
+    getCurrentPosition() {
+        return new Promise<any>(geolocate.use());
+    }
+
+  }
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+        declarations: [ OutdoorMapComponent ],
+        imports: [IonicModule.forRoot()],
+        providers: [
+            {provide: Geolocation, useClass: MockGeolocation},
+            OutdoorRouteBuilder
+        ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(OutdoorMapComponent);
+    component = fixture.componentInstance;
+    geolocate.use();
+    geolocate.send({lat: point[0], lng: point[1]});
+    fixture.detectChanges();
+  }));
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

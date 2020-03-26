@@ -1,6 +1,7 @@
-import { Coordinate } from '../interfaces/coordinate';
-
-export interface GoogleCoordinate extends Coordinate {
-    x: number;
-    y: number;
+/*
+* Equivalent to Google Maps LatLng object literal
+*/
+export interface GoogleCoordinate {
+    lat: number;
+    lng: number;
 }
