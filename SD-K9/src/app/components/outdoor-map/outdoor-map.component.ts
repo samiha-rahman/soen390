@@ -50,7 +50,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   buildingMarkers: any[] = [];
   userMarker: any;
   buildingInfoCardIsShown: boolean = false;
-  campusConfig: any = campusData.default;
+  currentBuilding: string;
+  currentCampus: string;
+  currentBuildingInfo: string;
+  campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
@@ -166,8 +169,12 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           strokeOpacity: 0.8,
           strokeWeight: 2,
           fillColor: '#FF0000',
-          fillOpacity: 0.35
+          fillOpacity: 0.35,
+          currentBuilding: building,
+          currentCampus: campus,
+          currentBuildingInfo: this.campusConfig[campus]["buildings"][building]['info']
         });
+
         //add the overlay to the map
         overlay.setMap(this.map);
 
@@ -186,6 +193,17 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           map: this.map
         });
 
+        //show building info when clicked
+        let _self = this;
+        google.maps.event.addListener(overlay, 'click', function() {
+          _self.currentBuilding = this.currentBuilding;
+          _self.currentCampus = this.currentCampus;
+          _self.currentBuildingInfo = this.currentBuildingInfo;
+          _self.buildingInfoCardIsShown = true;
+          _self.refresh();
+        });
+
+
         //keep track of the markers to hide/show them later
         this.buildingMarkers.push(marker);
       }
@@ -196,6 +214,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
     this.hideShowMarkers(this);
+  }
+
+  hideBuildingInfoCard(event){
+    this.buildingInfoCardIsShown = false;
+    this.refresh();
   }
 
   locateUser(){

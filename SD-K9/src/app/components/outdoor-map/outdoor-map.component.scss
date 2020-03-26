@@ -15,11 +15,25 @@
     margin-top: 20px;
 }
 
+.building-info-card{
+  z-index:9999;
+  position:relative;
+  background-color:white;
+
+  .close-card{
+    position:absolute;
+    top:5px;
+    right:5px;
+    width:25px;
+    height:auto;
+  }
+}
+
 .locate-me-btn-wrapper {
     bottom:100px;
     right: 20px;
     z-index:2;
-  
+
     .locate-me-btn{
       img{
         pointer-events: none;

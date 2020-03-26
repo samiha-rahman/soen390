@@ -5,12 +5,13 @@
       "lng": -73.5805984
     },
     "buildings": {
-      "ev": {
+      "EV building": {
         "markerText": "EV",
         "markerPos": {
           "lat": 45.495575,
           "lng": -73.578012
         },
+        "info": "this is EV building info",
         "bounds": [{
             "lat": 45.495176,
             "lng": -73.577883
@@ -43,6 +44,7 @@
           "lat": 45.495265,
           "lng": -73.579034
         },
+        "info": "this is JMSB building info",
         "bounds": [{
             "lat": 45.495558,
             "lng": -73.579222
@@ -67,6 +69,7 @@
           "lat": 45.497250,
           "lng": -73.578942
         },
+        "info": "this is Hall building info",
         "bounds": [{
             "lat": 45.497166,
             "lng": -73.579556
@@ -91,6 +94,7 @@
           "lat": 45.496777,
           "lng": -73.577939
         },
+        "info": "this is library building info",
         "bounds": [{
             "lat": 45.496701,
             "lng": -73.578605
@@ -123,6 +127,7 @@
           "lat": 45.494198,
           "lng": -73.578343
         },
+        "info": "this is Faubourg building info",
         "bounds": [{
             "lat": 45.494704,
             "lng": -73.577998
@@ -155,6 +160,7 @@
           "lat": 45.457472,
           "lng": -73.640418
         },
+        "info": "this is Communications building info",
         "bounds": [{
             "lat": 45.457643,
             "lng": -73.640025
@@ -179,6 +185,7 @@
           "lat": 45.456953,
           "lng": -73.640515
         },
+        "info": "this is GE building info",
         "bounds": [{
             "lat": 45.457144,
             "lng": -73.640623
@@ -203,6 +210,7 @@
           "lat": 45.457570,
           "lng": -73.641694
         },
+        "info": "this is SP building info",
         "bounds": [{
             "lat": 45.458328,
             "lng": -73.641344
@@ -235,6 +243,7 @@
           "lat": 45.458593,
           "lng": -73.641049
         },
+        "info": "this is RF building info",
         "bounds": [{
             "lat": 45.458482,
             "lng": -73.641315
@@ -259,6 +268,7 @@
           "lat": 45.458224,
           "lng": -73.640352
         },
+        "info": "this is CC building info",
         "bounds": [{
             "lat": 45.458305,
             "lng": -73.640847
@@ -283,6 +293,7 @@
           "lat": 45.458016,
           "lng": -73.639776
         },
+        "info": "this is AD building info",
         "bounds": [{
             "lat": 45.457823,
             "lng": -73.640129
@@ -307,6 +318,7 @@
           "lat": 45.458909,
           "lng": -73.640518
         },
+        "info": "this is PY building info",
         "bounds": [{
             "lat": 45.458791,
             "lng": -73.640832
@@ -331,6 +343,7 @@
           "lat": 45.458509,
           "lng": -73.639352
         },
+        "info": "this is FC building info",
         "bounds": [{
             "lat": 45.458530,
             "lng": -73.639679

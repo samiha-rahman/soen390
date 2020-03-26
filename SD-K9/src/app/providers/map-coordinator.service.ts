@@ -18,7 +18,7 @@ import * as buildingsData from '../../local-configs/buildings.json';
 })
 export class MapCoordinator {
     map: MapItem;
-    buildingsConfig: any = buildingsData.default;
+    buildingsConfig: any = buildingsData["default"];
     private _outdoorIndex: number = 1;
 
     constructor(

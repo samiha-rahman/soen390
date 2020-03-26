@@ -31,7 +31,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     IonicPullupModule,
     HttpClientModule,
-    BrowserModule,
     BrowserAnimationsModule],
   providers: [
     IndoorRouteBuilder,
