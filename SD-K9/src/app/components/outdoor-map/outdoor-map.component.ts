@@ -6,6 +6,8 @@ import { GoogleStore } from '../../providers/state-stores/google-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import * as campusData from '../../../local-configs/campus.json';
+
 
 declare var google;
 
@@ -19,6 +21,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   @ViewChild('map', {static: true}) mapElement: ElementRef;
   map: any;
   userMarker: any;
+  campusConfig: any = campusData.default;
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
@@ -104,39 +107,32 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
-
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
   drawBuildings(){
-    // TODO : draw all buildings & put in config
-    let EV_BOUNDS = [
-        {"lat": 45.495176, "lng": -73.577883},
-        {"lat": 45.495815, "lng": -73.577223},
-        {"lat": 45.496030, "lng": -73.577695},
-        {"lat": 45.495755, "lng": -73.578012},
-        {"lat": 45.496116, "lng": -73.578800},
-        {"lat": 45.495778, "lng": -73.579101}
-      ];
-    let evOverlay = new google.maps.Polygon({
-        paths: EV_BOUNDS,
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35
-      });
-    evOverlay.setMap(this.map);
+
+    for (const building in this.campusConfig) {
+      for (const polygon in this.campusConfig[building]["bounds"]) {
+        let polygonBounds = this.campusConfig[building]["bounds"][polygon];
+        let evOverlay = new google.maps.Polygon({
+          paths: polygonBounds,
+          strokeColor: '#FF0000',
+          strokeOpacity: 0.8,
+          strokeWeight: 2,
+          fillColor: '#FF0000',
+          fillOpacity: 0.35
+        });
+        evOverlay.setMap(this.map);
+      }
+    }
   }
 
   toggleCampus(event){
-    if(event.detail.value == "sgw"){
-      this.map.panTo(new google.maps.LatLng(45.4967982,-73.5805984));
-    }else if(event.detail.value == "lyl"){
-      this.map.panTo(new google.maps.LatLng(45.458246,-73.6426491));
-    }
+    let currentCampus = this.campusConfig[event.detail.value];
+    this.map.panTo(new google.maps.LatLng(currentCampus["coords"]["lat"],currentCampus["coords"]["long"]));
   }
 
   locateUser(){
