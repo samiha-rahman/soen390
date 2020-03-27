@@ -86,19 +86,27 @@ describe('Pathfinder', () => {
         expect(path).toEqual([nodeA, middleNode, nodeB]);
     });
 
-    it('#getShortestPath should return an error if not on the same floor', async() => {
-        const newNodeA = JSON.parse(JSON.stringify(nodeA));
-        newNodeA.floor = 1;
+    it('#getShortestPath should return an error if not on the same floor', async () => {
+        const testNodeA = JSON.parse(JSON.stringify(nodeA));
+        testNodeA.floor = 1;
 
-        expectAsync(service.getShortestPath(newNodeA, nodeB)).toBeRejectedWith(new Error('The start and end points should be in the same floor of the same building.'));
+        expectAsync(service.getShortestPath(testNodeA, nodeB))
+            .toBeRejectedWith(new Error('Are you sure the start and end points are in the same floor of the same building?'));
     });
 
-    it('#distance should get distance between 2 nodes', () => {
+    it('#distance should get eucledian distance between 2 nodes', () => {
 
         const dist = service.distance(nodeA, nodeB);
         const eucledianDistance = Math.sqrt(Math.pow(nodeA.x - nodeB.x, 2) + Math.pow(nodeA.y - nodeB.y, 2))
 
         // sqrt((2-8)^2 + (2-8)^2) = 8.485
         expect(dist.toFixed(2)).toEqual(eucledianDistance.toFixed(2));
+    });
+
+    it('#distance should throw an error if x or y is not a number', () => {
+        const testNodeA = JSON.parse(JSON.stringify(nodeA));
+        testNodeA.x = 'NaN';
+
+        expect(() => { service.distance(testNodeA, nodeB); }).toThrow(new Error('Are you sure both coordinates have a numerical x and y?'))
     });
 });

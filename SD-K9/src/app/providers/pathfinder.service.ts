@@ -21,10 +21,9 @@ export class Pathfinder {
     pointA: SVGCoordinate,
     pointB: SVGCoordinate
   ): Promise<SVGCoordinate[]> {
-    console.log(pointA.floor)
-    console.log(pointB.floor)
+
     if (pointA.building !== pointB.building || pointA.floor !== pointB.floor) {
-      throw new Error('The start and end points should be in the same floor of the same building.')
+      throw new Error('Are you sure the start and end points are in the same floor of the same building?');
     }
     const currentBuilding = pointA.building;
     const currentFloor = pointA.floor;
@@ -98,7 +97,8 @@ export class Pathfinder {
         }
       }
     }
-    return [];
+    // If It reaches here, it means no path was found
+    throw new Error('Can\'t find a way there');
   }
 
   /**
@@ -172,8 +172,8 @@ export class Pathfinder {
    * @param b  position node B
    */
   distance(a: SVGCoordinate, b: SVGCoordinate): number {
-    if (typeof a.x === 'undefined' || typeof a.y === 'undefined' || typeof b.y === 'undefined' || typeof b.x === 'undefined') {
-      return 0;
+    if (isNaN(a.x) || isNaN(a.y) || isNaN(b.x) || isNaN(b.y)) {
+      throw new Error('Are you sure both coordinates have a numerical x and y?')
     } else {
       return Math.hypot(a.x - b.x, a.y - b.y);
     }

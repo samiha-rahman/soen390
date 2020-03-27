@@ -86,7 +86,7 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getClassroom should return a classroom given an id', () => {
+    it('#getClassroom should return a classroom given an id, building and floor', () => {
         const classID = 'A';
         const building = 'any';
         const floor = 0;
@@ -113,34 +113,7 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getClassroom should return a classroom given an id', () => {
-        const classID = 'A';
-        const building = 'any';
-        const floor = 0;
-
-        const expectedClassroom = {
-            id: 'A',
-            building,
-            floor,
-            x: 2,
-            y: 2
-        }
-
-        service.getClassroom(classID, building, floor)
-            .then(classroom => {
-                expect(classroom).toEqual(expectedClassroom);
-            })
-            .catch((error) => {
-                fail(error);
-            });
-
-        const request = httpMock.expectOne('../../assets/any/0.svg');
-        expect(request.request.method).toBe('GET');
-
-        request.flush(dummySVG);
-    });
-
-    it('#getVerticalTransportation should return a vertical transportation given an id', () => {
+    it('#getVerticalTransportation should return a vertical transportation given an id, building and floor', () => {
         const vtID = 'stair-1';
         const building = 'any';
         const floor = 0;
