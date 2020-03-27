@@ -86,30 +86,11 @@ describe('Pathfinder', () => {
         expect(path).toEqual([nodeA, middleNode, nodeB]);
     });
 
-    describe('#getShortestPath should return an error if not on the same floor', () => {
+    it('#getShortestPath should return an error if not on the same floor', async() => {
         const newNodeA = JSON.parse(JSON.stringify(nodeA));
         newNodeA.floor = 1;
 
-        let resolved: boolean;
-        let rejected: boolean;
-
-        beforeEach((done) => {
-            resolved = false;
-            rejected = false;
-
-            service.getShortestPath(newNodeA, nodeB).then((nodes) => {
-                resolved = true;
-                done();
-            }).catch(() => {
-                rejected = true;
-                done();
-            });
-        });
-
-        it('should reject promise', () => {
-            expect(resolved).toEqual(false);
-            expect(rejected).toEqual(true);
-        });
+        expectAsync(service.getShortestPath(newNodeA, nodeB)).toBeRejectedWith(new Error('The start and end points should be in the same floor of the same building.'));
     });
 
     it('#distance should get distance between 2 nodes', () => {
