@@ -62,7 +62,7 @@ export class SVGManager {
       .pipe(
         map(svgFile => {
           const element: any = SVG(svgFile).find('g#nodes');
-          return element[0].node.attributes['distance-between-neighbors'].value;
+          return Number(element[0].node.attributes['distance-between-neighbors'].value);
         })
       )
       .toPromise();

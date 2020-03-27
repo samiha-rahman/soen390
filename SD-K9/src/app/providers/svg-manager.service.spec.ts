@@ -9,7 +9,7 @@ describe('SVGManager', () => {
     let httpMock: HttpTestingController;
 
     const dummySVG = `<svg version="1.1" x="0px" y="0px" viewBox="0 0 10 10">
-    <g id="nodes">
+    <g id="nodes" distance-between-neighbors="10">
     <circle class="node" cx="8" cy="2" r="0.5"/>
     <circle class="node" cx="2" cy="8" r="0.5"/>
     </g>
@@ -171,6 +171,24 @@ describe('SVGManager', () => {
         service.getClosestVerticalTransportationId('escalators', 'up', building, floor, currentLocation)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
+            })
+            .catch((error) => {
+                fail(error);
+            });
+
+        const request = httpMock.expectOne('../../assets/any/0.svg');
+        expect(request.request.method).toBe('GET');
+
+        request.flush(dummySVG);
+    });
+
+    it('#getDistanceBetweenNeighbors should return distance between neighbors given a building and a floor', () => {
+        const building = 'any';
+        const floor = 0;
+
+        service.getDistanceBetweenNeighbors(building, floor)
+            .then(distance => {
+                expect(distance).toEqual(10);
             })
             .catch((error) => {
                 fail(error);
