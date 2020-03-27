@@ -167,11 +167,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         //overlay each building
         let overlay = new google.maps.Polygon({
           paths: polygonBounds,
-          strokeColor: '#FF0000',
-          strokeOpacity: 0.8,
+          strokeColor: '#A31B1B',
+          strokeOpacity: 1,
           strokeWeight: 2,
-          fillColor: '#FF0000',
-          fillOpacity: 0.35,
+          fillColor: '#A31B1B',
+          fillOpacity: 0.9,
           currentBuilding: building,
           currentCampus: campus,
           currentBuildingInfo: this.campusConfig[campus]["buildings"][building]['info']
@@ -186,7 +186,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           label: {
             text: this.campusConfig[campus]["buildings"][building]["markerText"],
             color: "white",
-            fontSize: "26px"
+            fontSize: "22px"
           },
           visible: true,
           icon:{
