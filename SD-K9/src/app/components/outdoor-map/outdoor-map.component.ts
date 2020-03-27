@@ -58,7 +58,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
       document.body.appendChild(script);
     }else{
       this.initMap();

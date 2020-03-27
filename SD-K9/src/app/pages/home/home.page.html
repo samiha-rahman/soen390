@@ -11,6 +11,7 @@
       <ion-item>
         <ion-label position="floating">Choose starting point...</ion-label>
         <ion-input formControlName="source"></ion-input>
+        <ion-searchbar #searchbar></ion-searchbar>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Choose destination...</ion-label>
@@ -54,5 +55,10 @@
   </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>
+  </div>
+  <div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name"  class="title"></span><br>
+    <span id="place-address"></span>
   </div>
 </ion-content>
