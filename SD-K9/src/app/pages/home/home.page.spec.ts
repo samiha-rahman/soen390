@@ -10,6 +10,9 @@ import { MapItem } from '../../helpers/map-item';
 import { HttpClientModule } from '@angular/common/http';
 import { MockComponent } from '../../test-helpers/mock-component.component';
 
+import { IonicPullupModule, IonPullUpFooterState } from 'ionic-pullup';
+
+
 describe('HomePage', () => {
     let component: HomePage;
     let fixture: ComponentFixture<HomePage>;
@@ -23,7 +26,7 @@ describe('HomePage', () => {
     TestBed.configureTestingModule({
       declarations: [ HomePage ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-      imports: [ IonicModule.forRoot(), ReactiveFormsModule, HttpClientModule ],
+      imports: [ IonicModule.forRoot(), ReactiveFormsModule, HttpClientModule, IonicPullupModule ],
       providers: [
         // MapCoordinator,
         {provide: FormGroup, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},

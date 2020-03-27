@@ -7,7 +7,7 @@
 <ion-content>
   <div style="z-index: 1; position: relative;">
     <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
-  
+
       <ion-item>
         <ion-label position="floating">Choose starting point...</ion-label>
         <ion-input formControlName="source"></ion-input>
@@ -17,7 +17,7 @@
         <ion-input formControlName="destination"></ion-input>
       </ion-item>
       <ion-list >
-        <ion-segment (ionChange)="mode($event)" value="DRIVING"> 
+        <ion-segment (ionChange)="mode($event)" value="DRIVING">
             <ion-row>
              <ion-segment-button value="DRIVING">
                <ion-label>Driving</ion-label>
@@ -34,11 +34,11 @@
             </ion-row>
           </ion-segment>
       </ion-list>
-   
+
       <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
     </form>
     <!-- <ion-button expand="block">Clear Direction</ion-button> -->
-    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED"> 
+    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED">
       <ion-row>
        <ion-segment-button value="HALL">
          <ion-label>Indoor Hall Bldg</ion-label>
@@ -56,3 +56,69 @@
     <app-map-box [maps]="maps"></app-map-box>
   </div>
 </ion-content>
+
+<!-- PULLUP BAR -->
+<ion-fab top>
+<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
+  <ion-toolbar color="primary"  (click)="toggleFooter()" #ionDragFooter>
+    <!-- <ion-buttons slot="primary">
+      <ion-button (click)="clickedSearch()">
+      </ion-button>
+    </ion-buttons>
+    <ion-searchbar placeholder="WILL BE REMOVED"></ion-searchbar> -->
+  </ion-toolbar>
+
+  <ion-content>
+    <ion-content>
+      <ion-list>
+        <ion-button (click)="openModal()" expand="block">
+          <ion-icon name="time"></ion-icon>
+          Shuttle Schedule
+        </ion-button>
+        <ion-button (click)="openModal1()" expand="block">
+          <ion-icon name="settings"></ion-icon>
+          App Settings
+        </ion-button>
+      </ion-list>
+      <!-- FAVORITES -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Favorites</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-button>SOEN-390</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>SOEN-344</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>COMP-335</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- RECENT EXAMPLE -->
+
+      <ion-item>
+        <ion-label>Recent</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-card>
+        <ion-card-header>
+
+          <ion-card-title>H building 534 <div class="ion-text-end">2 min</div>
+          </ion-card-title>
+          <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
+        </ion-card-header>
+
+      </ion-card>
+
+    </ion-content>
+  </ion-content>
+</lib-ionic-pullup>
+<ion-fab>

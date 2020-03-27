@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { IonicPullupModule } from 'ionic-pullup';
 import { IonicModule } from '@ionic/angular';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
 
 import { HomeTempPageRoutingModule } from './home-routing.module';
 
@@ -18,18 +20,23 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    HomeTempPageRoutingModule
+    HomeTempPageRoutingModule,
+    IonicPullupModule
   ],
   declarations: [
     HomePage,
     MapBoxComponent,
     MapDirective,
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    BusPage,
+    AppsettingsPage
   ],
   entryComponents: [
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    BusPage,
+    AppsettingsPage
   ]
 })
 export class HomeTempPageModule {}

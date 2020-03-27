@@ -4,6 +4,11 @@ import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SourceDestination } from '../../interfaces/source-destination';
 
+import { IonPullUpFooterState } from 'ionic-pullup';
+import { BusPage } from 'src/app/modals/bus/bus.page';
+import { AppsettingsPage } from 'src/app/modals/appsettings/appsettings.page';
+import { ModalController, NavController } from '@ionic/angular';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -16,14 +21,16 @@ export class HomePage implements OnInit {
   indoorMode: string;
 
   constructor(
+    private modalController: ModalController,
     private _mapCoordinator: MapCoordinator,
     private _fb: FormBuilder
-  ) { 
+  ) {
     this.createDirectionForm();
   }
-  
+
   ngOnInit() {
     this.maps = [this._mapCoordinator.getMap()];
+    this.footerState = IonPullUpFooterState.Collapsed;
   }
 
   //Verify form
@@ -59,7 +66,7 @@ export class HomePage implements OnInit {
         this.indoorMode = "DISABLED" ;
         this.maps = [this._mapCoordinator.getMap()];
       }
-    } 
+    }
     return this.indoorMode;
   }
 
@@ -76,5 +83,33 @@ export class HomePage implements OnInit {
     }
     return this.transportMode;
 }
+async openModal() {
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async openModal1() {
+    const modal = await this.modalController.create({
+      component: AppsettingsPage
+    });
+    return await modal.present();
+  }
+
+  //optional capture events
+  footerExpanded() {
+    console.log('Footer expanded!');
+  }
+
+  // optional capture events
+  footerCollapsed() {
+    console.log('Footer collapsed!');
+  }
+
+  // toggle footer states
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+  }
 
 }

@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AppsettingsPageRoutingModule } from './app-settings-routing.module';
+import { BusPageRoutingModule } from './bus-routing.module';
 
-import { AppSettings } from './app-settings.page';
+import { BusPage } from './bus.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AppsettingsPageRoutingModule
+    BusPageRoutingModule
   ],
-  declarations: [AppSettings]
+  declarations: [BusPage]
 })
-export class AppsettingsPageModule {}
+export class BusPageModule {}
