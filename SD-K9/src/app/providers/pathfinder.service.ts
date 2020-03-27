@@ -3,10 +3,11 @@ import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { AStarNode } from '../models/a-star.model';
 import { MinHeap } from '../helpers/heap';
 import { SVGManager } from './svg-manager.service';
+import { INT_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class Pathfinder {
-  DISTANCE_BETWEEN_NODES = 8;
+  private distanceBetweenNeighbors: number;
 
   constructor(private svgManager: SVGManager) { }
 
@@ -30,6 +31,7 @@ export class Pathfinder {
 
     /* Getting the walkable nodes */
     const walkablePath = await this.svgManager.getWalkableNodes(currentBuilding, currentFloor);
+    this.distanceBetweenNeighbors = await this.svgManager.getDistanceBetweenNeighbors(currentBuilding, currentFloor);
 
     /* Creating the start node */
     const startHeuristic = this.distance(pointA, pointB);
@@ -122,7 +124,7 @@ export class Pathfinder {
    * @param b point B
    */
   private isNeighbor(a: SVGCoordinate, b: SVGCoordinate) {
-    return this.distance(a, b) < this.DISTANCE_BETWEEN_NODES;
+    return this.distance(a, b) < this.distanceBetweenNeighbors;
   }
 
   /**

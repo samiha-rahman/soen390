@@ -42,8 +42,8 @@ export class SVGManager {
             /* Create a PositionNode Obj */
             const walkableNode: SVGCoordinate = {
               id: node.id,
-              x: parseInt(node["cx"].baseVal.value),
-              y: parseInt(node["cy"].baseVal.value),
+              x: parseInt(node['cx'].baseVal.value),
+              y: parseInt(node['cy'].baseVal.value),
               building,
               floor
             };
@@ -52,6 +52,17 @@ export class SVGManager {
           });
 
           return walkable;
+        })
+      )
+      .toPromise();
+  }
+
+  public getDistanceBetweenNeighbors(building, floor): Promise<number> {
+    return this.getSVG(`${building}/${floor}`)
+      .pipe(
+        map(svgFile => {
+          const element: any = SVG(svgFile).find('g#nodes');
+          return element[0].node.attributes['distance-between-neighbors'].value;
         })
       )
       .toPromise();

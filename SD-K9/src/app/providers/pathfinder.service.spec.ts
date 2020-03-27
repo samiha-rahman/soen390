@@ -23,6 +23,9 @@ describe('Pathfinder', () => {
                 { id: 'node-7', x: 5, y: 8, building: 'na', floor: 0 },
                 { id: 'B', x: 8, y: 8, building: 'na', floor: 0 }
             ];
+        },
+        getDistanceBetweenNeighbors: () => {
+            return 8;
         }
     };
 
