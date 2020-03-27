@@ -264,7 +264,7 @@
 	<text transform="matrix(1 0 0 1 45.9162 99.7508)" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">H-109.3</text>
 	<text transform="matrix(1 0 0 1 48.3329 79.1674)" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">H-109.2</text>
 </g>
-<g id="nodes">
+<g id="path" style="display:none;" distance-between-neighbors="8">
 	<circle class="node" style="fill:#ED1C24;" cx="334.4" cy="506.2" r="0.1"/>
 	<circle class="node" style="fill:#ED1C24;" cx="33.2" cy="105.3" r="0.1"/>
 	<circle class="node" style="fill:#ED1C24;" cx="42.7" cy="94.3" r="0.1"/>

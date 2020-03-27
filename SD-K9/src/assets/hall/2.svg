@@ -529,7 +529,7 @@
 	<text transform="matrix(1 0 0 1 133.5022 296.1583)" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">REGGIES</text>
 	<text transform="matrix(1 0 0 1 545.2529 264.9824)"><tspan x="0" y="0" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">HIVE</tspan><tspan x="-1.4" y="14.4" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">CAFE</tspan></text>
 </g>
-<g id="nodes" style="display:none;">
+<g id="path" style="display:none;" distance-between-neighbors="8">
 		<circle class="node" style="fill:#ED1C24;" cx="700.6" cy="526.8" r="0.1"/>
 		<circle class="node" style="fill:#ED1C24;" cx="647.6" cy="526.8" r="0.1"/>
 		<circle class="node" style="fill:#ED1C24;" cx="708.3" cy="758.7" r="0.1"/>
