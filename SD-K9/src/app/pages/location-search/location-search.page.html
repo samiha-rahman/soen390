@@ -1,0 +1,28 @@
+<ion-content>
+  <ion-card color="medium" class="padding-2">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1.5">
+          <ion-fab-button class="no-shadow" color="medium" (click)="goToHomePage()">
+            <ion-icon name="arrow-back" color="dark"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="0.25"></ion-col>
+        <ion-col>
+          <ion-searchbar placeholder="Choose Location" search-icon="search" color="light" [(ngModel)]="query"
+            (ngModelChange)="changeQuery($event)">
+          </ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <div>
+    <ion-list>
+      <ion-item *ngFor="let item of itemList | slice:0:10; let i = index">
+        <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

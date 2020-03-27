@@ -11,6 +11,7 @@ import { FloorPlanComponent } from 'src/app/components/floor-plan/floor-plan.com
 import { MapBoxComponent } from 'src/app/components/map-box/map-box.component';
 import { MapDirective } from 'src/app/directives/map.directive';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
+import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
 
 @NgModule({
   imports: [
@@ -25,11 +26,12 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
     MapBoxComponent,
     MapDirective,
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    TopDirectionsBarComponent
   ],
   entryComponents: [
     FloorPlanComponent,
     OutdoorMapComponent
   ]
 })
-export class HomeTempPageModule {}
+export class HomeTempPageModule { }

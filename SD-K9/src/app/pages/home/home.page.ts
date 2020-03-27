@@ -1,8 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SourceDestination } from '../../interfaces/source-destination';
+import { DirectionForm } from '../../interfaces/direction-form';
+import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
+import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
+import { FloorPlanStore } from 'src/app/providers/state-stores/floor-plan-store.service';
 
 @Component({
   selector: 'app-home',
@@ -11,31 +15,40 @@ import { SourceDestination } from '../../interfaces/source-destination';
 })
 export class HomePage implements OnInit {
   maps: MapItem[];
-  directionForm: FormGroup;
   transportMode: string;
   indoorMode: string;
 
+  private _unsubscribe: UnsubscribeCallback;
+  private _directionForm: DirectionForm;
+
   constructor(
     private _mapCoordinator: MapCoordinator,
-    private _fb: FormBuilder
-  ) { 
-    this.createDirectionForm();
+    private _directionFormStore: DirectionFormStore,
+    private _routeStore: RouteStore,
+    private _floorPlanStore: FloorPlanStore
+  ) {
+    this._unsubscribe = this._directionFormStore.subscribe(() => {
+      this._directionForm = this._directionFormStore.getDirectionFormState();
+    });
   }
-  
+
   ngOnInit() {
     this.maps = [this._mapCoordinator.getMap()];
   }
 
-  //Verify form
-  createDirectionForm() {
-    this.directionForm = this._fb.group({
-      source: ['', Validators.required],
-      destination: ['', Validators.required]
-    });
+  getForm(formComplete: boolean) {
+    if (formComplete) {
+      this._calculateAndDisplayRoute(this._directionForm);
+    }
+    else {
+      this.maps = [this._mapCoordinator.getMap()];
+      this._routeStore.clearRoutes();
+      this._floorPlanStore.clearFloorPlans();
+    }
   }
 
-  calculateAndDisplayRoute(formValues: SourceDestination) {
-    let tempMaps: Promise<MapItem[]> = this._mapCoordinator.getOverallRoute(formValues);
+  private _calculateAndDisplayRoute(directionForm: DirectionForm) {
+    let tempMaps: Promise<MapItem[]> = this._mapCoordinator.getOverallRoute(directionForm);
     tempMaps.then((maps) => {
       if (maps.length > 0) {
         this.maps = maps;
@@ -50,31 +63,17 @@ export class HomePage implements OnInit {
         this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
         break;
       }
-      case "HALL":{
+      case "HALL": {
         this.indoorMode = "HALL";
         this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
         break;
       }
       default: {
-        this.indoorMode = "DISABLED" ;
+        this.indoorMode = "DISABLED";
         this.maps = [this._mapCoordinator.getMap()];
       }
-    } 
+    }
     return this.indoorMode;
   }
-
-  //Travel mode selected
-  mode(event): string {
-    if(event.detail.value == "DRIVING"){
-        this.transportMode = "DRIVING"
-    }else if(event.detail.value == "WALKING"){
-        this.transportMode = "WALKING"
-    }else if(event.detail.value == "BICYCLING"){
-        this.transportMode = "BYCYCLING"
-    }else if(event.detail.value == "TRANSIT"){
-        this.transportMode = "TRANSIT"
-    }
-    return this.transportMode;
-}
 
 }
