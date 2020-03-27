@@ -14,7 +14,6 @@ declare var google;
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  @ViewChild('searchbar', {read: ElementRef, static: false}) searchbar: ElementRef;
   maps: MapItem[];
   directionForm: FormGroup;
   transportMode: string;
@@ -92,10 +91,8 @@ export class HomePage implements OnInit {
   }
 
   searchplaces(){
-    var input = this.searchbar.nativeElement.querySelector('.searchbar-input') as HTMLInputElement;
-    console.log(input);
+    var input = document.getElementById('searchinput').getElementsByTagName('input')[0];
     var autocomplete = new google.maps.places.Autocomplete(input);
-    console.log('asd');
     // Bind the map's bounds (viewport) property to the autocomplete object,
     // so that the autocomplete requests use the current map bounds for the
     // bounds option in the request.
