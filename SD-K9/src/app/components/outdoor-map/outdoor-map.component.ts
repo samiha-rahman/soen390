@@ -27,11 +27,13 @@ declare var google;
     trigger('cardAnimation', [
       state('hidden', style({
         opacity: 0,
-        transform: "translate(0px,100px)"
+        transform: "translate(0px,100px)",
+        height:"0px"
       })),
       state('shown', style({
         opacity: 1,
-        transform: "translate(0px,0px)"
+        transform: "translate(0px,0px)",
+        height:"auto"
       })),
       transition('hidden => shown', [
         animate('0.2s')
@@ -196,6 +198,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         //show building info when clicked
         let _self = this;
         google.maps.event.addListener(overlay, 'click', function() {
+          console.log("clicked building");
           _self.currentBuilding = this.currentBuilding;
           _self.currentCampus = this.currentCampus;
           _self.currentBuildingInfo = this.currentBuildingInfo;
