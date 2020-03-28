@@ -140,6 +140,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
+        let buildingSlug = this.campusConfig[campus]["buildings"][building]["buildingSlug"];
+        buildingSlug = typeof buildingSlug === 'undefined' ? '' : buildingSlug;
+
         //overlay each building
         let overlay = new google.maps.Polygon({
           paths: polygonBounds,
@@ -150,7 +153,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           fillOpacity: 0.9,
           currentBuilding: building,
           currentCampus: campus,
-          currentBuildingInfo: this.campusConfig[campus]["buildings"][building]['info']
+          currentBuildingInfo: this.campusConfig[campus]["buildings"][building]["info"],
+          buildingSlug: buildingSlug
         });
 
         //add the overlay to the map
@@ -176,7 +180,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         google.maps.event.addListener(overlay, 'click', function() {
           let buildingInfoState: BuildingInfoState = {
             campus: this.currentCampus,
-            building: this.currentBuilding
+            building: this.currentBuilding,
+            slug: this.buildingSlug
           }
           _self._buildingInfoStore.setBuildingInfo(buildingInfoState);
           _self.refresh();

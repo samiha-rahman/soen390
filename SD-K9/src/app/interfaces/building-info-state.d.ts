@@ -3,4 +3,5 @@ import { OutdoorMapComponent } from "../components/outdoor-map/outdoor-map.compo
 export declare interface BuildingInfoState {
     building: string;
     campus: string;
+    slug: string;
 }

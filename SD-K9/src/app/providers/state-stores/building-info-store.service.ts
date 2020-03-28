@@ -18,11 +18,13 @@ export class BuildingInfoStore {
       case this._UPDATE: {
         state.building = action.payload.building;
         state.campus = action.payload.campus;
+        state.slug = action.payload.slug;
         return state;
       }
       case this._CLEAR: {
         state.building = '';
         state.campus = '';
+        state.slug = '';
         return state;
       }
     }

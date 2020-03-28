@@ -42,6 +42,7 @@ import * as campusData from '../../../local-configs/campus.json';
 export class BuildingInfoComponent implements OnInit, OnDestroy {
   currentBuilding: string;
   currentCampus: string;
+  buildingSlug: string = '';
   currentBuildingInfo: string;
   buildingInfoCardIsShown: boolean;
 
@@ -51,11 +52,11 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   constructor(
     private _buildingInfoStore: BuildingInfoStore,
     private _mapModeStore: MapModeStore
-  ) { 
+  ) {
     this._unsubscribe = this._buildingInfoStore.subscribe(() => {
       this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
       this.currentCampus = this._buildingInfoStore.getBuildingInfo().campus;
-
+      this.buildingSlug = this._buildingInfoStore.getBuildingInfo().slug;
       this._displayCard();
     });
   }
@@ -75,15 +76,15 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  goInside(building: string) {
-    switch(building) {
-      case 'sgw': {
-        this._mapModeStore.setMode(ViewMode.HALL);
-        break;
+  goInside(buildingSlug: string) {
+    switch(buildingSlug){
+      case "hall":{
+          this._mapModeStore.setMode(ViewMode.HALL);
+          break;
       }
-      case 'loy': {
-        this._mapModeStore.setMode(ViewMode.LOYOLA);
-        break;
+      case "cc":{
+          this._mapModeStore.setMode(ViewMode.LOYOLA);
+          break;
       }
     }
   }
