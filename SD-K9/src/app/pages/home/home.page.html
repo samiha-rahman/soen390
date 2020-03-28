@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>home-temp</ion-title>
+    <ion-title>home</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,11 +8,11 @@
   <div style="z-index: 1; position: relative;">
     <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
   
-      <ion-item>
+      <ion-item id="source">
         <ion-label position="floating">Choose starting point...</ion-label>
         <ion-input formControlName="source"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item id="destination">
         <ion-label position="floating">Choose destination...</ion-label>
         <ion-input formControlName="destination"></ion-input>
       </ion-item>
@@ -35,7 +35,7 @@
           </ion-segment>
       </ion-list>
    
-      <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
+      <ion-button expand="full" type="submit" [disabled]="directionForm.invalid" id="getdirection-button">Get Direction</ion-button>
     </form>
     <!-- <ion-button expand="block">Clear Direction</ion-button> -->
     <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED"> 
