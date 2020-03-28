@@ -222,11 +222,11 @@
 	</g>
 </g>
 <g id="entrances">
-	<circle id="_x31__5_" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="338.8" cy="582.3" r="1"/>
-	<circle id="_x32__1_" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="976" cy="506.2" r="1"/>
+	<circle id="entrance-2" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="338.8" cy="582.3" r="1"/>
+	<circle id="entrance-3" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="976" cy="506.2" r="1"/>
 </g>
 <g id="bathrooms">
-	<circle id="_x31__2_" style="fill:#F2F2F2;stroke:#BCABD3;stroke-miterlimit:10;" cx="499.1" cy="198.6" r="1"/>
+	<circle id="bath-1" style="fill:#F2F2F2;stroke:#BCABD3;stroke-miterlimit:10;" cx="499.1" cy="198.6" r="1"/>
 </g>
 <g id="classes">
 	<circle class="classroom" id="H-110" style="fill:#F2E0CC;stroke:#B79065;stroke-miterlimit:10;" cx="330.3" cy="350.7" r="1"/>
@@ -238,7 +238,7 @@
 	<circle class="classroom" id="H-102.7" style="fill:#F2E0CC;stroke:#B79065;stroke-miterlimit:10;" cx="483.7" cy="568.6" r="1"/>
 </g>
 <g id="elevators">
-	<circle id="_x31__1_" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="657.7" cy="272" r="1"/>
+	<circle id="elevator-1" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="657.7" cy="272" r="1"/>
 </g>
 <g id="stairs">
 	<circle id="stair-5" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="560.6" cy="415" r="1"/>
@@ -249,9 +249,9 @@
 	<circle id="stair-2" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="867" cy="281.7" r="1"/>
 </g>
 <g id="escalators">
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="599.4" cy="451.3" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="735.1" cy="451.3" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="779.3" cy="566.2" r="1"/>
+	<circle id="down-escalator-3" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="599.4" cy="451.3" r="1"/>
+	<circle id="up-escalator-2" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="735.1" cy="451.3" r="1"/>
+	<circle id="up-escalator-0" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="779.3" cy="566.2" r="1"/>
 </g>
 <g id="Labels">
 	<text transform="matrix(1 0 0 1 12.0833 231.0833)" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">H-109</text>
