@@ -70,7 +70,7 @@ export class HomePage implements OnInit {
     }else if(event.detail.value == "WALKING"){
         this.transportMode = "WALKING"
     }else if(event.detail.value == "BICYCLING"){
-        this.transportMode = "BYCYCLING"
+        this.transportMode = "BICYCLING"
     }else if(event.detail.value == "TRANSIT"){
         this.transportMode = "TRANSIT"
     }

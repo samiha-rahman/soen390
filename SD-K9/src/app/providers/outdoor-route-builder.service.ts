@@ -14,6 +14,7 @@ export class OutdoorRouteBuilder {
     directionsService: any;
     directionsDisplay: any;
     transportMode: String = "DRIVING"; //Default travel mode
+    origin: string = "";
 
     private _unsubscribe: UnsubscribeCallback;
 
@@ -63,7 +64,7 @@ export class OutdoorRouteBuilder {
         }else if(event.detail.value == "WALKING"){
             this.transportMode = "WALKING"
         }else if(event.detail.value == "BICYCLING"){
-            this.transportMode = "BYCYCLING"
+            this.transportMode = "BICYCLING"
         }else if(event.detail.value == "TRANSIT"){
             this.transportMode = "TRANSIT"
         }
