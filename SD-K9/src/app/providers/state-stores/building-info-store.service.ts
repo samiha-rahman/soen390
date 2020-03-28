@@ -10,7 +10,7 @@ import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
   providedIn: 'root'
 })
 export class BuildingInfoStore {
-  private _emptyBuildingInfoState: BuildingInfoState = {building: '', campus: ''};
+  private _emptyBuildingInfoState: BuildingInfoState = {building: '', campus: '', slug: ''};
   private _UPDATE: string = 'ADD';
   private _CLEAR: string = 'CLEAR';
   private _buildingInfoReducer: StateReducer<BuildingInfoState> = (state: BuildingInfoState, action: StateAction): BuildingInfoState => {
