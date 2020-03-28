@@ -10,7 +10,6 @@ export class IndoorRouteBuilder {
     async buildRoute(initCoordinate: SVGCoordinate, finalCoordinate: SVGCoordinate) {/* Removing the path already displayed if it exists */
         this._svgManager.removeSVGPath();
 
-        // TODO: make it work for multiple floors
         /* Getting the shortest path as a list of nodes */
         const path = await this._pathfinder.getShortestPath(initCoordinate, finalCoordinate);
         this._svgManager.drawSVGPath(path, true);
