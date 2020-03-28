@@ -1,6 +1,11 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Map } from '../../interfaces/map';
+import { GoogleCoordinate } from '../../models/google-coordinate.model';
+import { GoogleStore } from '../../providers/state-stores/google-store.service';
+import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
+import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
+import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 
 declare var google;
 
@@ -15,14 +20,34 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   map: any;
   userMarker: any;
   mapInitialised: boolean = false;
-  currentPos: any;
+  currentPos: GoogleCoordinate;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
+  private _unsubscribe: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
-  constructor(private _geolocation: Geolocation) {
+  constructor(
+    private _geolocation: Geolocation,
+    private _googleStore: GoogleStore,
+    private _routeStore: RouteStore,
+    private _outdoorRouteBuilder: OutdoorRouteBuilder
+    ) {
+      // subscribe to mapstore
+      this._unsubscribe = this._googleStore.subscribe(() => {
+        this._addRouteIfExist();
+      });
+    }
+
+  ngOnInit() {
     this.loadGMaps();
   }
 
-  ngOnInit() {}
+  private _addRouteIfExist() {
+    if (this.data.id && this._routeStore.getRoute(this.data.id)) {
+      google = this._googleStore.getGoogleMapState().google;
+      this.map = this._googleStore.getGoogleMapState().map;
+
+      this._outdoorRouteBuilder.buildRoute(this._routeStore.getRoute(this.data.id).route);
+    }
+  }
 
   loadGMaps() {
     if(typeof google == "undefined" || typeof google.maps == "undefined"){
@@ -56,6 +81,12 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
+        this._googleStore.storeMap({id: this.data.id, google: google, map: this.map, route: false});        // new map state
+      } 
+      else {
+        this._googleStore.updateGoogleMap({id: this.data.id, google: google, map: this.map, route: true}); // reload old map state
+      } 
 
       var markerIcon = {
         url: 'assets/images/map-pin.png',
@@ -73,25 +104,13 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       this.drawBuildings();
 
-      // this.maintainMap(); //this doesn't release the map. So the FactoryComponent wasnt able to create a second map.
-
     }).catch((error) => {
       console.log('Error getting location', error);
     });
   }
 
-  /*
-  maintainMap(){
-      let watch = this._geolocation.watchPosition();
-      watch.subscribe((data) => {
-        this.currentPos = new google.maps.LatLng( data.coords.latitude, data.coords.longitude );
-        this.userMarker.setPosition( this.currentPos );
-      });
-  }
-  */
-
   drawBuildings(){
-    // TODO : draw all buildings
+    // TODO : draw all buildings & put in config
     let EV_BOUNDS = [
         {"lat": 45.495176, "lng": -73.577883},
         {"lat": 45.495815, "lng": -73.577223},
@@ -124,7 +143,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   ngOnDestroy() {
-    this.mapInitialised = false;
+    this._unsubscribe();    // release listener to google-store
   }
 
 }

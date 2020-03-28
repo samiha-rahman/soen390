@@ -2,22 +2,40 @@ import { TestBed } from '@angular/core/testing';
 
 import { MapCoordinator } from './map-coordinator.service';
 import { HttpClientModule } from '@angular/common/http';
-import { IndoorRouteBuilder } from './indoor-route-builder.service';
+import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { Pathfinder } from './pathfinder.service';
+import { SVGManager } from './svg-manager.service';
+import { RouteStore } from './state-stores/route-store.service';
+import { FloorPlanStore } from './state-stores/floor-plan-store.service';
+import { RouteCoordinator } from './route-coordinator.service';
+import { MapItem } from '../helpers/map-item';
 
 describe('MapCoordinator', () => {
+  let service: MapCoordinator;
   beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          {provide: IndoorRouteBuilder, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: OutdoorRouteBuilder, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
           {provide: Pathfinder, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: SVGManager, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: RouteStore, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: FloorPlanStore, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: RouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}
         ]
     }).compileComponents();
+    service = TestBed.get(MapCoordinator);
+});
+
+afterEach(() => {
+  service = null;
 });
 
   it('should be created', () => {
-    const service: MapCoordinator = TestBed.get(MapCoordinator);
     expect(service).toBeTruthy();
+  });
+
+  it('#getMap should return MapItem', () => {
+    expect(service.getMap() instanceof MapItem).toBeTruthy();
   });
 });

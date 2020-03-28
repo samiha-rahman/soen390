@@ -1,131 +1,58 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>
-      NavConU
-    </ion-title>
-    <ion-buttons>
-      <ion-button [routerLink]="['/outdoor']">Go to outdoor</ion-button>
-    </ion-buttons>
+    <ion-title>home-temp</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="floorplan-container">
-    <ion-card>
-      <ion-card-header>
-        <ion-card-subtitle>Select a route</ion-card-subtitle>
-        <ion-card-title>Get Directions</ion-card-title>
-      </ion-card-header>
-
-      <ion-card-content>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="start"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-input clearInput [(ngModel)]="end"></ion-input>
-        </ion-item>
-        <ion-button expand="block" (click)="getRouteTest()">Start</ion-button>
-      </ion-card-content>
-    </ion-card>
-
-    <ion-radio-group>
+  <div style="z-index: 1; position: relative;">
+    <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
+  
+      <ion-item>
+        <ion-label position="floating">Choose starting point...</ion-label>
+        <ion-input formControlName="source"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Choose destination...</ion-label>
+        <ion-input formControlName="destination"></ion-input>
+      </ion-item>
+      <ion-list >
+        <ion-segment (ionChange)="mode($event)" value="DRIVING"> 
+            <ion-row>
+             <ion-segment-button value="DRIVING">
+               <ion-label>Driving</ion-label>
+             </ion-segment-button>
+             <ion-segment-button value="WALKING">
+               <ion-label>Walking</ion-label>
+             </ion-segment-button>
+             <ion-segment-button value="BICYCLING">
+               <ion-label>Bicycling</ion-label>
+             </ion-segment-button>
+             <ion-segment-button value="TRANSIT">
+               <ion-label>Transit</ion-label>
+             </ion-segment-button>
+            </ion-row>
+          </ion-segment>
+      </ion-list>
+   
+      <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
+    </form>
+    <!-- <ion-button expand="block">Clear Direction</ion-button> -->
+    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED"> 
       <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-label>Stairs</ion-label>
-            <ion-radio value="stairs" (ionSelect)="setMode('stairs')"></ion-radio>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>Escalator</ion-label>
-            <ion-radio value="escalators" (ionSelect)="setMode('escalators')" checked></ion-radio>
-          </ion-item>
-        </ion-col>
-        <ion-col>
-          <ion-item>
-            <ion-label>Elevator</ion-label>
-            <ion-radio value="elevators" (ionSelect)="setMode('elevators')"></ion-radio>
-          </ion-item>
-        </ion-col>
+       <ion-segment-button value="HALL">
+         <ion-label>Indoor Hall Bldg</ion-label>
+       </ion-segment-button>
+       <ion-segment-button value="LOYOLA">
+         <ion-label>Indoor Loyola Campus</ion-label>
+       </ion-segment-button>
+       <ion-segment-button value="DISABLED">
+        <ion-label>Google Maps</ion-label>
+      </ion-segment-button>
       </ion-row>
-    </ion-radio-group>
-
-    <ion-card>
-      <ion-row>
-        <ion-col>
-          <ion-card-content>
-            <ion-card-title>Floor {{floor}}</ion-card-title>
-          </ion-card-content>
-        </ion-col>
-        <ion-col>
-          <ion-button expand="block" *ngIf="hasNextRoute" (click)="nextRoute()">Next</ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card>
-    <!-- <floor-plan [building]="building" [floor]="floor"></floor-plan> -->
+    </ion-segment>
+  </div>
+  <div>
+    <app-map-box [maps]="maps"></app-map-box>
   </div>
 </ion-content>
-
-<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState" class="bottom-pullup-menu">
-  <ion-toolbar color="primary" class="toolbar" (click)="toggleFooter()" #ionDragFooter>
-    <ion-buttons slot="primary">
-      <ion-button (click)="clickedSearch()">
-      </ion-button>
-    </ion-buttons>
-    <ion-searchbar placeholder="Search for a place or classroom"></ion-searchbar>
-  </ion-toolbar>
-
-  <ion-content>
-    <ion-content>
-      <ion-list>
-        <ion-button (click)="openModal()" expand="block">
-          <ion-icon name="time"></ion-icon>
-          Shuttle Schedule
-        </ion-button>
-        <ion-button (click)="openModal1()" expand="block">
-          <ion-icon name="settings"></ion-icon>
-          App Settings
-        </ion-button>
-      </ion-list>
-      <!-- FAVORITES -->
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>Favorites</ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-button>SOEN-390</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button>SOEN-344</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button>COMP-335</ion-button>
-              </ion-col>
-            </ion-row>
-          </ion-grid>
-        </ion-card-content>
-      </ion-card>
-
-      <!-- RECENT EXAMPLE -->
-
-      <ion-item>
-        <ion-label>Recent</ion-label>
-        <ion-input></ion-input>
-      </ion-item>
-      <ion-card>
-        <ion-card-header>
-
-          <ion-card-title>H building 534 <div class="ion-text-end">2 min</div>
-          </ion-card-title>
-          <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
-        </ion-card-header>
-
-      </ion-card>
-
-    </ion-content>
-  </ion-content>
-</lib-ionic-pullup>

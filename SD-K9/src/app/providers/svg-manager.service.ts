@@ -5,7 +5,6 @@ import { SVG } from '@svgdotjs/svg.js';
 import { Observable } from 'rxjs';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 import {forEach} from '@angular-devkit/schematics';
-import { Location } from '../helpers/location';
 
 @Injectable({
   providedIn: 'root'
@@ -124,7 +123,7 @@ export class SVGManager {
         .toPromise();
   }
 
-  public async getClosestVerticalTransportationId(mode: string, direction: string, building: string, floor: number, location: Location) {
+  public async getClosestVerticalTransportationId(mode: string, direction: string, building: string, floor: number, svgCoordinate: SVGCoordinate) {
       return this.getSVG(`${building}/${floor}`)
           .pipe(
               map(svgFile => {
@@ -136,8 +135,8 @@ export class SVGManager {
                   } else {
                       let minOption = 0;
                       let minDistance = 1000;
-                      const locX = location.getCoordinate().x;
-                      const locY = location.getCoordinate().y;
+                      const locX = svgCoordinate.x;
+                      const locY = svgCoordinate.y;
                       for (let x = 0; x < vtransports.length; x++) {
                           const el: SVGCircleElement = vtransports[x].node as any;
                           const distance = Math.sqrt(Math.pow(locX - el.cx.baseVal.value, 2) + Math.pow(locY - el.cy.baseVal.value, 2));

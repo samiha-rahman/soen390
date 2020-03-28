@@ -1,119 +1,217 @@
 import { Injectable } from "@angular/core";
 import { MapItem } from '../helpers/map-item';
-import { Location } from '../helpers/location';
-import { RouteNavigator } from '../helpers/route-navigator';
-import { IndoorRouteBuilder } from './indoor-route-builder.service';
 import { SVGManager } from './svg-manager.service';
 import { FloorPlanComponent } from '../components/floor-plan/floor-plan.component';
 import { OutdoorMapComponent } from '../components/outdoor-map/outdoor-map.component';
+import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
+import { SourceDestination } from '../interfaces/source-destination';
+import { FloorPlanIdentifier } from '../interfaces/floor-plan-identifier';
+import { SVGCoordinate } from '../models/svg-coordinate.model';
+import { RouteStore } from './state-stores/route-store.service';
+import { RouteCoordinator } from './route-coordinator.service';
+import { FloorPlanStore } from './state-stores/floor-plan-store.service';
+import { Route } from '../interfaces/route';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MapCoordinator {
-    map: MapItem = new MapItem(Location, '');
-    private _initLocation: Location;
-    private _finalLocation: Location;
-    private _verticalTransportationMode = 'escalators';
-    private _hasNextRoute: boolean = false;
-    private _routeLocationList = [];
+    map: MapItem;
+    private _outdoorIndex: number = 1;
 
     constructor(
-        private _indoorRouteBuilder: IndoorRouteBuilder,
-        private _svgManager: SVGManager
+        private _outdoorRouteBuilder: OutdoorRouteBuilder,
+        private _svgManager: SVGManager,
+        private _routeStore: RouteStore,
+        private _floorPlanStore: FloorPlanStore,
     ) {}
 
-    ngOnInit() {
-        this._initLocation = new Location();
-        this._finalLocation = new Location();
-    }
+    ngOnInit() {}
     
     // Refactor code once google maps is integrated
-    getMap(type: string) : MapItem {
-        if (type == 'hall') {
-            return new MapItem(FloorPlanComponent, {floor: 8, building: type});
+    getMap(initialLocation?: string) : MapItem {
+        let parsedLocation = this._parseLocation(initialLocation);
+
+        if (parsedLocation == 'hall') {
+            return new MapItem(FloorPlanComponent, {id: 1, floor: 8, building: 'hall'});
+        }
+        else if (parsedLocation == 'loyola') {
+            return new MapItem(FloorPlanComponent, {id: 1, floor: 1, building: 'loyola'});
+        }
+        else if (!parsedLocation) {
+            return new MapItem(OutdoorMapComponent, {id: this._outdoorIndex});
         }
         else {
-            return new MapItem(OutdoorMapComponent, {});
+            let data: any = parsedLocation.valueOf();       // TODO: Give this a type (depends on return type of _parseLocation()) 
+            return new MapItem(FloorPlanComponent, {floor: data.floor, building: data.buildng });
         }
     }
+
+    private _parseLocation(location: string): FloorPlanIdentifier | string {
+        if (location && location.substr(1,1) === '-') {
+            switch (location.substr(0,1)) {
+                case 'H': {
+                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'hall', floor: +location.substr(2,1)};
+                    return floorPlanIdentifier;
+                }
+                case 'L': {
+                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'loyola', floor: +location.substr(2,1)};
+                    return floorPlanIdentifier;
+                }
+            }
+        }
+        else {
+            return location;
+        }
+    }
+
+    // remove eventually
+    async getOverallRoute(route: SourceDestination): Promise<MapItem[]> {
+        this._routeStore.clearRoutes();
+        this._floorPlanStore.clearFloorPlans();
+        this._outdoorRouteBuilder.clearRoute();
+        let pMaps: Promise<MapItem[]> = this._parseRoute(route);
+        return pMaps;
+    }
+
+    private async _parseRoute(route: SourceDestination) {
+        route.source = route.source.toUpperCase();
+        route.destination = route.destination.toUpperCase();
+        let index: number = 2;
+
+        let maps: MapItem[] = [];
+        let parsedSource = this._parseLocation(route.source);
+        let parsedDestination = this._parseLocation(route.destination);
+
+        if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
+            this._outdoorRouteBuilder.buildRoute(route)
+        }
+        else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
+            /* 
+            * Outdoor map
+            */
+            this._prepareOutdoor(maps, route.source, this._buildingPostalCode(parsedDestination.building));
+
+            /*
+            * Indoor map 
+            */
+            parsedDestination.id = index;
+            this._prepareIndoor(maps, parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
+            
+        }
+        else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
+            if(parsedSource.building === parsedDestination.building) {                              /* Same Floor */
+                if(parsedSource.floor === parsedDestination.floor) {
+                    this._prepareIndoor(maps, parsedSource, route.source, route.destination);
+                }
+                else {                                                                              /* Multi-Floor */
+                    let difference = parsedDestination.floor - parsedSource.floor;
     
-    // Refactor code
-    // TODO: implement the proper code to accomodate a combination of indoor and outdoor routes
-    async getRoute(iInitLocation: Location, iDestination: Location) {
-        this._initLocation = iInitLocation;
-        this._finalLocation = iDestination;
-        this._routeLocationList = [];
-
-        // TODO: check if SVGCoordinate of GoogleCoordinate
-        if (this._initLocation.getCoordinate().id && this._finalLocation.getCoordinate().id) {
-            if (this._initLocation.getCoordinate().building === this._finalLocation.getCoordinate().building &&
-                this._initLocation.getCoordinate().floor === this._finalLocation.getCoordinate().floor) {
-                    // if same building and same floor
-                let hallRouteNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
-                hallRouteNavigator.getRoute(this._initLocation, this._finalLocation);
-                this._hasNextRoute = false;
-            } else { // else different floor
-                await this.generateRouteLocations(this._initLocation, this._finalLocation);
-                this.nextRoute();
-            }
-        }
-    }
-
-    routeLocation(fromL: Location, toL: Location) {
-        return(
-            {
-                from: fromL,
-                to: toL
-            }
-        );
-    }
-
-    async generateRouteLocations(initLocation: Location, finalLocation: Location) {
-        const firstvTransportation = new Location();
-        const secondvTransportation = new Location();
-        let direction;
-        if (initLocation.getCoordinate().building === finalLocation.getCoordinate().building){
-            if (initLocation.getCoordinate().floor < finalLocation.getCoordinate().floor) {
-                direction = 'up';
+                    this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.floor));
+    
+                    if (difference >= 0) {
+                        let nextFloor: number = parsedSource.floor + 1;
+                        let beforeDestFloor: number = parsedDestination.floor - 1;
+                        for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
+                            this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                        }
+                    }
+                    else {
+                        let nextFloor: number = parsedSource.floor - 1;
+                        let beforeDestFloor: number = parsedDestination.floor + 1;
+                        for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
+                            this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
+                        }
+                    }
+    
+                    parsedDestination.id = ++index;
+                    this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.floor));
+                }
             } else {
-                direction = 'down';
+                /*
+                * Indoor Map 1
+                */
+                parsedSource.id = index;
+                this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+    
+                /*
+                * Outdoor Map
+                */
+                this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+    
+                /*
+                * Indoor Map 2
+                */
+                parsedDestination.id = ++index;
+                this._prepareIndoor(maps,parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
             }
-            const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
-                finalLocation.getCoordinate().building,
-                finalLocation.getCoordinate().floor,
-                finalLocation);
-            firstvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                vTransportationId,
-                this._verticalTransportationMode,
-                initLocation.getCoordinate().building,
-                initLocation.getCoordinate().floor));
-            this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
-            secondvTransportation.setCoordinate(await this._svgManager.getVerticalTransportation(
-                vTransportationId,
-                this._verticalTransportationMode,
-                finalLocation.getCoordinate().building,
-                finalLocation.getCoordinate().floor));
-            this._routeLocationList.push(this.routeLocation(secondvTransportation, finalLocation));
         }
-        this._hasNextRoute = true;
+        else if (typeof parsedSource != "string" && typeof parsedDestination == "string") {     // Indoor to Outdoor
+            /*
+            * Indoor Map
+            */
+            parsedSource.id = index;
+            this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+
+            /* 
+            * Outdoor map
+            */
+            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), route.destination);
+        }
+        return maps;
     }
 
-    setVerticalTransportationMode(mode: string) {
-        this._verticalTransportationMode = mode;
-    }
+    private _prepareOutdoor(maps: MapItem[], startPlace: string, endPlace: string) {
+        maps.push(new MapItem(OutdoorMapComponent, {id: this._outdoorIndex}));
 
-    async nextRoute() {
-        const routeNavigator: RouteNavigator = new RouteNavigator(this._indoorRouteBuilder);
-        routeNavigator.getRoute(this._routeLocationList[0].from, this._routeLocationList[0].to);
-        this._routeLocationList.shift();
-        if (this._routeLocationList.length === 0) {
-            this._hasNextRoute = false;
+        let sourceDestination: SourceDestination = {source: startPlace, destination: endPlace};
+        let route: Route = {id: this._outdoorIndex, route: sourceDestination};
+        this._routeStore.storeRoute(route);
+
+        this._outdoorRouteBuilder.buildRoute(sourceDestination);
+    }
+    // this._buildingEntry(parsedRoute.building)
+
+    private async _prepareIndoor(maps: MapItem[], parsedRoute: FloorPlanIdentifier, classID?: string, entryID?: string) {
+        maps.push(new MapItem(FloorPlanComponent, parsedRoute));
+
+        if (classID && entryID) {
+            // Setup initial SVGCoordinate 
+            let iSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(entryID, parsedRoute.building, parsedRoute.floor); // TODO: get building entry point from config
+            // Setup final SVGCoordinate
+            let fSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(classID, parsedRoute.building, parsedRoute.floor);
+            // activate pathfinder
+            this._routeStore.storeRoute({id: parsedRoute.id, route: {source: iSvgCoordinate, destination: fSvgCoordinate}});
         }
     }
 
-    hasNextRoute() {
-        return this._hasNextRoute;
+    // TODO: replace with config
+    private _buildingPostalCode(building: string): string {
+        switch (building) {
+            case 'hall':
+                return "h3g1m8";
+            case 'loyola':
+                return "h4b1r6";
+        }
+    }
+
+    // TODO: replace with config
+    private _buildingEntry(building: string): string {
+        switch (building) {
+            case 'hall':
+                return "H-806";
+            case 'loyola':
+                return "L-101";
+        }
+    }
+    // Temp: to test for indoor in H only!!!
+    private _floorEntry(floor: number): string {
+        switch(floor) {
+            case 6:
+                return "H-606";
+            case 8:
+                return "H-806";
+        }
     }
 
 }
