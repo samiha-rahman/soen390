@@ -5,6 +5,7 @@
     <img tappable src="../../../assets/images/close-icon.png" class="close-card" (click)="hideBuildingInfoCard($event)" />
   </ion-card-header>
   <ion-card-content>{{ currentBuildingInfo }}
-    <ion-button color="primary" (ionFocus)="goInside(currentCampus)">See indoor</ion-button>
+    <br>
+    <ion-button color="primary" class="go-inside-btn" (ionFocus)="goInside(buildingSlug)" [disabled]="buildingSlug.length < 1">See indoor</ion-button>
   </ion-card-content>
 </ion-card>
