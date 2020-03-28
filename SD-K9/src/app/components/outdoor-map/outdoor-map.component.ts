@@ -11,7 +11,6 @@ import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
 import { SourceDestination } from 'src/app/interfaces/source-destination';
 
-
 declare var google;
 
 @Component({
@@ -51,7 +50,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
 
   ngOnInit() {
-    this.loadGMaps();
+    this._loadGMaps();
   }
 
   private _addRouteIfExist() {
@@ -63,23 +62,23 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  loadGMaps() {
+  private _loadGMaps() {
     if(typeof google == "undefined" || typeof google.maps == "undefined"){
       console.log("Google maps JavaScript needs to be loaded.");
       //Load the API
       window['initMap'] = () => {
-        this.initMap();
+        this._initMap();
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
       script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
       document.body.appendChild(script);
     }else{
-      this.initMap();
+      this._initMap();
     }
   }
 
-  initMap() {
+  private _initMap() {
 
     this._geolocation.getCurrentPosition().then((position) => {
 
@@ -116,12 +115,12 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       });
 
       //draw buildings overlay from config file
-      this.drawBuildings();
+      this._drawBuildings();
 
       //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
       google.maps.event.addListener(this.map, 'zoom_changed', function() {
-          _self.hideShowMarkers(_self);
+          _self._hideShowMarkers(_self);
       });
 
       //switch flag to load map nav components
@@ -135,7 +134,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     });
   }
 
-  drawBuildings(){
+  private _drawBuildings(){
     //loop through both campus and all the buildings in each campus from the config file
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
@@ -197,19 +196,19 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   toggleCampus(event){
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
-    this.hideShowMarkers(this);
+    this._hideShowMarkers(this);
   }
 
   locateUser(){
     this.map.panTo(this.currentPos);
-    this.hideShowMarkers(this);
+    this._hideShowMarkers(this);
   }
 
   refresh(){
     this._changeDetectorRef.detectChanges();
   }
 
-  hideShowMarkers(self){
+  private _hideShowMarkers(self){
     let zoom = self.map.getZoom();
     // hide markers if too zoomed out
     for(let i = 0; i < self.buildingMarkers.length; i++) {

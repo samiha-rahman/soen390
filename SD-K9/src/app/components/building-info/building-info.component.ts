@@ -89,6 +89,11 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     }
   }
 
+  //for testing
+  getCurrentBuilding() : string{
+    return this._mapModeStore.getMapModeState().data.building;
+  }
+
   hideBuildingInfoCard(event) {
     this.buildingInfoCardIsShown = false;
     this._buildingInfoStore.clearBuildingInfo();

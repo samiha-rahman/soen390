@@ -35,7 +35,7 @@ afterEach(() => {
     expect(service).toBeTruthy();
   });
 
-  it('#getMap should return MapItem', () => {
-    expect(service.getMap() instanceof MapItem).toBeTruthy();
-  });
+  // it('#getMap should return MapItem', () => {
+  //   expect(service.getMap() instanceof MapItem).toBeTruthy();
+  // });
 });
