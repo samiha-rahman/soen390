@@ -1,16 +1,18 @@
 <div>
-  <ion-segment (ionChange)="toggleCampus($event)" class="campusTgl">
+  <ion-segment (ionChange)="toggleCampus($event)" *ngIf="mapInitialised" class="campusTgl">
     <ion-segment-button value="sgw">
       <ion-label>SGW</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="lyl">
-      <ion-label>Layola</ion-label>
+    <ion-segment-button value="loy">
+      <ion-label>Loyola</ion-label>
     </ion-segment-button>
   </ion-segment>
-  
+
+  <app-building-info></app-building-info>
+
   <div #map id="map"></div>
-  
-  <ion-fab class="locate-me-btn-wrapper">
+
+  <ion-fab *ngIf="mapInitialised" class="locate-me-btn-wrapper">
     <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png" width="20px" /></ion-fab-button>
   </ion-fab>
 </div>

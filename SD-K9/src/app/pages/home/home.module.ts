@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -12,6 +12,7 @@ import { MapBoxComponent } from 'src/app/components/map-box/map-box.component';
 import { MapDirective } from 'src/app/directives/map.directive';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
 import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
+import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
 
 @NgModule({
   imports: [
@@ -27,8 +28,10 @@ import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar
     MapDirective,
     FloorPlanComponent,
     OutdoorMapComponent,
-    TopDirectionsBarComponent
+    TopDirectionsBarComponent,
+    BuildingInfoComponent
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   entryComponents: [
     FloorPlanComponent,
     OutdoorMapComponent

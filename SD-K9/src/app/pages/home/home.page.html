@@ -1,20 +1,6 @@
 <ion-content>
   <div style="z-index: 1; position: relative;">
     <top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
-
-    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED">
-      <ion-row style="padding-top: 2%;">
-        <ion-segment-button value="HALL">
-          <ion-label>Indoor Hall Bldg</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="LOYOLA">
-          <ion-label>Indoor Loyola Campus</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="DISABLED">
-          <ion-label>Google Maps</ion-label>
-        </ion-segment-button>
-      </ion-row>
-    </ion-segment>
   </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>

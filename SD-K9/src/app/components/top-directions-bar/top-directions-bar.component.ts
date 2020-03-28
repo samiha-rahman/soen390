@@ -5,6 +5,7 @@ import { NavController } from '@ionic/angular';
 import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 
 @Component({
   selector: 'top-directions-bar',
@@ -23,25 +24,40 @@ export class TopDirectionsBarComponent implements OnInit {
   transport: Transport;
   directionForm: DirectionForm;
 
+  isIndoor: boolean;
   directionSent: boolean;
   directionFormSize: number;
+  backButtonSize: number;
 
   get transportEnum() { return Transport; }
 
-  private _unsubscribe: UnsubscribeCallback;
+  private _unsubscribeDirectionFormStore: UnsubscribeCallback;
+  private _unsubscribeMapModeStore: UnsubscribeCallback;
 
   constructor(
     private _navController: NavController,
-    private _directionFormStore: DirectionFormStore
+    private _directionFormStore: DirectionFormStore,
+    private _mapModeStore: MapModeStore
   ) {
-    this._unsubscribe = this._directionFormStore.subscribe(() => {
+    this._unsubscribeDirectionFormStore = this._directionFormStore.subscribe(() => {
       this.start = this._directionFormStore.getDirectionFormState().sourceDestination.source;
       this.end = this._directionFormStore.getDirectionFormState().sourceDestination.destination;
       this.transport = this._directionFormStore.getDirectionFormState().transport;
     });
+    this._unsubscribeMapModeStore = this._mapModeStore.subscribe(() => {
+      if (Object.keys(this._mapModeStore.getMapModeState().data).length > 1) {
+        this.isIndoor = true;
+        this._setGridSettings(10);
+      }
+      else {
+        this.isIndoor = false;
+        this._resetGridSettings();
+      }
+    });
   }
 
   ngOnInit() {
+    this.isIndoor = false;
     this.transport = Transport.TRANSIT;
     this._resetGridSettings();
   }
@@ -55,7 +71,7 @@ export class TopDirectionsBarComponent implements OnInit {
   sendDirection() {
     if (this.start && this.end && this.transport) {
       this.directionSent = true;
-      this.directionFormSize = 10;
+      this._setGridSettings(10);
       this.formCompleteEvent.emit(true);
     }
   }
@@ -73,6 +89,12 @@ export class TopDirectionsBarComponent implements OnInit {
   private _resetGridSettings() {
     this.directionSent = false;
     this.directionFormSize = 12;
+    this.backButtonSize = 0;
+  }
+  
+  private _setGridSettings(searchInputSize: number) {
+    this.directionFormSize = searchInputSize;
+    this.backButtonSize = 12 - searchInputSize;
   }
 
 }

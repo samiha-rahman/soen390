@@ -18,6 +18,8 @@ import { IonicPullupModule } from 'ionic-pullup';
 
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -28,7 +30,8 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
     IonicModule.forRoot(),
     AppRoutingModule,
     IonicPullupModule,
-    HttpClientModule],
+    HttpClientModule,
+    BrowserAnimationsModule],
   providers: [
     IndoorRouteBuilder,
     OutdoorRouteBuilder,

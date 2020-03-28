@@ -6,7 +6,7 @@
     <div class="container">
       <ion-grid>
         <ion-row>
-          <ion-col *ngIf="directionSent" size="2">
+          <ion-col *ngIf="directionSent || isIndoor" size="{{backButtonSize}}">
             <ion-button class="clear-btn" color="dark" fill="clear" size="large" (click)="clearDirection()">
               <ion-icon name="arrow-back"></ion-icon>
             </ion-button>
