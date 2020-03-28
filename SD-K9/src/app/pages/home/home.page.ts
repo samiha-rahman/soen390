@@ -3,6 +3,10 @@ import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SourceDestination } from '../../interfaces/source-destination';
+import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
+import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import { MapModeState } from 'src/app/interfaces/map-mode-state';
+import { ViewMode } from 'src/app/models/view-mode.enum.model';
 
 @Component({
   selector: 'app-home',
@@ -14,16 +18,30 @@ export class HomePage implements OnInit {
   directionForm: FormGroup;
   transportMode: string;
   indoorMode: string;
+  isIndoor: boolean;
+
+  private _unsubscribe: UnsubscribeCallback;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
-    private _fb: FormBuilder
+    private _fb: FormBuilder,
+    private _mapModeStore: MapModeStore
   ) { 
     this.createDirectionForm();
+    this._unsubscribe = this._mapModeStore.subscrbe(() => {
+      this.maps = [this._mapModeStore.getMapModeState()];
+      if (Object.keys(this._mapModeStore.getMapModeState().data).length > 1) {
+        this.isIndoor = true;
+      }
+      else {
+        this.isIndoor = false;
+      }
+    });
   }
   
   ngOnInit() {
-    this.maps = [this._mapCoordinator.getMap()];
+    this._mapModeStore.setMode(ViewMode.GOOGLE);
+    this.isIndoor = false;
   }
 
   //Verify form
@@ -43,24 +61,8 @@ export class HomePage implements OnInit {
     });
   }
 
-  getIndoorMode(event): string {
-    switch (event.detail.value) {
-      case "LOYOLA": {
-        this.indoorMode = "LOYOLA";
-        this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
-        break;
-      }
-      case "HALL":{
-        this.indoorMode = "HALL";
-        this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
-        break;
-      }
-      default: {
-        this.indoorMode = "DISABLED" ;
-        this.maps = [this._mapCoordinator.getMap()];
-      }
-    } 
-    return this.indoorMode;
+  loadGoogleMaps() {
+    this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
 
   //Travel mode selected

@@ -6,14 +6,10 @@ import { GoogleStore } from '../../providers/state-stores/google-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
-import {
-  trigger,
-  state,
-  style,
-  animate,
-  transition
-} from '@angular/animations';
+import { BuildingInfoStore } from '../../providers/state-stores/building-info-store.service';
+import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
+import { SourceDestination } from 'src/app/interfaces/source-destination';
 
 
 declare var google;
@@ -22,27 +18,6 @@ declare var google;
   selector: 'app-outdoor-map',
   templateUrl: './outdoor-map.component.html',
   styleUrls: ['./outdoor-map.component.scss'],
-  animations: [
-    // the fade-in/fade-out animation.
-    trigger('cardAnimation', [
-      state('hidden', style({
-        opacity: 0,
-        transform: "translate(0px,100px)",
-        height:"0px"
-      })),
-      state('shown', style({
-        opacity: 1,
-        transform: "translate(0px,0px)",
-        height:"auto"
-      })),
-      transition('hidden => shown', [
-        animate('0.2s')
-      ]),
-      transition('shown => hidden', [
-        animate('0.2s')
-      ]),
-    ])
-  ]
 })
 export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   @Input() data: any;
@@ -59,17 +34,18 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
-  private _unsubscribe: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
   constructor(
     private _geolocation: Geolocation,
     private _googleStore: GoogleStore,
     private _routeStore: RouteStore,
     private _outdoorRouteBuilder: OutdoorRouteBuilder,
-    private cd: ChangeDetectorRef
+    private _buildingInfoStore: BuildingInfoStore,
+    private _changeDetectorRef: ChangeDetectorRef
     ) {
       // subscribe to mapstore
-      this._unsubscribe = this._googleStore.subscribe(() => {
+      this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
         this._addRouteIfExist();
       });
     }
@@ -198,10 +174,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         //show building info when clicked
         let _self = this;
         google.maps.event.addListener(overlay, 'click', function() {
-          _self.currentBuilding = this.currentBuilding;
-          _self.currentCampus = this.currentCampus;
-          _self.currentBuildingInfo = this.currentBuildingInfo;
-          _self.buildingInfoCardIsShown = true;
+          let buildingInfoState: BuildingInfoState = {
+            campus: this.currentCampus,
+            building: this.currentBuilding
+          }
+          _self._buildingInfoStore.setBuildingInfo(buildingInfoState);
           _self.refresh();
         });
 
@@ -218,37 +195,13 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     this.hideShowMarkers(this);
   }
 
-  hideBuildingInfoCard(event){
-    this.buildingInfoCardIsShown = false;
-    this.refresh();
-  }
-
   locateUser(){
     this.map.panTo(this.currentPos);
     this.hideShowMarkers(this);
   }
 
-  goInside(){
-    // switch (event.detail.value) {
-    //   case "LOYOLA": {
-    //     this.indoorMode = "LOYOLA";
-    //     this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
-    //     break;
-    //   }
-    //   case "HALL":{
-    //     this.indoorMode = "HALL";
-    //     this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
-    //     break;
-    //   }
-    //   default: {
-    //     this.indoorMode = "DISABLED" ;
-    //     this.maps = [this._mapCoordinator.getMap()];
-    //   }
-    // }
-  }
-
   refresh(){
-    this.cd.detectChanges();
+    this._changeDetectorRef.detectChanges();
   }
 
   hideShowMarkers(self){
@@ -260,7 +213,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   ngOnDestroy() {
-    this._unsubscribe();    // release listener to google-store
+    this._unsubscribeGoogleStore();    // release listener to google-store
   }
 
 }

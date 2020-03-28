@@ -30,25 +30,6 @@ export class MapCoordinator {
 
     ngOnInit() {}
 
-    // Refactor code once google maps is integrated
-    getMap(initialLocation?: string) : MapItem {
-        let parsedLocation = this._parseLocation(initialLocation);
-
-        if (parsedLocation == 'hall') {
-            return new MapItem(FloorPlanComponent, {id: 1, floor: 8, building: 'hall'});
-        }
-        else if (parsedLocation == 'loyola') {
-            return new MapItem(FloorPlanComponent, {id: 1, floor: 1, building: 'loyola'});
-        }
-        else if (!parsedLocation) {
-            return new MapItem(OutdoorMapComponent, {id: this._outdoorIndex});
-        }
-        else {
-            let data: any = parsedLocation.valueOf();       // TODO: Give this a type (depends on return type of _parseLocation())
-            return new MapItem(FloorPlanComponent, {floor: data.floor, building: data.buildng });
-        }
-    }
-
     private _parseLocation(location: string): FloorPlanIdentifier | string {
         if (location && location.substr(1,1) === '-') {
             switch (location.substr(0,1)) {
