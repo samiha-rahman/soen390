@@ -475,12 +475,12 @@
 	<circle style="fill:#E9F1D0;stroke:#519643;" cx="18.7" cy="457.9" r="1"/>
 </g>
 <g id="stairs">
-	<circle id="_x36_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="145.1" cy="505.7" r="1"/>
-	<circle id="_x35_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="154.8" cy="416.3" r="1"/>
-	<circle id="_x34_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="911.6" cy="774.5" r="1"/>
-	<circle id="_x33__2_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="977.8" cy="422.5" r="1"/>
-	<circle id="_x32__2_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="594.8" cy="795.6" r="1"/>
-	<circle id="_x31__3_" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="793.4" cy="795.6" r="1"/>
+	<circle id="stair-1" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="145.1" cy="505.7" r="1"/>
+	<circle id="stair-2" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="911.6" cy="774.5" r="1"/>
+	<circle id="stair-3" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="154.8" cy="416.3" r="1"/>
+	<circle id="stair-4" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="977.8" cy="422.5" r="1"/>
+	<circle id="stair-5" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="594.8" cy="795.6" r="1"/>
+	<circle id="stair-6" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="793.4" cy="795.6" r="1"/>
 </g>
 <g id="escalators">
 	<circle id="_x33__1_" style="fill:#EBF8FE;stroke:#ABB6DC;" cx="567.1" cy="544.5" r="1"/>

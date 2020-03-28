@@ -241,11 +241,12 @@
 	<circle id="_x31__1_" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="657.7" cy="272" r="1"/>
 </g>
 <g id="stairs">
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="560.6" cy="415" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="758.8" cy="414.6" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="760.7" cy="537.2" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="882.4" cy="373.3" r="1"/>
-	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="867" cy="281.7" r="1"/>
+	<circle id="stair-5" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="560.6" cy="415" r="1"/>
+	<circle id="stair-6" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="758.8" cy="414.6" r="1"/>
+	<circle id="stair-0" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="760.7" cy="537.2" r="1"/>
+	<!-- NOT SURE WHERE THIS STAIRS GO -->
+	<!-- <circle id="stair-5" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="882.4" cy="373.3" r="1"/> -->
+	<circle id="stair-2" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="867" cy="281.7" r="1"/>
 </g>
 <g id="escalators">
 	<circle style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="599.4" cy="451.3" r="1"/>
