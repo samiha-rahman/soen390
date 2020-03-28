@@ -198,7 +198,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         //show building info when clicked
         let _self = this;
         google.maps.event.addListener(overlay, 'click', function() {
-          console.log("clicked building");
           _self.currentBuilding = this.currentBuilding;
           _self.currentCampus = this.currentCampus;
           _self.currentBuildingInfo = this.currentBuildingInfo;
@@ -227,6 +226,25 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   locateUser(){
     this.map.panTo(this.currentPos);
     this.hideShowMarkers(this);
+  }
+
+  goInside(){
+    // switch (event.detail.value) {
+    //   case "LOYOLA": {
+    //     this.indoorMode = "LOYOLA";
+    //     this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
+    //     break;
+    //   }
+    //   case "HALL":{
+    //     this.indoorMode = "HALL";
+    //     this.maps = [this._mapCoordinator.getMap(this.indoorMode.toLowerCase())];
+    //     break;
+    //   }
+    //   default: {
+    //     this.indoorMode = "DISABLED" ;
+    //     this.maps = [this._mapCoordinator.getMap()];
+    //   }
+    // }
   }
 
   refresh(){

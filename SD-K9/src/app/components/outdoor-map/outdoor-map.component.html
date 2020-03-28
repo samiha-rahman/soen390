@@ -14,7 +14,9 @@
     <ion-card-subtitle>{{ currentCampus }}</ion-card-subtitle>
     <img tappable src="../../../assets/images/close-icon.png" class="close-card" (click)="hideBuildingInfoCard($event)" />
   </ion-card-header>
-  <ion-card-content>{{ currentBuildingInfo }}</ion-card-content>
+  <ion-card-content>{{ currentBuildingInfo }}
+    <ion-button color="primary" (ionFocus)="goInside()">Hall</ion-button>
+  </ion-card-content>
 </ion-card>
 
   <div #map id="map"></div>
