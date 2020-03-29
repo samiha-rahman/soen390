@@ -10,11 +10,11 @@
   
       <ion-item>
         <ion-label position="floating">Choose starting point...</ion-label>
-        <ion-input formControlName="source" id="searchinput"></ion-input>
+        <ion-input formControlName="source"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Choose destination...</ion-label>
-        <ion-input formControlName="destination"></ion-input>
+        <ion-input formControlName="destination" id="searchinput"></ion-input>
       </ion-item>
       <ion-list >
         <ion-segment (ionChange)="mode($event)" value="DRIVING"> 
