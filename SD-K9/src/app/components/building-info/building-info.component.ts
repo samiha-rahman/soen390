@@ -77,15 +77,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   }
 
   goInside(buildingSlug: string) {
-    switch(buildingSlug){
-      case "hall":{
-          this._mapModeStore.setMode(ViewMode.HALL);
-          break;
-      }
-      case "cc":{
-          this._mapModeStore.setMode(ViewMode.LOYOLA);
-          break;
-      }
+    this._mapModeStore.setMode(ViewMode[buildingSlug.toUpperCase()]);
     }
   }
 
