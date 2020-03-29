@@ -1,6 +1,6 @@
 export enum ViewMode {
     GOOGLE = "GOOGLE",
     HALL = "HALL",
-    LOYOLA = "LOYOLA",
+    CC = "CC",
     CUSTOM_INDOOR = "CUSTOM_INDOOR"
 }
