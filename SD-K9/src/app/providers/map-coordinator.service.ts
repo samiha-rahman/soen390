@@ -29,17 +29,19 @@ export class MapCoordinator {
         private _floorPlanStore: FloorPlanStore,
     ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     private _parseLocation(location: string): FloorPlanIdentifier | string {
-        if (location && location.substr(1, 1) === '-') {
-            switch (location.substr(0, 1)) {
+        if (location && location.indexOf("-") !== -1) {
+            let sliceIndex: number = location.indexOf("-");
+            let floorIndex: number = sliceIndex + 1;
+            switch (location.slice(0, sliceIndex)) {
                 case 'H': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'hall', floor: +location.substr(2, 1) };
+                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'hall', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
                 }
-                case 'L': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'loyola', floor: +location.substr(2, 1) };
+                case 'CC': {
+                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'cc', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
                 }
             }
@@ -174,7 +176,7 @@ export class MapCoordinator {
         switch (building) {
             case 'hall':
                 return "h3g1m8";
-            case 'loyola':
+            case 'cc':
                 return "h4b1r6";
         }
     }
@@ -183,7 +185,7 @@ export class MapCoordinator {
         return this.buildingsConfig[building]["buildingEntry"];
     }
     // Temp: to test for indoor in H only!!!
-    private _floorEntry(building:string,floor: number): string {
+    private _floorEntry(building: string, floor: number): string {
         return this.buildingsConfig[building]["floorsEntry"][floor];
     }
 
