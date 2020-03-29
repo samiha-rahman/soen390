@@ -9,8 +9,7 @@ import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { BuildingInfoStore } from '../../providers/state-stores/building-info-store.service';
 import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
-import { SourceDestination } from 'src/app/interfaces/source-destination';
-
+import { environment } from '../../../environments/environment';
 
 declare var google;
 
@@ -26,14 +25,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   //cannot set type to google.maps.marker because google maps is not loaded yet
   buildingMarkers: any[] = [];
   userMarker: any;
-  buildingInfoCardIsShown: boolean = false;
-  currentBuilding: string;
-  currentCampus: string;
-  currentBuildingInfo: string;
   campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
-  apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
+  apiKey: string = environment.apiKey;
   private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
   constructor(
@@ -51,7 +46,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
 
   ngOnInit() {
-    this.loadGMaps();
+    this._loadGMaps();
   }
 
   private _addRouteIfExist() {
@@ -63,23 +58,23 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  loadGMaps() {
+  private _loadGMaps() {
     if(typeof google == "undefined" || typeof google.maps == "undefined"){
       console.log("Google maps JavaScript needs to be loaded.");
       //Load the API
       window['initMap'] = () => {
-        this.initMap();
+        this._initMap();
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
       script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
       document.body.appendChild(script);
     }else{
-      this.initMap();
+      this._initMap();
     }
   }
 
-  initMap() {
+  private _initMap() {
 
     this._geolocation.getCurrentPosition().then((position) => {
 
@@ -116,12 +111,12 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       });
 
       //draw buildings overlay from config file
-      this.drawBuildings();
+      this._drawBuildings();
 
       //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
       google.maps.event.addListener(this.map, 'zoom_changed', function() {
-          _self.hideShowMarkers(_self);
+          _self._hideShowMarkers(_self);
       });
 
       //switch flag to load map nav components
@@ -135,11 +130,14 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     });
   }
 
-  drawBuildings(){
+  private _drawBuildings(){
     //loop through both campus and all the buildings in each campus from the config file
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
+        let buildingSlug = this.campusConfig[campus]["buildings"][building]["buildingSlug"];
+        buildingSlug = typeof buildingSlug === 'undefined' ? '' : buildingSlug;
+
         //overlay each building
         let overlay = new google.maps.Polygon({
           paths: polygonBounds,
@@ -150,7 +148,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           fillOpacity: 0.9,
           currentBuilding: building,
           currentCampus: campus,
-          currentBuildingInfo: this.campusConfig[campus]["buildings"][building]['info']
+          currentBuildingInfo: this.campusConfig[campus]["buildings"][building]["info"],
+          buildingSlug: buildingSlug
         });
 
         //add the overlay to the map
@@ -176,7 +175,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         google.maps.event.addListener(overlay, 'click', function() {
           let buildingInfoState: BuildingInfoState = {
             campus: this.currentCampus,
-            building: this.currentBuilding
+            building: this.currentBuilding,
+            slug: this.buildingSlug
           }
           _self._buildingInfoStore.setBuildingInfo(buildingInfoState);
           _self.refresh();
@@ -192,19 +192,19 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   toggleCampus(event){
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
-    this.hideShowMarkers(this);
+    this._hideShowMarkers(this);
   }
 
   locateUser(){
     this.map.panTo(this.currentPos);
-    this.hideShowMarkers(this);
+    this._hideShowMarkers(this);
   }
 
   refresh(){
     this._changeDetectorRef.detectChanges();
   }
 
-  hideShowMarkers(self){
+  private _hideShowMarkers(self){
     let zoom = self.map.getZoom();
     // hide markers if too zoomed out
     for(let i = 0; i < self.buildingMarkers.length; i++) {

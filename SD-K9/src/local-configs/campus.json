@@ -64,6 +64,7 @@
         ]
       },
       "hall": {
+        "buildingSlug": "hall",
         "markerText": "HALL",
         "markerPos": {
           "lat": 45.497250,
@@ -263,6 +264,7 @@
         ]
       },
       "cc": {
+        "buildingSlug":"cc",
         "markerText": "CC",
         "markerPos": {
           "lat": 45.458224,
