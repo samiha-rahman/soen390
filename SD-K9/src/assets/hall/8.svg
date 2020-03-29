@@ -154,31 +154,31 @@
 	<circle class="classroom" id="H-860" style="fill:#F2E0CC;stroke:#B79065;" cx="456.423" cy="282.438" r="1"/>
 	<circle class="classroom" id="H-862" style="fill:#F2E0CC;stroke:#B79065;" cx="413.833" cy="336.663" r="1"/>
 	<circle class="classroom" id="H-806" style="fill:#F2E0CC;stroke:#B79065;" cx="307.327" cy="430.667" r="1"/>
-	<circle id="elevator-1" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="413.833" cy="371.8" r="1"/>
-	<circle id="stair-1" class="classroom" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
-	<circle id="stair-2" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
-	<circle id="stair-3" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
-	<circle id="stair-4" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
-	<circle id="up-escalator-1" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="309.874" r="1"/>
-	<circle id="down-escalator-1" class="classroom" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="240.5" r="1"/>
-	<circle id="men-bath-1" class="classroom" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="363.189" cy="368.254" r="1"/>
-	<circle id="men-bath-2" class="classroom" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="243.189" cy="448.345" r="1"/>
-	<circle id="women-bath-2" class="classroom" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="384.754" cy="448.845" r="1"/>
 </g>
 <g id="elevators">
+	<circle id="elevator-1" style="fill:none;stroke:#ABB6DC;" cx="413.833" cy="371.8" r="1"/>
 </g>
 <g id="stairs">
+	<circle id="stair-1" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
+	<circle id="stair-2" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
+	<circle id="stair-3" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
+	<circle id="stair-4" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
 </g>
 <g id="escalators">
 	<g id="up">
+		<circle id="up-escalator-1" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="309.874" r="1"/>
 	</g>
 	<g id="down">
+		<circle id="down-escalator-1" style="fill:none;stroke:#ABB6DC;" cx="307.278" cy="240.5" r="1"/>
 	</g>
 </g>
 <g id="bathroom">
 	<g id="men">
+		<circle id="men-bath-1" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="363.189" cy="368.254" r="1"/>
+		<circle id="men-bath-2" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="243.189" cy="448.345" r="1"/>
 	</g>
 	<g id="women">
+		<circle id="women-bath-2" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="384.754" cy="448.845" r="1"/>
 	</g>
 </g>
 <g id="path" style="display:none;" distance-between-neighbors="8"">
