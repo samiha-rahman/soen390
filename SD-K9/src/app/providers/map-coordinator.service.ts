@@ -48,14 +48,16 @@ export class MapCoordinator {
     }
 
     private _parseLocation(location: string): FloorPlanIdentifier | string {
-        if (location && location.substr(1,1) === '-') {
-            switch (location.substr(0,1)) {
+        if (location && location.indexOf("-") !== -1) {
+            let sliceIndex: number = location.indexOf("-");
+            let floorIndex: number = sliceIndex + 1;
+            switch (location.slice(0,sliceIndex)) {
                 case 'H': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'hall', floor: +location.substr(2,1)};
+                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'hall', floor: +location.substr(floorIndex,1)};
                     return floorPlanIdentifier;
                 }
-                case 'L': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'loyola', floor: +location.substr(2,1)};
+                case 'CC': {
+                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'cc', floor: +location.substr(floorIndex,1)};
                     return floorPlanIdentifier;
                 }
             }
@@ -133,17 +135,16 @@ export class MapCoordinator {
                 */
                 parsedSource.id = index;
                 this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
-    
                 /*
                 * Outdoor Map
                 */
                 this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
-    
                 /*
                 * Indoor Map 2
                 */
                 parsedDestination.id = ++index;
                 this._prepareIndoor(maps,parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
+
             }
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination == "string") {     // Indoor to Outdoor
@@ -190,7 +191,7 @@ export class MapCoordinator {
         switch (building) {
             case 'hall':
                 return "h3g1m8";
-            case 'loyola':
+            case 'cc':
                 return "h4b1r6";
         }
     }
@@ -200,8 +201,8 @@ export class MapCoordinator {
         switch (building) {
             case 'hall':
                 return "H-806";
-            case 'loyola':
-                return "L-101";
+            case 'cc':
+                return "entrance-1";
         }
     }
     // Temp: to test for indoor in H only!!!
