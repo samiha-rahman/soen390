@@ -9,7 +9,7 @@ describe('IndoorFloorSelectorComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ IndoorFloorSelectorComponent ],
+      declarations: [IndoorFloorSelectorComponent],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 

@@ -4,7 +4,7 @@ import { PickerOptions, PickerColumnOption } from '@ionic/core';
 import * as buildingData from '../../../local-configs/buildings.json';
 import { MapModeStore } from '../../providers/state-stores/map-mode-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback.js';
-import { ViewMode } from 'src/app/models/view-mode.enum.model.js';
+import { ViewMode } from '../../models/view-mode.enum.model';
 
 @Component({
   selector: 'indoor-floor-selector',
