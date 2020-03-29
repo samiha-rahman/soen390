@@ -18,6 +18,21 @@
   </ion-card>
 
   <div>
+
+    <ion-card>
+      <ion-card-header *ngIf="!itemList">
+        <ion-card-content>Start typing to search for a location</ion-card-content>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header *ngIf="itemList && itemList.length == 0">
+        <ion-card-title>No Results were found</ion-card-title>
+        <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
+        <ion-card-content>
+          <ion-button expand="block" (click)="enterQuery(currentQuery)">Search Anyway</ion-button>
+        </ion-card-content>
+      </ion-card-header>
+    </ion-card>
     <ion-list>
       <ion-item *ngFor="let item of itemList | slice:0:10; let i = index">
         <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>

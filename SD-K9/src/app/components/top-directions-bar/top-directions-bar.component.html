@@ -24,7 +24,7 @@
 
 
       <div *ngIf="directionSent">
-        <ion-segment scrollable value="TRANSIT" (ionChange)="segmentChanged($event)" color="primary">
+        <ion-segment scrollable value="TRANSIT" (ionChange)="transportSegmentChanged($event)" color="primary">
           <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
             <ion-label>Drive</ion-label>
             <ion-icon name="car"></ion-icon>

@@ -18,6 +18,8 @@ export class LocationSearchPage implements OnInit {
   private _itemList: string[];
   private _queryType: string;
 
+  public currentQuery: string;
+
   constructor(
     private _navController: NavController,
     private _activatedRoute: ActivatedRoute,
@@ -39,9 +41,9 @@ export class LocationSearchPage implements OnInit {
   }
 
   changeQuery(query: string) {
-    let k = 0;
     this.itemList = [];
-    for (let item of this._itemList) {
+    this.currentQuery = query;
+    for (const item of this._itemList) {
       if (item.toUpperCase().includes(query.toUpperCase())) {
         this.itemList.push(item);
       }
@@ -49,6 +51,7 @@ export class LocationSearchPage implements OnInit {
   }
 
   enterQuery(query: string) {
+    console.log(query)
     switch (this._queryType) {
       case 'start': {
         this._directionFormStore.setSource(query);
