@@ -36,21 +36,9 @@
       </ion-list>
    
       <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
+      <!-- TODO: Change Back button when merged with top-ui-nav-bar -->
+      <ion-button expand="full" *ngIf="isIndoor" (click)="loadGoogleMaps()">Back</ion-button>
     </form>
-    <!-- <ion-button expand="block">Clear Direction</ion-button> -->
-    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED"> 
-      <ion-row>
-       <ion-segment-button value="HALL">
-         <ion-label>Indoor Hall Bldg</ion-label>
-       </ion-segment-button>
-       <ion-segment-button value="LOYOLA">
-         <ion-label>Indoor Loyola Campus</ion-label>
-       </ion-segment-button>
-       <ion-segment-button value="DISABLED">
-        <ion-label>Google Maps</ion-label>
-      </ion-segment-button>
-      </ion-row>
-    </ion-segment>
   </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>

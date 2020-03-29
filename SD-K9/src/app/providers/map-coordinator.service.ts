@@ -11,12 +11,14 @@ import { RouteStore } from './state-stores/route-store.service';
 import { RouteCoordinator } from './route-coordinator.service';
 import { FloorPlanStore } from './state-stores/floor-plan-store.service';
 import { Route } from '../interfaces/route';
+import * as buildingsData from '../../local-configs/buildings.json';
 
 @Injectable({
     providedIn: 'root'
 })
 export class MapCoordinator {
     map: MapItem;
+    buildingsConfig: any = buildingsData["default"];
     private _outdoorIndex: number = 1;
 
     constructor(
@@ -27,25 +29,6 @@ export class MapCoordinator {
     ) {}
 
     ngOnInit() {}
-    
-    // Refactor code once google maps is integrated
-    getMap(initialLocation?: string) : MapItem {
-        let parsedLocation = this._parseLocation(initialLocation);
-
-        if (parsedLocation == 'hall') {
-            return new MapItem(FloorPlanComponent, {id: 1, floor: 8, building: 'hall'});
-        }
-        else if (parsedLocation == 'loyola') {
-            return new MapItem(FloorPlanComponent, {id: 1, floor: 1, building: 'loyola'});
-        }
-        else if (!parsedLocation) {
-            return new MapItem(OutdoorMapComponent, {id: this._outdoorIndex});
-        }
-        else {
-            let data: any = parsedLocation.valueOf();       // TODO: Give this a type (depends on return type of _parseLocation()) 
-            return new MapItem(FloorPlanComponent, {floor: data.floor, building: data.buildng });
-        }
-    }
 
     private _parseLocation(location: string): FloorPlanIdentifier | string {
         if (location && location.indexOf("-") !== -1) {
@@ -89,17 +72,17 @@ export class MapCoordinator {
             this._outdoorRouteBuilder.buildRoute(route)
         }
         else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
-            /* 
+            /*
             * Outdoor map
             */
             this._prepareOutdoor(maps, route.source, this._buildingPostalCode(parsedDestination.building));
 
             /*
-            * Indoor map 
+            * Indoor map
             */
             parsedDestination.id = index;
             this._prepareIndoor(maps, parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
-            
+
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
             if(parsedSource.building === parsedDestination.building) {                              /* Same Floor */
@@ -108,9 +91,9 @@ export class MapCoordinator {
                 }
                 else {                                                                              /* Multi-Floor */
                     let difference = parsedDestination.floor - parsedSource.floor;
-    
-                    this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.floor));
-    
+
+                    this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.building,parsedSource.floor));
+
                     if (difference >= 0) {
                         let nextFloor: number = parsedSource.floor + 1;
                         let beforeDestFloor: number = parsedDestination.floor - 1;
@@ -125,9 +108,9 @@ export class MapCoordinator {
                             this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor}); // TODO: show path inside vertical transportation
                         }
                     }
-    
+
                     parsedDestination.id = ++index;
-                    this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.floor));
+                    this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.building,parsedDestination.floor));
                 }
             } else {
                 /*
@@ -135,10 +118,12 @@ export class MapCoordinator {
                 */
                 parsedSource.id = index;
                 this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+
                 /*
                 * Outdoor Map
                 */
                 this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+
                 /*
                 * Indoor Map 2
                 */
@@ -154,7 +139,7 @@ export class MapCoordinator {
             parsedSource.id = index;
             this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
 
-            /* 
+            /*
             * Outdoor map
             */
             this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), route.destination);
@@ -177,7 +162,7 @@ export class MapCoordinator {
         maps.push(new MapItem(FloorPlanComponent, parsedRoute));
 
         if (classID && entryID) {
-            // Setup initial SVGCoordinate 
+            // Setup initial SVGCoordinate
             let iSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(entryID, parsedRoute.building, parsedRoute.floor); // TODO: get building entry point from config
             // Setup final SVGCoordinate
             let fSvgCoordinate: SVGCoordinate = await this._svgManager.getClassroom(classID, parsedRoute.building, parsedRoute.floor);
@@ -186,7 +171,6 @@ export class MapCoordinator {
         }
     }
 
-    // TODO: replace with config
     private _buildingPostalCode(building: string): string {
         switch (building) {
             case 'hall':
@@ -196,23 +180,12 @@ export class MapCoordinator {
         }
     }
 
-    // TODO: replace with config
     private _buildingEntry(building: string): string {
-        switch (building) {
-            case 'hall':
-                return "H-806";
-            case 'cc':
-                return "entrance-1";
-        }
+        return this.buildingsConfig[building]["buildingEntry"];
     }
     // Temp: to test for indoor in H only!!!
-    private _floorEntry(floor: number): string {
-        switch(floor) {
-            case 6:
-                return "H-606";
-            case 8:
-                return "H-806";
-        }
+    private _floorEntry(building:string,floor: number): string {
+        return this.buildingsConfig[building]["floorsEntry"][floor];
     }
 
 }
