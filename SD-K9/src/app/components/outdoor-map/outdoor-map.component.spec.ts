@@ -12,6 +12,10 @@ describe('OutdoorMapComponent', () => {
   let component: OutdoorMapComponent;
   let fixture: ComponentFixture<OutdoorMapComponent>;
 
+  function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
         declarations: [ OutdoorMapComponent,BuildingInfoComponent ],
@@ -33,11 +37,15 @@ describe('OutdoorMapComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should initialize the map with user coordinates', () => {
-    expect(component.mapInitialised).toBeTruthy();
-  });
+  it('#_initMap should initialize the map with user coordinates', (async() => {
+    await delay(10000);
 
-  it('should move the map when locating user', () => {
+    expect(component.mapInitialised).toBeTruthy();
+  }));
+
+  it('#locateUser should move the map when locating user', (async() => {
+    await delay(10000);
+
     //move map away from user
     component.toggleCampus({detail:{value:"sgw"}});
 
@@ -50,9 +58,11 @@ describe('OutdoorMapComponent', () => {
     //get new map center, it should have moved
     let secondLat = component.map.getCenter().lat();
     expect(firstLat).not.toEqual(secondLat);
-  });
+  }));
 
-  it('should move the map when changing campus', () => {
+  it('#toggleCampus should move the map when changing campus', (async() => {
+    await delay(10000);
+
     component.currentPos = {"lat":60,"lng":-60};
 
     //get map center when it opens
@@ -65,6 +75,6 @@ describe('OutdoorMapComponent', () => {
     let secondLat = component.map.getCenter().lat();
     expect(firstLat).not.toEqual(secondLat);
 
-  });
+  }));
 
 });

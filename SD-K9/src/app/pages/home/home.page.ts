@@ -5,7 +5,6 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { SourceDestination } from '../../interfaces/source-destination';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
-import { MapModeState } from 'src/app/interfaces/map-mode-state';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 
 @Component({
@@ -26,7 +25,7 @@ export class HomePage implements OnInit {
     private _mapCoordinator: MapCoordinator,
     private _fb: FormBuilder,
     private _mapModeStore: MapModeStore
-  ) { 
+  ) {
     this.createDirectionForm();
     this._unsubscribe = this._mapModeStore.subscrbe(() => {
       this.maps = [this._mapModeStore.getMapModeState()];
@@ -38,7 +37,7 @@ export class HomePage implements OnInit {
       }
     });
   }
-  
+
   ngOnInit() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
     this.isIndoor = false;

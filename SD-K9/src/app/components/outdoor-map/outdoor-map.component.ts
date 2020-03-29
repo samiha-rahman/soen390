@@ -9,7 +9,6 @@ import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { BuildingInfoStore } from '../../providers/state-stores/building-info-store.service';
 import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
-import { SourceDestination } from 'src/app/interfaces/source-destination';
 import { environment } from '../../../environments/environment';
 
 declare var google;
@@ -26,10 +25,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   //cannot set type to google.maps.marker because google maps is not loaded yet
   buildingMarkers: any[] = [];
   userMarker: any;
-  buildingInfoCardIsShown: boolean = false;
-  currentBuilding: string;
-  currentCampus: string;
-  currentBuildingInfo: string;
   campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;

@@ -25,17 +25,12 @@ describe('BuildingInfoComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should go inside hall building when clicked', () => {
+  it('#goInside should change the current building to hall when clicked', () => {
     component.goInside('hall');
     expect(component.getCurrentBuilding()).toEqual("hall");
   });
 
-  it('should go inside cc building when clicked', () => {
-    component.goInside('cc');
-    expect(component.getCurrentBuilding()).toEqual("loyola");
-  });
-
-  it('should hide building info card', () => {
+  it('#hideBuildingInfoCard should hide building info card', () => {
     component.buildingInfoCardIsShown = true;
     component.hideBuildingInfoCard({default:"empty event"});
     expect(component.buildingInfoCardIsShown).not.toBeTruthy();
