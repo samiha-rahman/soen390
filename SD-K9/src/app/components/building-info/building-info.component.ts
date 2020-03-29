@@ -78,7 +78,6 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   goInside(buildingSlug: string) {
     this._mapModeStore.setMode(ViewMode[buildingSlug.toUpperCase()]);
-    }
   }
 
   //for testing
