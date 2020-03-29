@@ -49,6 +49,10 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
       this._draw = SVG("#floorplan");
       // this._draw.clear();
       this._draw.svg(floorplan);
+      // get viewbox
+      const bbox = this._draw.node.firstElementChild.viewBox.baseVal
+      const svg = document.getElementsByTagName('svg')[0];
+      svg.setAttribute('viewBox', `0 0 ${bbox.width} ${bbox.height}`);
     });
   }
 

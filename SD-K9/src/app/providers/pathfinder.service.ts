@@ -100,7 +100,7 @@ export class Pathfinder {
       }
     }
     // If It reaches here, it means no path was found
-    throw new Error('Can\'t find a way there');
+    throw new Error('Can\'t find a way there')
   }
 
   /**
@@ -138,7 +138,6 @@ export class Pathfinder {
   ) {
     const neighbors: AStarNode[] = [];
 
-
     possibleNeighbors.forEach(possibleNode => {
       if (this.isNeighbor(possibleNode, parentNode.value)) {
         const g = parentNode.g + this.distance(possibleNode, parentNode.value);
@@ -156,7 +155,6 @@ export class Pathfinder {
         neighbors.push(childNode);
       }
     });
-
     return neighbors;
   }
 
