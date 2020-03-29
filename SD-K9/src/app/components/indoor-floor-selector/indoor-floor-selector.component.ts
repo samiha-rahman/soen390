@@ -33,7 +33,7 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._buildingConfig = buildingData.default;
+    this._buildingConfig = buildingData['default'];
   }
 
   ngOnDestroy() {

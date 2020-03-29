@@ -96,20 +96,21 @@ export class MapCoordinator {
 
                     this._prepareIndoor(maps, parsedSource, route.source, this._floorEntry(parsedSource.building, parsedSource.floor));
 
-                    if (difference >= 0) {
-                        let nextFloor: number = parsedSource.floor + 1;
-                        let beforeDestFloor: number = parsedDestination.floor - 1;
-                        for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
-                            this._prepareIndoor(maps, { id: ++index, building: parsedSource.building, floor: _floor }); // TODO: show path inside vertical transportation
-                        }
-                    }
-                    else {
-                        let nextFloor: number = parsedSource.floor - 1;
-                        let beforeDestFloor: number = parsedDestination.floor + 1;
-                        for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
-                            this._prepareIndoor(maps, { id: ++index, building: parsedSource.building, floor: _floor }); // TODO: show path inside vertical transportation
-                        }
-                    }
+                    // TODO: uncomment this with Joanna's changes
+                    // if (difference >= 0) {
+                    //     let nextFloor: number = parsedSource.floor + 1;
+                    //     let beforeDestFloor: number = parsedDestination.floor - 1;
+                    //     for (var _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
+                    //         this._prepareIndoor(maps, { id: ++index, building: parsedSource.building, floor: _floor }); // TODO: show path inside vertical transportation
+                    //     }
+                    // }
+                    // else {
+                    //     let nextFloor: number = parsedSource.floor - 1;
+                    //     let beforeDestFloor: number = parsedDestination.floor + 1;
+                    //     for (var _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
+                    //         this._prepareIndoor(maps, { id: ++index, building: parsedSource.building, floor: _floor }); // TODO: show path inside vertical transportation
+                    //     }
+                    // }
 
                     parsedDestination.id = ++index;
                     this._prepareIndoor(maps, parsedDestination, route.destination, this._floorEntry(parsedDestination.building, parsedDestination.floor));

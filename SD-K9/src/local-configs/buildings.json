@@ -1,16 +1,13 @@
 {
-  "hall":{
+  "hall": {
     "buildingEntry": "H-806",
-    "floorsEntry":{
-      "6":"H-606",
-      "8":"H-806"
+    "floorsEntry": {
+      "6": "H-606",
+      "8": "H-806"
     }
   },
-  "loyola":{
-    "buildingEntry": "L-101",
-    "floorsEntry":{
-      "6":"H-606",
-      "8":"H-806"
-    }
+  "cc": {
+    "buildingEntry": "entrance-1",
+    "floorsEntry": {}
   }
 }
