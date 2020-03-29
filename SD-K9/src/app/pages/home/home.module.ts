@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -11,6 +11,7 @@ import { FloorPlanComponent } from 'src/app/components/floor-plan/floor-plan.com
 import { MapBoxComponent } from 'src/app/components/map-box/map-box.component';
 import { MapDirective } from 'src/app/directives/map.directive';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
+import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
 
 @NgModule({
   imports: [
@@ -25,8 +26,10 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
     MapBoxComponent,
     MapDirective,
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    BuildingInfoComponent
   ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
   entryComponents: [
     FloorPlanComponent,
     OutdoorMapComponent

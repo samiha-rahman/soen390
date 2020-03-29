@@ -3,9 +3,12 @@ import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { AStarNode } from '../models/a-star.model';
 import { MinHeap } from '../helpers/heap';
 import { SVGManager } from './svg-manager.service';
+import { INT_TYPE } from '@angular/compiler/src/output/output_ast';
 
 @Injectable()
 export class Pathfinder {
+  private distanceBetweenNeighbors: number;
+
   constructor(private svgManager: SVGManager) { }
 
   /**
@@ -17,13 +20,18 @@ export class Pathfinder {
    */
   public async getShortestPath(
     pointA: SVGCoordinate,
-    pointB: SVGCoordinate,
-    building: string,
-    floor: number
+    pointB: SVGCoordinate
   ): Promise<SVGCoordinate[]> {
 
+    if (pointA.building !== pointB.building || pointA.floor !== pointB.floor) {
+      throw new Error('Are you sure the start and end points are in the same floor of the same building?');
+    }
+    const currentBuilding = pointA.building;
+    const currentFloor = pointA.floor;
+
     /* Getting the walkable nodes */
-    const walkablePath = await this.svgManager.getWalkableNodes(building, floor);
+    const walkablePath = await this.svgManager.getWalkableNodes(currentBuilding, currentFloor);
+    this.distanceBetweenNeighbors = await this.svgManager.getDistanceBetweenNeighbors(currentBuilding, currentFloor);
 
     /* Creating the start node */
     const startHeuristic = this.distance(pointA, pointB);
@@ -91,7 +99,8 @@ export class Pathfinder {
         }
       }
     }
-    return [];
+    // If It reaches here, it means no path was found
+    throw new Error('Can\'t find a way there')
   }
 
   /**
@@ -109,20 +118,13 @@ export class Pathfinder {
   }
 
   /**
-   * Allows for small missalignments in the nodes of the svg file
-   */
-  private inRange(x, y, tolerence) {
-    return x >= y - tolerence && x <= y + tolerence;
-  }
-
-  /**
-   * Checks if two nodes are close to eachother (so that the algo doesn't go through walls)
+   * Checks if two nodes are neighbors
    *
    * @param a point A
    * @param b point B
    */
-  private isClose(a: SVGCoordinate, b: SVGCoordinate) {
-    return this.distance(a, b) < 20;
+  private isNeighbor(a: SVGCoordinate, b: SVGCoordinate) {
+    return this.distance(a, b) < this.distanceBetweenNeighbors;
   }
 
   /**
@@ -136,14 +138,8 @@ export class Pathfinder {
   ) {
     const neighbors: AStarNode[] = [];
 
-
     possibleNeighbors.forEach(possibleNode => {
-      if (
-        // TODO: add a check for proximity (I'll add after making the hall svgs)
-        (this.inRange(possibleNode.x, parentNode.value.x, 1) ||
-          this.inRange(possibleNode.y, parentNode.value.y, 1))
-        && this.isClose(possibleNode, parentNode.value)
-      ) {
+      if (this.isNeighbor(possibleNode, parentNode.value)) {
         const g = parentNode.g + this.distance(possibleNode, parentNode.value);
         const h = this.distance(possibleNode, goalNode);
         const f = g + h;
@@ -159,7 +155,6 @@ export class Pathfinder {
         neighbors.push(childNode);
       }
     });
-
     return neighbors;
   }
 
@@ -172,27 +167,13 @@ export class Pathfinder {
   }
 
   /**
-   * The distance from the current node and the start node
-   */
-  private g(currentNode: SVGCoordinate, startNode: SVGCoordinate) {
-    return this.distance(currentNode, startNode);
-  }
-
-  /**
-   * The Heuristic (distance from current node to end node)
-   */
-  private h(currentNode: SVGCoordinate, endNode: SVGCoordinate) {
-    return this.distance(currentNode, endNode);
-  }
-
-  /**
    * Calculates the distance from A to B
    * @param a position node A
    * @param b  position node B
    */
   distance(a: SVGCoordinate, b: SVGCoordinate): number {
-    if (typeof a.x === 'undefined' || typeof a.y === 'undefined' || typeof b.y === 'undefined' || typeof b.x === 'undefined') {
-      return 0;
+    if (isNaN(a.x) || isNaN(a.y) || isNaN(b.x) || isNaN(b.y)) {
+      throw new Error('Are you sure both coordinates have a numerical x and y?')
     } else {
       return Math.hypot(a.x - b.x, a.y - b.y);
     }
