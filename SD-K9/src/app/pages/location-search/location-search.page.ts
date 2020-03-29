@@ -1,5 +1,5 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { NavController, IonSearchbar } from '@ionic/angular';
+import { Component, OnInit } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
 import { ActivatedRoute } from '@angular/router';
 
