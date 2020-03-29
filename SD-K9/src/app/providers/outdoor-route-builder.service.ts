@@ -31,6 +31,7 @@ export class OutdoorRouteBuilder {
     }
 
     buildRoute(formValues: DirectionForm) {
+        // TODO: Fix the overlaying directions (if i change travelMode it keeps the old one)
         this.directionsService.route({
             origin: formValues.sourceDestination.source,
             destination: formValues.sourceDestination.destination,

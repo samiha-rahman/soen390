@@ -51,7 +51,6 @@ export class LocationSearchPage implements OnInit {
   }
 
   enterQuery(query: string) {
-    console.log(query)
     switch (this._queryType) {
       case 'start': {
         this._directionFormStore.setSource(query);
