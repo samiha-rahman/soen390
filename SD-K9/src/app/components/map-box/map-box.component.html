@@ -1,7 +1,7 @@
 <!-- <ion-button expand="block" *ngIf="numRoutes >= 0" (click)="clearRoute()">Clear Direction</ion-button> -->
 <div class="button">
-  <ion-button *ngIf="currentMapIndex < numMaps" (click)="nextMap()" color="primary">Next Map</ion-button>
-  <ion-button *ngIf="0 < currentMapIndex && currentMapIndex <= numMaps" (click)="previousMap()" color="primary">Prev Map</ion-button>
+  <ion-button *ngIf="currentMapIndex < numMaps" (click)="nextMap()" color="primary" id="nextmap-button">Next Map</ion-button>
+  <ion-button *ngIf="0 < currentMapIndex && currentMapIndex <= numMaps" (click)="previousMap()" color="primary" id="prevmap-button">Prev Map</ion-button>
 </div>
 <div>
   <ng-template map-host></ng-template>

@@ -15,7 +15,7 @@ export class HomePage extends AppPage {
     }
 
     clickGetDirections() {
-        this.clickButton('#getdirections-button');
+        this.clickButton('#getdirection-button');
     }
 
 }

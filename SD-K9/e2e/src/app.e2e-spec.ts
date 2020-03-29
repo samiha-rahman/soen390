@@ -1,9 +1,14 @@
 import { browser, element, by } from "protractor"; 
 import { AppPage } from './app.po';
 import { HomePage } from './home.po';
+import { AppComponent } from './app.co';
+import { FloorplanComponent } from './floorplan.co';
+import { MapBoxComponent } from './mapbox.co'
 
 describe("Directions", () => {
   const home = new HomePage();
+  const floorplan = new FloorplanComponent();
+  const mapbox = new MapBoxComponent();
 
   beforeEach(() => {
     home.load();
@@ -31,4 +36,31 @@ describe("Directions", () => {
     });
   });
   
+  describe("requesting an indoor route for source and destination on the same floor", () => {
+    it("accepts input from the user and displays indoor map", () => {
+      home.enterSource('H-820');
+      home.enterDestination('H-860');
+      home.clickGetDirections();
+      floorplan.waitUntilVisible();
+      expect(element(by.deepCss(`#floorplan`)).isDisplayed()).toBeTruthy;
+      // expect(floorplan.rootElement().isDisplayed()).toBeTruthy;
+    });
+  });
+
+  describe("requesting an indoor route for source and destination on different floors", () => {
+    it("accepts input from the user and displays indoor map", () => {
+      home.enterSource('H-620');
+      home.enterDestination('H-860');
+      home.clickGetDirections();
+      expect(element(by.css(`app-home #mapbox floor-plan`)).isDisplayed()).toBeTruthy;
+    });
+
+    it("displays the next map button", () => {
+      home.enterSource('H-620');
+      home.enterDestination('H-860');
+      home.clickGetDirections();
+      expect(element(by.css(`app-home #mapbox.nextmap-button`)).isDisplayed()).toBeTruthy;
+    });
+  });
+
 });

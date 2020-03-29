@@ -1,16 +1,10 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
 
-export class AppPage {
-  private path: string;
+export class AppComponent {
   protected tag: string;
 
-  constructor(tag: string, path: string) {
+  constructor(tag: string) {
     this.tag = tag;
-    this.path = path;
-  }
-
-  load() {
-    return browser.get(this.path);
   }
 
   rootElement() {
@@ -36,33 +30,9 @@ export class AppPage {
     browser.wait(ExpectedConditions.visibilityOf(this.rootElement()), 3000);
   }
 
-  getTitle() {
-    return element(by.css(`${this.tag} ion-title`)).getText();
-  }
-
-  protected enterInputText(sel: string, text: string) {
-    const el = element(by.css(`${this.tag} ${sel}`));
-    const inp = el.element(by.css('input'));
-    inp.sendKeys(text);
-  }
-
-  protected enterTextareaText(sel: string, text: string) {
-    const el = element(by.css(`${this.tag} ${sel}`));
-    const inp = el.element(by.css('textarea'));
-    inp.sendKeys(text);
-  }
-
   protected clickButton(sel: string) {
     const el = element(by.css(`${this.tag} ${sel}`));
     browser.wait(ExpectedConditions.elementToBeClickable(el));
     el.click();
-  }
-
-  navigateTo() {
-    return browser.get('/');
-  }
-
-  getParagraphText() {
-    return element(by.deepCss('app-root ion-content')).getText();
   }
 }
