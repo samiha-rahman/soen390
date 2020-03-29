@@ -31,7 +31,7 @@ export class LocationSearchPage implements OnInit {
   ngOnInit() {
     // setTimeout(() => { this.searchbar.setFocus(); }, 150);
     // TODO: get from config once available
-    this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'L-109'];
+    this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
   }
 
   goToHomePage() {
