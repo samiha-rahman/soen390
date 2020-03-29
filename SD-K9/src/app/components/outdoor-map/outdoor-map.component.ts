@@ -10,6 +10,7 @@ import { BuildingInfoStore } from '../../providers/state-stores/building-info-st
 import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
 import { SourceDestination } from 'src/app/interfaces/source-destination';
+import { environment } from '../../../environments/environment';
 
 declare var google;
 
@@ -32,7 +33,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
-  apiKey: string = "AIzaSyA_u2fkanThpKMP4XxqLVfT9uK0puEfRns";
+  apiKey: string = environment.apiKey;
   private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
   constructor(
