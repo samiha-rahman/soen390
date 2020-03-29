@@ -226,7 +226,8 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="338.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="342.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="346.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/><circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="187.633" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="195.832" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="200.002" r="0.5"/>
