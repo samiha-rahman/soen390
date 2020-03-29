@@ -86,7 +86,7 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getClassroom should return a classroom given an id, building and floor', () => {
+    it('#getSVGCoordFromID should return a classroom given an id, building and floor', () => {
         const classID = 'A';
         const building = 'any';
         const floor = 0;
@@ -97,9 +97,9 @@ describe('SVGManager', () => {
             floor,
             x: 2,
             y: 2
-        }
+        };
 
-        service.getClassroom(classID, building, floor)
+        service.getSVGCoordFromID(classID, building, floor)
             .then(classroom => {
                 expect(classroom).toEqual(expectedClassroom);
             })
@@ -113,7 +113,7 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getVerticalTransportation should return a vertical transportation given an id, building and floor', () => {
+    it('#getSVGCoordFromID should return a vertical transportation given an id, building and floor', () => {
         const vtID = 'stair-1';
         const building = 'any';
         const floor = 0;
@@ -124,9 +124,9 @@ describe('SVGManager', () => {
             floor,
             x: 5,
             y: 5
-        }
+        };
 
-        service.getVerticalTransportation(vtID, 'stairs', building, floor)
+        service.getSVGCoordFromID(vtID, building, floor)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
             })
@@ -140,14 +140,14 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getVerticalTransportationId should return the ID of the closest vt (stairs)', () => {
+    it('#getClosestVerticalTransportationId should return the ID of the closest vt (stairs)', () => {
         const building = 'any';
         const floor = 0;
         const currentLocation: SVGCoordinate = { id: 'A', building, floor, x: 2, y: 2 };
 
         const expectedVerticalTransport = 'stair-2';
 
-        service.getClosestVerticalTransportationId('stairs', 'up', building, floor, currentLocation)
+        service.getClosestVerticalTransportationId('stairs', 'up', currentLocation)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
             })
@@ -161,14 +161,14 @@ describe('SVGManager', () => {
         request.flush(dummySVG);
     });
 
-    it('#getVerticalTransportationId should return the ID of the closest vt (escalator)', () => {
+    it('#getClosestVerticalTransportationId should return the ID of the closest vt (escalator)', () => {
         const building = 'any';
         const floor = 0;
         const currentLocation: SVGCoordinate = { id: 'A', building, floor, x: 2, y: 2 };
 
         const expectedVerticalTransport = 'up-escalator-1';
 
-        service.getClosestVerticalTransportationId('escalators', 'up', building, floor, currentLocation)
+        service.getClosestVerticalTransportationId('escalators', 'up', currentLocation)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
             })

@@ -7,7 +7,7 @@ import { SVGCoordinate } from '../models/svg-coordinate.model';
 @Injectable({
   providedIn: 'root'
 })
-export class RouteCoordinator {
+export class IndoorRouteCoordinator {
   private _verticalTransportationMode = 'escalators';
   private _hasNextRoute: boolean = false;
   private _routeLocationList = [];
@@ -54,18 +54,16 @@ export class RouteCoordinator {
           direction = 'down';
         }
         const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
-          finalLocation.building,
-          finalLocation.floor,
           finalLocation
         );
-        firstvTransportation = await this._svgManager.getVerticalTransportation(
+        firstvTransportation = await this._svgManager.getSVGCoordFromID(
             vTransportationId,
             this._verticalTransportationMode,
             initLocation.building,
             initLocation.floor
         );
         this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
-        secondvTransportation = await this._svgManager.getVerticalTransportation(
+        secondvTransportation = await this._svgManager.getSVGCoordFromID(
           vTransportationId,
           this._verticalTransportationMode,
           finalLocation.building,

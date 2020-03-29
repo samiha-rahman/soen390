@@ -7,7 +7,7 @@ import { Pathfinder } from './pathfinder.service';
 import { SVGManager } from './svg-manager.service';
 import { RouteStore } from './state-stores/route-store.service';
 import { FloorPlanStore } from './state-stores/floor-plan-store.service';
-import { RouteCoordinator } from './route-coordinator.service';
+import { IndoorRouteCoordinator } from './indoor-route-coordinator.service';
 import { MapItem } from '../helpers/map-item';
 
 describe('MapCoordinator', () => {
@@ -21,7 +21,7 @@ describe('MapCoordinator', () => {
           {provide: SVGManager, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
           {provide: RouteStore, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
           {provide: FloorPlanStore, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
-          {provide: RouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}
+          {provide: IndoorRouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}
         ]
     }).compileComponents();
     service = TestBed.get(MapCoordinator);
