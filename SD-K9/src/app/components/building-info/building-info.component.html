@@ -1,0 +1,11 @@
+<ion-card [@cardAnimation]="buildingInfoCardIsShown ? 'shown' : 'hidden'" class="building-info-card">
+  <ion-card-header>
+    <ion-card-title>{{ currentBuilding }}</ion-card-title>
+    <ion-card-subtitle>{{ currentCampus }}</ion-card-subtitle>
+    <img tappable src="../../../assets/images/close-icon.png" class="close-card" (click)="hideBuildingInfoCard($event)" />
+  </ion-card-header>
+  <ion-card-content>{{ currentBuildingInfo }}
+    <br>
+    <ion-button color="primary" class="go-inside-btn" (click)="goInside(buildingSlug)" [disabled]="buildingSlug.length < 1">See indoor</ion-button>
+  </ion-card-content>
+</ion-card>
