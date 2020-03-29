@@ -7,28 +7,28 @@ import { ListenerCallback } from '../../interfaces/listener-callback';
 import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
 import { FloorPlanComponent } from 'src/app/components/floor-plan/floor-plan.component';
-import { ViewMode } from  '../../models/view-mode.enum.model';
+import { ViewMode } from '../../models/view-mode.enum.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class MapModeStore {
-  private _defaultView: MapModeState = {component: OutdoorMapComponent, data: {id: 1}};
+  private _defaultView: MapModeState = { component: OutdoorMapComponent, data: { id: 1 } };
   private _mapModeReducer: StateReducer<MapModeState> = (state: MapModeState, action: StateAction): MapModeState => {
-    switch(action.type) {
+    switch (action.type) {
       case ViewMode.GOOGLE: {
         state.component = OutdoorMapComponent;
-        state.data = {id: 1};
+        state.data = { id: 1 };
         return state;
       }
       case ViewMode.HALL: {
         state.component = FloorPlanComponent;
-        state.data = {id: 1, floor: 8, building: 'hall'};
+        state.data = { id: 1, floor: 8, building: 'hall' };
         return state;
       }
       case ViewMode.CC: {
         state.component = FloorPlanComponent;
-        state.data = {id: 1, floor: 1, building: 'loyola'};
+        state.data = { id: 1, floor: 1, building: 'cc' };
         return state;
       }
       case ViewMode.CUSTOM_INDOOR: {
@@ -45,10 +45,10 @@ export class MapModeStore {
 
   setMode(mode: ViewMode, payload?: any) {
     if (mode === ViewMode.CUSTOM_INDOOR && payload) {
-      this._mapModeStore.dispatch({type: mode, payload: payload});
+      this._mapModeStore.dispatch({ type: mode, payload: payload });
     }
     else {
-      this._mapModeStore.dispatch({type: mode});
+      this._mapModeStore.dispatch({ type: mode });
     }
   }
 
@@ -56,7 +56,7 @@ export class MapModeStore {
     return this._mapModeStore.getState();
   }
 
-  subscrbe(listener: ListenerCallback): UnsubscribeCallback {
+  subscribe(listener: ListenerCallback): UnsubscribeCallback {
     return this._mapModeStore.subscribe(listener);
   }
 }

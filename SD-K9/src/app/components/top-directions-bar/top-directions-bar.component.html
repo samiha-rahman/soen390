@@ -1,0 +1,64 @@
+<ion-header translucent>
+  <ion-buttons slot="start">
+    <ion-back-button></ion-back-button>
+  </ion-buttons>
+  <ion-toolbar color="medium" mode="md">
+    <div class="container">
+      <ion-grid>
+        <ion-row>
+          <ion-col *ngIf="directionSent || isIndoor" size="{{backButtonSize}}">
+            <ion-button class="clear-btn" color="dark" fill="clear" size="large" (click)="clearDirection()">
+              <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+          </ion-col>
+          <ion-col size="{{directionFormSize}}">
+            <ion-searchbar placeholder="Starting point" search-icon="locate" color="light" [(ngModel)]="start"
+              debounce="1000" (ionChange)="sendDirection()" (click)="goToSearchPage('start')" ngDefaultControl>
+            </ion-searchbar>
+            <ion-searchbar placeholder="Destination" search-icon="pin" color="light" [(ngModel)]="end" debounce="1000"
+              (ionChange)="sendDirection()" (click)="goToSearchPage('final')" ngDefaultControl>
+            </ion-searchbar>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
+
+      <div *ngIf="directionSent">
+        <ion-segment scrollable value="TRANSIT" (ionChange)="transportSegmentChanged($event)" color="primary">
+          <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
+            <ion-label>Drive</ion-label>
+            <ion-icon name="car"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.WALKING}} layout="icon-top">
+            <ion-label>Walk</ion-label>
+            <ion-icon name="walk"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.TRANSIT}} layout="icon-top">
+            <ion-label>Transit</ion-label>
+            <ion-icon name="bus"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.BICYCLING}} layout="icon-top">
+            <ion-label>Bike</ion-label>
+            <ion-icon name="bicycle"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="isIndoor">
+          <ion-segment scrollable value="ESCALATOR" (ionChange)="verticalTransportSegmentChanged($event)"
+            color="primary">
+            <ion-segment-button value={{verticalTransportEnum.STAIRS}}>
+              <ion-label>Stairs</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value={{verticalTransportEnum.ESCALATOR}}>
+              <ion-label>Escalator</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value={{verticalTransportEnum.ELEVATOR}}>
+              <ion-label>Elevator</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+      </div>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
