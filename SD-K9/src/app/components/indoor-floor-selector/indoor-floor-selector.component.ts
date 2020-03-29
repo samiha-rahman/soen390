@@ -13,12 +13,13 @@ import { ViewMode } from '../../models/view-mode.enum.model';
 })
 export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
 
-  private _buildingConfig: any;
   private _unsubscribe: UnsubscribeCallback;
 
+  public buildingConfig: any;
   public currentFloor: any;
   public currentBuilding: any;
   public currentView: string;
+  public pickerOptions: PickerColumnOption[];
 
   constructor(
     private _pickerCtrl: PickerController,
@@ -33,19 +34,21 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this._buildingConfig = buildingData['default'];
+    console.log('in here')
+    this.buildingConfig = buildingData['default'];
   }
 
   ngOnDestroy() {
     this._unsubscribe();
   }
 
-  private createPickerOptions(): PickerColumnOption[] {
-    const floors = this._buildingConfig[this.currentBuilding].floors;
+  private _createPickerOptions(): PickerColumnOption[] {
+    const floors = this.buildingConfig[this.currentBuilding].floors;
     const out = [];
     for (const floor of floors) {
       out.push({ text: floor, value: floor });
     }
+    this.pickerOptions = out;
     return out;
   }
 
@@ -66,7 +69,7 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
       ],
       columns: [{
         name: 'floor',
-        options: this.createPickerOptions()
+        options: this._createPickerOptions()
       }]
     };
 
