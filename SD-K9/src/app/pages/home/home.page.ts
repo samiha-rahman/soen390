@@ -6,6 +6,7 @@ import { SourceDestination } from '../../interfaces/source-destination';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
+import { BuildingInfoStore } from 'src/app/providers/state-stores/building-info-store.service';
 
 @Component({
   selector: 'app-home',
@@ -18,14 +19,21 @@ export class HomePage implements OnInit {
   transportMode: string;
   indoorMode: string;
   isIndoor: boolean;
+  location:string;
+  startLocation: string;
+  endLocation: string;
 
   private _unsubscribe: UnsubscribeCallback;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
     private _fb: FormBuilder,
-    private _mapModeStore: MapModeStore
+    private _mapModeStore: MapModeStore,
+    private _buildingInfoStore: BuildingInfoStore
+
   ) {
+      
+    this.getLocation();
     this.createDirectionForm();
     this._unsubscribe = this._mapModeStore.subscrbe(() => {
       this.maps = [this._mapModeStore.getMapModeState()];
@@ -56,6 +64,18 @@ export class HomePage implements OnInit {
     tempMaps.then((maps) => {
       if (maps.length > 0) {
         this.maps = maps;
+      }
+    });
+  }
+
+  getLocation(){
+    this._unsubscribe = this._buildingInfoStore.subscribe(() => {
+      this.location = this._buildingInfoStore.getBuildingInfo().building;
+      if(this.startLocation==null){
+        this.startLocation=this.location;
+      }
+      else{
+        this.endLocation=this.location;
       }
     });
   }
