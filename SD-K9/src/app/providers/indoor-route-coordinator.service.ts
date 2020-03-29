@@ -20,7 +20,7 @@ export class IndoorRouteCoordinator {
 
   async getIndoorRoute(iInitLocation: SVGCoordinate, iDestination: SVGCoordinate) {
     this._routeLocationList = [];
-    
+
     if (iInitLocation.id && iDestination.id) {
         if (iInitLocation.building === iDestination.building &&
         iInitLocation.floor === iDestination.floor) {
@@ -58,14 +58,12 @@ export class IndoorRouteCoordinator {
         );
         firstvTransportation = await this._svgManager.getSVGCoordFromID(
             vTransportationId,
-            this._verticalTransportationMode,
             initLocation.building,
             initLocation.floor
         );
         this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
         secondvTransportation = await this._svgManager.getSVGCoordFromID(
           vTransportationId,
-          this._verticalTransportationMode,
           finalLocation.building,
           finalLocation.floor
         );
