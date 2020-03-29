@@ -61,7 +61,7 @@ export class SVGManager {
     return this.getSVG(`${building}/${floor}`)
       .pipe(
         map(svgFile => {
-          const element: any = SVG(svgFile).find('g#nodes');
+          const element: any = SVG(svgFile).find('g#path');
           return Number(element[0].node.attributes['distance-between-neighbors'].value);
         })
       )

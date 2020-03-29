@@ -9,7 +9,7 @@ describe('SVGManager', () => {
     let httpMock: HttpTestingController;
 
     const dummySVG = `<svg version="1.1" x="0px" y="0px" viewBox="0 0 10 10">
-    <g id="nodes" distance-between-neighbors="10">
+    <g id="path" distance-between-neighbors="10">
     <circle class="node" cx="8" cy="2" r="0.5"/>
     <circle class="node" cx="2" cy="8" r="0.5"/>
     </g>
