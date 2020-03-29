@@ -13,6 +13,7 @@ import { MapDirective } from 'src/app/directives/map.directive';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';
 import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
 import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
+import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-selector/indoor-floor-selector.component';
 
 @NgModule({
   imports: [
@@ -29,9 +30,10 @@ import { BuildingInfoComponent } from 'src/app/components/building-info/building
     FloorPlanComponent,
     OutdoorMapComponent,
     TopDirectionsBarComponent,
-    BuildingInfoComponent
+    BuildingInfoComponent,
+    IndoorFloorSelectorComponent
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     FloorPlanComponent,
     OutdoorMapComponent

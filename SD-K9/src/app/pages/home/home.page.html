@@ -1,7 +1,6 @@
+<top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
 <ion-content>
-  <div style="z-index: 1; position: relative;">
-    <top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
-  </div>
+  <indoor-floor-selector></indoor-floor-selector>
   <div>
     <app-map-box [maps]="maps"></app-map-box>
   </div>
