@@ -1,6 +1,8 @@
 <top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
 <ion-content>
-  <indoor-floor-selector></indoor-floor-selector>
+  <div>
+    <indoor-floor-selector></indoor-floor-selector>
+  </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>
   </div>

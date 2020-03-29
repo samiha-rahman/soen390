@@ -6,6 +6,7 @@ import { DirectionFormStore } from 'src/app/providers/state-stores/direction-for
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
+import { VerticalTransport } from 'src/app/models/vertical-transport.enum.model';
 
 @Component({
   selector: 'top-directions-bar',
@@ -22,6 +23,7 @@ export class TopDirectionsBarComponent implements OnInit {
   start: string = '';
   end: string = '';
   transport: Transport;
+  verticalTransport: VerticalTransport;
   directionForm: DirectionForm;
 
   isIndoor: boolean;
@@ -30,6 +32,7 @@ export class TopDirectionsBarComponent implements OnInit {
   backButtonSize: number;
 
   get transportEnum() { return Transport; }
+  get verticalTransportEnum() { return VerticalTransport; }
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
   private _unsubscribeMapModeStore: UnsubscribeCallback;
@@ -43,6 +46,7 @@ export class TopDirectionsBarComponent implements OnInit {
       this.start = this._directionFormStore.getDirectionFormState().sourceDestination.source;
       this.end = this._directionFormStore.getDirectionFormState().sourceDestination.destination;
       this.transport = this._directionFormStore.getDirectionFormState().transport;
+      this.verticalTransport = this._directionFormStore.getDirectionFormState().verticalTransport;
     });
     this._unsubscribeMapModeStore = this._mapModeStore.subscribe(() => {
       if (Object.keys(this._mapModeStore.getMapModeState().data).length > 1) {
@@ -59,12 +63,19 @@ export class TopDirectionsBarComponent implements OnInit {
   ngOnInit() {
     this.isIndoor = false;
     this.transport = Transport.TRANSIT;
+    this.verticalTransport = VerticalTransport.ESCALATOR;
     this._resetGridSettings();
   }
 
-  segmentChanged(event) {
+  transportSegmentChanged(event) {
     this.transport = event.detail.value;
     this._directionFormStore.setTransport(this.transport);
+    this.sendDirection();
+  }
+
+  verticalTransportSegmentChanged(event) {
+    this.verticalTransport = event.detail.value;
+    this._directionFormStore.setVerticalTransport(this.verticalTransport);
     this.sendDirection();
   }
 
@@ -91,7 +102,7 @@ export class TopDirectionsBarComponent implements OnInit {
     this.directionFormSize = 12;
     this.backButtonSize = 0;
   }
-  
+
   private _setGridSettings(searchInputSize: number) {
     this.directionFormSize = searchInputSize;
     this.backButtonSize = 12 - searchInputSize;

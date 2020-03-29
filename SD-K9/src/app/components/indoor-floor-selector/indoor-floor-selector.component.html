@@ -1,6 +1,6 @@
-<ion-fab horizontal="end" vertical="top" slot="fixed">
+<ion-fab *ngIf="currentView !== 'OutdoorMapComponent'" horizontal="end" vertical="top" slot="fixed">
   <ion-fab-button (click)="showFloorPicker()">
-    <ion-icon name="logo-buffer"></ion-icon> 8
-    {{ currentBuilding }}
+    <ion-icon name="logo-buffer"></ion-icon>
+    {{ currentFloor }}
   </ion-fab-button>
 </ion-fab>

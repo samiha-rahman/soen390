@@ -2,8 +2,9 @@ import { Component, OnInit, Input, EventEmitter, Output, OnChanges, OnDestroy } 
 import { PickerController } from '@ionic/angular';
 import { PickerOptions, PickerColumnOption } from '@ionic/core';
 import * as buildingData from '../../../local-configs/buildings.json';
-import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service.js';
+import { MapModeStore } from '../../providers/state-stores/map-mode-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback.js';
+import { ViewMode } from 'src/app/models/view-mode.enum.model.js';
 
 @Component({
   selector: 'indoor-floor-selector',
@@ -17,19 +18,22 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
 
   public currentFloor: any;
   public currentBuilding: any;
+  public currentView: string;
 
   constructor(
     private _pickerCtrl: PickerController,
     private _mapModeStore: MapModeStore
   ) {
     this._unsubscribe = this._mapModeStore.subscribe(() => {
-      this.currentFloor = this._mapModeStore.getMapModeState();
-      this.currentBuilding = this._mapModeStore.getMapModeState();
+      this.currentView = this._mapModeStore.getMapModeState().component.name;
+      this.currentFloor = this._mapModeStore.getMapModeState().data.floor;
+      this.currentBuilding = this._mapModeStore.getMapModeState().data.building;
     });
+
   }
 
   ngOnInit() {
-    this._buildingConfig = buildingData["default"];
+    this._buildingConfig = buildingData.default;
   }
 
   ngOnDestroy() {
@@ -42,12 +46,11 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
     for (const floor of floors) {
       out.push({ text: floor, value: floor });
     }
-    this._options = out;
     return out;
   }
 
   async showFloorPicker() {
-    let opts: PickerOptions = {
+    const opts: PickerOptions = {
       buttons: [
         {
           text: 'Cancel',
@@ -56,7 +59,8 @@ export class IndoorFloorSelectorComponent implements OnInit, OnDestroy {
         {
           text: 'Confirm',
           handler: (data) => {
-            // TODO: implement logic to change floors
+            this._mapModeStore.setMode(ViewMode.CUSTOM_INDOOR,
+              { id: 1, floor: data.floor.value, building: this.currentBuilding });
           }
         }
       ],

@@ -22,25 +22,42 @@
         </ion-row>
       </ion-grid>
 
-      <ion-segment *ngIf="directionSent" scrollable value="TRANSIT" (ionChange)="segmentChanged($event)"
-        color="primary">
-        <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
-          <ion-label>Drive</ion-label>
-          <ion-icon name="car"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value={{transportEnum.WALKING}} layout="icon-top">
-          <ion-label>Walk</ion-label>
-          <ion-icon name="walk"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value={{transportEnum.TRANSIT}} layout="icon-top">
-          <ion-label>Transit</ion-label>
-          <ion-icon name="bus"></ion-icon>
-        </ion-segment-button>
-        <ion-segment-button value={{transportEnum.BICYCLING}} layout="icon-top">
-          <ion-label>Bike</ion-label>
-          <ion-icon name="bicycle"></ion-icon>
-        </ion-segment-button>
-      </ion-segment>
+
+      <div *ngIf="directionSent">
+        <ion-segment scrollable value="TRANSIT" (ionChange)="segmentChanged($event)" color="primary">
+          <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
+            <ion-label>Drive</ion-label>
+            <ion-icon name="car"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.WALKING}} layout="icon-top">
+            <ion-label>Walk</ion-label>
+            <ion-icon name="walk"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.TRANSIT}} layout="icon-top">
+            <ion-label>Transit</ion-label>
+            <ion-icon name="bus"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button value={{transportEnum.BICYCLING}} layout="icon-top">
+            <ion-label>Bike</ion-label>
+            <ion-icon name="bicycle"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+
+        <div *ngIf="isIndoor">
+          <ion-segment scrollable value="ESCALATOR" (ionChange)="verticalTransportSegmentChanged($event)"
+            color="primary">
+            <ion-segment-button value={{verticalTransportEnum.STAIRS}}>
+              <ion-label>Stairs</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value={{verticalTransportEnum.ESCALATOR}}>
+              <ion-label>Escalator</ion-label>
+            </ion-segment-button>
+            <ion-segment-button value={{verticalTransportEnum.ELEVATOR}}>
+              <ion-label>Elevator</ion-label>
+            </ion-segment-button>
+          </ion-segment>
+        </div>
+      </div>
 
     </div>
   </ion-toolbar>

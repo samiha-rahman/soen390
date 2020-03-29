@@ -16,6 +16,7 @@ export class DirectionFormStore {
     private _SET_SOURCE: string = "SET_SOURCE";
     private _SET_DESTINATION: string = "SET_DESTINATION";
     private _SET_TRANSPORT: string = "SET_TRANSPORT";
+    private _SET_VERTICAL_TRANSPORT: string = "SET_VERTICAL_TRANSPORT";
     private _SET_ALL: string = "SET_ALL";
     private _CLEAR: string = "CLEAR";
     private _directionFormReducer: StateReducer<DirectionForm> = (state: DirectionForm, action: StateAction): DirectionForm => {
@@ -30,6 +31,10 @@ export class DirectionFormStore {
             }
             case this._SET_TRANSPORT: {
                 state.transport = action.payload;
+                return state;
+            }
+            case this._SET_VERTICAL_TRANSPORT: {
+                state.verticalTransport = action.payload;
                 return state;
             }
             case this._SET_ALL: {
@@ -59,6 +64,10 @@ export class DirectionFormStore {
 
     setTransport(payload: string) {
         this._directionFormStore.dispatch({ type: this._SET_TRANSPORT, payload: payload });
+    }
+
+    setVerticalTransport(payload: string) {
+        this._directionFormStore.dispatch({ type: this._SET_VERTICAL_TRANSPORT, payload: payload });
     }
 
     updateAllParams(payload: DirectionForm) {
