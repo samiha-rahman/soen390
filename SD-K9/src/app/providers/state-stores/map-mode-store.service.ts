@@ -26,7 +26,7 @@ export class MapModeStore {
         state.data = {id: 1, floor: 8, building: 'hall'};
         return state;
       }
-      case ViewMode.LOYOLA: {
+      case ViewMode.CC: {
         state.component = FloorPlanComponent;
         state.data = {id: 1, floor: 1, building: 'loyola'};
         return state;
