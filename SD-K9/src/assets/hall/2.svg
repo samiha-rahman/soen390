@@ -472,15 +472,15 @@
 	</g>
 </g>
 <g id="entrances">
-	<circle id="entrance-1" style="fill:#E9F1D0;stroke:#519643;" cx="18.7" cy="457.9" r="1"/>
+	<circle id="H-2-entrance" style="fill:#E9F1D0;stroke:#519643;" cx="18.7" cy="457.9" r="1"/>
 </g>
 <g id="stairs">
-	<circle id="stair-1" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="145.1" cy="505.7" r="1"/>
-	<circle id="stair-2" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="911.6" cy="774.5" r="1"/>
-	<circle id="stair-3" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="154.8" cy="416.3" r="1"/>
-	<circle id="stair-4" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="977.8" cy="422.5" r="1"/>
-	<circle id="stair-5" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="594.8" cy="795.6" r="1"/>
-	<circle id="stair-6" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="793.4" cy="795.6" r="1"/>
+	<circle id="stair-1" class="up" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="145.1" cy="505.7" r="1"/>
+	<circle id="stair-2" class="down up" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="911.6" cy="774.5" r="1"/>
+	<circle id="stair-3" class="up" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="154.8" cy="416.3" r="1"/>
+	<circle id="stair-4" class="up" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="977.8" cy="422.5" r="1"/>
+	<circle id="stair-5" class="down" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="594.8" cy="795.6" r="1"/>
+	<circle id="stair-6" class="down" style="fill:#FFF7F0;stroke:#ABB6DC;" cx="793.4" cy="795.6" r="1"/>
 </g>
 <g id="escalators">
 	<circle id="up-escalator-1" style="fill:#EBF8FE;stroke:#ABB6DC;stroke-miterlimit:10;" cx="567.1" cy="544.5" r="1"/>
@@ -531,6 +531,7 @@
 	<text transform="matrix(1 0 0 1 545.2529 264.9824)"><tspan x="0" y="0" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">HIVE</tspan><tspan x="-1.4" y="14.4" style="fill:#B79065; font-family:'MyriadPro-Regular'; font-size:12;">CAFE</tspan></text>
 </g>
 <g id="path" style="display:none;" distance-between-neighbors="8">
+		<circle class="node" style="fill:#ED1C24;" cx="560.6" cy="415" r="0.1"/>
 		<circle class="node" style="fill:#EBF8FE;" cx="538.2" cy="748" r="0.5"/>
 		<circle class="node" style="fill:#EBF8FE;" cx="538.2" cy="753" r="0.5"/>
 		<circle class="node" style="fill:#EBF8FE;" cx="538.2" cy="756.4" r="0.5"/>
