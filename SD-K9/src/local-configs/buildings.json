@@ -1,6 +1,6 @@
 {
   "hall": {
-    "buildingEntry": "H-806",
+    "buildingEntry": "H-1-entrance_1",
     "floors": [1, 2, 6, 8],
     "floorsEntry": {
       "6": "H-606",
@@ -9,6 +9,6 @@
   },
   "cc": {
     "floors": [1],
-    "buildingEntry": "entrance-1"
+    "buildingEntry": "CC-1-entrance"
   }
 }

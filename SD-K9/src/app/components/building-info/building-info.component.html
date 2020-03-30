@@ -7,7 +7,8 @@
   </ion-card-header>
   <ion-card-content>{{ currentBuildingInfo }}
     <br>
-    <ion-button color="primary" class="go-inside-btn" (click)="goInside(buildingSlug)" [disabled]="insideExists()">
+    <ion-button color="primary" class="go-inside-btn" (click)="goInside(buildingSlug)"
+      [disabled]="viewInsideDisabled()">
       See
       indoor</ion-button>
   </ion-card-content>
