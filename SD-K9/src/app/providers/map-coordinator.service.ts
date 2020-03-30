@@ -191,7 +191,6 @@ export class MapCoordinator {
                         if (previousTransport !== currentTransport) {
                             this._prepareIndoorSingle(maps, {id: ++index, building: parsedSource.building, floor: _floor},
                                 previousTransport, currentTransport);
-                            // TODO: show path inside vertical transportation
                         }
                     }
                 }
