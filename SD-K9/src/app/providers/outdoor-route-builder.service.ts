@@ -4,16 +4,16 @@ import { RouteStore } from './state-stores/route-store.service';
 import { Route } from '../interfaces/route';
 import { UnsubscribeCallback } from '../interfaces/unsubscribe-callback';
 import { SourceDestination } from '../interfaces/source-destination';
+import { DirectionForm } from '../interfaces/direction-form';
 
 declare var google;
 
 @Injectable()
 export class OutdoorRouteBuilder {
-      //Google direction service
-    map: any;  
+    //Google direction service
+    map: any;
     directionsService: any;
     directionsDisplay: any;
-    transportMode: String = "DRIVING"; //Default travel mode
 
     private _unsubscribe: UnsubscribeCallback;
 
@@ -30,43 +30,23 @@ export class OutdoorRouteBuilder {
         });
     }
 
-    buildRoute(formValues: SourceDestination) {
+    buildRoute(formValues: DirectionForm) {
+        // TODO: Fix the overlaying directions (if i change travelMode it keeps the old one)
         this.directionsService.route({
-            origin: formValues.source,
-            destination: formValues.destination,
-            travelMode: this.transportMode
+            origin: formValues.sourceDestination.source,
+            destination: formValues.sourceDestination.destination,
+            travelMode: formValues.transport
         }, (response, status) => {
             if (status === 'OK') {
-            this.directionsDisplay.setDirections(response);
+                this.directionsDisplay.setDirections(response);
             } else {
-            window.alert('Directions request failed due to ' + status);
+                window.alert('Directions request failed due to ' + status);
             }
         });
         this.directionsDisplay.setMap(this.map);
     }
 
-    private _addRouteState(formValues: SourceDestination) {
-        let sourceDestination: SourceDestination = {source: formValues.source, destination: formValues.destination};
-        let route: Route = {id: this._googleStore.getGoogleMapState().id, route: sourceDestination};
-        this._googleStore.setRoute(route);
-        this._routeStore.storeRoute(route);
-    }
-
     clearRoute() {
         this._googleStore.removeRoute();
-    }
-
-    //Travel mode selected
-    mode(event){
-        if(event.detail.value == "DRIVING"){
-            this.transportMode = "DRIVING"
-        }else if(event.detail.value == "WALKING"){
-            this.transportMode = "WALKING"
-        }else if(event.detail.value == "BICYCLING"){
-            this.transportMode = "BYCYCLING"
-        }else if(event.detail.value == "TRANSIT"){
-            this.transportMode = "TRANSIT"
-        }
-        return this.transportMode;
     }
 }

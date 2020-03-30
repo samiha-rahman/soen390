@@ -1,18 +1,18 @@
-.building-info-card{
-    z-index:99999;
-    position:relative;
-    background-color:white;
+.building-info-card {
+  z-index: 99999;
+  position: relative;
+  background-color: white;
 
-    .close-card{
-      position:absolute;
-      top:5px;
-      right:5px;
-      width:25px;
-      height:auto;
-    }
-
-    .go-inside-btn{
-      margin-top: 30px;
-      margin-left: -2px;
-    }
+  .close-card {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: auto;
   }
+
+  .go-inside-btn {
+    margin-top: 30px;
+    margin-left: -2px;
+  }
+}

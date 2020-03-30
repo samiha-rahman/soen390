@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input,ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, Input, ChangeDetectorRef } from '@angular/core';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { Map } from '../../interfaces/map';
 import { GoogleCoordinate } from '../../models/google-coordinate.model';
@@ -20,7 +20,7 @@ declare var google;
 })
 export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   @Input() data: any;
-  @ViewChild('map', {static: true}) mapElement: ElementRef;
+  @ViewChild('map', { static: true }) mapElement: ElementRef;
   map: any;
   //cannot set type to google.maps.marker because google maps is not loaded yet
   buildingMarkers: any[] = [];
@@ -29,6 +29,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = environment.apiKey;
+  hasRoute: boolean;
   private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
   constructor(
@@ -38,15 +39,16 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     private _outdoorRouteBuilder: OutdoorRouteBuilder,
     private _buildingInfoStore: BuildingInfoStore,
     private _changeDetectorRef: ChangeDetectorRef
-    ) {
-      // subscribe to mapstore
-      this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
-        this._addRouteIfExist();
-      });
-    }
+  ) {
+    // subscribe to mapstore
+    this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
+      this._addRouteIfExist();
+    });
+  }
 
   ngOnInit() {
     this._loadGMaps();
+    this.hasRoute = false;
   }
 
   private _addRouteIfExist() {
@@ -55,11 +57,14 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       this.map = this._googleStore.getGoogleMapState().map;
 
       this._outdoorRouteBuilder.buildRoute(this._routeStore.getRoute(this.data.id).route);
+      this.hasRoute = true;
+    } else {
+      this.hasRoute = false;
     }
   }
 
   private _loadGMaps() {
-    if(typeof google == "undefined" || typeof google.maps == "undefined"){
+    if (typeof google == "undefined" || typeof google.maps == "undefined") {
       console.log("Google maps JavaScript needs to be loaded.");
       //Load the API
       window['initMap'] = () => {
@@ -69,7 +74,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       script.id = "googleMaps";
       script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
       document.body.appendChild(script);
-    }else{
+    } else {
       this._initMap();
     }
   }
@@ -91,10 +96,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //update or load from google map state
       if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
-        this._googleStore.storeMap({id: this.data.id, google: google, map: this.map, route: false});        // new map state
+        this._googleStore.storeMap({ id: this.data.id, google: google, map: this.map, route: false });        // new map state
       }
       else {
-        this._googleStore.updateGoogleMap({id: this.data.id, google: google, map: this.map, route: true}); // reload old map state
+        this._googleStore.updateGoogleMap({ id: this.data.id, google: google, map: this.map, route: true }); // reload old map state
       }
 
       //add a marker on the current position
@@ -105,7 +110,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         icon: {
           url: 'assets/images/map-pin.png',
           scaledSize: new google.maps.Size(25, 44),
-          origin: new google.maps.Point(0,0),
+          origin: new google.maps.Point(0, 0),
           anchor: new google.maps.Point(12, 44)
         }
       });
@@ -115,8 +120,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
-      google.maps.event.addListener(this.map, 'zoom_changed', function() {
-          _self._hideShowMarkers(_self);
+      google.maps.event.addListener(this.map, 'zoom_changed', function () {
+        _self._hideShowMarkers(_self);
       });
 
       //switch flag to load map nav components
@@ -130,7 +135,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     });
   }
 
-  private _drawBuildings(){
+  private _drawBuildings() {
     //loop through both campus and all the buildings in each campus from the config file
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
@@ -164,7 +169,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
             fontSize: "22px"
           },
           visible: true,
-          icon:{
+          icon: {
             url: 'assets/images/transparent.png',
           },
           map: this.map
@@ -172,7 +177,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
         //show building info when clicked
         let _self = this;
-        google.maps.event.addListener(overlay, 'click', function() {
+        google.maps.event.addListener(overlay, 'click', function () {
           let buildingInfoState: BuildingInfoState = {
             campus: this.currentCampus,
             building: this.currentBuilding,
@@ -189,25 +194,25 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  toggleCampus(event){
+  toggleCampus(event) {
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
     this._hideShowMarkers(this);
   }
 
-  locateUser(){
+  locateUser() {
     this.map.panTo(this.currentPos);
     this._hideShowMarkers(this);
   }
 
-  refresh(){
+  refresh() {
     this._changeDetectorRef.detectChanges();
   }
 
-  private _hideShowMarkers(self){
+  private _hideShowMarkers(self) {
     let zoom = self.map.getZoom();
     // hide markers if too zoomed out
-    for(let i = 0; i < self.buildingMarkers.length; i++) {
+    for (let i = 0; i < self.buildingMarkers.length; i++) {
       self.buildingMarkers[i].setVisible(zoom >= 17);
     }
   }

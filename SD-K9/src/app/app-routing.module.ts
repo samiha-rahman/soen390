@@ -13,8 +13,13 @@ const routes: Routes = [
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomeTempPageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeTempPageModule)
   },
+  {
+    path: 'search',
+    loadChildren: () => import('./pages/location-search/location-search.module').then(m => m.LocationSearchPageModule)
+  },
+
 ];
 
 @NgModule({
