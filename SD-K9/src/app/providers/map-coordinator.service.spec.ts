@@ -16,17 +16,32 @@ describe('MapCoordinator', () => {
 
   class OutdoorRouteBuilderMock {
     clearRoute() {}
+    buildRoute() {}
+  }
+
+  class RouteStoreMock {
+    clearRoutes() {}
+    storeRoute() {}
+  }
+
+  class FloorPlanStoreMock {
+    clearFloorPlans() {}
+  }
+
+  class SVGManagerMock {
+    getSVGCoordFromID() {}
+    getClosestVerticalTransportationId() {}
   }
 
   beforeEach(() => {
       TestBed.configureTestingModule({
         imports: [HttpClientModule],
         providers: [
-          {provide: OutdoorRouteBuilder, useClass: OutdoorRouteBuilderMock, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: OutdoorRouteBuilder, useClass: OutdoorRouteBuilderMock},
           {provide: Pathfinder, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
-          {provide: SVGManager, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
-          {provide: RouteStore, useClass: OutdoorRouteBuilderMock, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
-          {provide: FloorPlanStore, useClass: OutdoorRouteBuilderMock, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+          {provide: SVGManager, useClass: SVGManagerMock},
+          {provide: RouteStore, useClass: RouteStoreMock},
+          {provide: FloorPlanStore, useClass: FloorPlanStoreMock},
           {provide: IndoorRouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}
         ]
     }).compileComponents();
