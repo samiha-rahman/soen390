@@ -9,8 +9,9 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e",
-    "test-coverage": "karma start ./karma.conf.js --coverage"
+    "e2e": "tsc --p ./e2e/tsconfig.json && protractor e2e/protractor.conf.js --verbose",
+    "test-coverage": "karma start ./karma.conf.js --coverage",
+    "appium": "appium --chromedriver-executable e2e/chromedriver"
   },
   "private": true,
   "dependencies": {
@@ -29,6 +30,7 @@
     "@ionic/angular": "^4.7.1",
     "@svgdotjs/svg.js": "^3.0.16",
     "@types/hammerjs": "^2.0.36",
+    "appium": "^1.17.0",
     "cordova": "^9.0.0",
     "cordova-android": "8.1.0",
     "cordova-browser": "^6.0.0",
