@@ -8,9 +8,10 @@ import { SourceDestination } from '../interfaces/source-destination';
 import { FloorPlanIdentifier } from '../interfaces/floor-plan-identifier';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { RouteStore } from './state-stores/route-store.service';
-import { IndoorRouteCoordinator } from './indoor-route-coordinator.service';
 import { FloorPlanStore } from './state-stores/floor-plan-store.service';
 import { Route } from '../interfaces/route';
+import { DirectionForm } from '../interfaces/direction-form';
+import { Transport } from '../models/transport.enum.model';
 import * as buildingsData from '../../local-configs/buildings.json';
 
 @Injectable({
@@ -26,21 +27,21 @@ export class MapCoordinator {
         private _svgManager: SVGManager,
         private _routeStore: RouteStore,
         private _floorPlanStore: FloorPlanStore,
-    ) {}
+    ) { }
 
-    ngOnInit() {}
+    ngOnInit() { }
 
     private _parseLocation(location: string): FloorPlanIdentifier | string {
         if (location && location.indexOf("-") !== -1) {
             let sliceIndex: number = location.indexOf("-");
             let floorIndex: number = sliceIndex + 1;
-            switch (location.slice(0,sliceIndex)) {
+            switch (location.slice(0, sliceIndex)) {
                 case 'H': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'hall', floor: +location.substr(floorIndex,1)};
+                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'hall', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
                 }
                 case 'CC': {
-                    let floorPlanIdentifier: FloorPlanIdentifier = {id: 1, building: 'cc', floor: +location.substr(floorIndex,1)};
+                    let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'cc', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
                 }
             }
@@ -50,15 +51,16 @@ export class MapCoordinator {
         }
     }
 
-    async getOverallRoute(route: SourceDestination): Promise<MapItem[]> {
+    async getOverallRoute(directionForm: DirectionForm): Promise<MapItem[]> {
         this._routeStore.clearRoutes();
         this._floorPlanStore.clearFloorPlans();
         this._outdoorRouteBuilder.clearRoute();
-        let pMaps: Promise<MapItem[]> = this._parseRoute(route);
+        let pMaps: Promise<MapItem[]> = this._parseRoute(directionForm);
         return pMaps;
     }
 
-    private async _parseRoute(route: SourceDestination) {
+    private async _parseRoute(directionForm: DirectionForm) {
+        let route = directionForm.sourceDestination;
         route.source = route.source.toUpperCase();
         route.destination = route.destination.toUpperCase();
         let index: number = 2;
@@ -68,13 +70,13 @@ export class MapCoordinator {
         let parsedDestination = this._parseLocation(route.destination);
 
         if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
-            this._outdoorRouteBuilder.buildRoute(route);
+            this._outdoorRouteBuilder.buildRoute(directionForm)
         }
         else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
             /*
             * Outdoor map
             */
-            this._prepareOutdoor(maps, route.source, this._buildingPostalCode(parsedDestination.building));
+            this._prepareOutdoor(maps, route.source, this._buildingPostalCode(parsedDestination.building), directionForm.transport);
 
             /*
             * Indoor map
@@ -108,7 +110,7 @@ export class MapCoordinator {
                 /*
                 * Outdoor Map
                 */
-                this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building));
+                this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), this._buildingPostalCode(parsedDestination.building), directionForm.transport);
 
                 /*
                 * Indoor Map 2
@@ -119,7 +121,6 @@ export class MapCoordinator {
                 } else {                                                                              /* Multi-Floor */
                     index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index);
                 }
-
             }
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination == "string") {     // Indoor to Outdoor
@@ -136,19 +137,19 @@ export class MapCoordinator {
             /*
             * Outdoor map
             */
-            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), route.destination);
+            this._prepareOutdoor(maps, this._buildingPostalCode(parsedSource.building), route.destination, directionForm.transport);
         }
         return maps;
     }
 
-    private _prepareOutdoor(maps: MapItem[], startPlace: string, endPlace: string) {
-        maps.push(new MapItem(OutdoorMapComponent, {id: this._outdoorIndex}));
+    private _prepareOutdoor(maps: MapItem[], startPlace: string, endPlace: string, transport: Transport) {
+        maps.push(new MapItem(OutdoorMapComponent, { id: this._outdoorIndex }));
 
-        let sourceDestination: SourceDestination = {source: startPlace, destination: endPlace};
-        let route: Route = {id: this._outdoorIndex, route: sourceDestination};
+        let sourceDestination: SourceDestination = { source: startPlace, destination: endPlace };
+        let route: Route = { id: this._outdoorIndex, route: { sourceDestination: sourceDestination, transport: transport } };
         this._routeStore.storeRoute(route);
 
-        this._outdoorRouteBuilder.buildRoute(sourceDestination);
+        // this._outdoorRouteBuilder.buildRoute({sourceDestination: sourceDestination, transport: transport});
     }
     // this._buildingEntry(parsedRoute.building)
 
@@ -243,7 +244,7 @@ export class MapCoordinator {
             // Setup final SVGCoordinate
             let fSvgCoordinate: SVGCoordinate = await this._svgManager.getSVGCoordFromID(startID, parsedRoute.building, parsedRoute.floor);
             // activate pathfinder
-            this._routeStore.storeRoute({id: parsedRoute.id, route: {source: iSvgCoordinate, destination: fSvgCoordinate}});
+            this._routeStore.storeRoute({ id: parsedRoute.id, route: { source: iSvgCoordinate, destination: fSvgCoordinate } });
         }
     }
 
