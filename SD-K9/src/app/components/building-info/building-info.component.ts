@@ -87,7 +87,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     return this._mapModeStore.getMapModeState().data.building;
   }
 
-  insideExists(): boolean {
+  viewInsideDisabled(): boolean {
     try {
       const slug = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]["buildingSlug"];
       if (slug !== undefined) {
