@@ -7,7 +7,7 @@
 	<rect x="1" y="223.5" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" width="157.6" height="80.7"/>
 </g>
 <g id="classes">
-	<circle class="classroom" id="entrance-1" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="79.8" cy="304.3" r="1"/>
+	<circle class="classroom" id="CC-1-entrance" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="79.8" cy="304.3" r="1"/>
 	<circle class="classroom" id="CC-101" style="fill:#F2E0CC;stroke:#B79065;stroke-miterlimit:10;" cx="79.8" cy="82.5" r="1"/>
 </g>
 <g id="path" style="display:none;" distance-between-neighbors="8">

@@ -13,7 +13,7 @@ import 'hammerjs';
 import { FloorPlanStore } from '../../providers/state-stores/floor-plan-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { Route } from 'src/app/interfaces/route';
-import { RouteCoordinator } from 'src/app/providers/route-coordinator.service';
+import { IndoorRouteCoordinator } from 'src/app/providers/indoor-route-coordinator.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 
 @Component({
@@ -32,7 +32,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
 
   constructor(
     private _svgManager: SVGManager,
-    private _routeCoordinator: RouteCoordinator,
+    private _routeCoordinator: IndoorRouteCoordinator,
     private _floorPlanStore: FloorPlanStore,
     private _routeStore: RouteStore
     ) {

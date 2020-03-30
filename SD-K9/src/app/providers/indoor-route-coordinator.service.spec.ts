@@ -1,14 +1,14 @@
 import { TestBed, ComponentFixture } from '@angular/core/testing';
 
-import { RouteCoordinator } from './route-coordinator.service';
+import { IndoorRouteCoordinator } from './indoor-route-coordinator.service';
 import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { IndoorRouteBuilder } from './indoor-route-builder.service';
 import { SVGManager } from './svg-manager.service';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { doesNotThrow } from 'assert';
 
-describe('RouteCoordinatorService', () => {
-  let service: RouteCoordinator;
+describe('IndoorRouteCoordinatorService', () => {
+  let service: IndoorRouteCoordinator;
   let svgCoordinate: SVGCoordinate;
   let spy: any;
 
@@ -24,7 +24,7 @@ describe('RouteCoordinatorService', () => {
       {provide: SVGManager, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
     ]
     }).compileComponents();
-    service = TestBed.get(RouteCoordinator);
+    service = TestBed.get(IndoorRouteCoordinator);
   });
 
   afterEach(() => {

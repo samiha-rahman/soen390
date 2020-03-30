@@ -159,10 +159,10 @@
 	<circle id="elevator-1" style="fill:none;stroke:#ABB6DC;" cx="413.833" cy="371.8" r="1"/>
 </g>
 <g id="stairs">
-	<circle id="stair-1" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
-	<circle id="stair-2" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
-	<circle id="stair-3" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
-	<circle id="stair-4" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
+	<circle id="stair-1" class="down up" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
+	<circle id="stair-2" class="down up" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
+	<circle id="stair-3" class="down up" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
+	<circle id="stair-4" class="down up" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
 </g>
 <g id="escalators">
 	<g id="up">
@@ -181,7 +181,7 @@
 		<circle id="women-bath-2" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="384.754" cy="448.845" r="1"/>
 	</g>
 </g>
-<g id="path" style="display:none;" distance-between-neighbors="8"">
+<g id="path" style="display:none;" distance-between-neighbors="8">
 	<circle class="node" style="display:inline;fill:#FF0000;" cx="79.622" cy="104.161" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FE0000;" cx="79.622" cy="100.341" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="83.708" cy="96.521" r="0.5"/>
