@@ -181,7 +181,7 @@
 		<circle id="women-bath-2" style="fill:#FFFFFF;stroke:#BCAAD2;" cx="384.754" cy="448.845" r="1"/>
 	</g>
 </g>
-<g id="path" style="display:none;">
+<g id="path" style="display:none;" distance-between-neighbors="8">
 	<circle class="node" style="display:inline;fill:#FF0000;" cx="79.622" cy="104.161" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FE0000;" cx="79.622" cy="100.341" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="83.708" cy="96.521" r="0.5"/>
@@ -226,7 +226,8 @@
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="338.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="342.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="346.332" cy="354.125" r="0.5"/>
-	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/><circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="350.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="183.604" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="187.633" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="195.832" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="104.137" cy="200.002" r="0.5"/>
