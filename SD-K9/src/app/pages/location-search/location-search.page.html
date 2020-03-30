@@ -10,7 +10,7 @@
         <ion-col size="0.25"></ion-col>
         <ion-col>
           <ion-searchbar placeholder="Choose Location" search-icon="search" color="light" [(ngModel)]="query"
-            (ngModelChange)="changeQuery($event)" id="location-searchbar">
+            (ngModelChange)="changeQuery($event)" id="location-searchbar" #searchbar>
           </ion-searchbar>
         </ion-col>
       </ion-row>
