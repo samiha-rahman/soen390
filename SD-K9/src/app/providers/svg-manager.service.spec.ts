@@ -18,8 +18,8 @@ describe('SVGManager', () => {
     <circle class="classroom" id="B" cx="8" cy="8" r="0.5"/>
     </g>
     <g id="stairs">
-    <circle id="stair-1" cx="5" cy="5" r="0.5"/>
-    <circle id="stair-2" cx="5" cy="2" r="0.5"/>
+    <circle id="stair-1" class="up" cx="5" cy="5" r="0.5"/>
+    <circle id="stair-2" class="up" cx="5" cy="2" r="0.5"/>
     </g>
     <g id="escalators">
     <g id="up">
