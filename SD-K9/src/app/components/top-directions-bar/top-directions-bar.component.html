@@ -13,10 +13,10 @@
           </ion-col>
           <ion-col size="{{directionFormSize}}">
             <ion-searchbar placeholder="Starting point" search-icon="locate" color="light" [(ngModel)]="start"
-              debounce="1000" (ionChange)="sendDirection()" (click)="goToSearchPage('start')" ngDefaultControl>
+              debounce="1000" (ionChange)="sendDirection()" (click)="goToSearchPage('start')" ngDefaultControl id="start-searchbar">
             </ion-searchbar>
             <ion-searchbar placeholder="Destination" search-icon="pin" color="light" [(ngModel)]="end" debounce="1000"
-              (ionChange)="sendDirection()" (click)="goToSearchPage('final')" ngDefaultControl>
+              (ionChange)="sendDirection()" (click)="goToSearchPage('final')" ngDefaultControl id="destination-searchbar">
             </ion-searchbar>
           </ion-col>
         </ion-row>

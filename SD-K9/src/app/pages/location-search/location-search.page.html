@@ -10,7 +10,7 @@
         <ion-col size="0.25"></ion-col>
         <ion-col>
           <ion-searchbar placeholder="Choose Location" search-icon="search" color="light" [(ngModel)]="query"
-            (ngModelChange)="changeQuery($event)">
+            (ngModelChange)="changeQuery($event)" id="location-searchbar">
           </ion-searchbar>
         </ion-col>
       </ion-row>
@@ -29,7 +29,7 @@
         <ion-card-title>No Results were found</ion-card-title>
         <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
         <ion-card-content>
-          <ion-button expand="block" (click)="enterQuery(currentQuery)">Search Anyway</ion-button>
+          <ion-button expand="block" (click)="enterQuery(currentQuery)" id="searchanyway-button">Search Anyway</ion-button>
         </ion-card-content>
       </ion-card-header>
     </ion-card>
