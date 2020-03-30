@@ -14,6 +14,7 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
 import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
 import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
 import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-selector/indoor-floor-selector.component';
+import { IonicPullupModule } from 'ionic-pullup';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-se
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    HomeTempPageRoutingModule
+    HomeTempPageRoutingModule,
+    IonicPullupModule
   ],
   declarations: [
     HomePage,
