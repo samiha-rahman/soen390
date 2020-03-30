@@ -2,13 +2,19 @@ import { browser, element, by } from "protractor";
 import { PageObject } from './app.po';
 import { HomePage } from './home.po';
 import { TopDirectionsBarComponent } from './top-directions-bar.po';
-import { OutdoorMapComponent } from './outdoor-map.po'
+import { OutdoorMapComponent } from './outdoor-map.po';
+import { LocationSearchPage } from './location-search.po';
+import { FloorplanComponent } from './floor-plan.po';
+import { MapBoxComponent } from './map-box.po';
 
 
 describe("Directions", () => {
   const home = new HomePage();
   const topDirectionsBar = new TopDirectionsBarComponent();
   const outdoorMap = new OutdoorMapComponent();
+  const locationSearch = new LocationSearchPage();
+  const floorplan = new FloorplanComponent();
+  const mapBox = new MapBoxComponent();
 
   beforeEach(() => {
     home.load();
@@ -33,13 +39,29 @@ describe("Directions", () => {
 
   });
   
-  describe("requesting an indoor route for source and destination on the same floor", () => {
-    it("accepts input from the user and displays indoor map", () => {
-      // outdoorMap.goToSGW();
-      topDirectionsBar.enterStart('H-820');
-      topDirectionsBar.enterDestination('H-860');
-      expect(topDirectionsBar.rootElement().isPresent()).toEqual(true);
+  describe("accepts input from the user and displays indoor map for start and destination on the same floor", () => {
+    it("when inputs are in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-811');
+      locationSearch.chooseFromList();
+      mapBox.waitUntilPresent();
+      expect(mapBox.rootElement().isPresent()).toEqual(true);
     });
+
+    it("when inputs are valid and not in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-820');
+      locationSearch.searchAnyway();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-860');
+      locationSearch.searchAnyway();
+      mapBox.waitUntilVisible();
+      expect(mapBox.rootElement().isPresent()).toEqual(true);
+    })
+
   });
 
 });

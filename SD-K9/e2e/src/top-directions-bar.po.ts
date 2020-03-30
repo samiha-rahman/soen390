@@ -6,12 +6,20 @@ export class TopDirectionsBarComponent extends PageObject {
         super('top-directions-bar');
     }
 
-    enterStart(start: string) {
-        this.enterInputText(' ion-searchbar#start-searchbar', start);
+    // enterStart(start: string) {
+    //     this.enterInputText(' ion-searchbar#start-searchbar', start);
+    // }
+
+    // enterDestination(destination: string) {
+    //     this.enterInputText(' ion-searchbar#destination-searchbar', destination);
+    // }
+
+    enterStart() {
+        this.clickButton(' ion-searchbar#start-searchbar');
     }
 
-    enterDestination(destination: string) {
-        this.enterInputText(' ion-searchbar#destination-searchbar', destination);
+    enterDestination() {
+        this.clickButton(' ion-searchbar#destination-searchbar');
     }
 
 }
