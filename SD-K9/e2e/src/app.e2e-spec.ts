@@ -58,7 +58,7 @@ describe("Directions", () => {
       topDirectionsBar.enterDestination();
       locationSearch.enterLocation('H-860');
       locationSearch.searchAnyway();
-      mapBox.waitUntilVisible();
+      mapBox.waitUntilPresent();
       expect(mapBox.rootElement().isPresent()).toEqual(true);
     })
 
