@@ -8,8 +8,9 @@ import { SVGManager } from './svg-manager.service';
 import { RouteStore } from './state-stores/route-store.service';
 import { FloorPlanStore } from './state-stores/floor-plan-store.service';
 import { IndoorRouteCoordinator } from './indoor-route-coordinator.service';
-import { MapItem } from '../helpers/map-item';
-import {SourceDestination} from '../interfaces/source-destination';
+import { DirectionForm } from '../interfaces/direction-form';
+import { Transport } from '../models/transport.enum.model';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 describe('MapCoordinator', () => {
   let service: MapCoordinator;
@@ -57,12 +58,13 @@ afterEach(() => {
   });
 
   it('#getOverallRoutes should return 4 MapItem when requested for H-815 to CC-101', async () => {
-    let sourceDestination: SourceDestination = {
-      source: 'H-815',
-      destination: 'CC-101'
-    };
+    let directionForm: DirectionForm = {
+      sourceDestination: {source: 'H-815', destination: 'CC-101'},
+      transport: Transport.DRIVING,
+      verticalTransport: VerticalTransport.ELEVATOR
+    }
 
-    let maps = await service.getOverallRoute(sourceDestination);
+    let maps = await service.getOverallRoute(directionForm);
     expect(maps.length).toEqual(4);
   });
 
