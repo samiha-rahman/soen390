@@ -64,4 +64,29 @@ describe("Directions", () => {
 
   });
 
+  describe("accepts input from the user and displays indoor map for start and destination on different floor", () => {
+    it("when inputs are in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      mapBox.waitUntilPresent();
+      expect(mapBox.rootElement().isPresent()).toEqual(true);
+    });
+
+    it("when inputs are valid and not in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-860');
+      locationSearch.searchAnyway();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-620');
+      locationSearch.searchAnyway();
+      mapBox.waitUntilPresent();
+      expect(mapBox.rootElement().isPresent()).toEqual(true);
+    })
+
+  });
+
 });
