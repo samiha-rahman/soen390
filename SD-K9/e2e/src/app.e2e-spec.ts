@@ -1,14 +1,14 @@
 import { browser, element, by } from "protractor"; 
-import { AppPage } from './app.po';
+import { PageObject } from './app.po';
 import { HomePage } from './home.po';
-import { AppComponent } from './app.co';
-import { FloorplanComponent } from './floorplan.co';
-import { MapBoxComponent } from './mapbox.co'
+import { TopDirectionsBarComponent } from './top-directions-bar.po';
+import { OutdoorMapComponent } from './outdoor-map.po'
+
 
 describe("Directions", () => {
   const home = new HomePage();
-  const floorplan = new FloorplanComponent();
-  const mapbox = new MapBoxComponent();
+  const topDirectionsBar = new TopDirectionsBarComponent();
+  const outdoorMap = new OutdoorMapComponent();
 
   beforeEach(() => {
     home.load();
@@ -19,47 +19,26 @@ describe("Directions", () => {
       expect(home.rootElement().isPresent()).toEqual(true);
     });
 
-    it("the page contains an area prompting user to enter starting point", () => {
-      expect(element(by.css(`app-home #source ion-label`)).getText()).toContain("Choose starting point");
+    it("displays top directions bar", () => {
+      expect(topDirectionsBar.rootElement().isPresent()).toEqual(true);
     });
 
-    it("the page contains an input area to enter starting point", () => {
-      expect(element(by.css(`app-home #source ion-input`)).getAttribute("formControlName")).toEqual("source");
+    it("the page contains an area prompting user to enter starting point", () => {
+      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isDisplayed()).toBeTruthy;
     });
 
     it("the page displays an area prompting user to enter destination", () => {
-      expect(element(by.css(`app-home #destination ion-label`)).getText()).toContain("Choose destination");
+      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toBeTruthy;
     });
 
-    it("the page contains an input area to enter destination", () => {
-      expect(element(by.css(`app-home #destination ion-input`)).getAttribute("formControlName")).toEqual("destination");
-    });
   });
   
   describe("requesting an indoor route for source and destination on the same floor", () => {
     it("accepts input from the user and displays indoor map", () => {
-      home.enterSource('H-820');
-      home.enterDestination('H-860');
-      home.clickGetDirections();
-      floorplan.waitUntilVisible();
-      expect(element(by.deepCss(`#floorplan`)).isDisplayed()).toBeTruthy;
-      // expect(floorplan.rootElement().isDisplayed()).toBeTruthy;
-    });
-  });
-
-  describe("requesting an indoor route for source and destination on different floors", () => {
-    it("accepts input from the user and displays indoor map", () => {
-      home.enterSource('H-620');
-      home.enterDestination('H-860');
-      home.clickGetDirections();
-      expect(element(by.css(`app-home #mapbox floor-plan`)).isDisplayed()).toBeTruthy;
-    });
-
-    it("displays the next map button", () => {
-      home.enterSource('H-620');
-      home.enterDestination('H-860');
-      home.clickGetDirections();
-      expect(element(by.css(`app-home #mapbox.nextmap-button`)).isDisplayed()).toBeTruthy;
+      // outdoorMap.goToSGW();
+      topDirectionsBar.enterStart('H-820');
+      topDirectionsBar.enterDestination('H-860');
+      expect(topDirectionsBar.rootElement().isPresent()).toEqual(true);
     });
   });
 

@@ -1,11 +1,11 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
-import { AppComponent } from './app.co';
+import { PageObject } from './app.po';
 
-export class MapBoxComponent extends AppComponent {
+export class MapBoxComponent extends PageObject {
   constructor() {
     super('app-map-box');
   }
-
+  
   clickNextMap() {
     this.clickButton('#nextmap-button');
   }

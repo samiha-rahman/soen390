@@ -1,9 +1,9 @@
 <div>
   <ion-segment (ionChange)="toggleCampus($event)" *ngIf="mapInitialised && !hasRoute" class="campusTgl">
-    <ion-segment-button value="sgw" id="btnToTest" class="btn">
+    <ion-segment-button value="sgw" id="btnToTest" class="btn" id="sgw-button">
       <ion-label>SGW</ion-label>
     </ion-segment-button>
-    <ion-segment-button value="loy" class="btn">
+    <ion-segment-button value="loy" class="btn" id="cc-button">
       <ion-label>Loyola</ion-label>
     </ion-segment-button>
   </ion-segment>

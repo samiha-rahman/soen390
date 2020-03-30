@@ -1,10 +1,10 @@
 import { browser, by, element, ExpectedConditions } from 'protractor';
 
-export class AppPage {
+export class PageObject {
   private path: string;
   protected tag: string;
 
-  constructor(tag: string, path: string) {
+  constructor(tag: string, path?: string) {
     this.tag = tag;
     this.path = path;
   }
@@ -41,19 +41,19 @@ export class AppPage {
   }
 
   protected enterInputText(sel: string, text: string) {
-    const el = element(by.css(`${this.tag} ${sel}`));
+    const el = element(by.css(`${this.tag}${sel}`));
     const inp = el.element(by.css('input'));
     inp.sendKeys(text);
   }
 
   protected enterTextareaText(sel: string, text: string) {
-    const el = element(by.css(`${this.tag} ${sel}`));
+    const el = element(by.css(`${this.tag}${sel}`));
     const inp = el.element(by.css('textarea'));
     inp.sendKeys(text);
   }
 
   protected clickButton(sel: string) {
-    const el = element(by.css(`${this.tag} ${sel}`));
+    const el = element(by.css(`${this.tag}${sel}`));
     browser.wait(ExpectedConditions.elementToBeClickable(el));
     el.click();
   }
