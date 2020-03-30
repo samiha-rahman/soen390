@@ -159,10 +159,10 @@
 	<circle id="elevator-1" style="fill:none;stroke:#ABB6DC;" cx="453.125" cy="367.287" r="1"/>
 </g>
 <g id="stairs">
-	<circle id="stair-1" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
-	<circle id="stair-2" style="fill:none;stroke:#ABB6DC;" cx="413.833" cy="371.8" r="1"/>
-	<circle id="stair-3" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
-	<circle id="stair-4" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
+	<circle id="stair-1" class="down up" style="fill:#FFFFFF;stroke:#ABB6DC;" cx="179.415" cy="448.444" r="1"/>
+	<circle id="stair-2" class="down up" style="fill:none;stroke:#ABB6DC;" cx="413.833" cy="371.8" r="1"/>
+	<circle id="stair-3" class="down up" style="fill:none;stroke:#ABB6DC;" cx="178.415" cy="125.032" r="1"/>
+	<circle id="stair-4" class="down up" style="fill:none;stroke:#ABB6DC;" cx="436.171" cy="122.786" r="1"/>
 </g>
 <g id="escalators">
 	<g id="up">

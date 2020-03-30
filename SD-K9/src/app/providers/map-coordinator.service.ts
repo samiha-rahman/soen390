@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable } from '@angular/core';
 import { MapItem } from '../helpers/map-item';
 import { SVGManager } from './svg-manager.service';
 import { FloorPlanComponent } from '../components/floor-plan/floor-plan.component';
@@ -50,7 +50,6 @@ export class MapCoordinator {
         }
     }
 
-    // remove eventually
     async getOverallRoute(route: SourceDestination): Promise<MapItem[]> {
         this._routeStore.clearRoutes();
         this._floorPlanStore.clearFloorPlans();
@@ -69,7 +68,7 @@ export class MapCoordinator {
         let parsedDestination = this._parseLocation(route.destination);
 
         if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
-            this._outdoorRouteBuilder.buildRoute(route)
+            this._outdoorRouteBuilder.buildRoute(route);
         }
         else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
             /*
@@ -81,92 +80,30 @@ export class MapCoordinator {
             * Indoor map
             */
             parsedDestination.id = index;
-            this._prepareIndoor(maps, parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
+            if (parsedDestination.floor === 1) {
+                this._prepareIndoorSingle(maps, parsedDestination, this._buildingEntry(parsedDestination.building), route.destination);
+            } else {                                                                              /* Multi-Floor */
+                index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index);
+            }
 
         }
         else if (typeof parsedSource != "string" && typeof parsedDestination != "string") {     // Indoor to [Outdoor to] Indoor
-            if(parsedSource.building === parsedDestination.building) {                              /* Same Floor */
-                if(parsedSource.floor === parsedDestination.floor) {
-                    this._prepareIndoor(maps, parsedSource, route.source, route.destination);
-                }
-                else {                                                                              /* Multi-Floor */
-                    let difference = parsedDestination.floor - parsedSource.floor;
-                    let currentTransport: string;
-                    let previousTransport: string;
-
-                    if (difference >= 0) {
-                        currentTransport = await this._getNearestTransport(
-                            this.mode(),
-                            'up',
-                            parsedSource.building,
-                            parsedSource.floor,
-                            route.source,
-                            true
-                        );
-                        this._prepareIndoor(maps, parsedSource, route.source, currentTransport);
-
-                        let nextFloor: number = parsedSource.floor + 1;
-                        let beforeDestFloor: number = parsedDestination.floor - 1;
-                        for (let _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
-                            if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
-                                previousTransport = currentTransport;
-                                currentTransport = await this._getNearestTransport(
-                                    this.mode(),
-                                    'up',
-                                    parsedSource.building,
-                                    _floor,
-                                    previousTransport,
-                                    false
-                                );
-                                if (previousTransport !== currentTransport) {
-                                    this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor},
-                                        previousTransport, currentTransport);
-                                    // TODO: show path inside vertical transportation
-                                }
-                            }
-                        }
-                    } else {
-                        currentTransport = await this._getNearestTransport(
-                            this.mode(),
-                            'down',
-                            parsedSource.building,
-                            parsedSource.floor,
-                            route.source,
-                            true
-                        );
-                        this._prepareIndoor(maps, parsedSource, route.source, currentTransport);
-
-                        let nextFloor: number = parsedSource.floor - 1;
-                        let beforeDestFloor: number = parsedDestination.floor + 1;
-                        for (let _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
-                            if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
-                                previousTransport = currentTransport;
-                                currentTransport = await this._getNearestTransport(
-                                    this.mode(),
-                                    'down',
-                                    parsedSource.building,
-                                    _floor,
-                                    previousTransport,
-                                    false
-                                );
-                                if (previousTransport !== currentTransport) {
-                                    this._prepareIndoor(maps, {id: ++index, building: parsedSource.building, floor: _floor},
-                                        previousTransport, currentTransport);
-                                    // TODO: show path inside vertical transportation
-                                }
-                            }
-                        }
-                    }
-
-                    parsedDestination.id = ++index;
-                    this._prepareIndoor(maps, parsedDestination, currentTransport, route.destination);
+            if (parsedSource.building === parsedDestination.building) {                              /* Same Floor */
+                if (parsedSource.floor === parsedDestination.floor) {
+                    this._prepareIndoorSingle(maps, parsedSource, route.source, route.destination);
+                } else {                                                                              /* Multi-Floor */
+                    index = await this._prepareIndoorMultiple(maps, route.source, route.destination, index);
                 }
             } else {
                 /*
                 * Indoor Map 1
                 */
                 parsedSource.id = index;
-                this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+                if (parsedSource.floor === 1) {
+                    this._prepareIndoorSingle(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+                } else {                                                                              /* Multi-Floor */
+                    index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index);
+                }
 
                 /*
                 * Outdoor Map
@@ -177,7 +114,11 @@ export class MapCoordinator {
                 * Indoor Map 2
                 */
                 parsedDestination.id = ++index;
-                this._prepareIndoor(maps,parsedDestination, route.destination, this._buildingEntry(parsedDestination.building));
+                if (parsedDestination.floor === 1) {
+                    this._prepareIndoorSingle(maps, parsedDestination, this._buildingEntry(parsedDestination.building), route.destination);
+                } else {                                                                              /* Multi-Floor */
+                    index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index);
+                }
 
             }
         }
@@ -186,7 +127,11 @@ export class MapCoordinator {
             * Indoor Map
             */
             parsedSource.id = index;
-            this._prepareIndoor(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+            if (parsedSource.floor === 1) {
+                this._prepareIndoorSingle(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
+            } else {                                                                              /* Multi-Floor */
+                index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index);
+            }
 
             /*
             * Outdoor map
@@ -207,10 +152,90 @@ export class MapCoordinator {
     }
     // this._buildingEntry(parsedRoute.building)
 
-    private async _prepareIndoor(maps: MapItem[], parsedRoute: FloorPlanIdentifier, startID?: string, endID?: string) {
+    private async _prepareIndoorMultiple(
+        maps: MapItem[], startID: string, endID: string, index: number
+    ) {
+        let parsedSource = this._parseLocation(startID);
+        let parsedDestination = this._parseLocation(endID);
+        let difference: number = 0;
+        let currentTransport: string;
+        let previousTransport: string;
+        if (typeof parsedSource != "string" && typeof parsedDestination != "string") {
+
+            difference = parsedDestination.floor - parsedSource.floor;
+
+            if (difference >= 0) {
+                currentTransport = await this._getNearestTransport(
+                    this.mode(),
+                    'up',
+                    parsedSource.building,
+                    parsedSource.floor,
+                    startID
+                );
+                parsedSource.id = index;
+                this._prepareIndoorSingle(maps, parsedSource, startID, currentTransport);
+
+                let nextFloor: number = parsedSource.floor + 1;
+                let beforeDestFloor: number = parsedDestination.floor - 1;
+                for (let _floor = nextFloor; _floor <= beforeDestFloor; _floor++) {
+                    if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
+                        previousTransport = currentTransport;
+                        currentTransport = await this._getNearestTransport(
+                            this.mode(),
+                            'up',
+                            parsedSource.building,
+                            _floor,
+                            previousTransport
+                        );
+                        if (previousTransport !== currentTransport) {
+                            this._prepareIndoorSingle(maps, {id: ++index, building: parsedSource.building, floor: _floor},
+                                previousTransport, currentTransport);
+                            // TODO: show path inside vertical transportation
+                        }
+                    }
+                }
+            } else {
+                currentTransport = await this._getNearestTransport(
+                    this.mode(),
+                    'down',
+                    parsedSource.building,
+                    parsedSource.floor,
+                    startID
+                );
+                parsedSource.id = index;
+                this._prepareIndoorSingle(maps, parsedSource, startID, currentTransport);
+
+                let nextFloor: number = parsedSource.floor - 1;
+                let beforeDestFloor: number = parsedDestination.floor + 1;
+                for (let _floor = nextFloor; _floor >= beforeDestFloor; _floor--) {
+                    if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
+                        previousTransport = currentTransport;
+                        currentTransport = await this._getNearestTransport(
+                            this.mode(),
+                            'down',
+                            parsedSource.building,
+                            _floor,
+                            previousTransport
+                        );
+                        if (previousTransport !== currentTransport) {
+                            this._prepareIndoorSingle(maps, {id: ++index, building: parsedSource.building, floor: _floor},
+                                previousTransport, currentTransport);
+                            // TODO: show path inside vertical transportation
+                        }
+                    }
+                }
+            }
+
+            parsedDestination.id = ++index;
+            this._prepareIndoorSingle(maps, parsedDestination, currentTransport, endID);
+        }
+
+        return index;
+    }
+
+    private async _prepareIndoorSingle(maps: MapItem[], parsedRoute: FloorPlanIdentifier, startID?: string, endID?: string) {
         maps.push(new MapItem(FloorPlanComponent, parsedRoute));
 
-        console.log(startID + ' to ' + endID);
         if (startID && endID) {
             // Setup initial SVGCoordinate
             let iSvgCoordinate: SVGCoordinate = await this._svgManager.getSVGCoordFromID(endID, parsedRoute.building, parsedRoute.floor);
@@ -227,16 +252,10 @@ export class MapCoordinator {
         direction: string,
         building: string,
         floor: number,
-        locationID: string,
-        isClassroom: boolean = true) {
+        locationID: string) {
         let svgCoordinates;
-        // if (isClassroom) {
-            // svgCoordinates = await this._svgManager.getSVGCoordFromID(locationID, building, floor);
-        // } else {
         svgCoordinates = await this._svgManager.getSVGCoordFromID(locationID, building, floor);
-        // }
-        const transportationID  = await this._svgManager.getClosestVerticalTransportationId(mode, direction, svgCoordinates);
-        return transportationID;
+        return await this._svgManager.getClosestVerticalTransportationId(mode, direction, svgCoordinates);
     }
 
     private mode() {
@@ -257,7 +276,7 @@ export class MapCoordinator {
         return this.buildingsConfig[building]["buildingEntry"];
     }
     // Temp: to test for indoor in H only!!!
-    private _floorEntry(building:string,floor: number): string {
+    private _floorEntry(building: string, floor: number): string {
         return this.buildingsConfig[building]["floorsEntry"][floor];
     }
 

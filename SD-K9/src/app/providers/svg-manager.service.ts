@@ -142,7 +142,12 @@ export class SVGManager {
       .pipe(
         map(svgFile => {
           // return svgFile
-          const vtransports = SVG(svgFile).find('g#' + mode + ' circle');
+          let vtransports;
+          if (mode === 'stairs') {
+            vtransports = SVG(svgFile).find(`g#${mode} circle.${direction}`);
+          } else {
+            vtransports = SVG(svgFile).find(`g#${mode} circle`);
+          }
           let vtransport;
           if (mode === 'escalators') {
             vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
