@@ -1,0 +1,43 @@
+<ion-content>
+  <ion-card color="medium" class="padding-2">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="1.5">
+          <ion-fab-button class="no-shadow" color="medium" (click)="goToHomePage()">
+            <ion-icon name="arrow-back" color="dark"></ion-icon>
+          </ion-fab-button>
+        </ion-col>
+        <ion-col size="0.25"></ion-col>
+        <ion-col>
+          <ion-searchbar placeholder="Choose Location" search-icon="search" color="light" [(ngModel)]="query"
+            (ngModelChange)="changeQuery($event)" id="location-searchbar">
+          </ion-searchbar>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <div>
+
+    <ion-card>
+      <ion-card-header *ngIf="!itemList">
+        <ion-card-content>Start typing to search for a location</ion-card-content>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header *ngIf="itemList && itemList.length == 0">
+        <ion-card-title>No Results were found</ion-card-title>
+        <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
+        <ion-card-content>
+          <ion-button expand="block" (click)="enterQuery(currentQuery)" id="searchanyway-button">Search Anyway</ion-button>
+        </ion-card-content>
+      </ion-card-header>
+    </ion-card>
+    <ion-list>
+      <ion-item *ngFor="let item of itemList | slice:0:10; let i = index">
+        <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
+      </ion-item>
+    </ion-list>
+  </div>
+
+</ion-content>

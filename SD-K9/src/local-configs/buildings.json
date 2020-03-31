@@ -1,12 +1,14 @@
 {
-  "hall":{
-    "buildingEntry": "H-806",
-    "floorsEntry":{
-      "6":"H-606",
-      "8":"H-806"
+  "hall": {
+    "buildingEntry": "H-1-entrance_1",
+    "floors": [1, 2, 6, 8],
+    "floorsEntry": {
+      "6": "H-606",
+      "8": "H-806"
     }
   },
-  "cc":{
-    "buildingEntry": "entrance-1"
+  "cc": {
+    "floors": [1],
+    "buildingEntry": "CC-1-entrance"
   }
 }

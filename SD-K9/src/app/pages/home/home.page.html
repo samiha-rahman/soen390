@@ -1,44 +1,7 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home-temp</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
 <ion-content>
-  <div style="z-index: 1; position: relative;">
-    <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
-  
-      <ion-item>
-        <ion-label position="floating">Choose starting point...</ion-label>
-        <ion-input formControlName="source" [value]="startLocation"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Choose destination...</ion-label>
-        <ion-input formControlName="destination" [value]="endLocation"></ion-input>
-      </ion-item>
-      <ion-list >
-        <ion-segment (ionChange)="mode($event)" value="DRIVING"> 
-            <ion-row>
-             <ion-segment-button value="DRIVING">
-               <ion-label>Driving</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="WALKING">
-               <ion-label>Walking</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="BICYCLING">
-               <ion-label>Bicycling</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="TRANSIT">
-               <ion-label>Transit</ion-label>
-             </ion-segment-button>
-            </ion-row>
-          </ion-segment>
-      </ion-list>
-   
-      <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
-      <!-- TODO: Change Back button when merged with top-ui-nav-bar -->
-      <ion-button expand="full" *ngIf="isIndoor" (click)="loadGoogleMaps()">Back</ion-button>
-    </form>
+  <div>
+    <indoor-floor-selector></indoor-floor-selector>
   </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>

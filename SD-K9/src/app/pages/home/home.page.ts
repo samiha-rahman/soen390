@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { SourceDestination } from '../../interfaces/source-destination';
-import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
+import { DirectionForm } from '../../interfaces/direction-form';
+import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
+import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
+import { FloorPlanStore } from 'src/app/providers/state-stores/floor-plan-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
-import { BuildingInfoStore } from 'src/app/providers/state-stores/building-info-store.service';
+import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 
 @Component({
   selector: 'app-home',
@@ -15,52 +16,44 @@ import { BuildingInfoStore } from 'src/app/providers/state-stores/building-info-
 })
 export class HomePage implements OnInit {
   maps: MapItem[];
-  directionForm: FormGroup;
   transportMode: string;
-  indoorMode: string;
-  isIndoor: boolean;
-  location:string;
-  startLocation: string;
-  endLocation: string;
 
-  private _unsubscribe: UnsubscribeCallback;
+  private _unsubscribeDirectionFormStore: UnsubscribeCallback;
+  private _unsubscribeMapModeStore: UnsubscribeCallback;
+  private _directionForm: DirectionForm;
 
   constructor(
     private _mapCoordinator: MapCoordinator,
-    private _fb: FormBuilder,
-    private _mapModeStore: MapModeStore,
-    private _buildingInfoStore: BuildingInfoStore
-
+    private _directionFormStore: DirectionFormStore,
+    private _routeStore: RouteStore,
+    private _floorPlanStore: FloorPlanStore,
+    private _mapModeStore: MapModeStore
   ) {
-      
-    this.getLocation();
-    this.createDirectionForm();
-    this._unsubscribe = this._mapModeStore.subscrbe(() => {
+    this._unsubscribeDirectionFormStore = this._directionFormStore.subscribe(() => {
+      this._directionForm = this._directionFormStore.getDirectionFormState();
+    });
+    this._unsubscribeMapModeStore = this._mapModeStore.subscribe(() => {
       this.maps = [this._mapModeStore.getMapModeState()];
-      if (Object.keys(this._mapModeStore.getMapModeState().data).length > 1) {
-        this.isIndoor = true;
-      }
-      else {
-        this.isIndoor = false;
-      }
     });
   }
 
   ngOnInit() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
-    this.isIndoor = false;
   }
 
-  //Verify form
-  createDirectionForm() {
-    this.directionForm = this._fb.group({
-      source: ['', Validators.required],
-      destination: ['', Validators.required]
-    });
+  getForm(formComplete: boolean) {
+    if (formComplete) {
+      this._calculateAndDisplayRoute(this._directionForm);
+    }
+    else {
+      this._mapModeStore.setMode(ViewMode.GOOGLE);
+      this._routeStore.clearRoutes();
+      this._floorPlanStore.clearFloorPlans();
+    }
   }
 
-  calculateAndDisplayRoute(formValues: SourceDestination) {
-    let tempMaps: Promise<MapItem[]> = this._mapCoordinator.getOverallRoute(formValues);
+  private _calculateAndDisplayRoute(directionForm: DirectionForm) {
+    let tempMaps: Promise<MapItem[]> = this._mapCoordinator.getOverallRoute(directionForm);
     tempMaps.then((maps) => {
       if (maps.length > 0) {
         this.maps = maps;
@@ -83,19 +76,5 @@ export class HomePage implements OnInit {
   loadGoogleMaps() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
-
-  //Travel mode selected
-  mode(event): string {
-    if(event.detail.value == "DRIVING"){
-        this.transportMode = "DRIVING"
-    }else if(event.detail.value == "WALKING"){
-        this.transportMode = "WALKING"
-    }else if(event.detail.value == "BICYCLING"){
-        this.transportMode = "BYCYCLING"
-    }else if(event.detail.value == "TRANSIT"){
-        this.transportMode = "TRANSIT"
-    }
-    return this.transportMode;
-}
 
 }
