@@ -44,6 +44,9 @@ export class MapCoordinator {
                     let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'cc', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
                 }
+                default: {
+                    return location;
+                }
             }
         }
         else {
