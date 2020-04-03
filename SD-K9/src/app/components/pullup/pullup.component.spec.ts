@@ -1,8 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { IonicPullupModule } from 'ionic-pullup';
 import { PullupComponent } from './pullup.component';
-import { IonPullUpFooterState} from 'ionic-pullup';
 
 describe('PullupComponent', () => {
   let component: PullupComponent;
@@ -11,9 +9,7 @@ describe('PullupComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [
-        PullupComponent,
-        IonicPullupModule,
-        IonPullUpFooterState
+        PullupComponent
        ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
