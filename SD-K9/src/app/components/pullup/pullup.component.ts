@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { IonPullUpFooterState} from 'ionic-pullup';
+import { ModalController } from '@ionic/angular';
+import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
+import { BusPage} from 'src/app/pages/bus/bus.page';
+
 @Component({
   selector: 'app-pullup',
   templateUrl: './pullup.component.html',
@@ -10,11 +14,27 @@ export class PullupComponent implements OnInit {
 
 
 
-  constructor() { }
+
+  constructor(public modalController: ModalController) { }
+
+  async presentModal() {
+      const modal = await this.modalController.create({
+        component: AppSettings
+      });
+      return await modal.present();
+    }
+
+    async presentModal1() {
+        const modal = await this.modalController.create({
+          component: BusPage
+        });
+        return await modal.present();
+      }
 
   ngOnInit() {
     this.footerState = IonPullUpFooterState.Collapsed;
   }
+
 
 
   // optional capture events

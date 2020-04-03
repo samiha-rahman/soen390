@@ -16,6 +16,8 @@ import { BuildingInfoComponent } from 'src/app/components/building-info/building
 import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-selector/indoor-floor-selector.component';
 import { PullupComponent } from 'src/app/components/pullup/pullup.component';
 import { IonicPullupModule } from 'ionic-pullup';
+import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
+import { BusPage } from 'src/app/pages/bus/bus.page';
 
 @NgModule({
   imports: [
@@ -35,12 +37,16 @@ import { IonicPullupModule } from 'ionic-pullup';
     TopDirectionsBarComponent,
     BuildingInfoComponent,
     IndoorFloorSelectorComponent,
-    PullupComponent
+    PullupComponent,
+    AppSettings,
+    BusPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    AppSettings,
+    BusPage
   ]
 })
 export class HomeTempPageModule { }

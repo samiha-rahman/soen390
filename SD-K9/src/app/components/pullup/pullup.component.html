@@ -1,4 +1,4 @@
-
+<ion-fab>
 <lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
   <!-- [toolbarTopMargin]="100" -->
 
@@ -8,12 +8,12 @@
     <ion-content>
       <ion-list>
         <!-- funciton for button was: (click)="openModal()"  -->
-        <ion-button expand="block">
+        <ion-button expand="block" (click)="presentModal1()">
           <ion-icon name="time"></ion-icon>
           Shuttle Schedule
         </ion-button>
         <!-- function for button was:  (click)="openModal1()" -->
-        <ion-button expand="block">
+        <ion-button expand="block" (click)="presentModal()">
           <ion-icon name="settings"></ion-icon>
           App Settings
         </ion-button>
@@ -60,3 +60,4 @@
   </ion-content>
 
 </lib-ionic-pullup>
+</ion-fab>
