@@ -18,6 +18,7 @@ export class LocationSearchPage implements OnInit {
 
   query: string;
   itemList: string[];
+  marker: any;
 
   private _itemList: string[];
   private _queryType: string;
@@ -95,17 +96,20 @@ export class LocationSearchPage implements OnInit {
         if( status == google.maps.GeocoderStatus.OK ) {
           //move map to selected address
           map.setCenter( results[0].geometry.location );
-
-          //uncomment this if we want to add a marker to it
-          // var marker = new google.maps.Marker( {
-          //     map     : map,
-          //     position: results[0].geometry.location
-          // } );
+          
+          //removes old marker if exist
+          if (typeof this.marker !== 'undefined'){
+            this.marker.setMap(null);
+          }
+          
+          this.marker = new google.maps.Marker( {
+            map     : map,
+            position: results[0].geometry.location
+          } );
         } else {
             console.error( 'Geocode was not successful for the following reason: ' + status );
         }
     } );
-    // currentMapState.map.setCenter({lat:45.49,lng:-73.57});
     this._googleStore.updateGoogleMap(currentMapState);
   }
 
