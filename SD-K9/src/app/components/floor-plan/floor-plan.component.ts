@@ -11,7 +11,7 @@ import { Map } from 'src/app/interfaces/map';
 import { FloorPlanStore } from '../../providers/state-stores/floor-plan-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { Route } from 'src/app/interfaces/route';
-import { RouteCoordinator } from 'src/app/providers/route-coordinator.service';
+import { IndoorRouteCoordinator } from 'src/app/providers/indoor-route-coordinator.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 
 @Component({
@@ -29,7 +29,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
 
   constructor(
     private _svgManager: SVGManager,
-    private _routeCoordinator: RouteCoordinator,
+    private _routeCoordinator: IndoorRouteCoordinator,
     private _floorPlanStore: FloorPlanStore,
     private _routeStore: RouteStore
     ) {
@@ -49,6 +49,10 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
       this._draw = SVG("#floorplan");
       // this._draw.clear();
       this._draw.svg(floorplan);
+      // get viewbox
+      const bbox = this._draw.node.firstElementChild.viewBox.baseVal
+      const svg = document.getElementsByTagName('svg')[0];
+      svg.setAttribute('viewBox', `0 0 ${bbox.width} ${bbox.height}`);
     });
   }
 

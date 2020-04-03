@@ -1,28 +1,36 @@
 #map {
-    position:absolute;
-    top:0;
-    bottom:0;
-    left:0;
-    right:0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .campusTgl {
-    width:70%;
-    position:relative;
-    z-index:1;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;
+  width: 70%;
+  position: relative;
+  z-index: 1;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 20px;
+  --background: rgba(128, 128, 128, 0.726);
+}
+
+.btn {
+  --color: white;
+  --background-checked: grey;
+  --color-checked: white;
+  --border-color: grey;
 }
 
 .locate-me-btn-wrapper {
-    bottom:100px;
-    right: 20px;
-    z-index:2;
-  
-    .locate-me-btn{
-      img{
-        pointer-events: none;
-      }
+  bottom: 100px;
+  right: 20px;
+  z-index: 2;
+
+  .locate-me-btn {
+    img {
+      pointer-events: none;
     }
+  }
 }

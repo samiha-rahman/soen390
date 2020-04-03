@@ -4,7 +4,7 @@ import { IonicModule } from '@ionic/angular';
 import { FloorPlanComponent } from './floor-plan.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SVGManager } from 'src/app/providers/svg-manager.service';
-import { RouteCoordinator } from 'src/app/providers/route-coordinator.service';
+import { IndoorRouteCoordinator } from 'src/app/providers/indoor-route-coordinator.service';
 import { FloorPlanStore } from 'src/app/providers/state-stores/floor-plan-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { doesNotThrow } from 'assert';
@@ -21,7 +21,7 @@ describe('FloorPlanComponent', () => {
         SVGManager,
         FloorPlanStore,
         RouteStore,
-        {provide: RouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
+        {provide: IndoorRouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
       ]
     }).compileComponents();
 

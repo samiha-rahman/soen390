@@ -1,56 +1,7 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>home-temp</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<top-directions-bar (formCompleteEvent)="getForm($event)"></top-directions-bar>
 <ion-content>
-  <div style="z-index: 1; position: relative;">
-    <form [formGroup]="directionForm" (ngSubmit)="calculateAndDisplayRoute(directionForm.value)">
-  
-      <ion-item>
-        <ion-label position="floating">Choose starting point...</ion-label>
-        <ion-input formControlName="source"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label position="floating">Choose destination...</ion-label>
-        <ion-input formControlName="destination"></ion-input>
-      </ion-item>
-      <ion-list >
-        <ion-segment (ionChange)="mode($event)" value="DRIVING"> 
-            <ion-row>
-             <ion-segment-button value="DRIVING">
-               <ion-label>Driving</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="WALKING">
-               <ion-label>Walking</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="BICYCLING">
-               <ion-label>Bicycling</ion-label>
-             </ion-segment-button>
-             <ion-segment-button value="TRANSIT">
-               <ion-label>Transit</ion-label>
-             </ion-segment-button>
-            </ion-row>
-          </ion-segment>
-      </ion-list>
-   
-      <ion-button expand="full" type="submit" [disabled]="directionForm.invalid">Get Direction</ion-button>
-    </form>
-    <!-- <ion-button expand="block">Clear Direction</ion-button> -->
-    <ion-segment (ionChange)="getIndoorMode($event)" value="DISABLED"> 
-      <ion-row>
-       <ion-segment-button value="HALL">
-         <ion-label>Indoor Hall Bldg</ion-label>
-       </ion-segment-button>
-       <ion-segment-button value="LOYOLA">
-         <ion-label>Indoor Loyola Campus</ion-label>
-       </ion-segment-button>
-       <ion-segment-button value="DISABLED">
-        <ion-label>Google Maps</ion-label>
-      </ion-segment-button>
-      </ion-row>
-    </ion-segment>
+  <div>
+    <indoor-floor-selector></indoor-floor-selector>
   </div>
   <div>
     <app-map-box [maps]="maps"></app-map-box>

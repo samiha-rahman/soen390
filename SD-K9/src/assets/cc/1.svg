@@ -1,0 +1,64 @@
+<svg version="1.1" x="0px" y="0px" viewBox="0 0 159.7 306">
+<g id="Shapes">
+	<g id="Floor">
+		<rect x="1" y="1" style="fill:#FFF7F0;stroke:#B79065;stroke-miterlimit:10;" width="157.6" height="303.3"/>
+	</g>
+	<rect x="1" y="1" style="fill:#F2E0CC;stroke:#B79065;stroke-miterlimit:10;" width="157.6" height="81.5"/>
+	<rect x="1" y="223.5" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" width="157.6" height="80.7"/>
+</g>
+<g id="classes">
+	<circle class="classroom" id="CC-1-entrance" style="fill:#E9F1D0;stroke:#519643;stroke-miterlimit:10;" cx="79.8" cy="304.3" r="1"/>
+	<circle class="classroom" id="CC-101" style="fill:#F2E0CC;stroke:#B79065;stroke-miterlimit:10;" cx="79.8" cy="82.5" r="1"/>
+</g>
+<g id="path" style="display:none;" distance-between-neighbors="8">
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="304.3" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="299.2" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="294.2" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="289.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="284.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="279.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="274" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="269" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="263.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="258.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="253.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="248.8" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="243.8" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="238.8" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="233.7" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="228.7" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="223.6" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="218.6" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="213.6" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="208.5" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="203.5" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="198.4" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="193.4" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="188.4" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="183.3" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="178.3" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="173.2" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="168.2" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="163.2" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="158.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="153.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="148.1" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="143" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="138" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="132.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="127.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="122.9" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="117.8" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="112.8" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="107.7" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="102.7" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="97.7" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="92.6" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="87.6" r="0.5"/>
+	<circle class="node" style="fill:#F2E0CC;stroke:#ED1C24;" cx="79.8" cy="82.5" r="0.5"/>
+</g>
+<g id="Labels">
+	<text transform="matrix(1 0 0 1 19.6129 273.5435)" style="fill:#519643; font-family:'MyriadPro-Regular'; font-size:12;">ENTRANCE</text>
+	<text transform="matrix(1 0 0 1 61.8948 48.5435)" style="font-family:'MyriadPro-Regular'; font-size:12;">CC-101</text>
+</g>
+</svg>
