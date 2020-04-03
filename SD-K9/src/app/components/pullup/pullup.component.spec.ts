@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 import { PullupComponent } from './pullup.component';
+import { IonicPullupModule } from 'ionic-pullup';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 describe('PullupComponent', () => {
   let component: PullupComponent;
@@ -11,6 +13,7 @@ describe('PullupComponent', () => {
       declarations: [
         PullupComponent
        ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
