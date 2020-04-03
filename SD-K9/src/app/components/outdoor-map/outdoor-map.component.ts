@@ -96,10 +96,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //update or load from google map state
       if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
-        this._googleStore.storeMap({ id: this.data.id, google: google, map: this.map, route: false });        // new map state
+        this._googleStore.storeMap({ id: this.data.id, google: google, map: this.map, currentpos: this.currentPos, route: false });        // new map state
       }
       else {
-        this._googleStore.updateGoogleMap({ id: this.data.id, google: google, map: this.map, route: true }); // reload old map state
+        this._googleStore.updateGoogleMap({ id: this.data.id, google: google, map: this.map, currentpos: this.currentPos, route: true }); // reload old map state
       }
 
       //add a marker on the current position

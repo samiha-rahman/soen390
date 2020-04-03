@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
 import { ActivatedRoute } from '@angular/router';
+import { GoogleStore } from 'src/app/providers/state-stores/google-store.service';
+import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+
+declare var google;
 
 @Component({
   selector: 'app-location-search',
@@ -17,17 +21,22 @@ export class LocationSearchPage implements OnInit {
 
   private _itemList: string[];
   private _queryType: string;
+  private _unsubscribe: UnsubscribeCallback;
 
   public currentQuery: string;
 
   constructor(
     private _navController: NavController,
     private _activatedRoute: ActivatedRoute,
-    private _directionFormStore: DirectionFormStore
+    private _directionFormStore: DirectionFormStore,
+    private _googleStore: GoogleStore
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       this._queryType = params['query'];
-    })
+    });
+    this._unsubscribe = this._googleStore.subscribe(() => {
+      google = this._googleStore.getGoogleMapState().google;
+    });
   }
 
   ngOnInit() {
@@ -63,4 +72,14 @@ export class LocationSearchPage implements OnInit {
     }
     this._navController.navigateBack("home");
   }
+
+  getCurrentPos(){
+    let currentMapState = this._googleStore.getGoogleMapState();
+    let google = currentMapState.google;
+    let map = currentMapState.map;
+    let currentPos = currentMapState.currentpos;
+
+    //do something
+  }
+
 }
