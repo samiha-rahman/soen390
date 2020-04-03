@@ -8,7 +8,7 @@ import { FloorPlanStore } from 'src/app/providers/state-stores/floor-plan-store.
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
-import { IonPullUpFooterState} from 'ionic-pullup';
+
 
 @Component({
   selector: 'app-home',
@@ -18,7 +18,7 @@ import { IonPullUpFooterState} from 'ionic-pullup';
 export class HomePage implements OnInit {
   maps: MapItem[];
   transportMode: string;
-  footerState: IonPullUpFooterState;
+
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
   private _unsubscribeMapModeStore: UnsubscribeCallback;
@@ -66,20 +66,4 @@ export class HomePage implements OnInit {
   loadGoogleMaps() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
-  // optional capture events
-    footerExpanded() {
-        console.log('Footer expanded!');
-    }
-
-    // optional capture events
-    footerCollapsed() {
-        console.log('Footer collapsed!');
-    }
-
-    // toggle footer states
-    toggleFooter() {
-        this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
-    }
-
-
 }

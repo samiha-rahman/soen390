@@ -14,6 +14,7 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
 import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
 import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
 import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-selector/indoor-floor-selector.component';
+import { PullupComponent } from 'src/app/components/pullup/pullup.component';
 import { IonicPullupModule } from 'ionic-pullup';
 
 @NgModule({
@@ -33,7 +34,8 @@ import { IonicPullupModule } from 'ionic-pullup';
     OutdoorMapComponent,
     TopDirectionsBarComponent,
     BuildingInfoComponent,
-    IndoorFloorSelectorComponent
+    IndoorFloorSelectorComponent,
+    PullupComponent
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   entryComponents: [

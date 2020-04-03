@@ -1,0 +1,62 @@
+
+<lib-ionic-pullup (onExpand)="footerExpanded()" (onCollapse)="footerCollapsed()" [(state)]="footerState">
+  <!-- [toolbarTopMargin]="100" -->
+
+<ion-toolbar color="primary" (click)="toggleFooter()" #ionDragFooter></ion-toolbar>
+
+<ion-content>
+    <ion-content>
+      <ion-list>
+        <!-- funciton for button was: (click)="openModal()"  -->
+        <ion-button expand="block">
+          <ion-icon name="time"></ion-icon>
+          Shuttle Schedule
+        </ion-button>
+        <!-- function for button was:  (click)="openModal1()" -->
+        <ion-button expand="block">
+          <ion-icon name="settings"></ion-icon>
+          App Settings
+        </ion-button>
+      </ion-list>
+      <!-- FAVORITES -->
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Favorites</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-grid>
+            <ion-row>
+              <ion-col>
+                <ion-button>SOEN-390</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>SOEN-344</ion-button>
+              </ion-col>
+              <ion-col>
+                <ion-button>COMP-335</ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-grid>
+        </ion-card-content>
+      </ion-card>
+
+      <!-- RECENT EXAMPLE -->
+
+      <ion-item>
+        <ion-label>Recent</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-card>
+        <ion-card-header>
+
+          <ion-card-title>H building 534 <div class="ion-text-end">2 min</div>
+          </ion-card-title>
+          <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
+        </ion-card-header>
+
+      </ion-card>
+
+    </ion-content>
+  </ion-content>
+
+</lib-ionic-pullup>
