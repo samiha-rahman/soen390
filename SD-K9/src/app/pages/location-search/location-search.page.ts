@@ -63,7 +63,7 @@ export class LocationSearchPage implements OnInit {
       console.log(predictions)
       this.placesSearchResults = predictions;
     });
-
+    
     for (const item of this._itemList) {
       if (item.toUpperCase().includes(this.query.toUpperCase())) {
         this.itemList.push(item);
@@ -84,4 +84,11 @@ export class LocationSearchPage implements OnInit {
     }
     this._navController.navigateBack("home");
   }
+
+  moveMap(){
+    let currentMapState = this._googleStore.getGoogleMapState();
+    currentMapState.map.setCenter({lat:45.49,lng:-73.57});
+    this._googleStore.updateGoogleMap(currentMapState);
+  }
+
 }
