@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { AppsettingsPageRoutingModule } from './app-settings-routing.module';
 
 import { AppSettings } from './app-settings.page';
+import { GoogleCalendarComponent } from 'src/app/components/google-calendar/google-calendar.component';
 
 @NgModule({
   imports: [
@@ -15,6 +16,9 @@ import { AppSettings } from './app-settings.page';
     IonicModule,
     AppsettingsPageRoutingModule
   ],
-  declarations: [AppSettings]
+  declarations: [
+    AppSettings,
+    GoogleCalendarComponent
+  ]
 })
 export class AppsettingsPageModule {}

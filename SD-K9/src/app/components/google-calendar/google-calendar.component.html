@@ -1,0 +1,19 @@
+<p>Google Calendar</p>
+<div *ngIf="firebaseAuth.user$ | async as user; else login">
+  {{ user | json }}
+  <hr>
+  <ion-button (click)="getEvents()">Get Events</ion-button>
+  
+  <div *ngFor="let item of calendarItems">
+    <ion-card>{{item}}</ion-card>
+  </div>
+  
+  <ion-button (click)="sync()">Remove Google Calendar</ion-button>
+</div>
+
+
+<ng-template #login>
+  <ion-button (click)="signOut()">Sync Google Calendar</ion-button>
+</ng-template>
+
+<pre #content id="content" style="white-space: pre-wrap;"></pre>
