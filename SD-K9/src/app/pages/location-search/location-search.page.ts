@@ -63,7 +63,7 @@ export class LocationSearchPage implements OnInit {
       console.log(predictions)
       this.placesSearchResults = predictions;
     });
-    
+
     for (const item of this._itemList) {
       if (item.toUpperCase().includes(this.query.toUpperCase())) {
         this.itemList.push(item);
@@ -85,9 +85,27 @@ export class LocationSearchPage implements OnInit {
     this._navController.navigateBack("home");
   }
 
-  moveMap(){
+  moveMap(query: string){
     let currentMapState = this._googleStore.getGoogleMapState();
-    currentMapState.map.setCenter({lat:45.49,lng:-73.57});
+    let google = currentMapState.google;
+    let map = currentMapState.map;
+    let coder = currentMapState.geocoder;
+
+    coder.geocode( { 'address' : query }, function( results, status ) {
+        if( status == google.maps.GeocoderStatus.OK ) {
+          //move map to selected address
+          map.setCenter( results[0].geometry.location );
+
+          //uncomment this if we want to add a marker to it
+          // var marker = new google.maps.Marker( {
+          //     map     : map,
+          //     position: results[0].geometry.location
+          // } );
+        } else {
+            console.error( 'Geocode was not successful for the following reason: ' + status );
+        }
+    } );
+    // currentMapState.map.setCenter({lat:45.49,lng:-73.57});
     this._googleStore.updateGoogleMap(currentMapState);
   }
 

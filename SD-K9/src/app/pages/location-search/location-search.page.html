@@ -58,7 +58,7 @@
 
       <ion-list>
         <ion-item *ngFor="let item of placesSearchResults">
-          <ion-label (click)="enterQuery(item.description); moveMap()">{{ item.description }}</ion-label>
+          <ion-label (click)="enterQuery(item.description); moveMap(item.description)">{{ item.description }}</ion-label>
         </ion-item>
       </ion-list>
     </div>
