@@ -1,12 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
-import { FirebaseAuthService } from './firebase-auth.service';
+import { GoogleCalendarService } from './google-calendar.service';
 
 describe('FirebaseAuthService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
   it('should be created', () => {
-    const service: FirebaseAuthService = TestBed.get(FirebaseAuthService);
+    const service: GoogleCalendarService = TestBed.get(GoogleCalendarService);
     expect(service).toBeTruthy();
   });
 });

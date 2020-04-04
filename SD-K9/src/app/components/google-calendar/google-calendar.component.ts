@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FirebaseAuthService } from 'src/app/providers/firebase/firebase-auth.service';
+import { GoogleCalendarService } from 'src/app/providers/firebase/google-calendar.service';
 
 declare var gapi: any;
 
@@ -11,20 +11,20 @@ declare var gapi: any;
 export class GoogleCalendarComponent implements OnInit {
   calendarItems = [];
 
-  constructor(public firebaseAuth: FirebaseAuthService) { }
+  constructor(public googleCalendar: GoogleCalendarService) { }
 
   ngOnInit() {}
 
   signOut() {
-    this.firebaseAuth.singOut();
+    this.googleCalendar.singOut();
   }
 
   sync() {
-    this.firebaseAuth.googleSignin();
+    this.googleCalendar.googleSignin();
   }
 
   async getEvents() {
-    this.calendarItems = await this.firebaseAuth.getEvents();
+    this.calendarItems = await this.googleCalendar.getEvents();
   }
 
 }
