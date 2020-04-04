@@ -3,7 +3,7 @@ import { NavController } from '@ionic/angular';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
 import { ActivatedRoute } from '@angular/router';
 import { GoogleStore } from '../../providers/state-stores/google-store.service';
-import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
 
 declare var google;
 
@@ -18,7 +18,11 @@ export class LocationSearchPage implements OnInit {
 
   query: string;
   itemList: string[];
+
+  currentMapState: any;
+  map: any;
   marker: any;
+  coder: any;
 
   private _itemList: string[];
   private _queryType: string;
@@ -47,6 +51,10 @@ export class LocationSearchPage implements OnInit {
     // setTimeout(() => { this.searchbar.setFocus(); }, 150);
     // TODO: get from config once available
     this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
+
+    this.currentMapState = this._googleStore.getGoogleMapState();
+    this.map = this.currentMapState.map;
+    this.coder = this.currentMapState.geocoder;
   }
 
   goToHomePage() {
@@ -87,12 +95,8 @@ export class LocationSearchPage implements OnInit {
   }
 
   moveMap(query: string){
-    let currentMapState = this._googleStore.getGoogleMapState();
-    let google = currentMapState.google;
-    let map = currentMapState.map;
-    let coder = currentMapState.geocoder;
-
-    coder.geocode( { 'address' : query }, function( results, status ) {
+    let map = this.map;
+    this.coder.geocode( { 'address' : query }, function( results, status ) {
         if( status == google.maps.GeocoderStatus.OK ) {
           //move map to selected address
           map.setCenter( results[0].geometry.location );
@@ -110,7 +114,7 @@ export class LocationSearchPage implements OnInit {
             console.error( 'Geocode was not successful for the following reason: ' + status );
         }
     } );
-    this._googleStore.updateGoogleMap(currentMapState);
+    this._googleStore.updateGoogleMap(this.currentMapState);
   }
 
 }
