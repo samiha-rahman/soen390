@@ -6,6 +6,11 @@ export class OutdoorMapComponent extends PageObject {
         super('app-outdoor-map');
     }
 
+    // loadMap() {
+    //     const el = element(by.css('app-outdoor-map div#map'))
+    //     browser.wait(ExpectedConditions.visibilityOf(el), 10000);
+    // }
+
     goToSGW() {
         this.clickButton(' ionic-segment-button#sgw-button');
     }

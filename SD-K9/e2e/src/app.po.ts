@@ -33,7 +33,7 @@ export class PageObject {
   }
 
   waitUntilVisible() {
-    browser.wait(ExpectedConditions.visibilityOf(this.rootElement()), 3000);
+    browser.wait(ExpectedConditions.visibilityOf(this.rootElement()), 10000);
   }
 
   getTitle() {

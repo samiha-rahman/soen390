@@ -20,4 +20,8 @@ export class LocationSearchPage extends PageObject {
         this.clickButton(' ion-button');
     }
 
+    goBack() {
+        this.clickButton(' ion-fab-button#back-button');
+    }
+
 }

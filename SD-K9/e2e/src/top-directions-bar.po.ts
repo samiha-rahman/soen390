@@ -14,4 +14,8 @@ export class TopDirectionsBarComponent extends PageObject {
         this.clickButton(' ion-searchbar#destination-searchbar');
     }
 
+    goBack() {
+        this.clickButton(' ion-button.clear-btn')
+    }
+
 }
