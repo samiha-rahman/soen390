@@ -86,6 +86,7 @@ export class LocationSearchPage implements OnInit {
     let currentMapState = this._googleStore.getGoogleMapState();
     let google = currentMapState.google;
     let map = currentMapState.map;
+    let self = this;
     let currentPos = currentMapState.currentpos;
     let coder = currentMapState.geocoder;
     let address;
@@ -95,15 +96,12 @@ export class LocationSearchPage implements OnInit {
     coder.geocode({'location': this.latlng}, function(results, status) 
     {
       if(status === "OK"){
-        this._directionFormStore.enterQuery(results[0].formatted_address);
-        console.log(results[0].formatted_address);
+        self.enterQuery(results[0].formatted_address);
       } else{
         console.error( 'Geocode was not successful for the following reason: ' + status );
       }
     });
-    console.log(address);
 
-    //this._directionFormStore.setSource(address);
     this._navController.navigateBack("home");
   }
 }
