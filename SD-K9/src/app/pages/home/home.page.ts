@@ -61,18 +61,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  getLocation(){
-    this._unsubscribe = this._buildingInfoStore.subscribe(() => {
-      this.location = this._buildingInfoStore.getBuildingInfo().building;
-      if(this.startLocation==null){
-        this.startLocation=this.location;
-      }
-      else{
-        this.endLocation=this.location;
-      }
-    });
-  }
-
   loadGoogleMaps() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
