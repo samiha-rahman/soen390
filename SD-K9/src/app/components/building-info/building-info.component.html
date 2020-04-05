@@ -4,15 +4,15 @@
     <ion-card-subtitle>{{ currentCampus }}</ion-card-subtitle>
     <img tappable src="../../../assets/images/close-icon.png" class="close-card"
       (click)="hideBuildingInfoCard($event)" />
-      <ion-row>
-        <ion-col>
-          <ion-button  color="primary" class="start-btn" (click)="setStartLocation()" style="width:100%">Set Start</ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button color="primary" class="destination-btn" (click)="setDestionationLocation()" style="width:100%">Set Destination</ion-button>
-        </ion-col>
-      </ion-row>
   </ion-card-header>
+  <ion-row>
+     <ion-col>
+      <ion-button  color="primary" class="location-btn" (click)="setStartLocation()" style="width:100%">Set Start</ion-button>
+    </ion-col>
+    <ion-col>
+      <ion-button color="primary" class="location-btn" (click)="setDestionationLocation()" style="width:100%">Set Destination</ion-button>
+    </ion-col>
+  </ion-row>
   <ion-card-content>{{ currentBuildingInfo }}
     <br>
     <ion-button color="primary" class="go-inside-btn" (click)="goInside(buildingSlug)"
