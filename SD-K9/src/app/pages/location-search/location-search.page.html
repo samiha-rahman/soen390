@@ -19,6 +19,12 @@
 
   <div>
 
+    <ion-item button (click)="getCurrentPos()">
+      <ion-icon name="compass"></ion-icon>
+      <ion-label>
+         My Location
+      </ion-label>
+    </ion-item>
     <ion-card>
       <ion-card-header *ngIf="!itemList">
         <ion-card-content>Start typing to search for a location</ion-card-content>
