@@ -23,7 +23,6 @@ export class LocationSearchPage implements OnInit {
   map: any;
   geocoder: any;
   latlng: any;
-  address: any;
 
   private _itemList: string[];
   private _queryType: string;
@@ -89,7 +88,6 @@ export class LocationSearchPage implements OnInit {
     let self = this;
     let currentPos = currentMapState.currentpos;
     let coder = currentMapState.geocoder;
-    let address;
     
     this.latlng = {lat: currentPos.lat(), lng: currentPos.lng()}; 
 
