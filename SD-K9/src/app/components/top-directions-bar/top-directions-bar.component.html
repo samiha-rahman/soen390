@@ -46,13 +46,13 @@
         <div *ngIf="isIndoor">
           <ion-segment scrollable value="ESCALATOR" (ionChange)="verticalTransportSegmentChanged($event)"
             color="primary">
-            <ion-segment-button value={{verticalTransportEnum.STAIRS}}>
+            <ion-segment-button value={{verticalTransportEnum.STAIRS}} id="stairs-button">
               <ion-label>Stairs</ion-label>
             </ion-segment-button>
-            <ion-segment-button value={{verticalTransportEnum.ESCALATOR}}>
+            <ion-segment-button value={{verticalTransportEnum.ESCALATOR}} id="escalator-button">
               <ion-label>Escalator</ion-label>
             </ion-segment-button>
-            <ion-segment-button value={{verticalTransportEnum.ELEVATOR}}>
+            <ion-segment-button value={{verticalTransportEnum.ELEVATOR}} id="elevator-button">
               <ion-label>Elevator</ion-label>
             </ion-segment-button>
           </ion-segment>

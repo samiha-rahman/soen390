@@ -15,7 +15,27 @@ export class TopDirectionsBarComponent extends PageObject {
     }
 
     goBack() {
-        this.clickButton(' ion-button.clear-btn')
+        this.clickButton(' ion-button.clear-btn');
+    }
+
+    selectIndoorTransportationMode(mode: string) {
+        switch (mode) {
+            case "stairs":
+                this.clickButton(' ion-segment-button#stairs-button');
+                break;
+        
+            case "escalator":
+                this.clickButton(' ion-segment-button#escalator-button');
+                break;
+
+            case "elevator":
+                this.clickButton(' ion-segment-button#elevator-button');
+                break;
+
+            default:
+                fail("could not find transportation mode");
+                break;
+        }
     }
 
 }

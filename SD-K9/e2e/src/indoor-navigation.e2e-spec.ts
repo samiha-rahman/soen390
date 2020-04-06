@@ -21,7 +21,7 @@ describe("indoor navigation", () => {
     // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
     topDirectionsBar.enterStart();
     locationSearch.goBack();
-    browser.sleep(10000);
+    browser.sleep(5000);
   });
 
   beforeEach(() => {
@@ -42,11 +42,11 @@ describe("indoor navigation", () => {
     });
 
     it("the page contains an area prompting user to enter starting point", () => {
-      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isDisplayed()).toBeTruthy;
+      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isDisplayed()).toEqual(true);
     });
 
     it("the page displays an area prompting user to enter destination", () => {
-      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toBeTruthy;
+      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toEqual(true);
     });
 
   });
@@ -111,7 +111,7 @@ describe("indoor navigation", () => {
       locationSearch.chooseFromList();
       floorplan.waitUntilVisible();
       mapBox.waitUntilPresent();
-      expect(element(by.css('app-map-box #nextmap-button')).isDisplayed()).toBeTruthy;
+      expect(element(by.css('app-map-box #nextmap-button')).isDisplayed()).toEqual(true);
     });
 
     it("displays a button to navigate to the previous floor", () => {
@@ -124,13 +124,13 @@ describe("indoor navigation", () => {
       floorplan.waitUntilVisible();
       mapBox.waitUntilPresent();
       mapBox.clickNextMap();
-      expect(element(by.css('app-map-box #prevmap-button')).isDisplayed()).toBeTruthy;
+      expect(element(by.css('app-map-box #prevmap-button')).isDisplayed()).toEqual(true);
     });
 
   });
 
   describe("verifies correct path is displayed for indoor map navigation", () => {
-    it("displays correct path between two classrooms on the same floor", () => {
+    it("displays shortest path between two classrooms on the same floor", () => {
       topDirectionsBar.enterStart();
       locationSearch.enterLocation('H-821');
       locationSearch.chooseFromList();
@@ -139,6 +139,25 @@ describe("indoor navigation", () => {
       locationSearch.chooseFromList();
       floorplan.waitUntilVisible();
       floorplan.verifyPathSameFloor();
+    });
+
+    it("displays shortest path between two classrooms on different floors using escalator", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+
+      // TODO: complete when indoor navigation modes are completed
+      // topDirectionsBar.selectIndoorTransportationMode("escalator");
+
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromEscalator();
+
     });
 
   });
