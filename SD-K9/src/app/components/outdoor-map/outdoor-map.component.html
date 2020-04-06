@@ -1,3 +1,11 @@
+<ion-header>
+  <ion-toolbar icon="locate">
+    <ion-input placeholder="My Campus"></ion-input>
+    <ion-button slot="end" (click)="inCampus()">Get Campus</ion-button>
+  </ion-toolbar>
+</ion-header>
+
+
 <div>
   <ion-segment (ionChange)="toggleCampus($event)" *ngIf="mapInitialised && !hasRoute" class="campusTgl">
     <ion-segment-button value="sgw" id="btnToTest" class="btn" id="sgw-button">

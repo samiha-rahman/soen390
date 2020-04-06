@@ -30,7 +30,11 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   currentPos: GoogleCoordinate;
   apiKey: string = environment.apiKey;
   hasRoute: boolean;
-  private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  private _unsubscribeGoogleStore: UnsubscribeCallback;  
+  private _campusConfig: any;
+  currentCampus: string;
+  currentBuilding: string;
+  // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
 
   constructor(
     private _geolocation: Geolocation,
@@ -43,12 +47,15 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     // subscribe to mapstore
     this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
       this._addRouteIfExist();
+      this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
+      this.currentCampus = this._buildingInfoStore.getBuildingInfo().campus;
     });
   }
 
   ngOnInit() {
     this._loadGMaps();
     this.hasRoute = false;
+    this._campusConfig = campusData["default"];
   }
 
   private _addRouteIfExist() {
@@ -225,13 +232,15 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let polygonHall = this.campusConfig["sgw"]["buildings"]["hall"]["bounds"];
     let polygonCC = this.campusConfig["loy"]["buildings"]["cc"]["bounds"];
     if(google.maps.geometry.poly.containsLocation(this.currentPos, polygonHall)){
+      let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+      //console.log(campus);
       //display you are in hall building
     }else if (google.maps.geometry.poly.containsLocation(this.currentPos, polygonCC)){
+      let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
       //Display you are in CC building
     }else{
+      //console.log("not in conc")
       //display you are not in campus
     };
   }
-  
-
 }
