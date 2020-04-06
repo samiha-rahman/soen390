@@ -221,4 +221,17 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     this._unsubscribeGoogleStore();    // release listener to google-store
   }
 
+  inCampus(){
+    let polygonHall = this.campusConfig["sgw"]["buildings"]["hall"]["bounds"];
+    let polygonCC = this.campusConfig["loy"]["buildings"]["cc"]["bounds"];
+    if(google.maps.geometry.poly.containsLocation(this.currentPos, polygonHall)){
+      //display you are in hall building
+    }else if (google.maps.geometry.poly.containsLocation(this.currentPos, polygonCC)){
+      //Display you are in CC building
+    }else{
+      //display you are not in campus
+    };
+  }
+  
+
 }
