@@ -50,9 +50,6 @@ export class LocationSearchPage implements OnInit {
     // setTimeout(() => { this.searchbar.setFocus(); }, 150);
     // TODO: get from config once available
     this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
-    this.currentMapState = this._googleStore.getGoogleMapState();
-    this.map = this.currentMapState.map;
-    this.coder = this.currentMapState.geocoder;
   }
 
   goToHomePage() {
@@ -93,7 +90,10 @@ export class LocationSearchPage implements OnInit {
   }
 
   moveMap(query: string){
-    let map = this.map;
+    this.currentMapState = this._googleStore.getGoogleMapState();
+    let map = this.currentMapState.map;
+    this.coder = this.currentMapState.geocoder;
+
     this.coder.geocode( { 'address' : query }, function( results, status ) {
         if( status == google.maps.GeocoderStatus.OK ) {
           //move map to selected address
