@@ -27,7 +27,6 @@ export class LocationSearchPage implements OnInit {
   private _itemList: string[];
   private _queryType: string;
   private _unsubscribe: UnsubscribeCallback;
-  private _maps: any;
   private _googleAutocomplete: any;
 
   public currentQuery: string;
@@ -39,11 +38,18 @@ export class LocationSearchPage implements OnInit {
     private _directionFormStore: DirectionFormStore,
     private _googleStore: GoogleStore
   ) {
+    console.log('constructor')
     this._activatedRoute.queryParams.subscribe(params => {
+      console.log('query param')
       this._queryType = params['query'];
     });
     this._unsubscribe = this._googleStore.subscribe(() => {
+      console.log('UNSUB')
+
       google = this._googleStore.getGoogleMapState().google;
+      this.currentMapState = this._googleStore.getGoogleMapState();
+      this.map = this.currentMapState.map;
+      this.coder = this.currentMapState.geocoder;
     });
   }
 
@@ -51,10 +57,9 @@ export class LocationSearchPage implements OnInit {
     // setTimeout(() => { this.searchbar.setFocus(); }, 150);
     // TODO: get from config once available
     this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
-
-    this.currentMapState = this._googleStore.getGoogleMapState();
-    this.map = this.currentMapState.map;
-    this.coder = this.currentMapState.geocoder;
+    //  this.currentMapState = this._googleStore.getGoogleMapState();
+    //  this.map = this.currentMapState.map;
+    //  this.coder = this.currentMapState.geocoder;
   }
 
   goToHomePage() {
