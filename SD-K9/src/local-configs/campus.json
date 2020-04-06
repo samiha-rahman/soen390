@@ -93,7 +93,7 @@
         ]
       },
       "library": {
-        "fullName":"Webster Library",
+        "fullName":"Webster Concordia",
         "markerText": "WL",
         "markerPos": {
           "lat": 45.496777,
@@ -161,7 +161,7 @@
     },
     "buildings": {
       "communications": {
-        "fullName":"Communications & Journalism building",
+        "fullName":"Communications & Journalism Concordia building",
         "markerText": "CJ",
         "markerPos": {
           "lat": 45.457472,
@@ -187,7 +187,7 @@
         ]
       },
      "ge": {
-        "fullName":"Centre for Structural and Functional Genomics",
+        "fullName":"Centre for Structural and Functional Genomics Concordia",
         "markerText": "GE",
         "markerPos": {
           "lat": 45.456953,
@@ -213,7 +213,7 @@
         ]
       },
       "sp": {
-        "fullName":"SP Building",
+        "fullName":"SP Loyola Building",
         "markerText": "SP",
         "markerPos": {
           "lat": 45.457570,
@@ -247,7 +247,7 @@
         ]
       },
       "rf": {
-        "fullName":"Loyola Jesuit Hall and Conference Centre",
+        "fullName":"Loyola Jesuit Hall and Conference Centre Concordia",
         "markerText": "RF",
         "markerPos": {
           "lat": 45.458593,
@@ -273,7 +273,7 @@
         ]
       },
       "cc": {
-        "fullName":"Loyola Campus, Concordia University",
+        "fullName":"Loyola Concordia",
         "buildingSlug":"cc",
         "markerText": "CC",
         "markerPos": {
@@ -326,7 +326,7 @@
         ]
       },
       "py": {
-        "fullName":"Psychology Building",
+        "fullName":"Loyola Psychology Concordia",
         "markerText": "PY",
         "markerPos": {
           "lat": 45.458909,
