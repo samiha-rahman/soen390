@@ -1,18 +1,21 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
-import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { User } from '../../interfaces/user';
 import * as credentials from 'src/environments/credentials.json';
-declare var gapi: any;
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { CalendarListStore } from '../state-stores/calendar-list-store.service';
 
+declare var gapi: any;
 
 @Injectable({
   providedIn: 'root'
 })
 export class GoogleCalendarService {
   user$: Observable<User>;
+
+  private _authResponse: any;
 
   // Client ID and API key from the Developer Console
   private _CLIENT_ID = credentials.web.client_id;
@@ -27,7 +30,9 @@ export class GoogleCalendarService {
 
   constructor(
     private _angularFireAuth: AngularFireAuth,
-    private _angularFireStore: AngularFirestore // TODO: To remove in this service, but currently serves as a reminder that we have FireStore
+    private _http: HttpClient,
+    private _calendarListStore: CalendarListStore
+    // private _angularFireStore: AngularFirestore // TODO: To remove in this service, but currently serves as a reminder that we have FireStore
   ) {
     this._initClient();
     this.user$ = this._angularFireAuth.authState;
@@ -58,25 +63,61 @@ export class GoogleCalendarService {
     const googleAuth = gapi.auth2.getAuthInstance();
     const googleUser = await googleAuth.signIn().catch((error) => {console.log(error)});
 
+    this._authResponse = googleUser.getAuthResponse();
+
     const token = googleUser.getAuthResponse().id_token;
     const credential = firebase.auth.GoogleAuthProvider.credential(token);
     await this._angularFireAuth.signInWithCredential(credential);
   }
 
-  async singOut() {
+  async signOut() {
     await this._angularFireAuth.signOut();
+    this._calendarListStore.clear();
   }
 
-  async getEvents() {
+  async getCalendarList() {
+    // clear calendar list
+    this._calendarListStore.clear();
+
+    let calendarIds: string[] = [];
+
+    // while google auth2 does not publicly provide a refresh token, request user to sign in.
+    if (!this._authResponse) {
+      await this.googleSignin();
+    }
+
+    // while google calendar api does not provide a special keyword to get all calendarIds
+    // request to get a list of calendars via HttpClient
+    let reqHeaders = new HttpHeaders({
+      'Content-Type': 'application/json; charset=utf-8',
+      'cache-control': 'private',
+      'Authorization': `${this._authResponse.token_type} ${this._authResponse.access_token}`
+    })
+    await this._http.get(`https://www.googleapis.com/calendar/v3/users/me/calendarList`, {headers: reqHeaders})
+    .subscribe(resource => {   
+      let items = resource['items'];
+
+      items.forEach(async(item) => {
+        let calendarId: string = item['id'];
+
+        this._calendarListStore.storeCalendarId({id: calendarId, checked: true});
+        calendarIds.push(calendarId);
+      });
+    });
+
+    return calendarIds;
+  }
+
+  async getEvents(calendarId: string) {
     const events = await gapi.client.calendar.events.list({
-      calendarId: 'primary',
+      calendarId: calendarId,
       timeMin: (new Date()).toISOString(),
       showDeleted: false,
       singleEvents: true,
       // maxResults: 10,
       orderBy: 'startTime'
     });
-    
+
     return events.result.items;
   }
 }
