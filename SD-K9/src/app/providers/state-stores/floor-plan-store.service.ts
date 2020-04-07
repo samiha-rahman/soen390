@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { FloorPlanState } from '../../interfaces/floor-plan-state';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
+import { FloorPlanState } from '../../interfaces/states/floor-plan-state';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
 import { StateStore } from '../../helpers/state-store';
 import { FloorPlanIdentifier } from '../../interfaces/floor-plan-identifier';
 import { ListenerCallback } from '../../interfaces/listener-callback';
