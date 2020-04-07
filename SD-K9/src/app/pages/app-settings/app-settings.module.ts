@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import { AppSettings } from './app-settings.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AppsettingsPageRoutingModule
+    AppsettingsPageRoutingModule,
+    ModalController
   ],
   declarations: [AppSettings]
 })
