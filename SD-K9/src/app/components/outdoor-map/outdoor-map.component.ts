@@ -35,7 +35,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   currentCampus: string;
   currentBuilding: string;
   // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
-
+  
   constructor(
     private _geolocation: Geolocation,
     private _googleStore: GoogleStore,
@@ -79,7 +79,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=geometry&callback=initMap';
       document.body.appendChild(script);
     } else {
       this._initMap();
@@ -133,7 +133,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
-
+      this.inCampus();
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -149,6 +149,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
         let buildingSlug = this.campusConfig[campus]["buildings"][building]["buildingSlug"];
         buildingSlug = typeof buildingSlug === 'undefined' ? '' : buildingSlug;
+
 
         //overlay each building
         let overlay = new google.maps.Polygon({
@@ -229,18 +230,30 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   inCampus(){
-    let polygonHall = this.campusConfig["sgw"]["buildings"]["hall"]["bounds"];
-    let polygonCC = this.campusConfig["loy"]["buildings"]["cc"]["bounds"];
-    if(google.maps.geometry.poly.containsLocation(this.currentPos, polygonHall)){
+    let HallBounds = this.campusConfig["sgw"]["buildings"]["hall"]["bounds"];
+    let CCBounds = this.campusConfig["loy"]["buildings"]["cc"]["bounds"];
+    let coordinates = this.currentPos;
+    
+    let polygon = new google.maps.Polygon({paths: HallBounds});
+
+    //Testing purpose
+    let coor = {lat: 24.886, lng: -70.269};
+    let triangleCoords = [
+     {lat: 25.774, lng: -80.19},
+      {lat: 18.466, lng: -66.118},
+      {lat: 32.321, lng: -64.757}
+    ];
+    let bermudaTriangle = new google.maps.Polygon({paths: triangleCoords});
+
+
+    
+    if(google.maps.geometry.poly.containsLocation(coor, bermudaTriangle)){
       let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-      //console.log(campus);
       //display you are in hall building
-    }else if (google.maps.geometry.poly.containsLocation(this.currentPos, polygonCC)){
-      let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-      //Display you are in CC building
+      document.getElementById('btn').innerHTML = "You are in " + campus + " building";
     }else{
-      //console.log("not in conc")
       //display you are not in campus
+      document.getElementById('btn').innerHTML = "You are not inside campus building";
     };
   }
 }
