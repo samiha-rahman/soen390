@@ -135,6 +135,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
+      //check if user is inside building initially
       this.inCampus();
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
@@ -239,6 +240,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let building = "";
     let polygonArr: any[] = [];
     polygonArr = this.buildingPolygons;
+    //verify if user location is inside any campus building
     for(var i = 0; i < polygonArr.length; i++){
       isInside = google.maps.geometry.poly.containsLocation(coordinates, polygonArr[i]);
       if(isInside){
