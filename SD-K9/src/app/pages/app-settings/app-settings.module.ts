@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ModalController } from '@ionic/angular';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -14,7 +15,8 @@ import { GoogleCalendarComponent } from 'src/app/components/google-calendar/goog
     CommonModule,
     FormsModule,
     IonicModule,
-    AppsettingsPageRoutingModule
+    AppsettingsPageRoutingModule,
+    ModalController
   ],
   declarations: [
     AppSettings,

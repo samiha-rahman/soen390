@@ -1,4 +1,4 @@
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -14,6 +14,10 @@ import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.
 import { TopDirectionsBarComponent } from 'src/app/components/top-directions-bar/top-directions-bar.component';
 import { BuildingInfoComponent } from 'src/app/components/building-info/building-info.component';
 import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-selector/indoor-floor-selector.component';
+import { PullupComponent } from 'src/app/components/pullup/pullup.component';
+import { IonicPullupModule } from 'ionic-pullup';
+import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
+import { BusPage } from 'src/app/pages/bus/bus.page';
 
 @NgModule({
   imports: [
@@ -21,7 +25,8 @@ import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-se
     FormsModule,
     IonicModule,
     ReactiveFormsModule,
-    HomeTempPageRoutingModule
+    HomeTempPageRoutingModule,
+    IonicPullupModule
   ],
   declarations: [
     HomePage,
@@ -31,12 +36,17 @@ import { IndoorFloorSelectorComponent } from 'src/app/components/indoor-floor-se
     OutdoorMapComponent,
     TopDirectionsBarComponent,
     BuildingInfoComponent,
-    IndoorFloorSelectorComponent
+    IndoorFloorSelectorComponent,
+    PullupComponent,
+    AppSettings,
+    BusPage
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   entryComponents: [
     FloorPlanComponent,
-    OutdoorMapComponent
+    OutdoorMapComponent,
+    AppSettings,
+    BusPage
   ]
 })
 export class HomeTempPageModule { }
