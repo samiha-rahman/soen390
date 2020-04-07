@@ -48,9 +48,6 @@ export class LocationSearchPage implements OnInit {
     // setTimeout(() => { this.searchbar.setFocus(); }, 150);
     // TODO: get from config once available
     this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
-
-    this.currentMapState = this._googleStore.getGoogleMapState();
-    this.map = this.currentMapState.map;
   }
 
   goToHomePage() {
@@ -83,14 +80,12 @@ export class LocationSearchPage implements OnInit {
 
   getCurrentPos(){
     let currentMapState = this._googleStore.getGoogleMapState();
-    let google = currentMapState.google;
-    let map = currentMapState.map;
     let self = this;
     let currentPos = currentMapState.currentpos;
     let coder = currentMapState.geocoder;
     
     this.latlng = {lat: currentPos.lat(), lng: currentPos.lng()}; 
-
+    self.enterQuery(' '); 
     coder.geocode({'location': this.latlng}, function(results, status) 
     {
       if(status === "OK"){
@@ -99,7 +94,5 @@ export class LocationSearchPage implements OnInit {
         console.error( 'Geocode was not successful for the following reason: ' + status );
       }
     });
-
-    this._navController.navigateBack("home");
   }
 }
