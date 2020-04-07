@@ -232,25 +232,14 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   inCampus(){
     let HallBounds = this.campusConfig["sgw"]["buildings"]["hall"]["bounds"];
     let CCBounds = this.campusConfig["loy"]["buildings"]["cc"]["bounds"];
-    let coordinates = this.currentPos;
+    let coordinates = new google.maps.LatLng(this.currentPos.lat,this.currentPos.lng);
     
     let polygon = new google.maps.Polygon({paths: HallBounds});
-
-    //Testing purpose
-    let coor = {lat: 24.886, lng: -70.269};
-    let triangleCoords = [
-     {lat: 25.774, lng: -80.19},
-      {lat: 18.466, lng: -66.118},
-      {lat: 32.321, lng: -64.757}
-    ];
-    let bermudaTriangle = new google.maps.Polygon({paths: triangleCoords});
-
-
     
-    if(google.maps.geometry.poly.containsLocation(coor, bermudaTriangle)){
-      let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    if(google.maps.geometry.poly.containsLocation(coordinates, polygon)){
+      //let campus=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
       //display you are in hall building
-      document.getElementById('btn').innerHTML = "You are in " + campus + " building";
+      document.getElementById('btn').innerHTML = "You are in building";
     }else{
       //display you are not in campus
       document.getElementById('btn').innerHTML = "You are not inside campus building";
