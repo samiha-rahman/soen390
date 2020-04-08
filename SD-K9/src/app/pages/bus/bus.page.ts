@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
-import * as schedule from '../../../local-configs/shuttlebus_schedule.json';
+//import * as schedule from '../../../local-configs/shuttlebus_schedule.json';
 
 @Component({
   selector: 'app-bus',
