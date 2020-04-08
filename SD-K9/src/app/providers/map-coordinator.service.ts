@@ -265,7 +265,7 @@ export class MapCoordinator {
     private _buildingPostalCode(building: string): string {
         switch (building) {
             case 'hall':
-                return "h3g1m8";
+                return "45.497304, -73.578326";
             case 'cc':
                 return "h4b1r6";
         }
