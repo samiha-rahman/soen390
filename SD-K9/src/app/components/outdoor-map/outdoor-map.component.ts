@@ -270,7 +270,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     self._directionFormStore.setSource(' '); //added this placeholder so that user don't have to click button twice because async
 
     this.reverseGeocode(this.markerLatLng, function(address){
-      console.log(address)
       self._directionFormStore.setSource(address);
     });
   }
