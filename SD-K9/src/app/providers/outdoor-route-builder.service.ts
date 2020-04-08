@@ -47,9 +47,12 @@ export class OutdoorRouteBuilder {
             waypts = [
                 {location: loyShuttle, stopover: true}
             ];
+        }else if(formValues.transport == "SHUTTLE"){
+            waypts = null;
+            transportation = "TRANSIT"; 
         }else{
             waypts = null;
-            transportation = formValues.transport; 
+            transportation = formValues.transport;
         }
 
         this.directionsService.route({
