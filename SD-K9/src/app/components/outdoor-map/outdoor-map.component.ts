@@ -95,7 +95,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         center: this.currentPos,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        clickableIcons: false //turns off clickable POI
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
