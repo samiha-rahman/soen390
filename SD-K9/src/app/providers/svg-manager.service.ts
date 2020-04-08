@@ -5,6 +5,7 @@ import { SVG } from '@svgdotjs/svg.js';
 import { Observable } from 'rxjs';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { forEach } from '@angular-devkit/schematics';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 @Injectable({
   providedIn: 'root'
@@ -135,7 +136,7 @@ export class SVGManager {
   }
 
   public getClosestVerticalTransportationId(
-    mode: string,
+    mode: VerticalTransport,
     direction: string,
     svgCoordinate: SVGCoordinate) {
     return this.getSVG(`${svgCoordinate.building}/${svgCoordinate.floor}`)
@@ -143,13 +144,13 @@ export class SVGManager {
         map(svgFile => {
           // return svgFile
           let vtransports;
-          if (mode === 'stairs') {
-            vtransports = SVG(svgFile).find(`g#${mode} circle.${direction}`);
+          if (mode === VerticalTransport.STAIRS) {
+            vtransports = SVG(svgFile).find(`g#${mode.toLowerCase()} circle.${direction}`);
           } else {
-            vtransports = SVG(svgFile).find(`g#${mode} circle`);
+            vtransports = SVG(svgFile).find(`g#${mode.toLowerCase()} circle`);
           }
           let vtransport;
-          if (mode === 'escalators') {
+          if (mode === VerticalTransport.ESCALATORS) {
             vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
           } else {
             let minOption = 0;

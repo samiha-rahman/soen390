@@ -7,6 +7,8 @@ import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 import { VerticalTransport } from 'src/app/models/vertical-transport.enum.model';
+import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
+import { RouteType } from 'src/app/models/route-type.enum.model';
 
 @Component({
   selector: 'top-directions-bar',
@@ -25,22 +27,47 @@ export class TopDirectionsBarComponent implements OnInit {
   transport: Transport;
   verticalTransport: VerticalTransport;
   directionForm: DirectionForm;
+  map_type: any;
 
   isIndoor: boolean;
   directionSent: boolean;
   directionFormSize: number;
   backButtonSize: number;
 
+  hasIndoors: boolean;
+  hasOutdoors: boolean;
+  routeStarted = false;
+
+  verticalTransportationButton = [
+    {
+      label: VerticalTransport.STAIRS,
+      color: "light",
+      checked: false
+    },
+    {
+      label: VerticalTransport.ESCALATORS,
+      color: "primary",
+      checked: true
+    },
+    {
+      label: VerticalTransport.ELEVATORS,
+      color: "light",
+      checked: false
+    }
+  ]
+
   get transportEnum() { return Transport; }
   get verticalTransportEnum() { return VerticalTransport; }
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
   private _unsubscribeMapModeStore: UnsubscribeCallback;
+  private _unsubscribeRouteStore: UnsubscribeCallback;
 
   constructor(
     private _navController: NavController,
     private _directionFormStore: DirectionFormStore,
-    private _mapModeStore: MapModeStore
+    private _mapModeStore: MapModeStore,
+    private _routeStore: RouteStore
   ) {
     this._unsubscribeDirectionFormStore = this._directionFormStore.subscribe(() => {
       this.start = this._directionFormStore.getDirectionFormState().sourceDestination.source;
@@ -58,12 +85,23 @@ export class TopDirectionsBarComponent implements OnInit {
         this._resetGridSettings();
       }
     });
+    this._unsubscribeRouteStore = this._routeStore.subscribe(() => {
+      const routes = this._routeStore.getRouteState().routes
+      for (let i = 0; i < routes.length; i++) {
+        if (routes[i].type == RouteType.INDOOR) {
+          this.hasIndoors = true;
+        }
+        if (routes[i].type == RouteType.OUTDOOR) {
+          this.hasOutdoors = true;
+        }
+      }
+    });
   }
 
   ngOnInit() {
     this.isIndoor = false;
     this.transport = Transport.TRANSIT;
-    this.verticalTransport = VerticalTransport.ESCALATOR;
+    this.verticalTransport = VerticalTransport.ESCALATORS;
     this._resetGridSettings();
   }
 
@@ -73,10 +111,22 @@ export class TopDirectionsBarComponent implements OnInit {
     this.sendDirection();
   }
 
-  verticalTransportSegmentChanged(event) {
-    this.verticalTransport = event.detail.value;
-    this._directionFormStore.setVerticalTransport(this.verticalTransport);
-    this.sendDirection();
+  verticalTransportSegmentChanged(button) {
+    for (let index in this.verticalTransportationButton) {
+      let item = this.verticalTransportationButton[index]
+
+      if (item.checked && item.label !== button) {
+        // clear button
+        this._toggleVerticalTransportValue(item)
+      } else if (!item.checked && item.label === button) {
+        this._toggleVerticalTransportValue(item)
+        this.verticalTransport = VerticalTransport[item.label]
+        console.log(this.verticalTransport)
+        this._directionFormStore.setVerticalTransport(this.verticalTransport);
+        this.sendDirection();
+      }
+    }
+    console.log(this.verticalTransportationButton)
   }
 
   sendDirection() {
@@ -98,6 +148,8 @@ export class TopDirectionsBarComponent implements OnInit {
   }
 
   private _resetGridSettings() {
+    this.hasIndoors = false;
+    this.hasOutdoors = false;
     this.directionSent = false;
     this.directionFormSize = 12;
     this.backButtonSize = 0;
@@ -106,6 +158,11 @@ export class TopDirectionsBarComponent implements OnInit {
   private _setGridSettings(searchInputSize: number) {
     this.directionFormSize = searchInputSize;
     this.backButtonSize = 12 - searchInputSize;
+  }
+
+  private _toggleVerticalTransportValue(item) {
+    item.color = item.color == "primary" ? "light" : "primary"
+    item.checked = !item.checked
   }
 
 }

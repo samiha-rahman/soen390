@@ -1,5 +1,5 @@
 export enum VerticalTransport {
-    ESCALATOR = 'ESCALATOR',
-    ELEVATOR = 'ELEVATOR',
+    ESCALATORS = 'ESCALATORS',
+    ELEVATORS = 'ELEVATORS',
     STAIRS = 'STAIRS'
 }

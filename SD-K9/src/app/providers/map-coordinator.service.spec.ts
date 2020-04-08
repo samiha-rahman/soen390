@@ -61,7 +61,7 @@ afterEach(() => {
     let directionForm: DirectionForm = {
       sourceDestination: {source: 'H-815', destination: 'CC-101'},
       transport: Transport.DRIVING,
-      verticalTransport: VerticalTransport.ELEVATOR
+      verticalTransport: VerticalTransport.ELEVATORS
     }
 
     let maps = await service.getOverallRoute(directionForm);
