@@ -20,6 +20,10 @@ describe('LocationSearchPage', () => {
     }
   }
 
+  function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [LocationSearchPage],
@@ -48,9 +52,12 @@ describe('LocationSearchPage', () => {
     expect(nav.navigateBack).toHaveBeenCalledWith("home");
   });
 
-  // it('#changeQuery should filter elements in `itemList`', () => {
-  //   component.changeQuery()
-  //   expect(component.itemList.length).toEqual(1);
-  // });
+  it('#changeQuery should filter elements in `itemList`', async() => {
+    await delay(10000);
+
+    component.query = 'H-811';
+    component.changeQuery()
+    expect(component.itemList.length).toEqual(1);
+  });
 
 });
