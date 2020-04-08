@@ -79,13 +79,13 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     }
   }
   setStartLocation(){
-    let fullname=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-    this._directionFormStore.setSource(fullname);
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setSource(fullName);
   }
 
   setDestionationLocation(){
-    let fullname=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-    this._directionFormStore.setDestination(fullname);
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setDestination(fullName);
   }
 
   goInside(buildingSlug: string) {
