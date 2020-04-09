@@ -1,0 +1,21 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program",
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/SD-K9/node_modules/protractor/bin/protractor",
+            "args": ["${workspaceFolder}/SD-K9/e2e/protractor.conf.js"], 
+            "outFiles": [
+                "${workspaceFolder}/SD-K9/dist/out-tsc/**/*.js"
+            ]
+        }
+    ]
+}

@@ -38,4 +38,28 @@ export class TopDirectionsBarComponent extends PageObject {
         }
     }
 
+    selectOutdoorTransportationMode(mode: string) {
+        switch (mode) {
+            case "bicycle":
+                this.clickButton(' ion-segment-button#bike-button');
+                break;
+        
+            case "drive":
+                this.clickButton(' ion-segment-button#drive-button');
+                break;
+
+            case "walk":
+                this.clickButton(' ion-segment-button#walk-button');
+                break;
+
+            case "transit":
+                this.clickButton(' ion-segment-button#transit-button');
+                break;     
+
+            default:
+                fail("could not find transportation mode");
+                break;
+        }
+    }
+
 }

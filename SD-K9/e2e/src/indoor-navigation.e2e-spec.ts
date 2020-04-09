@@ -7,7 +7,6 @@ import { LocationSearchPage } from './location-search.po';
 import { FloorplanComponent } from './floor-plan.po';
 import { MapBoxComponent } from './map-box.po';
 
-
 describe("indoor navigation", () => {
   const home = new HomePage();
   const topDirectionsBar = new TopDirectionsBarComponent();
@@ -157,7 +156,40 @@ describe("indoor navigation", () => {
       floorplan.verifyPathToEscalator();
       mapBox.clickNextMap();
       floorplan.verifyPathFromEscalator();
+    });
 
+  });
+
+  describe("verifies correct path when mix of indoor and outdoor route", () => {
+    it("displays shortest path from class room in hall building to the loyola building", () => {
+      // testing the happy path, will use escalators for vertical transport
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('CC-101');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+
+      // exiting the Hall building starting from Hall 8
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathEscalators();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathToHallEntrance();
+      mapBox.clickNextMap();
+
+      // verify that the next map leads to the outdoor portion of the route
+      browser.sleep(3000);
+      topDirectionsBar.selectOutdoorTransportationMode("drive");
+      expect(element(by.css('div#map')).isDisplayed()).toEqual(true);
+      mapBox.clickNextMap();
+      
+      // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathToLoyolaClass();
     });
 
   });

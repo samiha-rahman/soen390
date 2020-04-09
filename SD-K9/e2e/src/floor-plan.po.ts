@@ -24,6 +24,15 @@ export class FloorplanComponent extends PageObject {
     // the points that constitute the path drawn from the elevator to H-617
     private correctPathFromElevator = "";
 
+    // the points that constitute the path drawn connecting escalators on Hall 1 to Hall 2
+    private correctPathEscalatorToEscalator = "634,795 634,790 634,785 634,779 634,774 634,769 634,764 632,758 627,758 622,758 617,758 612,758 607,758 602,758 597,758 594,758 587,758 582,758 577,758 572,758 567,758 562,758 557,758 552,758 547,758 542,758 538,753 538,748 ";
+
+    // the points that constitute the path drawn from escalator on Hall 1 to Hall entrance
+    private correctPathHallFirstToEntrance = "338,582 338,577 338,572 338,567 338,562 338,557 338,551 338,546 338,541 338,536 338,531 338,526 338,521 338,516 338,511 343,506 348,506 353,506 358,506 363,506 368,506 373,506 378,506 384,506 389,506 394,506 399,506 404,506 409,506 414,506 419,506 424,506 429,506 434,506 439,506 444,506 449,506 454,506 459,506 464,506 469,506 474,506 479,506 484,506 489,506 494,506 499,506 504,506 509,506 514,501 514,496 514,491 514,486 514,481 514,476 514,470 519,464 524,464 529,464 534,464 539,464 544,464 549,464 554,464 559,464 565,464 570,464 575,464 580,464 585,464 590,464 595,464 599,461 599,456 599,451 ";
+    
+    // the points that constitute the path drawn from Loyola entrance to CC-101
+    private correctPathToLoyolaClass = "79,82 79,87 79,92 79,97 79,102 79,107 79,112 79,117 79,122 79,127 79,132 79,138 79,143 79,148 79,153 79,158 79,163 79,168 79,173 79,178 79,183 79,188 79,193 79,198 79,203 79,208 79,213 79,218 79,223 79,228 79,233 79,238 79,243 79,248 79,253 79,258 79,263 79,269 79,274 79,279 79,284 79,289 79,294 79,299 79,304 ";
+    
     constructor() {
         super('floor-plan');
     }
@@ -63,6 +72,18 @@ export class FloorplanComponent extends PageObject {
 
     async verifyPathFromElevator() {
         expect(await this._getPathDrawn() == this.correctPathFromElevator).toEqual(true);
+    }
+
+    async verifyPathEscalators() {
+        expect(await this._getPathDrawn() == this.correctPathEscalatorToEscalator).toEqual(true);
+    }
+
+    async verifyPathToHallEntrance() {
+        expect(await this._getPathDrawn() == this.correctPathHallFirstToEntrance).toEqual(true);
+    }
+
+    async verifyPathToLoyolaClass() { 
+        expect(await this._getPathDrawn() == this.correctPathToLoyolaClass).toEqual(true);
     }
 
 }
