@@ -115,7 +115,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     this.buildingInfoCardIsShown = false;
 
     //Makes clickable buildings more reliable
-    //this._buildingInfoStore.clearBuildingInfo();
+    this._buildingInfoStore.clearBuildingInfo();
   }
 
   ngOnDestroy() {
