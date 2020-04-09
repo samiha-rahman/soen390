@@ -83,7 +83,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     this._directionFormStore.setSource(fullName);
   }
 
-  setDestionationLocation(){
+  setDestinationLocation(){
     let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
     this._directionFormStore.setDestination(fullName);
   }
