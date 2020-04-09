@@ -8,37 +8,54 @@
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
-
-<ion-grid>
-  <ion-row>
-    <ion-col>
-      <h1> SGW </h1>
-    </ion-col>
-  </ion-row>
-  <ion-row>
-    <ion-col>
-      Mon-Thur
-    </ion-col>
-    <ion-col>
-       Friday
-    </ion-col>
-  </ion-row>
-
-  <ion-row>
-    <ion-col>
-      <ion-list>
-        <ion-item *ngFor="let item of scheduleData">
-          {{item.time}}
-        </ion-item>
-      </ion-list>
-    </ion-col>
-
-    <ion-col>
-      <ion-list>
-        <ion-item>
-          timer 2
-        </ion-item>
-      </ion-list>
-    </ion-col>
-  </ion-row>
-</ion-grid>
+   
+<h1 class="ion-padding">SGW</h1>
+<ion-row class="ion-padding">
+  <ion-col >Mon-Thur</ion-col>
+  <ion-col >Friday</ion-col>
+</ion-row> 
+<ion-content [scrollEvents]="true">
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of scheduleDataSGW">
+            {{item.sgwTimeA}}          
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of scheduleDataSGW">
+            {{item.sgwTimeB}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+<h1 class="ion-padding">Loyola</h1>
+<ion-row class="ion-padding">
+  <ion-col >Mon-Thur</ion-col>
+  <ion-col >Friday</ion-col>
+</ion-row> 
+<ion-content overflow-scroll='true'>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of scheduleDataLoy">
+            {{item.loyTimeA}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+      <ion-col>
+        <ion-list>
+          <ion-item *ngFor="let item of scheduleDataLoy">
+            {{item.loyTimeB}}
+          </ion-item>
+        </ion-list>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
