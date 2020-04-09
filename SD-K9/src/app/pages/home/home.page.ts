@@ -9,6 +9,7 @@ import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -17,6 +18,7 @@ import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.serv
 export class HomePage implements OnInit {
   maps: MapItem[];
   transportMode: string;
+
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
   private _unsubscribeMapModeStore: UnsubscribeCallback;
@@ -64,5 +66,4 @@ export class HomePage implements OnInit {
   loadGoogleMaps() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
-
 }
