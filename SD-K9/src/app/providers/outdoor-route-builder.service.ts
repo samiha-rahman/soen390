@@ -31,7 +31,7 @@ export class OutdoorRouteBuilder {
     }
 
     buildRoute(formValues: DirectionForm) {
-        // TODO: Fix the overlaying directions (if i change travelMode it keeps the old one)
+        //TODO: Refactor the code
         let loyShuttle = "45.458424,-73.638369";
         let hallShuttle = "45.497163,-73.578535";
         let waypts: any[] = [];
@@ -54,7 +54,7 @@ export class OutdoorRouteBuilder {
             waypts = null;
             transportation = formValues.transport;
         }
-
+        // TODO: Fix the overlaying directions (if i change travelMode it keeps the old one)
         this.directionsService.route({
             origin: formValues.sourceDestination.source,
             destination: formValues.sourceDestination.destination,

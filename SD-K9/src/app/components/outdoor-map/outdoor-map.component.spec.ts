@@ -77,4 +77,23 @@ describe('OutdoorMapComponent', () => {
 
   }));
 
+  it('#reverseGeocode should return correct address from coordinates', async() => {
+    await delay(10000);
+
+    let coords = { lat : 45.497061 , lng : -73.578802 }; //Concordia University's coordinates
+    let address = '1455 Boulevard de Maisonneuve O, Montréal, QC H3G 1M8, Canada';
+    component.reverseGeocode(coords, function(test){
+      expect(address).toEqual(test);
+    });
+  });
+
+  it('#clickToMark should place marker and open infoWindow', async() => {
+    await delay(10000);
+
+    let coords = { lat : 45.497061 , lng : -73.578802 };
+    component.clickToMark(coords);
+    expect(component.infowindow).toBeDefined();
+    expect(component.clickMarker).toBeDefined();
+  });
+
 });

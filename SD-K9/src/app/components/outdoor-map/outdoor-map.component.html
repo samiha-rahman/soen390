@@ -12,6 +12,11 @@
 
   <div #map id="map"></div>
 
+  <div id="infowindow-content" style="display:none">
+    <ion-button (click)='setStartingPoint()' size='small'>Set Starting Point</ion-button>
+    <ion-button (click)='setDestination()' size='small'>Set Destination</ion-button>
+  </div>
+
   <ion-fab *ngIf="mapInitialised" class="locate-me-btn-wrapper">
     <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png"
         width="20px" /></ion-fab-button>
