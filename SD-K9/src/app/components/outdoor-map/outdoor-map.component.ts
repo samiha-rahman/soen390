@@ -324,4 +324,20 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       document.getElementById('btn').innerHTML = "You are not inside campus building";
     };
   }
+
+  //for testing
+  getCampus():string {
+    let coordinate = new google.maps.LatLng(this.currentPos.lat,this.currentPos.lng);
+    let isInside = false;
+    let building = "";
+    let polygonArr: any[] = [];
+    polygonArr = this.buildingPolygons;
+
+    for(var i = 0; i < polygonArr.length; i++){
+      isInside = google.maps.geometry.poly.containsLocation(coordinate, polygonArr[i]);
+      if(isInside){
+        return building = polygonArr[i].currentBuilding;
+      }
+    }
+  }
 }
