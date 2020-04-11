@@ -10,6 +10,7 @@ import { BuildingInfoStore } from '../../providers/state-stores/building-info-st
 import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
 import { environment } from '../../../environments/environment';
+import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
 
 declare var google;
 
@@ -24,6 +25,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   map: any;
   geocoder: any;
   //cannot set type to google.maps.marker because google maps is not loaded yet
+  infowindow: any;
+  clickMarker: any;
+  markerLatLng: any;
   buildingMarkers: any[] = [];
   userMarker: any;
   campusConfig: any = campusData["default"];
@@ -39,7 +43,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     private _routeStore: RouteStore,
     private _outdoorRouteBuilder: OutdoorRouteBuilder,
     private _buildingInfoStore: BuildingInfoStore,
-    private _changeDetectorRef: ChangeDetectorRef
+    private _changeDetectorRef: ChangeDetectorRef,
+    private _directionFormStore: DirectionFormStore
   ) {
     // subscribe to mapstore
     this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
@@ -90,12 +95,12 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
         center: this.currentPos,
         zoom: 15,
         mapTypeId: google.maps.MapTypeId.ROADMAP,
-        disableDefaultUI: true
+        disableDefaultUI: true,
+        clickableIcons: false //turns off clickable POI
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      //we will need this to convert adresses to coordinates
       this.geocoder = new google.maps.Geocoder();
 
       //update or load from google map state
@@ -126,6 +131,13 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       let _self = this;
       google.maps.event.addListener(this.map, 'zoom_changed', function () {
         _self._hideShowMarkers(_self);
+      });
+
+      //click on the map to add a Marker that can set the destination for routing
+      let self = this;
+      google.maps.event.addListener(this.map, 'click', function(event) {
+        self.clickToMark(event.latLng);
+        self.markerLatLng = event.latLng;
       });
 
       //switch flag to load map nav components
@@ -219,6 +231,57 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     for (let i = 0; i < self.buildingMarkers.length; i++) {
       self.buildingMarkers[i].setVisible(zoom >= 17);
     }
+  }
+
+  clickToMark(position){
+    let infowindowContent;
+
+    if (typeof this.infowindow == 'undefined') {
+      this.infowindow = new google.maps.InfoWindow();
+      infowindowContent = document.getElementById('infowindow-content');
+      infowindowContent.style.display = 'block';
+      this.infowindow.setContent(infowindowContent);
+    }
+
+    if (typeof this.clickMarker == 'undefined') {
+      this.clickMarker = new google.maps.Marker({
+        position: position,
+        map: this.map
+      });
+      this.map.panTo(position);
+    }
+    else {
+      this.clickMarker.setPosition(position); 
+    }
+    this.infowindow.open(this.map, this.clickMarker);
+  }
+
+  reverseGeocode(latlng, callback) {
+    this.geocoder.geocode({'location': latlng}, function(results, status) {
+      if(status === "OK"){
+        callback(results[0].formatted_address); //using callback to return address value because async
+      } else{
+        console.error( 'Geocode was not successful for the following reason: ' + status );
+      }
+    });
+  }
+
+  setStartingPoint() {
+    let self = this;
+    self._directionFormStore.setSource(' '); //added this placeholder so that user don't have to click button twice because async
+
+    this.reverseGeocode(this.markerLatLng, function(address){
+      self._directionFormStore.setSource(address);
+    });
+  }
+
+  setDestination() {
+    let self = this;
+    self._directionFormStore.setDestination(' '); //added this placeholder so that user don't have to click button twice because async
+
+    this.reverseGeocode(this.markerLatLng, function(address){
+      self._directionFormStore.setDestination(address);
+    });
   }
 
   ngOnDestroy() {
