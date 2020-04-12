@@ -11,8 +11,30 @@
     height: auto;
   }
 
+  .inverted-segment {
+    background-color: white;
+    color: #A31b1b;
+    border: 2px solid #a31b1b;
+  }
+
+  .inverted-segment.segment-button-checked {
+    background-color: #A31b1b;
+    color: white;
+  }
+
+  .building-info-tab {
+    padding-top: 10px;
+    min-height: 150px;
+    max-height: 300px;
+    overflow: scroll;
+    background-color: #666;
+    --ion-color-primary: white;
+    color: white;
+    padding-left: 10px;
+  }
+
   .go-inside-btn {
-    margin-top: 30px;
+    margin-top: 10px;
     margin-left: -2px;
   }
 }
