@@ -101,8 +101,15 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
 
         // Handle double tap
         this.hammer.on('doubletap', (ev) => {
-          if (instance.getZoom() < 1.5) {
-            instance.zoom(2);
+          let bounds = options.svgElement.getBoundingClientRect();
+          let x = ev.center.x / options.svgElement.width.baseVal.value * bbox.width;
+          let dx = (options.svgElement.width.baseVal.value/2 - ev.center.x) / options.svgElement.width.baseVal.value * bbox.width;
+          let y = (ev.center.y - bounds.top) / options.svgElement.height.baseVal.value * bbox.height;
+          let dy = (options.svgElement.height.baseVal.value/2 - (ev.center.y - bounds.top)) / options.svgElement.height.baseVal.value * bbox.height;
+
+          if (instance.getZoom() < 2) {
+            instance.zoomAtPoint(3, {x: x, y: y});
+            instance.panBy({x: dx, y: dy});
           } else {
             instance.zoom(1);
           }
@@ -117,7 +124,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
           }
 
           // Pan only the difference
-          instance.panBy({x: (ev.deltaX - pannedX) * instance.getZoom(), y: (ev.deltaY - pannedY) * instance.getZoom()});
+          instance.panBy({x: (ev.deltaX - pannedX) / options.svgElement.width.baseVal.value * bbox.width, y: (ev.deltaY - pannedY) / options.svgElement.height.baseVal.value * bbox.height});
           pannedX = ev.deltaX;
           pannedY = ev.deltaY;
         });
@@ -125,12 +132,15 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
         // Handle pinch
         this.hammer.on('pinchstart pinchmove', (ev) => {
           // On pinch start remember initial zoom
+          let bounds = options.svgElement.getBoundingClientRect();
+          let x = ev.center.x / options.svgElement.width.baseVal.value * bbox.width;
+          let y = (ev.center.y - bounds.top) / options.svgElement.height.baseVal.value * bbox.height;
           if (ev.type === 'pinchstart') {
             initialScale = instance.getZoom();
-            instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y});
+            instance.zoomAtPoint(initialScale * ev.scale, {x: x, y: y});
           }
 
-          instance.zoomAtPoint(initialScale * ev.scale, {x: ev.center.x, y: ev.center.y});
+          instance.zoomAtPoint(initialScale * ev.scale, {x: x, y: y});
         });
 
         // Prevent moving the page on some devices when panning over SVG
@@ -153,7 +163,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
       fit: false,
       zoomScaleSensitivity: 0.2,
       minZoom: 1,
-      maxZoom: 2
+      maxZoom: 3
     });
   }
 
