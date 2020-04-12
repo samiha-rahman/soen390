@@ -46,6 +46,15 @@ export class FloorplanComponent extends PageObject {
         return pathDrawn;
     }
 
+    async _getPathDrawnDriver() {
+        var pathDrawn: string;
+        await (await browser.driver.findElement(by.css('polyline.path'))).getAttribute('points').then(function (value) {
+            pathDrawn = value;
+        });
+
+        return pathDrawn;
+    }
+
     async verifyPathSameFloor() {
         expect(await this._getPathDrawn() == this.correctPathSameFloor).toEqual(true);
     }
@@ -83,7 +92,7 @@ export class FloorplanComponent extends PageObject {
     }
 
     async verifyPathToLoyolaClass() { 
-        expect(await this._getPathDrawn() == this.correctPathToLoyolaClass).toEqual(true);
+        expect(await this._getPathDrawnDriver() == this.correctPathToLoyolaClass).toEqual(true);
     }
 
 }

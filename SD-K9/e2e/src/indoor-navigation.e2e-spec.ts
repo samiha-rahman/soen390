@@ -159,12 +159,39 @@ describe("indoor navigation", () => {
       mapBox.clickNextMap();
 
       // outdoor portion of the route will be displayed
-      browser.sleep(5000);
-      mapBox.clickNextMap();
+      browser.sleep(3000);
+      browser.driver.findElement(by.css("app-map-box #nextmap-button")).click();
       
       // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
-      floorplan.waitUntilVisible();
+      browser.sleep(3000);
       floorplan.verifyPathToLoyolaClass();
+
+    });
+
+    it("displays map for indoor starting point and outdoor destination", () => {
+      // testing the happy path, will use escalators for vertical transport
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('1410 Peel St');
+      locationSearch.searchAnyway();
+      floorplan.waitUntilVisible();
+
+      // exiting the Hall building starting from Hall 8
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathEscalators();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathToHallEntrance();
+      mapBox.clickNextMap();
+
+      // verify outdoor map is displayed
+      browser.sleep(3000);
+      const map = browser.driver.findElement(by.id('map'));
+      expect(map.isDisplayed()).toEqual(true);
 
     });
 
