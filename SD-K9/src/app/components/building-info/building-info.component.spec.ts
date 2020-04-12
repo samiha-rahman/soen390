@@ -36,4 +36,12 @@ describe('BuildingInfoComponent', () => {
     expect(component.buildingInfoCardIsShown).not.toBeTruthy();
   });
 
+  it('#toggleBuildingInfoCardTabs should toggle between info cards tabs', () => {
+    expect(component.showDepartments).toBeTruthy();
+    component.toggleBuildingInfoCardTabs({detail:{value:"services"}});
+    expect(component.showDepartments).not.toBeTruthy();
+    component.toggleBuildingInfoCardTabs({detail:{value:"departments"}});
+    expect(component.showDepartments).toBeTruthy();
+  });
+
 });
