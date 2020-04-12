@@ -39,6 +39,41 @@
         </ion-card-content>
       </ion-card>
 
+      <!-- NEAR ME -->
+
+      <ion-item>
+        <ion-label>Near me</ion-label>
+        <ion-input></ion-input>
+      </ion-item>
+      <ion-card>
+        <ion-card-content style="text-align:center;">
+          <div class="near-me-icon-container">
+            <ion-fab-button (click)="showNearMe('restaurant')" color="secondary" class="near-me-icon">
+              <img style="width: 28px" src="../../../assets/images/utensils-alt-regular.svg" alt="restaurants near me">
+            </ion-fab-button>
+            <div class="near-me-label">Restaurants</div>
+          </div>
+          <div class="near-me-icon-container">
+            <ion-fab-button (click)="showNearMe('bank')" color="secondary" class="near-me-icon">
+              <img style="width: 28px" src="../../../assets/images/piggy-bank-light.svg" alt="banks near me">
+            </ion-fab-button>
+            <div class="near-me-label">Banks</div>
+          </div>
+          <div class="near-me-icon-container">
+            <ion-fab-button (click)="showNearMe('bar')" color="secondary" class="near-me-icon">
+              <img style="width: 28px" src="../../../assets/images/cocktail-light.svg" alt="bars near me">
+            </ion-fab-button>
+            <div class="near-me-label">Bars</div>
+          </div>
+          <div class="near-me-icon-container">
+            <ion-fab-button (click)="showNearMe('park')" color="secondary" class="near-me-icon">
+              <img style="width: 28px" src="../../../assets/images/tree-alt-light.svg" alt="parks near me">
+            </ion-fab-button>
+            <div class="near-me-label">Parks</div>
+          </div>
+        </ion-card-content>
+      </ion-card>
+
       <!-- RECENT EXAMPLE -->
 
       <ion-item>
