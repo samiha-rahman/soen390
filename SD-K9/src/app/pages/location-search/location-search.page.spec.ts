@@ -38,7 +38,6 @@ describe('LocationSearchPage', () => {
     fixture = TestBed.createComponent(LocationSearchPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
   }));
 
   it('should create', () => {
