@@ -5,7 +5,7 @@
     <img tappable src="../../../assets/images/close-icon.png" alt="close icon" class="close-card" (click)="hideBuildingInfoCard($event)" />
   </ion-card-header>
   <ion-card-content>
-    <ion-segment (ionChange)="toggleBuildingInfoCard($event)" value="departments">
+    <ion-segment (ionChange)="toggleBuildingInfoCardTabs($event)" value="departments">
       <ion-segment-button value="departments" class="inverted-segment">
         <ion-label>Departments</ion-label>
       </ion-segment-button>
