@@ -32,17 +32,20 @@ export class OutdoorRouteBuilder {
 
     buildRoute(formValues: DirectionForm) {
         //TODO: Refactor the code
+        //Shuttles coordinates
         let loyShuttle = "45.458424,-73.638369";
         let hallShuttle = "45.497163,-73.578535";
         let waypts: any[] = [];
         let transportation: any;
+        //From hall to loyola
         if(formValues.transport == "SHUTTLE" && formValues.sourceDestination.source == "45.497304, -73.578326"){
-            transportation = "DRIVING";
+            transportation = "DRIVING"; //When shuttle is chosen, display DRIVING route
             waypts = [
                 {location: hallShuttle, stopover: true},
                 {location: loyShuttle, stopover: true}
             ];
-        }else if (formValues.transport == "SHUTTLE" && formValues.sourceDestination.source == "h4b1r6"){
+        }//From loyola to hall
+        else if (formValues.transport == "SHUTTLE" && formValues.sourceDestination.source == "h4b1r6"){
             transportation = "DRIVING";
             waypts = [
                 {location: loyShuttle, stopover: true}

@@ -7,6 +7,10 @@ declare var google;
 describe('OutdoorRouteBuilder', () => {
   let service: OutdoorRouteBuilder;
 
+  function delay(ms: number) {
+    return new Promise( resolve => setTimeout(resolve, ms) );
+  }
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       providers: [
@@ -24,4 +28,6 @@ describe('OutdoorRouteBuilder', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+
 });

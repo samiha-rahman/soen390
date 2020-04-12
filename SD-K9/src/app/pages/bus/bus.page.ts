@@ -20,12 +20,15 @@ export class BusPage implements OnInit {
   read_json_sgw(){
     fetch('./assets/sgwBusSchedule.json').then(res => res.json()).then(json =>{
       this.scheduleDataSGW = json;
+      console.log(this.scheduleDataSGW.length);
     });
+    
   }
 
   read_json_loyola(){
     fetch('./assets/loyolaBusSchedule.json').then(res => res.json()).then(json =>{
       this.scheduleDataLoy = json;
+      console.log(this.scheduleDataLoy.length);
     });
   }
 
