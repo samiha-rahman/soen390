@@ -1,11 +1,11 @@
 import { browser, element, by } from "protractor"; 
-import { PageObject } from './app.po';
-import { HomePage } from './home.po';
-import { TopDirectionsBarComponent } from './top-directions-bar.po';
-import { OutdoorMapComponent } from './outdoor-map.po';
-import { LocationSearchPage } from './location-search.po';
-import { FloorplanComponent } from './floor-plan.po';
-import { MapBoxComponent } from './map-box.po';
+import { PageObject } from './page-objects/app.po';
+import { HomePage } from './page-objects/home.po';
+import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
+import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
+import { LocationSearchPage } from './page-objects/location-search.po';
+import { FloorplanComponent } from './page-objects/floor-plan.po';
+import { MapBoxComponent } from './page-objects/map-box.po';
 
 describe("indoor navigation", () => {
   const home = new HomePage();
@@ -25,29 +25,6 @@ describe("indoor navigation", () => {
 
   beforeEach(() => {
     home.load();
-  });
-
-  describe("after launching the application", () => {
-    it("displays the home page", () => {
-      expect(home.rootElement().isPresent()).toEqual(true);
-    });
-
-    it("displays the outdoor map", () => {
-      expect(outdoorMap.rootElement().isDisplayed()).toEqual(true);
-    })
-
-    it("displays top directions bar", () => {
-      expect(topDirectionsBar.rootElement().isPresent()).toEqual(true);
-    });
-
-    it("the page contains an area prompting user to enter starting point", () => {
-      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isDisplayed()).toEqual(true);
-    });
-
-    it("the page displays an area prompting user to enter destination", () => {
-      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toEqual(true);
-    });
-
   });
   
   describe("accepts input from the user and displays indoor map for start and destination on the same floor", () => {

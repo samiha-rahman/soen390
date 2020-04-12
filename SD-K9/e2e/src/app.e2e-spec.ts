@@ -1,0 +1,52 @@
+import { browser, element, by } from "protractor"; 
+import { PageObject } from './page-objects/app.po';
+import { HomePage } from './page-objects/home.po';
+import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
+import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
+import { LocationSearchPage } from './page-objects/location-search.po';
+import { FloorplanComponent } from './page-objects/floor-plan.po';
+import { MapBoxComponent } from './page-objects/map-box.po';
+
+describe("general application", () => {
+  const home = new HomePage();
+  const topDirectionsBar = new TopDirectionsBarComponent();
+  const outdoorMap = new OutdoorMapComponent();
+  const locationSearch = new LocationSearchPage();
+  const floorplan = new FloorplanComponent();
+  const mapBox = new MapBoxComponent();
+
+  beforeAll(() => {
+    home.load();
+    // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
+    topDirectionsBar.enterStart();
+    locationSearch.goBack();
+    browser.sleep(5000);
+  });
+
+  beforeEach(() => {
+    home.load();
+  });
+
+  describe("after launching the application", () => {
+    it("displays the home page", () => {
+      expect(home.rootElement().isPresent()).toEqual(true);
+    });
+
+    it("displays the outdoor map", () => {
+      expect(outdoorMap.rootElement().isDisplayed()).toEqual(true);
+    })
+
+    it("displays top directions bar", () => {
+      expect(topDirectionsBar.rootElement().isPresent()).toEqual(true);
+    });
+
+    it("the page contains an area prompting user to enter starting point", () => {
+      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isDisplayed()).toEqual(true);
+    });
+
+    it("the page displays an area prompting user to enter destination", () => {
+      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toEqual(true);
+    });
+
+  });
+});
