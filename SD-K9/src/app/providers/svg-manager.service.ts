@@ -75,7 +75,7 @@ export class SVGManager {
    */
   public drawSVGPath(coordinates: SVGCoordinate[], isFocused: boolean) {
     const draw = SVG()
-      .addTo('#floorplan');
+      .addTo('#floorplan .svg-pan-zoom_viewport');
     let path = '';
 
     const color = isFocused ? '#3880ff' : '#85b1ff';

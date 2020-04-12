@@ -51,25 +51,28 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
       /* find the svg container, clear it and replace with new floorplan */
       this._draw = SVG('#floorplan');
       this._draw.svg(floorplan);
-      this._setPanZoom();
 
       // get viewbox
-      const bbox = this._draw.node.firstElementChild.viewBox.baseVal
+      const bbox = this._draw.node.firstElementChild.viewBox.baseVal;
       const svg = document.getElementsByTagName('svg')[0];
+      this._setPanZoom();
       svg.setAttribute('viewBox', `0 0 ${bbox.width} ${bbox.height}`);
     });
+
   }
 
   private _setPanZoom() {
     let beforePan;
+    const bbox = this._draw.node.firstElementChild.viewBox.baseVal;
+
     beforePan = function(oldPan, newPan) {
       const stopHorizontal = false
           , stopVertical = false
           // Computed variables
           , sizes = this.getSizes()
-          , leftLimit = - (sizes.viewBox.width * sizes.realZoom) + sizes.viewBox.width
+          , leftLimit = - (bbox.width * sizes.realZoom) + bbox.width
           , rightLimit = 0
-          , topLimit = - (sizes.viewBox.height * sizes.realZoom) + sizes.viewBox.height
+          , topLimit = - (bbox.height * sizes.realZoom) + bbox.height
           , bottomLimit = 0;
 
       const x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
@@ -114,7 +117,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
           }
 
           // Pan only the difference
-          instance.panBy({x: (ev.deltaX - pannedX) / instance.getZoom(), y: (ev.deltaY - pannedY) / instance.getZoom()});
+          instance.panBy({x: (ev.deltaX - pannedX) * instance.getZoom(), y: (ev.deltaY - pannedY) * instance.getZoom()});
           pannedX = ev.deltaX;
           pannedY = ev.deltaY;
         });
