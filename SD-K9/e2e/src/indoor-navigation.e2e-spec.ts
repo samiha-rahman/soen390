@@ -181,15 +181,14 @@ describe("indoor navigation", () => {
       floorplan.verifyPathToHallEntrance();
       mapBox.clickNextMap();
 
-      // verify that the next map leads to the outdoor portion of the route
-      browser.sleep(3000);
-      topDirectionsBar.selectOutdoorTransportationMode("drive");
-      expect(element(by.css('div#map')).isDisplayed()).toEqual(true);
+      // outdoor portion of the route will be displayed
+      browser.sleep(5000);
       mapBox.clickNextMap();
       
       // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
       floorplan.waitUntilVisible();
       floorplan.verifyPathToLoyolaClass();
+
     });
 
   });
