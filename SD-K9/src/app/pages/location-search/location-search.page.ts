@@ -89,6 +89,8 @@ export class LocationSearchPage implements OnInit {
     this._navController.navigateBack("home");
   }
 
+  //TODO: for future implementation, move this function to OutDoor-Map Component
+  //      because manipulation of the map should be done there.
   moveMap(query: string){
     this.currentMapState = this._googleStore.getGoogleMapState();
     let map = this.currentMapState.map;
