@@ -1,4 +1,4 @@
-import { StateAction } from '../interfaces/state-action';
+import { StateAction } from '../interfaces/states/state-action';
 
 export interface SVGCoordinate {
     id: string;

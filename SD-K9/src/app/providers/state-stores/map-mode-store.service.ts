@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
 import { StateStore } from '../../helpers/state-store';
-import { MapModeState } from '../../interfaces/map-mode-state';
+import { MapModeState } from '../../interfaces/states/map-mode-state';
 import { ListenerCallback } from '../../interfaces/listener-callback';
 import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
 import { OutdoorMapComponent } from 'src/app/components/outdoor-map/outdoor-map.component';

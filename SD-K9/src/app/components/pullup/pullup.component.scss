@@ -1,0 +1,17 @@
+#ionDragFooter {
+    --opacity: 0;
+}
+
+#pullup-bar {
+    z-index: 99;
+    height: 10px;
+    width: 70vw;
+    --opacity: 1;
+    --background: grey;
+    --color: grey;
+    --box-shadow: 2px 2px rgba(128, 128, 128, 0.4);
+}
+
+ion-title {
+    text-align: center;
+}

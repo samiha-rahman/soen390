@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
 import { StateStore } from '../../helpers/state-store';
-import { BuildingInfoState } from '../../interfaces/building-info-state';
+import { BuildingInfoState } from '../../interfaces/states/building-info-state';
 import { ListenerCallback } from '../../interfaces/listener-callback';
 import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
 
