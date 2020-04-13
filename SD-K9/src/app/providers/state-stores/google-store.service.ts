@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
 import { StateStore } from '../../helpers/state-store';
 import { ListenerCallback } from 'src/app/interfaces/listener-callback';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
-import { GoogleMapState } from '../../interfaces/google-map-state';
+import { GoogleMapState } from '../../interfaces/states/google-map-state';
 import { Route } from 'src/app/interfaces/route';
 
 @Injectable({

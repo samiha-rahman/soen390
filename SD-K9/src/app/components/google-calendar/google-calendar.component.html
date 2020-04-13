@@ -1,0 +1,32 @@
+<p>Integrate with Google Calendar</p>
+<div *ngIf="googleCalendar.user$ | async as user; else login">
+  <ion-button (click)="signOut()" color="medium">Remove Google Account</ion-button>
+  
+  <div>
+    <ion-button (click)="getCalendarList()">Sync Calendars</ion-button>
+    <ion-list>
+      <ion-item *ngFor="let calendar of calendarList">
+        <ion-label>{{calendar.id}}</ion-label>
+        <ion-toggle slot="start" name="calendar.id" checked="calendar.checked" color="primary" [(ngModel)]="calendar.checked" (ionChange)="toggleChange($event)"></ion-toggle>
+      </ion-item>
+    </ion-list>
+    
+    <ion-button *ngIf="calendarList.length > 0" (click)="getEvents()">Get Events</ion-button>
+    <!-- TODO: replace with ion-toast or redirect to routes queued, once routes queued is implemented -->
+    <div *ngFor="let item of calendarItems">
+      <ion-card>
+        <h3>{{ item.summary }} - {{ item.location }}</h3>
+        <p><em>Created {{ item.created }}</em></p>
+        <p>{{ item.description }}</p>
+      </ion-card>
+    </div>
+  </div>
+
+</div>
+
+
+<ng-template #login>
+  <ion-button (click)="sync()">Activate</ion-button>
+</ng-template>
+
+<pre #content id="content" style="white-space: pre-wrap;"></pre>
