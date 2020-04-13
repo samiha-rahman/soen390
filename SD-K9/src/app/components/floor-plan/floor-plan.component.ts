@@ -3,11 +3,13 @@ import {
   OnInit,
   Input,
   OnDestroy
-} from "@angular/core";
-import { SVG } from "@svgdotjs/svg.js";
+} from '@angular/core';
+import { SVG } from '@svgdotjs/svg.js';
 
 import { SVGManager } from '../../providers/svg-manager.service';
+import * as svgPanZoom from 'svg-pan-zoom';
 import { Map } from 'src/app/interfaces/map';
+import 'hammerjs';
 import { FloorPlanStore } from '../../providers/state-stores/floor-plan-store.service';
 import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { Route } from 'src/app/interfaces/route';
@@ -15,9 +17,9 @@ import { IndoorRouteCoordinator } from 'src/app/providers/indoor-route-coordinat
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 
 @Component({
-  selector: "floor-plan",
-  templateUrl: "./floor-plan.component.html",
-  styleUrls: ["./floor-plan.component.scss"]
+  selector: 'floor-plan',
+  templateUrl: './floor-plan.component.html',
+  styleUrls: ['./floor-plan.component.scss']
 })
 export class FloorPlanComponent implements OnInit, OnDestroy, Map {
   @Input() data: any;
@@ -25,6 +27,7 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
   floor: number;
 
   private _draw;
+  private _panZoomInstance;
   private _unsubscribe: UnsubscribeCallback;
 
   constructor(
@@ -46,13 +49,121 @@ export class FloorPlanComponent implements OnInit, OnDestroy, Map {
   private _drawFloorplan(building: string, floor: number) {
     this._svgManager.getSVG(`${building}/${floor}`).subscribe(floorplan => {
       /* find the svg container, clear it and replace with new floorplan */
-      this._draw = SVG("#floorplan");
-      // this._draw.clear();
+      this._draw = SVG('#floorplan');
       this._draw.svg(floorplan);
+
       // get viewbox
-      const bbox = this._draw.node.firstElementChild.viewBox.baseVal
+      const bbox = this._draw.node.firstElementChild.viewBox.baseVal;
       const svg = document.getElementsByTagName('svg')[0];
+      this._setPanZoom();
       svg.setAttribute('viewBox', `0 0 ${bbox.width} ${bbox.height}`);
+    });
+
+  }
+
+  private _setPanZoom() {
+    let beforePan;
+    const bbox = this._draw.node.firstElementChild.viewBox.baseVal;
+
+    beforePan = function(oldPan, newPan) {
+      const stopHorizontal = false
+          , stopVertical = false
+          // Computed variables
+          , sizes = this.getSizes()
+          , leftLimit = - (bbox.width * sizes.realZoom) + bbox.width
+          , rightLimit = 0
+          , topLimit = - (bbox.height * sizes.realZoom) + bbox.height
+          , bottomLimit = 0;
+
+      const x = Math.max(leftLimit, Math.min(rightLimit, newPan.x));
+      const y = Math.max(topLimit, Math.min(bottomLimit, newPan.y));
+
+      return {x, y};
+    };
+
+    let eventsHandler;
+    eventsHandler = {
+      haltEventListeners: ['touchstart', 'touchend', 'touchmove', 'touchleave', 'touchcancel']
+      , init: function(options) {
+        let instance = options.instance
+            , initialScale = 1
+            , pannedX = 0
+            , pannedY = 0;
+
+        // Init Hammer
+        // Listen only for pointer and touch events
+        this.hammer = new Hammer(options.svgElement, {
+          inputClass: Hammer.PointerEventInput
+        });
+
+        // Enable pinch
+        this.hammer.get('pinch').set({enable: true});
+
+        // Handle double tap
+        this.hammer.on('doubletap', (ev) => {
+          let bounds = options.svgElement.getBoundingClientRect();
+          let x = ev.center.x / options.svgElement.width.baseVal.value * bbox.width;
+          let dx = (options.svgElement.width.baseVal.value/2 - ev.center.x) / options.svgElement.width.baseVal.value * bbox.width;
+          let y = (ev.center.y - bounds.top) / options.svgElement.height.baseVal.value * bbox.height;
+          let dy = (options.svgElement.height.baseVal.value/2 - (ev.center.y - bounds.top)) / options.svgElement.height.baseVal.value * bbox.height;
+
+          if (instance.getZoom() < 2) {
+            instance.zoomAtPoint(3, {x: x, y: y});
+            instance.panBy({x: dx, y: dy});
+          } else {
+            instance.zoom(1);
+          }
+        });
+
+        // Handle pan
+        this.hammer.on('panstart panmove', (ev) => {
+          // On pan start reset panned variables
+          if (ev.type === 'panstart') {
+            pannedX = 0;
+            pannedY = 0;
+          }
+
+          // Pan only the difference
+          instance.panBy({x: (ev.deltaX - pannedX) / options.svgElement.width.baseVal.value * bbox.width, y: (ev.deltaY - pannedY) / options.svgElement.height.baseVal.value * bbox.height});
+          pannedX = ev.deltaX;
+          pannedY = ev.deltaY;
+        });
+
+        // Handle pinch
+        this.hammer.on('pinchstart pinchmove', (ev) => {
+          // On pinch start remember initial zoom
+          let bounds = options.svgElement.getBoundingClientRect();
+          let x = ev.center.x / options.svgElement.width.baseVal.value * bbox.width;
+          let y = (ev.center.y - bounds.top) / options.svgElement.height.baseVal.value * bbox.height;
+          if (ev.type === 'pinchstart') {
+            initialScale = instance.getZoom();
+            instance.zoomAtPoint(initialScale * ev.scale, {x: x, y: y});
+          }
+
+          instance.zoomAtPoint(initialScale * ev.scale, {x: x, y: y});
+        });
+
+        // Prevent moving the page on some devices when panning over SVG
+        options.svgElement.addEventListener('touchmove', (e) => { e.preventDefault(); });
+      }
+
+      , destroy: function() {
+        this.hammer.destroy();
+      }
+    };
+
+    this._panZoomInstance = svgPanZoom('#floorplan', {
+      zoomEnabled: true,
+      panEnabled: true,
+      dblClickZoomEnabled: false,
+      controlIconsEnabled: false,
+      customEventsHandler: eventsHandler,
+      beforePan: beforePan,
+      center: true,
+      fit: false,
+      zoomScaleSensitivity: 0.2,
+      minZoom: 1,
+      maxZoom: 3
     });
   }
 
