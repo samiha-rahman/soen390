@@ -11,8 +11,12 @@
 
 <div *ngFor="let item of queuedRouteState">
   <ion-card>
-    <h3>{{ item.summary }} - {{ item.location }}</h3>
-    <p><em>Start at {{ item.startTime }}</em></p>
-    <p><em>End at {{item.endTime}}</em></p>
+    <ion-card-header>
+      <h3>{{ item.summary }} - {{ item.location }}</h3>
+      <p><em>Start at {{ item.startTime }}</em></p>
+      <p><em>End at {{item.endTime}}</em></p>
+      <ion-button (click)="nextClass(item)">Go to Class</ion-button>
+    </ion-card-header>
   </ion-card>
 </div>
+  

@@ -25,17 +25,7 @@
         </ion-card-header>
         <ion-card-content>
           <ion-grid>
-            <ion-row>
-              <ion-col>
-                <ion-button>SOEN-390</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button>SOEN-344</ion-button>
-              </ion-col>
-              <ion-col>
-                <ion-button (click)="presentQueuedRouteModal()">Queued Routes</ion-button>
-              </ion-col>
-            </ion-row>
+            <ion-button expand="block" (click)="presentQueuedRouteModal()">Queued Routes</ion-button>
           </ion-grid>
         </ion-card-content>
       </ion-card>
@@ -48,12 +38,10 @@
       </ion-item>
       <ion-card>
         <ion-card-header>
-
           <ion-card-title>H building 534 <div class="ion-text-end">2 min</div>
           </ion-card-title>
           <ion-card-subtitle>Sir George Williams Campus</ion-card-subtitle>
         </ion-card-header>
-
       </ion-card>
 
     </ion-content>

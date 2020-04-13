@@ -1,16 +1,18 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { QueuedRouteStore } from 'src/app/providers/state-stores/queued-route-store.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
 import { QueuedRouteState } from 'src/app/interfaces/states/queued-routes-state';
+import { QueuedRoute } from 'src/app/interfaces/queued-route';
+import { IonPullUpFooterState } from 'ionic-pullup';
 
 @Component({
   selector: 'app-queued-route',
   templateUrl: './queued-route.page.html',
   styleUrls: ['./queued-route.page.scss'],
 })
-export class QueuedRoutePage implements OnInit, OnDestroy {
+export class QueuedRoutePage implements OnInit {
   id: any;
   summary: string;
   location: string;
@@ -18,35 +20,33 @@ export class QueuedRoutePage implements OnInit, OnDestroy {
   endTime: Date;  
   private _unsubscribe: UnsubscribeCallback;
   private _numRoutes: number;
-  public queuedRouteState: QueuedRouteState;
+  public queuedRouteState: QueuedRoute[];
+  footerState: IonPullUpFooterState;
 
   constructor(
     private modalController: ModalController,
     private _queuedRouteStore: QueuedRouteStore,
     private _directionFormStore: DirectionFormStore,
+
     
   ) { 
-    this._unsubscribe = this._queuedRouteStore.subscribe(() => {
-      this._numRoutes = this._queuedRouteStore.getQueuedRouteState().routes.length - 1;
-      this.queuedRouteState = this._queuedRouteStore.getQueuedRouteState();
-      console.log("hello");
-    });
   }
 
   ngOnInit() {
-
+    this.queuedRouteState = this._queuedRouteStore.getQueuedRouteState().routes;
   }
 
   async closeModal() {
     await this.modalController.dismiss();
   }
 
-  setNextClass(){
-    let nextClass=document.getElementById("classroom").innerHTML;
-    this._directionFormStore.setDestination(nextClass);
+  nextClass(item){
+    this._directionFormStore.setDestination(item.location);
+    this.closeModal();
+    this.toggleFooter();
   }
 
-  ngOnDestroy() {
-    this._unsubscribe();
-  }
+  toggleFooter() {
+    this.footerState = this.footerState === IonPullUpFooterState.Collapsed ? IonPullUpFooterState.Expanded : IonPullUpFooterState.Collapsed;
+}
 }
