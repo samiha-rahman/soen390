@@ -7,7 +7,7 @@ import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { BuildingInfoStore } from '../../providers/state-stores/building-info-store.service';
-import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
+import { BuildingInfoState } from 'src/app/interfaces/states/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
 import { environment } from '../../../environments/environment';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';

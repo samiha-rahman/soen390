@@ -19,6 +19,10 @@ import { IonicPullupModule } from 'ionic-pullup';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFireModule } from '@angular/fire';
+import { environment } from 'src/environments/environment';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -31,7 +35,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     AppRoutingModule,
     IonicPullupModule,
     HttpClientModule,
-    BrowserAnimationsModule],
+    BrowserAnimationsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule
+  ],
   providers: [
     IndoorRouteBuilder,
     OutdoorRouteBuilder,
@@ -39,6 +46,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     SplashScreen,
     Geolocation,
     Pathfinder,
+    AngularFireAuth,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]

@@ -79,13 +79,13 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     }
   }
   setStartLocation(){
-    let fullname=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-    this._directionFormStore.setSource(fullname);
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setSource(fullName);
   }
 
-  setDestionationLocation(){
-    let fullname=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
-    this._directionFormStore.setDestination(fullname);
+  setDestinationLocation(){
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setDestination(fullName);
   }
 
   goInside(buildingSlug: string) {
@@ -115,7 +115,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     this.buildingInfoCardIsShown = false;
 
     //Makes clickable buildings more reliable
-    //this._buildingInfoStore.clearBuildingInfo();
+    this._buildingInfoStore.clearBuildingInfo();
   }
 
   ngOnDestroy() {
