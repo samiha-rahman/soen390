@@ -1,5 +1,5 @@
-import { StateReducer } from "../interfaces/state-reducer";
-import { StateAction } from "../interfaces/state-action";
+import { StateReducer } from "../interfaces/states/state-reducer";
+import { StateAction } from "../interfaces/states/state-action";
 import { ListenerCallback } from "../interfaces/listener-callback";
 import { UnsubscribeCallback } from "../interfaces/unsubscribe-callback";
 

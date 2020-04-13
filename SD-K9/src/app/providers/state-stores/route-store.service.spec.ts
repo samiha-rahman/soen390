@@ -2,10 +2,10 @@ import { TestBed } from '@angular/core/testing';
 
 import { RouteStore } from './route-store.service';
 import { StateStore } from 'src/app/helpers/state-store';
-import { RouteState } from 'src/app/interfaces/route-state';
+import { RouteState } from 'src/app/interfaces/states/route-state';
 import { Route } from '../../interfaces/route';
-import { StateReducer } from 'src/app/interfaces/state-reducer';
-import { StateAction } from 'src/app/interfaces/state-action';
+import { StateReducer } from 'src/app/interfaces/states/state-reducer';
+import { StateAction } from 'src/app/interfaces/states/state-action';
 
 describe('RouteStore', () => {
   let service: RouteStore;
