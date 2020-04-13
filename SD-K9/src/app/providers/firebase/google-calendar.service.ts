@@ -6,6 +6,8 @@ import { User } from '../../interfaces/user';
 import * as credentials from 'src/environments/credentials.json';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { CalendarListStore } from '../state-stores/calendar-list-store.service';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+import { Platform } from '@ionic/angular';
 
 declare var gapi: any;
 
@@ -31,7 +33,9 @@ export class GoogleCalendarService {
   constructor(
     private _angularFireAuth: AngularFireAuth,
     private _http: HttpClient,
-    private _calendarListStore: CalendarListStore
+    private _calendarListStore: CalendarListStore,
+    private _googleplus: GooglePlus,
+    private _platform: Platform
     // private _angularFireStore: AngularFirestore // TODO: To remove in this service, but currently serves as a reminder that we have FireStore
   ) {
     this._initClient();
@@ -59,15 +63,40 @@ export class GoogleCalendarService {
     });
   }
 
-  async googleSignin() {
-    const googleAuth = gapi.auth2.getAuthInstance();
-    const googleUser = await googleAuth.signIn().catch((error) => {console.log(error)});
+  async signin() {
+    if (this._platform.is('cordova')) {
+      this._googleplusLogin();
+    }
+    else {
+      const googleAuth = gapi.auth2.getAuthInstance();
+      const googleUser = await googleAuth.signIn().catch((error) => {console.log(error)});
+  
+      this._authResponse = googleUser.getAuthResponse();
+  
+      const token = googleUser.getAuthResponse().id_token;
+      const credential = firebase.auth.GoogleAuthProvider.credential(token);
+      await this._angularFireAuth.signInWithCredential(credential);
+    }
+  }
 
-    this._authResponse = googleUser.getAuthResponse();
+  private async _googleplusLogin() {
+    await this._googleplus.login({
+      'webClientId': this._CLIENT_ID,
+      'offline': true,
+      'scopes': this._SCOPES
+    })
+    .then(result => {
 
-    const token = googleUser.getAuthResponse().id_token;
-    const credential = firebase.auth.GoogleAuthProvider.credential(token);
-    await this._angularFireAuth.signInWithCredential(credential);
+      console.log('Result ', result);
+
+      const credential = firebase.auth.GoogleAuthProvider.credential(result.id_token);
+      this._angularFireAuth.signInWithCredential(credential)
+      .then( success => {
+        console.log("Firebase success: " + JSON.stringify(success));
+      })
+      .catch( error => console.error("Firebase failure: " + JSON.stringify(error)));
+    })
+    .catch(error => console.error("Error: ", error));
   }
 
   async signOut() {
@@ -83,7 +112,7 @@ export class GoogleCalendarService {
 
     // while google auth2 does not publicly provide a refresh token, request user to sign in.
     if (!this._authResponse) {
-      await this.googleSignin();
+      await this.signin();
     }
 
     // while google calendar api does not provide a special keyword to get all calendarIds
@@ -114,7 +143,6 @@ export class GoogleCalendarService {
       timeMin: (new Date()).toISOString(),
       showDeleted: false,
       singleEvents: true,
-      // maxResults: 10,
       orderBy: 'startTime'
     });
 

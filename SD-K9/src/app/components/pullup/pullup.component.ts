@@ -3,6 +3,7 @@ import { IonPullUpFooterState} from 'ionic-pullup';
 import { ModalController } from '@ionic/angular';
 import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
 import { BusPage} from 'src/app/pages/bus/bus.page';
+import { QueuedRoutesPage } from 'src/app/pages/queued-routes/queued-routes.page';
 
 @Component({
   selector: 'app-pullup',
@@ -24,6 +25,13 @@ export class PullupComponent implements OnInit {
   async presentBusModal() {
     const modal = await this.modalController.create({
       component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async presentQueuedRoutesModal() {
+    const modal = await this.modalController.create({
+      component: QueuedRoutesPage
     });
     return await modal.present();
   }

@@ -19,6 +19,7 @@ import { IonicPullupModule } from 'ionic-pullup';
 import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
 import { BusPage } from 'src/app/pages/bus/bus.page';
 import { GoogleCalendarComponent } from 'src/app/components/google-calendar/google-calendar.component';
+import { QueuedRoutesPage } from '../queued-routes/queued-routes.page';
 
 @NgModule({
   imports: [
@@ -41,14 +42,16 @@ import { GoogleCalendarComponent } from 'src/app/components/google-calendar/goog
     PullupComponent,
     AppSettings,
     BusPage,
-    GoogleCalendarComponent
+    GoogleCalendarComponent,
+    QueuedRoutesPage
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA, NO_ERRORS_SCHEMA],
   entryComponents: [
     FloorPlanComponent,
     OutdoorMapComponent,
     AppSettings,
-    BusPage
-  ]
+    BusPage,
+    QueuedRoutesPage
+  ],
 })
 export class HomePageModule { }

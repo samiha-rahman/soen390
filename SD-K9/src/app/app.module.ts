@@ -24,6 +24,10 @@ import { AngularFireModule } from '@angular/fire';
 import { environment } from 'src/environments/environment';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 
+import { SQLite } from '@ionic-native/sqlite/ngx'
+import { SQLitePorter } from '@ionic-native/sqlite-porter/ngx';
+import { GooglePlus } from '@ionic-native/google-plus/ngx';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -47,7 +51,10 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     Geolocation,
     Pathfinder,
     AngularFireAuth,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    SQLite,
+    SQLitePorter,
+    GooglePlus
   ],
   bootstrap: [AppComponent]
 

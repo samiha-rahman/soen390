@@ -17,10 +17,10 @@
           App Settings
         </ion-button>
       </ion-list>
-      <!-- FAVORITES -->
+      <!-- QUEUED ROUTES -->
       <ion-card>
         <ion-card-header>
-          <ion-card-title>Favorites</ion-card-title>
+          <ion-card-title>Queued Routes</ion-card-title>
         </ion-card-header>
         <ion-card-content>
           <ion-grid>
@@ -32,7 +32,10 @@
                 <ion-button>SOEN-344</ion-button>
               </ion-col>
               <ion-col>
-                <ion-button>COMP-335</ion-button>
+                <ion-button (click)="presentQueuedRoutesModal()">
+                  <ion-icon name="queued-routes"></ion-icon>
+                  See more
+                </ion-button>
               </ion-col>
             </ion-row>
           </ion-grid>

@@ -1,0 +1,1 @@
+CREATE TABLE IF NOT EXISTS queuedroutes(id VARCHAR PRIMARY KEY, summary VARCHAR, location VARCHAR, startTime default current_timestamp, endTime default current_timestamp);
