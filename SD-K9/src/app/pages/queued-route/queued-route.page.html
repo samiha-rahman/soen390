@@ -1,0 +1,18 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>Queued Routes</ion-title>
+      <ion-buttons slot="end">
+        <ion-button (click)="closeModal()">
+          <ion-icon slot="icon-only" name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<div *ngFor="let item of queuedRouteState">
+  <ion-card>
+    <h3>{{ item.summary }} - {{ item.location }}</h3>
+    <p><em>Start at {{ item.startTime }}</em></p>
+    <p><em>End at {{item.endTime}}</em></p>
+  </ion-card>
+</div>

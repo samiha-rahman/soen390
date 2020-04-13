@@ -9,6 +9,7 @@ import { AppsettingsPageRoutingModule } from './app-settings-routing.module';
 
 import { AppSettings } from './app-settings.page';
 import { GoogleCalendarComponent } from 'src/app/components/google-calendar/google-calendar.component';
+import { QueuedRoutePage } from '../queued-route/queued-route.page';
 
 @NgModule({
   imports: [
@@ -20,6 +21,7 @@ import { GoogleCalendarComponent } from 'src/app/components/google-calendar/goog
   ],
   declarations: [
     AppSettings,
+    QueuedRoutePage,
     GoogleCalendarComponent
   ]
 })
