@@ -7,8 +7,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationMock } from '../../test-helpers/mock-geolocation';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
 
-
+declare var google;
 
 describe('OutdoorMapComponent', () => {
   let component: OutdoorMapComponent;
@@ -97,28 +98,25 @@ describe('OutdoorMapComponent', () => {
     expect(component.infowindow).toBeDefined();
     expect(component.clickMarker).toBeDefined();
   });
-  
-  it('#inCampus should find if inside campus', (async()=>{
+
+  it('#inCampus button should tell you are in campus', async() => {
     await delay(10000);
+    const defaultButtonText = "You are not inside campus building";
+    let coords = new google.maps.LatLng(60, -60);
+    component.inCampus(coords);
+    fixture.detectChanges();
+    const button = fixture.debugElement.query(By.css('#btn'));
+    expect(button.nativeElement.textContent.trim()).toBe(defaultButtonText);
+  });
 
-    //get sgw campus
-    component.currentPos= {"lat":45.497434, "lng": -73.578959};
-    let campus = component.getCampus();
-
-    //access campus, should display building
-    expect(campus).toEqual("hall");
-  }));
-
-  it('#inCampus should show outside campus', (async()=>{
+  it('#inCampus button should tell you are in hall building', async() => {
     await delay(10000);
-
-    //get random street coordinate
-    component.currentPos= {"lat":45.499461, "lng": -73.573198};
-    let campus = component.getCampus();
-    
-    //not in campus
-    component.inCampus();
-    expect(campus).toEqual(undefined);
-  }));
+    const defaultButtonText = "You are in hall building";
+    let coords = new google.maps.LatLng(45.497307, -73.578971);
+    component.inCampus(coords);
+    fixture.detectChanges();
+    const button = fixture.debugElement.query(By.css('#btn'));
+    expect(button.nativeElement.textContent.trim()).toBe(defaultButtonText);
+  });
 
 });

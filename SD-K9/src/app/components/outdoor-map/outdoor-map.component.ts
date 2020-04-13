@@ -41,7 +41,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   currentCampus: string;
   currentBuilding: string;
   // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
-  
+
 
   constructor(
     private _geolocation: Geolocation,
@@ -152,7 +152,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       //switch flag to load map nav components
       this.mapInitialised = true;
       //check if user is inside building initially
-      this.inCampus();
+      this.inCampus(this.currentPos);
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -300,9 +300,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     this._unsubscribeGoogleStore();    // release listener to google-store
   }
 
-  inCampus(){
-    let coordinates = new google.maps.LatLng(this.currentPos.lat,this.currentPos.lng);
-    //let coordinates1 = new google.maps.LatLng(45.497307, -73.578971);   //to test Hall Building coordinates
+  
+
+  inCampus(coordinates){ 
+    //coordinates = new google.maps.LatLng(45.497307, -73.578971);   //to test Hall Building coordinates
     let isInside = false;
     let building = "";
     let polygonArr: any[] = [];
@@ -323,21 +324,5 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       //display you are not in campus
       document.getElementById('btn').innerHTML = "You are not inside campus building";
     };
-  }
-
-  //for testing
-  getCampus():string {
-    let coordinate = new google.maps.LatLng(this.currentPos.lat,this.currentPos.lng);
-    let isInside = false;
-    let building = "";
-    let polygonArr: any[] = [];
-    polygonArr = this.buildingPolygons;
-
-    for(var i = 0; i < polygonArr.length; i++){
-      isInside = google.maps.geometry.poly.containsLocation(coordinate, polygonArr[i]);
-      if(isInside){
-        return building = polygonArr[i].currentBuilding;
-      }
-    }
   }
 }
