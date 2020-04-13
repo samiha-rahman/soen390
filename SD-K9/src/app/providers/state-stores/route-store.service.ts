@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
-import { RouteState } from '../../interfaces/route-state';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
+import { RouteState } from '../../interfaces/states/route-state';
 import { StateStore } from '../../helpers/state-store';
 import { Route } from '../../interfaces/route';
 import { ListenerCallback } from 'src/app/interfaces/listener-callback';
