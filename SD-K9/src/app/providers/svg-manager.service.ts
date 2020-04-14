@@ -116,23 +116,23 @@ export class SVGManager {
    * @param floor is the floor on which the classroom is located
    */
   public getSVGCoordFromID(locationID: string, building: string, floor: number) {
-      return this.getSVG(`${building}/${floor}`)
-          .pipe(
-              map(svgFile => {
-                  // return svgFile
-                  const vtransports = SVG(svgFile).find('circle');
-                  const vtransport = vtransports.filter((element) => element.node.id === locationID)[0];
-                  const node: SVGCircleElement = vtransport.node as any;
-                  return {
-                      id: node.id,
-                      x: parseInt(node.cx.baseVal.value.toString()),
-                      y: parseInt(node.cy.baseVal.value.toString()),
-                      building,
-                      floor
-                  };
-              })
-          )
-          .toPromise();
+    return this.getSVG(`${building}/${floor}`)
+      .pipe(
+        map(svgFile => {
+          // return svgFile
+          const vtransports = SVG(svgFile).find('circle');
+          const vtransport = vtransports.filter((element) => element.node.id === locationID)[0];
+          const node: SVGCircleElement = vtransport.node as any;
+          return {
+            id: node.id,
+            x: parseInt(node.cx.baseVal.value.toString()),
+            y: parseInt(node.cy.baseVal.value.toString()),
+            building,
+            floor
+          };
+        })
+      )
+      .toPromise();
   }
 
   public getClosestVerticalTransportationId(

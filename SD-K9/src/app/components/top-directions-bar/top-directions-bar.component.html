@@ -2,7 +2,12 @@
   <ion-buttons slot="start">
     <ion-back-button></ion-back-button>
   </ion-buttons>
-  <ion-toolbar color="medium" mode="md">
+  <ion-toolbar *ngIf="!isExpanded" color="medium">
+    <ion-button class="clear-btn" color="dark" fill="clear" size="large" (click)="expandBar()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isExpanded" color="medium" mode="md">
     <div class="container">
       <ion-grid>
         <ion-row>
@@ -56,5 +61,6 @@
       </div>
     </div>
   </ion-toolbar>
-  <ion-button *ngIf="directionSent" expand="full" color="primary">Start</ion-button>
+  <ion-button *ngIf="directionSent && isExpanded" expand="full" color="primary" (click)="startRoute()">Start
+  </ion-button>
 </ion-header>

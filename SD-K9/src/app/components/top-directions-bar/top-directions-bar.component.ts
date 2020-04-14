@@ -36,7 +36,7 @@ export class TopDirectionsBarComponent implements OnInit {
 
   hasIndoors: boolean;
   hasOutdoors: boolean;
-  routeStarted = false;
+  isExpanded = true;
 
   verticalTransportationButton = [
     {
@@ -121,12 +121,10 @@ export class TopDirectionsBarComponent implements OnInit {
       } else if (!item.checked && item.label === button) {
         this._toggleVerticalTransportValue(item)
         this.verticalTransport = VerticalTransport[item.label]
-        console.log(this.verticalTransport)
         this._directionFormStore.setVerticalTransport(this.verticalTransport);
         this.sendDirection();
       }
     }
-    console.log(this.verticalTransportationButton)
   }
 
   sendDirection() {
@@ -145,6 +143,15 @@ export class TopDirectionsBarComponent implements OnInit {
     this._resetGridSettings();
     this._directionFormStore.clear();
     this.formCompleteEvent.emit(false);
+  }
+
+  expandBar() {
+    this.clearDirection();
+    this.isExpanded = true;
+  }
+
+  startRoute() {
+    this.isExpanded = false;
   }
 
   private _resetGridSettings() {
