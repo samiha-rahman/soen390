@@ -27,16 +27,16 @@ describe('BusPage', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should display all items in sgw schedule', (async() => {
+  it('#sgwSchedule should display all items in sgw schedule', (async() => {
     component.read_json_sgw;
     await delay(1000);
-    expect(component.scheduleDataSGW.length).toBe(27);
+    expect(component.scheduleDataSGW.length).toEqual(27);
   }));
 
-  it('should display all items in loyola schedule', (async() => {
+  it('#loySchedule should display all items in loyola schedule', (async() => {
     component.read_json_loyola;
     await delay(1000);
-    expect(component.scheduleDataLoy.length).toBe(28);
+    expect(component.scheduleDataLoy.length).toEqual(28);
   }));
 
 

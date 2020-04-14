@@ -10,10 +10,15 @@ declare var google;
 
 @Injectable()
 export class OutdoorRouteBuilder {
+    transportation(transportation: any) {
+      throw new Error("Method not implemented.");
+    }
     //Google direction service
     map: any;
     directionsService: any;
     directionsDisplay: any;
+    waypts: any[] = [];
+    transportWay: any;
 
     private _unsubscribe: UnsubscribeCallback;
 
@@ -30,39 +35,42 @@ export class OutdoorRouteBuilder {
         });
     }
 
-    buildRoute(formValues: DirectionForm) {
+    shuttleService(formValues: DirectionForm){
         //TODO: Refactor the code
         //Shuttles coordinates
         let loyShuttle = "45.458424,-73.638369";
         let hallShuttle = "45.497163,-73.578535";
-        let waypts: any[] = [];
-        let transportation: any;
+        
         //From hall to loyola
         if(formValues.transport == "SHUTTLE" && formValues.sourceDestination.source == "45.497304, -73.578326"){
-            transportation = "DRIVING"; //When shuttle is chosen, display DRIVING route
-            waypts = [
+            this.transportWay = "DRIVING"; //When shuttle is chosen, display DRIVING route
+            this.waypts = [
                 {location: hallShuttle, stopover: true},
                 {location: loyShuttle, stopover: true}
             ];
         }//From loyola to hall
         else if (formValues.transport == "SHUTTLE" && formValues.sourceDestination.source == "h4b1r6"){
-            transportation = "DRIVING";
-            waypts = [
+            this.transportWay = "DRIVING";
+            this.waypts = [
                 {location: loyShuttle, stopover: true}
             ];
         }else if(formValues.transport == "SHUTTLE"){
-            waypts = null;
-            transportation = "TRANSIT"; 
+            this.waypts = null;
+            this.transportWay = "TRANSIT"; 
         }else{
-            waypts = null;
-            transportation = formValues.transport;
+            this.waypts = null;
+            this.transportWay = formValues.transport;
         }
+    }
+
+    buildRoute(formValues: DirectionForm) {
         // TODO: Fix the overlaying directions (if i change travelMode it keeps the old one)
+        this.shuttleService(formValues);
         this.directionsService.route({
             origin: formValues.sourceDestination.source,
             destination: formValues.sourceDestination.destination,
-            waypoints: waypts,
-            travelMode: transportation
+            waypoints: this.waypts,
+            travelMode: this.transportWay
         }, (response, status) => {
             if (status === 'OK') {
                 this.directionsDisplay.setDirections(response);

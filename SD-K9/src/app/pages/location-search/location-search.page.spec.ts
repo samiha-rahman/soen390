@@ -5,6 +5,7 @@ import { LocationSearchPage } from './location-search.page';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { By } from '@angular/platform-browser';
 
 describe('LocationSearchPage', () => {
   let component: LocationSearchPage;
@@ -52,4 +53,13 @@ describe('LocationSearchPage', () => {
     component.changeQuery('H-815')
     expect(component.itemList.length).toEqual(1);
   });
+  //Not done
+  // it('#myLocation should give the address of your current location', async() =>{
+  //   const defaultButtonText = "Starting Point";
+  //   let currentMapState = this._googleStore.getGoogleMapState();
+  //   component.getCurrentPos;
+  //   fixture.detectChanges();
+  //   const locateMe = fixture.debugElement.query(By.css('#start-searchbar'));
+  //   expect(locateMe.nativeElement.textContent.trim()).not.toBe(defaultButtonText);
+  // });
 });
