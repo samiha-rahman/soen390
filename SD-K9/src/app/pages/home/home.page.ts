@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { DirectionForm } from '../../interfaces/direction-form';
@@ -9,6 +9,7 @@ import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.service';
 
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.page.html',
@@ -18,6 +19,7 @@ export class HomePage implements OnInit {
   maps: MapItem[];
   transportMode: string;
   map_type: any;
+
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
   private _unsubscribeMapModeStore: UnsubscribeCallback;
@@ -66,5 +68,4 @@ export class HomePage implements OnInit {
   loadGoogleMaps() {
     this._mapModeStore.setMode(ViewMode.GOOGLE);
   }
-
 }
