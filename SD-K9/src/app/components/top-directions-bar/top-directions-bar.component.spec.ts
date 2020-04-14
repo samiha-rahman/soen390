@@ -8,7 +8,7 @@ import { Transport } from 'src/app/models/transport.enum.model';
 import { VerticalTransport } from 'src/app/models/vertical-transport.enum.model';
 
 
-fdescribe('TopDirectionsBarComponent', () => {
+describe('TopDirectionsBarComponent', () => {
   let component: TopDirectionsBarComponent;
   let fixture: ComponentFixture<TopDirectionsBarComponent>;
 
