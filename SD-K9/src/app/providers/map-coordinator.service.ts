@@ -45,7 +45,7 @@ export class MapCoordinator {
                     return floorPlanIdentifier;
                 }
                 default: {
-                    return location; 
+                    return location;
                 }
             }
         }
