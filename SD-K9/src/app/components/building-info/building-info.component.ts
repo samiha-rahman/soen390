@@ -73,8 +73,12 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     if (this.currentCampus !== '' && this.currentBuilding !== '') {
       this.currentBuildingDepartmentsInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['departments'];
       this.currentBuildingServicesInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['services'];
-      if(this.currentBuildingDepartmentsInfo == undefined) this.currentBuildingDepartmentsInfo = "no information to show";
-      if(this.currentBuildingServicesInfo == undefined) this.currentBuildingServicesInfo = "no information to show";
+      if (this.currentBuildingDepartmentsInfo == undefined) {
+        this.currentBuildingDepartmentsInfo = "no information to show";
+      }
+      if (this.currentBuildingServicesInfo == undefined) {
+        this.currentBuildingServicesInfo = "no information to show";
+      }
       this.buildingInfoCardIsShown = true;
     }
     else {
