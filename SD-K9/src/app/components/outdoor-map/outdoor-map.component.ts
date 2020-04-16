@@ -209,7 +209,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  toggleCampus(event : MouseEvent) {
+  toggleCampus(event : any) {
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
     this._hideShowMarkers(this);
