@@ -121,7 +121,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  toggleBuildingInfoCardTabs(event : Object){
+  toggleBuildingInfoCardTabs(event : MouseEvent){
     let toShow = event.detail.value;
     if(toShow == "departments"){
       this.showDepartments = true;
