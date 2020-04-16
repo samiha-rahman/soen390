@@ -32,7 +32,7 @@ describe('BuildingInfoComponent', () => {
 
   it('#hideBuildingInfoCard should hide building info card', () => {
     component.buildingInfoCardIsShown = true;
-    component.hideBuildingInfoCard({default:"empty event"});
+    component.hideBuildingInfoCard();
     expect(component.buildingInfoCardIsShown).not.toBeTruthy();
   });
 
