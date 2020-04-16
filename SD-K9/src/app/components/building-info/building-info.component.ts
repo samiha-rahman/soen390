@@ -121,8 +121,8 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  toggleBuildingInfoCardTabs(e){
-    let toShow = e.detail.value;
+  toggleBuildingInfoCardTabs(event : Object){
+    let toShow = event.detail.value;
     if(toShow == "departments"){
       this.showDepartments = true;
       this.showServices = false;
@@ -132,7 +132,7 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     }
   }
 
-  hideBuildingInfoCard(event) {
+  hideBuildingInfoCard() {
     this.buildingInfoCardIsShown = false;
 
     //Makes clickable buildings more reliable

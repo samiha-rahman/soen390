@@ -2,7 +2,7 @@
   <ion-card-header>
     <ion-card-title>{{ currentBuilding }}</ion-card-title>
     <ion-card-subtitle>{{ currentCampus }}</ion-card-subtitle>
-    <img tappable src="../../../assets/images/close-icon.png" alt="close icon" class="close-card" (click)="hideBuildingInfoCard($event)" />
+    <img tappable src="../../../assets/images/close-icon.png" alt="close icon" class="close-card" (click)="hideBuildingInfoCard()" />
   </ion-card-header>
   <ion-card-content>
     <ion-segment (ionChange)="toggleBuildingInfoCardTabs($event)" value="departments">
