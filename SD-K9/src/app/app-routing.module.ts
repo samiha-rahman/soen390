@@ -5,11 +5,15 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then(m => m.HomeTempPageModule)
+    loadChildren: () => import('./pages/home/home.module').then(m => m.HomePageModule)
   },
   {
     path: 'search',
     loadChildren: () => import('./pages/location-search/location-search.module').then(m => m.LocationSearchPageModule)
+  },
+  {
+    path: 'settings',
+    loadChildren: () => import('src/app/pages/app-settings/app-settings.module').then(m => m.AppsettingsPageModule)
   },
 
 ];

@@ -15,6 +15,14 @@
     </ion-segment>
     <div *ngIf="showDepartments" class="building-info-tab" [innerHTML]="currentBuildingDepartmentsInfo"></div>
     <div *ngIf="showServices" class="building-info-tab" [innerHTML]="currentBuildingServicesInfo"></div>
+    <ion-row>
+       <ion-col>
+        <ion-button  color="primary" class="location-btn" (click)="setStartLocation()" style="width:100%">Set Start</ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button color="primary" class="location-btn" (click)="setDestinationLocation()" style="width:100%">Set Destination</ion-button>
+      </ion-col>
+    </ion-row>
     <br>
     <ion-button color="primary" class="go-inside-btn" (click)="goInside(buildingSlug)" [disabled]="viewInsideDisabled()">
       See

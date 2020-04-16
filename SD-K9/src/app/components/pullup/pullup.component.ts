@@ -27,25 +27,28 @@ constructor(public modalController: ModalController, private _googleStore: Googl
   });
 }
 
-  async presentModal() {
-      const modal = await this.modalController.create({
-        component: AppSettings
-      });
-      return await modal.present();
-    }
+  async presentAppSettingsModal() {
+    const modal = await this.modalController.create({
+      component: AppSettings
+    });
+    return await modal.present();
+  }
 
-    async presentModal1() {
-        const modal = await this.modalController.create({
-          component: BusPage
-        });
-        return await modal.present();
-      }
+  async presentBusModal() {
+    const modal = await this.modalController.create({
+      component: BusPage
+    });
+    return await modal.present();
+  }
 
   ngOnInit() {
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-
+  // optional capture events
+  footerExpanded() {
+      console.log('Footer expanded!');
+  }
 
   // optional capture events
     footerExpanded() {

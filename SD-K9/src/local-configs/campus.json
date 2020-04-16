@@ -5,7 +5,8 @@
       "lng": -73.5805984
     },
     "buildings": {
-      "EV building": {
+      "Ev Building": {
+        "fullName": "EV building",
         "markerText": "EV",
         "markerPos": {
           "lat": 45.495575,
@@ -39,7 +40,8 @@
           }
         ]
       },
-      "jmsb": {
+      "jsmb": {
+        "fullName": "John Molson School of Business",
         "markerText": "MB",
         "markerPos": {
           "lat": 45.495265,
@@ -66,6 +68,7 @@
         ]
       },
       "hall": {
+        "fullName": "Hall Building",
         "buildingSlug": "hall",
         "markerText": "H",
         "markerPos": {
@@ -93,6 +96,7 @@
         ]
       },
       "library": {
+        "fullName":"Webster Concordia",
         "markerText": "LB",
         "markerPos": {
           "lat": 45.496777,
@@ -127,6 +131,7 @@
         ]
       },
       "fg": {
+        "fullName":"Faubourg Building",
         "markerText": "FG",
         "markerPos": {
           "lat": 45.494198,
@@ -161,6 +166,7 @@
     },
     "buildings": {
       "communications": {
+        "fullName":"Communications & Journalism Concordia building",
         "markerText": "CJ",
         "markerPos": {
           "lat": 45.457472,
@@ -186,7 +192,8 @@
           }
         ]
       },
-      "ge": {
+     "ge": {
+        "fullName":"Centre for Structural and Functional Genomics Concordia",
         "markerText": "GE",
         "markerPos": {
           "lat": 45.456953,
@@ -212,6 +219,7 @@
         ]
       },
       "sp": {
+        "fullName":"SP Loyola Building",
         "markerText": "SP",
         "markerPos": {
           "lat": 45.457570,
@@ -246,6 +254,7 @@
         ]
       },
       "rf": {
+        "fullName":"Loyola Jesuit Hall and Conference Centre Concordia",
         "markerText": "RF",
         "markerPos": {
           "lat": 45.458593,
@@ -271,6 +280,7 @@
         ]
       },
       "cc": {
+        "fullName":"Loyola Concordia",
         "buildingSlug":"cc",
         "markerText": "CC",
         "markerPos": {
@@ -297,6 +307,7 @@
         ]
       },
       "ad": {
+        "fullName":"Loyola Campus Administration Building",
         "markerText": "AD",
         "markerPos": {
           "lat": 45.458016,
@@ -323,6 +334,7 @@
         ]
       },
       "py": {
+        "fullName":"Loyola Psychology Concordia",
         "markerText": "PY",
         "markerPos": {
           "lat": 45.458909,
@@ -348,6 +360,7 @@
         ]
       },
       "fc": {
+        "fullName":"F.C. Smith Auditorium",
         "markerText": "FC",
         "markerPos": {
           "lat": 45.458509,

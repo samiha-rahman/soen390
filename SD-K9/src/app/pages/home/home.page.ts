@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { DirectionForm } from '../../interfaces/direction-form';
