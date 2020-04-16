@@ -45,12 +45,7 @@ constructor(public modalController: ModalController, private _googleStore: Googl
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
-  // optional capture events
-  footerExpanded() {
-      console.log('Footer expanded!');
-  }
-
-  // optional capture events
+    // optional capture events
     footerExpanded() {
         console.log('Footer expanded!');
     }
