@@ -41,7 +41,7 @@ describe('OutdoorRouteBuilder', () => {
     let directionForm: DirectionForm = {
       sourceDestination: {source: '45.497304, -73.578326', destination: 'h4b1r6'},
       transport: Transport.SHUTTLE,
-      verticalTransport: VerticalTransport.ESCALATOR
+      verticalTransport: VerticalTransport.ESCALATORS
     }
     let waypoints = [
       {location: hallShuttle, stopover: true},
@@ -58,7 +58,7 @@ describe('OutdoorRouteBuilder', () => {
     let directionForm: DirectionForm = {
       sourceDestination: {source: 'h4b1r6', destination: '45.497304, -73.578326'},
       transport: Transport.SHUTTLE,
-      verticalTransport: VerticalTransport.ESCALATOR
+      verticalTransport: VerticalTransport.ESCALATORS
     }
     let waypoints = [
       {location: loyShuttle, stopover: true}
@@ -73,7 +73,7 @@ describe('OutdoorRouteBuilder', () => {
     let directionForm: DirectionForm = {
       sourceDestination: {source: 'H4R0B8', destination: '45.497304, -73.578326'},
       transport: Transport.SHUTTLE,
-      verticalTransport: VerticalTransport.ESCALATOR
+      verticalTransport: VerticalTransport.ESCALATORS
     }
     let waypoints =  null;
     service.shuttleService(directionForm);
@@ -86,7 +86,7 @@ describe('OutdoorRouteBuilder', () => {
     let directionForm: DirectionForm = {
       sourceDestination: {source: 'H4R0B8', destination: '45.497304, -73.578326'},
       transport: Transport.DRIVING,
-      verticalTransport: VerticalTransport.ESCALATOR
+      verticalTransport: VerticalTransport.ESCALATORS
     }
     let waypoints =  null;
     service.shuttleService(directionForm);
