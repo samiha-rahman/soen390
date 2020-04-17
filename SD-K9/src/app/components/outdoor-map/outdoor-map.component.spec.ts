@@ -101,7 +101,7 @@ describe('OutdoorMapComponent', () => {
 
   it('#inCampus button should tell you are in campus', async() => {
     await delay(10000);
-    const defaultButtonText = "You are not inside campus building";
+    const defaultButtonText = "You are not inside any campus building";
     let coords = new google.maps.LatLng(60, -60);
     component.inCampus(coords);
     fixture.detectChanges();

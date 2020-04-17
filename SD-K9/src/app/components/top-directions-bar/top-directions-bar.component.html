@@ -2,7 +2,12 @@
   <ion-buttons slot="start">
     <ion-back-button></ion-back-button>
   </ion-buttons>
-  <ion-toolbar color="medium" mode="md">
+  <ion-toolbar *ngIf="!isExpanded" color="medium">
+    <ion-button class="clear-btn" color="dark" fill="clear" size="large" (click)="expandBar()">
+      <ion-icon name="arrow-back"></ion-icon>
+    </ion-button>
+  </ion-toolbar>
+  <ion-toolbar *ngIf="isExpanded" color="medium" mode="md">
     <div class="container">
       <ion-grid>
         <ion-row>
@@ -13,17 +18,28 @@
           </ion-col>
           <ion-col size="{{directionFormSize}}">
             <ion-searchbar placeholder="Starting point" search-icon="locate" color="light" [(ngModel)]="start"
-              debounce="1000" (ionChange)="sendDirection()" (click)="goToSearchPage('start')" ngDefaultControl id="start-searchbar">
+              debounce="1000" (ionChange)="sendDirection()" (click)="goToSearchPage('start')" ngDefaultControl
+              id="start-searchbar">
             </ion-searchbar>
             <ion-searchbar placeholder="Destination" search-icon="pin" color="light" [(ngModel)]="end" debounce="1000"
-              (ionChange)="sendDirection()" (click)="goToSearchPage('final')" ngDefaultControl id="destination-searchbar">
+              (ionChange)="sendDirection()" (click)="goToSearchPage('final')" ngDefaultControl
+              id="destination-searchbar">
             </ion-searchbar>
           </ion-col>
         </ion-row>
       </ion-grid>
 
+      <ion-row *ngIf="directionSent">
+        <ion-col size="4" *ngFor="let mode of verticalTransportationButton">
+          <div *ngIf="hasIndoors">
+            <ion-button (click)="verticalTransportSegmentChanged(mode.label)" shape="round" expand="full"
+              color="{{mode.color}}">{{mode.label}}
+            </ion-button>
+          </div>
+        </ion-col>
+      </ion-row>
 
-      <div *ngIf="directionSent">
+      <div *ngIf="hasOutdoors">
         <ion-segment scrollable value="TRANSIT" (ionChange)="transportSegmentChanged($event)" color="primary">
           <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
             <ion-label>Drive</ion-label>
@@ -42,23 +58,9 @@
             <ion-icon name="bicycle"></ion-icon>
           </ion-segment-button>
         </ion-segment>
-
-        <div *ngIf="isIndoor">
-          <ion-segment scrollable value="ESCALATOR" (ionChange)="verticalTransportSegmentChanged($event)"
-            color="primary">
-            <ion-segment-button value={{verticalTransportEnum.STAIRS}}>
-              <ion-label>Stairs</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value={{verticalTransportEnum.ESCALATOR}}>
-              <ion-label>Escalator</ion-label>
-            </ion-segment-button>
-            <ion-segment-button value={{verticalTransportEnum.ELEVATOR}}>
-              <ion-label>Elevator</ion-label>
-            </ion-segment-button>
-          </ion-segment>
-        </div>
       </div>
-
     </div>
   </ion-toolbar>
+  <ion-button *ngIf="directionSent && isExpanded" expand="full" color="primary" (click)="startRoute()">Start
+  </ion-button>
 </ion-header>

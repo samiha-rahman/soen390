@@ -38,10 +38,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   hasRoute: boolean;
   private _unsubscribeGoogleStore: UnsubscribeCallback;  
   private _campusConfig: any;
+  // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
   currentCampus: string;
   currentBuilding: string;
-  // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
-
+  insideMSG = "You are not inside any campus building"; //Default value 
 
   constructor(
     private _geolocation: Geolocation,
@@ -87,7 +87,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=geometry&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
       document.body.appendChild(script);
     } else {
       this._initMap();
@@ -151,8 +151,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
+      
       //check if user is inside building initially
       this.inCampus(this.currentPos);
+      
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -319,10 +321,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
     if(isInside){
       //display you are inside a campus building
-      document.getElementById('btn').innerHTML = "You are in " + building + " building";
+      this.insideMSG = `You are in ${building} building`;
     }else{
       //display you are not in campus
-      document.getElementById('btn').innerHTML = "You are not inside campus building";
+      this.insideMSG  = "You are not inside any campus building";
     };
   }
 }
