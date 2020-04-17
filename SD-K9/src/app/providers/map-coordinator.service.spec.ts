@@ -16,42 +16,42 @@ describe('MapCoordinator', () => {
   let service: MapCoordinator;
 
   class OutdoorRouteBuilderMock {
-    clearRoute() {}
-    buildRoute() {}
+    clearRoute() { }
+    buildRoute() { }
   }
 
   class RouteStoreMock {
-    clearRoutes() {}
-    storeRoute() {}
+    clearRoutes() { }
+    storeRoute() { }
   }
 
   class FloorPlanStoreMock {
-    clearFloorPlans() {}
+    clearFloorPlans() { }
   }
 
   class SVGManagerMock {
-    getSVGCoordFromID() {}
-    getClosestVerticalTransportationId() {}
+    getSVGCoordFromID() { }
+    getClosestVerticalTransportationId() { }
   }
 
   beforeEach(() => {
-      TestBed.configureTestingModule({
-        imports: [HttpClientModule],
-        providers: [
-          {provide: OutdoorRouteBuilder, useClass: OutdoorRouteBuilderMock},
-          {provide: Pathfinder, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}},
-          {provide: SVGManager, useClass: SVGManagerMock},
-          {provide: RouteStore, useClass: RouteStoreMock},
-          {provide: FloorPlanStore, useClass: FloorPlanStoreMock},
-          {provide: IndoorRouteCoordinator, useValue: {load: jasmine.createSpy('load').and.returnValue(new Promise(() => true))}}
-        ]
+    TestBed.configureTestingModule({
+      imports: [HttpClientModule],
+      providers: [
+        { provide: OutdoorRouteBuilder, useClass: OutdoorRouteBuilderMock },
+        { provide: Pathfinder, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } },
+        { provide: SVGManager, useClass: SVGManagerMock },
+        { provide: RouteStore, useClass: RouteStoreMock },
+        { provide: FloorPlanStore, useClass: FloorPlanStoreMock },
+        { provide: IndoorRouteCoordinator, useValue: { load: jasmine.createSpy('load').and.returnValue(new Promise(() => true)) } }
+      ]
     }).compileComponents();
     service = TestBed.get(MapCoordinator);
-});
+  });
 
-afterEach(() => {
-  service = null;
-});
+  afterEach(() => {
+    service = null;
+  });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
@@ -59,9 +59,9 @@ afterEach(() => {
 
   it('#getOverallRoutes should return 4 MapItem when requested for H-815 to CC-101', async () => {
     let directionForm: DirectionForm = {
-      sourceDestination: {source: 'H-815', destination: 'CC-101'},
+      sourceDestination: { source: 'H-815', destination: 'CC-101' },
       transport: Transport.DRIVING,
-      verticalTransport: VerticalTransport.ELEVATOR
+      verticalTransport: VerticalTransport.ELEVATORS
     }
 
     let maps = await service.getOverallRoute(directionForm);

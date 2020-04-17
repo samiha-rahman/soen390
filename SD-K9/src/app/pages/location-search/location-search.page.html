@@ -10,7 +10,7 @@
         <ion-col size="0.25"></ion-col>
         <ion-col>
           <ion-searchbar placeholder="Choose Location" search-icon="search" color="light" [(ngModel)]="query"
-            (ngModelChange)="changeQuery($event)" id="location-searchbar">
+            (ngModelChange)="changeQuery()" id="location-searchbar">
           </ion-searchbar>
         </ion-col>
       </ion-row>
@@ -29,15 +29,39 @@
         <ion-card-title>No Results were found</ion-card-title>
         <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
         <ion-card-content>
-          <ion-button expand="block" (click)="enterQuery(currentQuery)" id="searchanyway-button">Search Anyway</ion-button>
+          <ion-button expand="block" (click)="enterQuery(currentQuery)" id="searchanyway-button">Search Anyway
+          </ion-button>
         </ion-card-content>
       </ion-card-header>
     </ion-card>
-    <ion-list>
-      <ion-item *ngFor="let item of itemList | slice:0:10; let i = index">
-        <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
-      </ion-item>
-    </ion-list>
+
+    <div *ngIf="itemList && itemList.length > 0">
+      <ion-item-divider>
+        <ion-label>
+          Concordia Classrooms
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-list>
+        <ion-item *ngFor="let item of itemList">
+          <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+
+    <div *ngIf="placesSearchResults && placesSearchResults.length > 0">
+      <ion-item-divider>
+        <ion-label>
+          Google Results
+        </ion-label>
+      </ion-item-divider>
+
+      <ion-list>
+        <ion-item *ngFor="let item of placesSearchResults">
+          <ion-label (click)="enterQuery(item.description); moveMap(item.description)">{{ item.description }}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
   </div>
 
 </ion-content>
