@@ -23,7 +23,7 @@ export class LocationSearchPage implements OnInit {
   map: any;
   geocoder: any;
   latlng: any;
-
+  
   private _itemList: string[];
   private _queryType: string;
   private _unsubscribe: UnsubscribeCallback;
@@ -80,13 +80,12 @@ export class LocationSearchPage implements OnInit {
 
   getCurrentPos(){
     let currentMapState = this._googleStore.getGoogleMapState();
-    let self = this;
     let currentPos = currentMapState.currentpos;
-    let coder = currentMapState.geocoder;
-    
-    this.latlng = {lat: currentPos.lat(), lng: currentPos.lng()}; 
+    let self = this;
+    this.latlng = {lat: currentPos.lat(), lng:  currentPos.lng()}; 
+
     self.enterQuery(' '); 
-    coder.geocode({'location': this.latlng}, function(results, status) 
+    currentMapState.geocoder.geocode({'location': this.latlng}, function(results, status) 
     {
       if(status === "OK"){
         self.enterQuery(results[0].formatted_address);
