@@ -18,6 +18,10 @@ export class TopDirectionsBarComponent extends PageObject {
         this.clickButton(' ion-button.clear-btn');
     }
 
+    clickStart() {
+        this.clickButton(' ion-button#start-button');
+    }
+
     selectIndoorTransportationMode(mode: string) {
         switch (mode) {
             case "stairs":
