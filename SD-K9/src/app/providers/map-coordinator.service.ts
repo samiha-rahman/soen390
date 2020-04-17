@@ -13,6 +13,8 @@ import { Route } from '../interfaces/route';
 import { DirectionForm } from '../interfaces/direction-form';
 import { Transport } from '../models/transport.enum.model';
 import * as buildingsData from '../../local-configs/buildings.json';
+import { RouteType } from '../models/route-type.enum.model';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 @Injectable({
     providedIn: 'root'
@@ -45,7 +47,7 @@ export class MapCoordinator {
                     return floorPlanIdentifier;
                 }
                 default: {
-                    return location; 
+                    return location;
                 }
             }
         }
@@ -67,6 +69,7 @@ export class MapCoordinator {
         route.source = route.source.toUpperCase();
         route.destination = route.destination.toUpperCase();
         let index: number = 2;
+        let verticalTransport = directionForm.verticalTransport;
 
         let maps: MapItem[] = [];
         let parsedSource = this._parseLocation(route.source);
@@ -74,6 +77,7 @@ export class MapCoordinator {
 
         if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
             this._outdoorRouteBuilder.buildRoute(directionForm)
+            this._prepareOutdoor(maps, parsedSource, parsedSource, directionForm.transport);
         }
         else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
             /*
@@ -88,7 +92,7 @@ export class MapCoordinator {
             if (parsedDestination.floor === 1) {
                 this._prepareIndoorSingle(maps, parsedDestination, this._buildingEntry(parsedDestination.building), route.destination);
             } else {                                                                              /* Multi-Floor */
-                index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index);
+                index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index, verticalTransport);
             }
 
         }
@@ -97,7 +101,7 @@ export class MapCoordinator {
                 if (parsedSource.floor === parsedDestination.floor) {
                     this._prepareIndoorSingle(maps, parsedSource, route.source, route.destination);
                 } else {                                                                              /* Multi-Floor */
-                    index = await this._prepareIndoorMultiple(maps, route.source, route.destination, index);
+                    index = await this._prepareIndoorMultiple(maps, route.source, route.destination, index, verticalTransport);
                 }
             } else {
                 /*
@@ -107,7 +111,7 @@ export class MapCoordinator {
                 if (parsedSource.floor === 1) {
                     this._prepareIndoorSingle(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
                 } else {                                                                              /* Multi-Floor */
-                    index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index);
+                    index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index, verticalTransport);
                 }
 
                 /*
@@ -122,7 +126,7 @@ export class MapCoordinator {
                 if (parsedDestination.floor === 1) {
                     this._prepareIndoorSingle(maps, parsedDestination, this._buildingEntry(parsedDestination.building), route.destination);
                 } else {                                                                              /* Multi-Floor */
-                    index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index);
+                    index = await this._prepareIndoorMultiple(maps, this._buildingEntry(parsedDestination.building), route.destination, index, verticalTransport);
                 }
             }
         }
@@ -134,7 +138,7 @@ export class MapCoordinator {
             if (parsedSource.floor === 1) {
                 this._prepareIndoorSingle(maps, parsedSource, route.source, this._buildingEntry(parsedSource.building));
             } else {                                                                              /* Multi-Floor */
-                index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index);
+                index = await this._prepareIndoorMultiple(maps, route.source, this._buildingEntry(parsedSource.building), index, verticalTransport);
             }
 
             /*
@@ -149,7 +153,7 @@ export class MapCoordinator {
         maps.push(new MapItem(OutdoorMapComponent, { id: this._outdoorIndex }));
 
         let sourceDestination: SourceDestination = { source: startPlace, destination: endPlace };
-        let route: Route = { id: this._outdoorIndex, route: { sourceDestination: sourceDestination, transport: transport } };
+        let route: Route = { id: this._outdoorIndex, route: { sourceDestination: sourceDestination, transport: transport }, type: RouteType.OUTDOOR };
         this._routeStore.storeRoute(route);
 
         // this._outdoorRouteBuilder.buildRoute({sourceDestination: sourceDestination, transport: transport});
@@ -157,7 +161,7 @@ export class MapCoordinator {
     // this._buildingEntry(parsedRoute.building)
 
     private async _prepareIndoorMultiple(
-        maps: MapItem[], startID: string, endID: string, index: number
+        maps: MapItem[], startID: string, endID: string, index: number, verticalTransport: VerticalTransport
     ) {
         let parsedSource = this._parseLocation(startID);
         let parsedDestination = this._parseLocation(endID);
@@ -170,7 +174,7 @@ export class MapCoordinator {
 
             if (difference >= 0) {
                 currentTransport = await this._getNearestTransport(
-                    this.mode(),
+                    verticalTransport,
                     'up',
                     parsedSource.building,
                     parsedSource.floor,
@@ -185,21 +189,21 @@ export class MapCoordinator {
                     if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
                         previousTransport = currentTransport;
                         currentTransport = await this._getNearestTransport(
-                            this.mode(),
+                            verticalTransport,
                             'up',
                             parsedSource.building,
                             _floor,
                             previousTransport
                         );
                         if (previousTransport !== currentTransport) {
-                            this._prepareIndoorSingle(maps, {id: ++index, building: parsedSource.building, floor: _floor},
+                            this._prepareIndoorSingle(maps, { id: ++index, building: parsedSource.building, floor: _floor },
                                 previousTransport, currentTransport);
                         }
                     }
                 }
             } else {
                 currentTransport = await this._getNearestTransport(
-                    this.mode(),
+                    verticalTransport,
                     'down',
                     parsedSource.building,
                     parsedSource.floor,
@@ -214,14 +218,14 @@ export class MapCoordinator {
                     if (_floor === 1 || _floor === 2 || _floor === 6 || _floor === 8) {
                         previousTransport = currentTransport;
                         currentTransport = await this._getNearestTransport(
-                            this.mode(),
+                            verticalTransport,
                             'down',
                             parsedSource.building,
                             _floor,
                             previousTransport
                         );
                         if (previousTransport !== currentTransport) {
-                            this._prepareIndoorSingle(maps, {id: ++index, building: parsedSource.building, floor: _floor},
+                            this._prepareIndoorSingle(maps, { id: ++index, building: parsedSource.building, floor: _floor },
                                 previousTransport, currentTransport);
                         }
                     }
@@ -245,12 +249,12 @@ export class MapCoordinator {
             // Setup final SVGCoordinate
             let fSvgCoordinate: SVGCoordinate = await this._svgManager.getSVGCoordFromID(startID, parsedRoute.building, parsedRoute.floor);
             // activate pathfinder
-            this._routeStore.storeRoute({ id: parsedRoute.id, route: { source: iSvgCoordinate, destination: fSvgCoordinate } });
+            this._routeStore.storeRoute({ id: parsedRoute.id, route: { source: iSvgCoordinate, destination: fSvgCoordinate }, type: RouteType.INDOOR });
         }
     }
 
     private async _getNearestTransport(
-        mode: string,
+        mode: VerticalTransport,
         direction: string,
         building: string,
         floor: number,
@@ -258,10 +262,6 @@ export class MapCoordinator {
         let svgCoordinates;
         svgCoordinates = await this._svgManager.getSVGCoordFromID(locationID, building, floor);
         return await this._svgManager.getClosestVerticalTransportationId(mode, direction, svgCoordinates);
-    }
-
-    private mode() {
-        return 'escalators';
     }
 
     // TODO: replace with config

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { MapItem } from 'src/app/helpers/map-item';
 import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 import { DirectionForm } from '../../interfaces/direction-form';
@@ -18,6 +18,7 @@ import { MapModeStore } from 'src/app/providers/state-stores/map-mode-store.serv
 export class HomePage implements OnInit {
   maps: MapItem[];
   transportMode: string;
+  map_type: any;
 
 
   private _unsubscribeDirectionFormStore: UnsubscribeCallback;
@@ -36,6 +37,7 @@ export class HomePage implements OnInit {
     });
     this._unsubscribeMapModeStore = this._mapModeStore.subscribe(() => {
       this.maps = [this._mapModeStore.getMapModeState()];
+      this.map_type = this.maps[0]
     });
   }
 

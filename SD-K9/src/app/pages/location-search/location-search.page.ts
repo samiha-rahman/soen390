@@ -23,12 +23,16 @@ export class LocationSearchPage implements OnInit {
   map: any;
   geocoder: any;
   latlng: any;
-  
+  marker: any;
+  coder: any;
+
   private _itemList: string[];
   private _queryType: string;
   private _unsubscribe: UnsubscribeCallback;
+  private _googleAutocomplete: any;
 
   public currentQuery: string;
+  public placesSearchResults = new Array<any>();
 
   constructor(
     private _navController: NavController,
@@ -54,11 +58,20 @@ export class LocationSearchPage implements OnInit {
     this._navController.navigateBack("home");
   }
 
-  changeQuery(query: string) {
+  changeQuery() {
+    if (!this.query.trim().length) {
+      return;
+    };
+
     this.itemList = [];
-    this.currentQuery = query;
+    this._googleAutocomplete = new google.maps.places.AutocompleteService();
+    this._googleAutocomplete.getPlacePredictions({ input: this.query }, predictions => {
+      console.log(predictions)
+      this.placesSearchResults = predictions;
+    });
+
     for (const item of this._itemList) {
-      if (item.toUpperCase().includes(query.toUpperCase())) {
+      if (item.toUpperCase().includes(this.query.toUpperCase())) {
         this.itemList.push(item);
       }
     }
@@ -94,4 +107,32 @@ export class LocationSearchPage implements OnInit {
       }
     });
   }
+  //TODO: for future implementation, move this function to OutDoor-Map Component
+  //      because manipulation of the map should be done there.
+  moveMap(query: string){
+    this.currentMapState = this._googleStore.getGoogleMapState();
+    let map = this.currentMapState.map;
+    this.coder = this.currentMapState.geocoder;
+
+    this.coder.geocode( { 'address' : query }, function( results, status ) {
+        if( status == google.maps.GeocoderStatus.OK ) {
+          //move map to selected address
+          map.setCenter( results[0].geometry.location );
+          
+          //removes old marker if exist
+          if (typeof this.marker !== 'undefined'){
+            this.marker.setMap(null);
+          }
+          
+          this.marker = new google.maps.Marker( {
+            map     : map,
+            position: results[0].geometry.location
+          } );
+        } else {
+            console.error( 'Geocode was not successful for the following reason: ' + status );
+        }
+    } );
+    this._googleStore.updateGoogleMap(this.currentMapState);
+  }
+
 }

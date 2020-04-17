@@ -3,12 +3,13 @@ import { OutdoorRouteBuilder } from './outdoor-route-builder.service';
 import { IndoorRouteBuilder } from './indoor-route-builder.service';
 import { SVGManager } from './svg-manager.service';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class IndoorRouteCoordinator {
-  private _verticalTransportationMode = 'escalators';
+  private _verticalTransportationMode = VerticalTransport.ESCALATORS;
   private _hasNextRoute: boolean = false;
   private _routeLocationList = [];
 
@@ -22,24 +23,24 @@ export class IndoorRouteCoordinator {
     this._routeLocationList = [];
 
     if (iInitLocation.id && iDestination.id) {
-        if (iInitLocation.building === iDestination.building &&
+      if (iInitLocation.building === iDestination.building &&
         iInitLocation.floor === iDestination.floor) {
-                // if same building and same floor
-            this._indoorRouteBuilder.buildRoute(iInitLocation, iDestination);
-            this._hasNextRoute = false;
-        } else { // else different floor
-            await this.generateRouteLocations(iInitLocation, iDestination);
-            this.nextRoute();
-        }
+        // if same building and same floor
+        this._indoorRouteBuilder.buildRoute(iInitLocation, iDestination);
+        this._hasNextRoute = false;
+      } else { // else different floor
+        await this.generateRouteLocations(iInitLocation, iDestination);
+        this.nextRoute();
+      }
     }
   }
 
   routeLocation(fromL: SVGCoordinate, toL: SVGCoordinate) {
-    return(
-        {
-            from: fromL,
-            to: toL
-        }
+    return (
+      {
+        from: fromL,
+        to: toL
+      }
     );
   }
 
@@ -47,32 +48,32 @@ export class IndoorRouteCoordinator {
     let firstvTransportation: SVGCoordinate;
     let secondvTransportation: SVGCoordinate;
     let direction;
-    if (initLocation.building === finalLocation.building){
-        if (initLocation.floor < finalLocation.floor) {
-          direction = 'up';
-        } else {
-          direction = 'down';
-        }
-        const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
-          finalLocation
-        );
-        firstvTransportation = await this._svgManager.getSVGCoordFromID(
-            vTransportationId,
-            initLocation.building,
-            initLocation.floor
-        );
-        this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
-        secondvTransportation = await this._svgManager.getSVGCoordFromID(
-          vTransportationId,
-          finalLocation.building,
-          finalLocation.floor
-        );
-        this._routeLocationList.push(this.routeLocation(secondvTransportation, finalLocation));
+    if (initLocation.building === finalLocation.building) {
+      if (initLocation.floor < finalLocation.floor) {
+        direction = 'up';
+      } else {
+        direction = 'down';
+      }
+      const vTransportationId = await this._svgManager.getClosestVerticalTransportationId(this._verticalTransportationMode, direction,
+        finalLocation
+      );
+      firstvTransportation = await this._svgManager.getSVGCoordFromID(
+        vTransportationId,
+        initLocation.building,
+        initLocation.floor
+      );
+      this._routeLocationList.push(this.routeLocation(initLocation, firstvTransportation));
+      secondvTransportation = await this._svgManager.getSVGCoordFromID(
+        vTransportationId,
+        finalLocation.building,
+        finalLocation.floor
+      );
+      this._routeLocationList.push(this.routeLocation(secondvTransportation, finalLocation));
     }
     this._hasNextRoute = true;
   }
 
-  setVerticalTransportationMode(mode: string) {
+  setVerticalTransportationMode(mode: VerticalTransport) {
     this._verticalTransportationMode = mode;
   }
 
@@ -80,7 +81,7 @@ export class IndoorRouteCoordinator {
     this._indoorRouteBuilder.buildRoute(this._routeLocationList[0].from, this._routeLocationList[0].to);
     this._routeLocationList.shift();
     if (this._routeLocationList.length === 0) {
-        this._hasNextRoute = false;
+      this._hasNextRoute = false;
     }
   }
 
