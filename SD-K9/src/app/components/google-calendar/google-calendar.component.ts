@@ -65,7 +65,6 @@ export class GoogleCalendarComponent implements OnInit {
         }
       }
     });
-    console.log(this._queuedRouteStore.getQueuedRouteState());
   }
 
   toggleChange(toggleValue) {
