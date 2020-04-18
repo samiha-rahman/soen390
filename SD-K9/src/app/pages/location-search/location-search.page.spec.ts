@@ -53,7 +53,7 @@ describe('LocationSearchPage', () => {
   });
 
   it('#changeQuery should filter elements in `itemList`', async() => {
-    await delay(10000);
+    await delay(20000);
 
     component.query = 'H-811';
     component.changeQuery()
