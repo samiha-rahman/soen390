@@ -20,12 +20,12 @@
   <div>
 
     <ion-card>
-      <ion-card-header *ngIf="!itemList">
+      <ion-card-header [hidden]="(itemList)">
         <ion-card-content>Start typing to search for a location</ion-card-content>
       </ion-card-header>
     </ion-card>
     <ion-card>
-      <ion-card-header *ngIf="itemList && itemList.length == 0">
+      <ion-card-header [hidden]="!(itemList && itemList.length == 0)">
         <ion-card-title>No Results were found</ion-card-title>
         <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
         <ion-card-content>
@@ -35,7 +35,7 @@
       </ion-card-header>
     </ion-card>
 
-    <div *ngIf="itemList && itemList.length > 0">
+    <div [hidden]="!(itemList && itemList.length > 0)">
       <ion-item-divider>
         <ion-label>
           Concordia Classrooms
@@ -44,12 +44,12 @@
 
       <ion-list>
         <ion-item *ngFor="let item of itemList">
-          <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
+            <ion-label (click)="enterQuery(item)" id="list-item">{{ item }}</ion-label>
         </ion-item>
       </ion-list>
     </div>
 
-    <div *ngIf="placesSearchResults && placesSearchResults.length > 0">
+    <div [hidden]="!(placesSearchResults && placesSearchResults.length > 0)">
       <ion-item-divider>
         <ion-label>
           Google Results
