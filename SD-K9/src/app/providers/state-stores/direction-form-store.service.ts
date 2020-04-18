@@ -13,7 +13,7 @@ import { VerticalTransport } from 'src/app/models/vertical-transport.enum.model'
     providedIn: 'root'
 })
 export class DirectionFormStore {
-    private _newDirectionForm: DirectionForm = { sourceDestination: { source: '', destination: '' }, transport: Transport.TRANSIT, verticalTransport: VerticalTransport.ESCALATOR };
+    private _newDirectionForm: DirectionForm = { sourceDestination: { source: '', destination: '' }, transport: Transport.TRANSIT, verticalTransport: VerticalTransport.ESCALATORS };
     private _SET_SOURCE: string = "SET_SOURCE";
     private _SET_DESTINATION: string = "SET_DESTINATION";
     private _SET_TRANSPORT: string = "SET_TRANSPORT";
