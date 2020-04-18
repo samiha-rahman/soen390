@@ -54,149 +54,149 @@ describe("indoor navigation", () => {
 
   });
 
-  // describe("accepts input from the user and displays indoor map for start and destination on different floor", () => {
-  //   it("when inputs are in the drop down list", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-617');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
-  //     expect(floorplan.rootElement().isDisplayed()).toEqual(true);
-  //   });
+  describe("accepts input from the user and displays indoor map for start and destination on different floor", () => {
+    it("when inputs are in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      expect(floorplan.rootElement().isDisplayed()).toEqual(true);
+    });
 
-  //   it("when inputs are valid and not in the drop down list", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-860');
-  //     locationSearch.searchAnyway();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-620');
-  //     locationSearch.searchAnyway();
-  //     floorplan.waitUntilVisible();
-  //     expect(floorplan.rootElement().isDisplayed()).toEqual(true);
-  //   });
+    it("when inputs are valid and not in the drop down list", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-860');
+      locationSearch.searchAnyway();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-620');
+      locationSearch.searchAnyway();
+      floorplan.waitUntilVisible();
+      expect(floorplan.rootElement().isDisplayed()).toEqual(true);
+    });
 
-  // });
+  });
 
-  // describe("allows user to navigate between floors when start and destination are on different floors", () => {
-  //   it("displays a button to navigate to the next floor", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-617');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
-  //     mapBox.waitUntilPresent();
-  //     expect(element(by.css('app-map-box #nextmap-button')).isDisplayed()).toEqual(true);
-  //   });
+  describe("allows user to navigate between floors when start and destination are on different floors", () => {
+    it("displays a button to navigate to the next floor", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+      expect(element(by.css('app-map-box #nextmap-button')).isDisplayed()).toEqual(true);
+    });
 
-  //   it("displays a button to navigate to the previous floor", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-617');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
-  //     mapBox.waitUntilPresent();
-  //     mapBox.clickNextMap();
-  //     expect(element(by.css('app-map-box #prevmap-button')).isDisplayed()).toEqual(true);
-  //   });
+    it("displays a button to navigate to the previous floor", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+      mapBox.clickNextMap();
+      expect(element(by.css('app-map-box #prevmap-button')).isDisplayed()).toEqual(true);
+    });
 
-  // });
+  });
 
-  // describe("verifies correct path is displayed for indoor map navigation", () => {
-  //   it("displays shortest path between two classrooms on the same floor", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-811');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
-  //     floorplan.verifyPathSameFloor();
-  //   });
+  describe("verifies correct path is displayed for indoor map navigation", () => {
+    it("displays shortest path between two classrooms on the same floor", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-811');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathSameFloor();
+    });
 
-  //   it("displays shortest path between two classrooms on different floors using escalator", () => {
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('H-617');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
-  //     mapBox.waitUntilPresent();
+    it("displays shortest path between two classrooms on different floors using escalator", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
 
-  //     // TODO: complete when indoor navigation modes are completed
-  //     // topDirectionsBar.selectIndoorTransportationMode("escalator");
+      // TODO: complete when indoor navigation modes are completed
+      // topDirectionsBar.selectIndoorTransportationMode("escalator");
 
-  //     floorplan.verifyPathToEscalator();
-  //     mapBox.clickNextMap();
-  //     floorplan.verifyPathFromEscalator();
-  //   });
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromEscalator();
+    });
 
-  // });
+  });
 
-  // describe("verifies correct path when mix of indoor and outdoor route", () => {
-  //   it("displays shortest path from class room in hall building to the loyola building", () => {
-  //     // testing the happy path, will use escalators for vertical transport
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('CC-101');
-  //     locationSearch.chooseFromList();
-  //     floorplan.waitUntilVisible();
+  describe("verifies correct path when mix of indoor and outdoor route", () => {
+    it("displays shortest path from class room in hall building to the loyola building", () => {
+      // testing the happy path, will use escalators for vertical transport
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('CC-101');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
 
-  //     // exiting the Hall building starting from Hall 8
-  //     floorplan.verifyPathToEscalator();
-  //     mapBox.clickNextMap();
-  //     floorplan.waitUntilVisible();
-  //     floorplan.verifyPathEscalators();
-  //     mapBox.clickNextMap();
-  //     floorplan.waitUntilVisible();
-  //     floorplan.verifyPathToHallEntrance();
-  //     mapBox.clickNextMap();
+      // exiting the Hall building starting from Hall 8
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathEscalators();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathToHallEntrance();
+      mapBox.clickNextMap();
 
-  //     // outdoor portion of the route will be displayed
-  //     browser.sleep(3000);
-  //     browser.driver.findElement(by.css("app-map-box #nextmap-button")).click();
+      // outdoor portion of the route will be displayed
+      browser.sleep(3000);
+      browser.driver.findElement(by.css("app-map-box #nextmap-button")).click();
       
-  //     // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
-  //     browser.sleep(3000);
-  //     floorplan.verifyPathToLoyolaClass();
+      // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
+      browser.sleep(3000);
+      floorplan.verifyPathToLoyolaClass();
 
-  //   });
+    });
 
-  //   it("displays map for indoor starting point and outdoor destination", () => {
-  //     // testing the happy path, will use escalators for vertical transport
-  //     topDirectionsBar.enterStart();
-  //     locationSearch.enterLocation('H-821');
-  //     locationSearch.chooseFromList();
-  //     topDirectionsBar.enterDestination();
-  //     locationSearch.enterLocation('1410 Peel St');
-  //     locationSearch.searchAnyway();
-  //     floorplan.waitUntilVisible();
+    it("displays map for indoor starting point and outdoor destination", () => {
+      // testing the happy path, will use escalators for vertical transport
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('1410 Peel St');
+      locationSearch.searchAnyway();
+      floorplan.waitUntilVisible();
 
-  //     // exiting the Hall building starting from Hall 8
-  //     floorplan.verifyPathToEscalator();
-  //     mapBox.clickNextMap();
-  //     floorplan.waitUntilVisible();
-  //     floorplan.verifyPathEscalators();
-  //     mapBox.clickNextMap();
-  //     floorplan.waitUntilVisible();
-  //     floorplan.verifyPathToHallEntrance();
-  //     mapBox.clickNextMap();
+      // exiting the Hall building starting from Hall 8
+      floorplan.verifyPathToEscalator();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathEscalators();
+      mapBox.clickNextMap();
+      floorplan.waitUntilVisible();
+      floorplan.verifyPathToHallEntrance();
+      mapBox.clickNextMap();
 
-  //     // verify outdoor map is displayed
-  //     browser.sleep(3000);
-  //     const map = browser.driver.findElement(by.id('map'));
-  //     expect(map.isDisplayed()).toEqual(true);
+      // verify outdoor map is displayed
+      browser.sleep(3000);
+      const map = browser.driver.findElement(by.id('map'));
+      expect(map.isDisplayed()).toEqual(true);
 
-  //   });
+    });
 
-  // });
+  });
 
 });
