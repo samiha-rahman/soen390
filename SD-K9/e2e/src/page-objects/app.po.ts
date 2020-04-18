@@ -46,6 +46,15 @@ export class PageObject {
     inp.sendKeys(text);
   }
 
+  protected slowType(sel: string, text: string, delay: number) {
+    const el = element(by.css(`${this.tag}${sel}`));
+    const inp = el.element(by.css('input'));
+    for (var i = 0; i < text.length; i++) {
+      inp.sendKeys(text[i])
+      browser.sleep(delay)
+    }
+  }
+
   protected enterTextareaText(sel: string, text: string) {
     const el = element(by.css(`${this.tag}${sel}`));
     const inp = el.element(by.css('textarea'));
