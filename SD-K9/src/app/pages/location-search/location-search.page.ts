@@ -95,10 +95,11 @@ export class LocationSearchPage implements OnInit {
     let currentMapState = this._googleStore.getGoogleMapState();
     let currentPos = currentMapState.currentpos;
     let self = this;
-    this.latlng = {lat: currentPos.lat(), lng:  currentPos.lng()}; 
+    this.latlng = {lat: currentPos.lat(), lng:  currentPos.lng()};
+    this.coder = currentMapState.geocoder; 
 
     self.enterQuery(' '); 
-    currentMapState.geocoder.geocode({'location': this.latlng}, function(results, status) 
+    this.coder.geocode({'location': this.latlng}, function(results, status) 
     {
       if(status === "OK"){
         self.enterQuery(results[0].formatted_address);
