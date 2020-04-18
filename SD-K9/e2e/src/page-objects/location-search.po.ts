@@ -7,7 +7,7 @@ export class LocationSearchPage extends PageObject {
     }
 
     enterLocation(location: string) {
-        this.enterInputText(' ion-searchbar#location-searchbar', location);
+        this.slowType(' ion-searchbar#location-searchbar', location, 100);
     }
 
     // TODO: be able to click from a list of options 
@@ -25,7 +25,7 @@ export class LocationSearchPage extends PageObject {
     }
 
     searchAnyway() {
-        this.clickButton(' ion-button');
+        this.clickButton(' ion-button#searchanyway-button');
     }
 
     goBack() {
