@@ -43,7 +43,7 @@ export class ThemeSwitcherService {
         name: 'night',
         styles: [
           { themeVariable: '--ion-color-primary', value: '#1E90FF'},
-          { themeVariable: '--ion-color-primary-rgb', value: '30,144,255},
+          { themeVariable: '--ion-color-primary-rgb', value: '30,144,255'},
           { themeVariable: '--ion-color-primary-contrast', value: '#ffffff'},
           { themeVariable: '--ion-color-primary-contrast-rgb', value: '255,255,255'},
           { themeVariable: '--ion-color-primary-shade', value: '#6495ED'},
