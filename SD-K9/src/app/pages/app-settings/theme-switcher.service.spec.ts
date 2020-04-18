@@ -21,9 +21,10 @@ export class ThemeSwitcherService {
   private currentTheme: number = 0;
 
   constructor(private domCtrl: DomController, @Inject(DOCUMENT) private document) { 
+    
     this.themes = [
       {
-        name: 'day',
+        name: 'Default (BURGANDY RED)',
         styles: [
           { themeVariable: '--ion-color-primary', value: '#A31B1B'},
           { themeVariable: '--ion-color-primary-rgb', value: '163, 27, 27'},
@@ -40,7 +41,7 @@ export class ThemeSwitcherService {
         ]
       },
       {
-        name: 'night',
+        name: 'Colorblind (BLUE)',
         styles: [
           { themeVariable: '--ion-color-primary', value: '#1E90FF'},
           { themeVariable: '--ion-color-primary-rgb', value: '30,144,255'},
