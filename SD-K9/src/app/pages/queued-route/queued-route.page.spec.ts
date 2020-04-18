@@ -1,33 +1,37 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, fakeAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
-import { By } from '@angular/platform-browser';
-
 import { QueuedRoutePage } from './queued-route.page';
-import { delay } from 'rxjs/operators';
-
-class QueuedRouteServiceMock {
-  nextClass(){
-    return "H-815"
-  }
-}
+import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
+import { DebugElement } from '@angular/core';
 
 describe('QueuedRoutePage', () => {
   let component: QueuedRoutePage;
-  let fixture: ComponentFixture<QueuedRoutePage>;
-  let queuedRouteMock = jasmine.createSpyObj('queuedRoute', ['nextClass']);
+  let fixture: ComponentFixture<QueuedRoutePage>; 
+  let debugElement: DebugElement;
 
+  class DirectionFormStoreMock { setDestination(location: string) { } }
+  
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ QueuedRoutePage ],
-      imports: [IonicModule.forRoot()]
+      imports: [IonicModule.forRoot()],
+      providers: [DirectionFormStore]
     }).compileComponents();
 
     fixture = TestBed.createComponent(QueuedRoutePage);
     component = fixture.componentInstance;
+    debugElement = fixture.debugElement
     fixture.detectChanges();
   }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('#nextClass should set next class', () => {
+    let directionFormStore = debugElement.injector.get(DirectionFormStore)
+    spyOn(directionFormStore, 'setDestination');
+    component.nextClass({location:'Hall'});
+    expect(directionFormStore.setDestination).toHaveBeenCalledWith('Hall');
+  })
 });

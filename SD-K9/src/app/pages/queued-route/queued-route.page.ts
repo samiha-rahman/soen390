@@ -40,7 +40,7 @@ export class QueuedRoutePage implements OnInit {
     await this.modalController.dismiss();
   }
 
-  nextClass(item){
+  nextClass(item: any){
     this._directionFormStore.setDestination(item.location);
     this.closeModal();
     this.toggleFooter();
