@@ -20,7 +20,7 @@ describe('BusPage', () => {
     fixture = TestBed.createComponent(BusPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
   }));
 
   it('should create', () => {
