@@ -13,6 +13,7 @@ export class AppSettings implements OnInit {
 
   ngOnInit() {
   }
+
   async closeModal() {
     await this.modalController.dismiss();
   }

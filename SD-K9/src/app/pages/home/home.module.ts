@@ -19,6 +19,7 @@ import { IonicPullupModule } from 'ionic-pullup';
 import { AppSettings } from 'src/app/pages/app-settings/app-settings.page';
 import { BusPage } from 'src/app/pages/bus/bus.page';
 import { GoogleCalendarComponent } from 'src/app/components/google-calendar/google-calendar.component';
+import { QueuedRoutePage } from '../queued-route/queued-route.page';
 
 @NgModule({
   imports: [
@@ -40,6 +41,7 @@ import { GoogleCalendarComponent } from 'src/app/components/google-calendar/goog
     IndoorFloorSelectorComponent,
     PullupComponent,
     AppSettings,
+    QueuedRoutePage,
     BusPage,
     GoogleCalendarComponent
   ],
@@ -48,7 +50,8 @@ import { GoogleCalendarComponent } from 'src/app/components/google-calendar/goog
     FloorPlanComponent,
     OutdoorMapComponent,
     AppSettings,
-    BusPage
+    BusPage,
+    QueuedRoutePage
   ]
 })
 export class HomePageModule { }
