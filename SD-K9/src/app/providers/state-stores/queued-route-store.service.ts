@@ -16,16 +16,11 @@ export class QueuedRouteStore {
  
     private _CLEAR: string = 'CLEAR';
     private _ADD: string = 'ADD';
-    private _SHIFT: string = 'SHIFT';
 
     private _queuedRouteReducer: StateReducer<QueuedRouteState> = (state: QueuedRouteState, action: StateAction): QueuedRouteState => {
         switch(action.type) {
             case this._ADD: {
                 state.routes.push(action.payload);
-                return state;
-              }
-              case this._SHIFT: {
-                state.routes.shift();
                 return state;
               }
               case this._CLEAR: {
