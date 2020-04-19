@@ -304,7 +304,6 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   
 
   inCampus(coordinates){ 
-    //coordinates = new google.maps.LatLng(45.497307, -73.578971);   //to test Hall Building coordinates
     let isInside = false; 
     let building = "";
     let polygonArr: any[] = [];

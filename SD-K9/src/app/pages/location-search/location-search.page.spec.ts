@@ -63,13 +63,7 @@ describe('LocationSearchPage', () => {
     expect(nav.navigateBack).toHaveBeenCalledWith("home");
   });
 
-<<<<<<< HEAD
-  it('#changeQuery should filter elements in `itemList`', async() => {
-    await delay(20000);
-
-=======
   it('#changeQuery should filter elements in `itemList`', () => {
->>>>>>> master
     component.query = 'H-811';
     component.changeQuery()
     expect(component.itemList.length).toEqual(1);
