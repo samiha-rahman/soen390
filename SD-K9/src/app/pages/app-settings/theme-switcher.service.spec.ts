@@ -75,6 +75,9 @@ export class ThemeSwitcherService {
 
   }
 
+
+  //function to set determined theme
+
   setTheme(name): void {
 
     let theme = this.themes.find(theme => theme.name === name);
