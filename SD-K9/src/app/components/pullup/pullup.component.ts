@@ -6,6 +6,7 @@ import { BusPage} from 'src/app/pages/bus/bus.page';
 import { GoogleStore } from '../../providers/state-stores/google-store.service';
 import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
+import { QueuedRoutePage } from 'src/app/pages/queued-route/queued-route.page';
 
 declare var google;
 
@@ -42,6 +43,13 @@ constructor(
   async presentBusModal() {
     const modal = await this.modalController.create({
       component: BusPage
+    });
+    return await modal.present();
+  }
+
+  async presentQueuedRouteModal() {
+    const modal = await this.modalController.create({
+      component: QueuedRoutePage
     });
     return await modal.present();
   }

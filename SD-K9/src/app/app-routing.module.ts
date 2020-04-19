@@ -15,6 +15,11 @@ const routes: Routes = [
     path: 'settings',
     loadChildren: () => import('src/app/pages/app-settings/app-settings.module').then(m => m.AppsettingsPageModule)
   },
+  {
+    path: 'queued-routes',
+    loadChildren: () => import('src/app/pages/queued-route/queued-route.module').then(m => m.QueuedRoutesPageModule)
+  }
+  
 
 ];
 

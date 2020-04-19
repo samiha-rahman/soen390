@@ -12,16 +12,11 @@
 <ion-content>
   <ion-list>
   <ion-item>
-    <ion-label>Personal Settings</ion-label>
+    <ion-button (click)="presentAlert()">Privacy Policy</ion-button>
   </ion-item>
   <ion-item>
-    <ion-label>Notifications</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>Privacy Policy</ion-label>
-  </ion-item>
-  <ion-item>
-    <ion-label>About</ion-label>
+    Colorblind Theme
+    <ion-toggle (click)="changeTheme()"></ion-toggle>
   </ion-item>
   <ion-item>
     <app-google-calendar></app-google-calendar>
