@@ -60,6 +60,9 @@ export class ThemeSwitcherService {
     ]
   }
 
+
+//Function to cycle between the different themes, uses a counter
+
   cycleTheme(): void {
 
     if(this.themes.length > this.currentTheme + 1){
