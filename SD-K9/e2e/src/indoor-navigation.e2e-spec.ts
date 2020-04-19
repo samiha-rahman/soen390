@@ -129,12 +129,45 @@ describe("indoor navigation", () => {
       floorplan.waitUntilVisible();
       mapBox.waitUntilPresent();
 
-      // TODO: complete when indoor navigation modes are completed
-      // topDirectionsBar.selectIndoorTransportationMode("escalator");
+      topDirectionsBar.selectIndoorTransportationMode("escalator");
 
       floorplan.verifyPathToEscalator();
       mapBox.clickNextMap();
       floorplan.verifyPathFromEscalator();
+    });
+
+    it("displays shortest path between two classrooms on different floors using elevator", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-863');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-643');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+
+      topDirectionsBar.selectIndoorTransportationMode("elevator");
+      floorplan.verifyPathToElevator();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromElevator();
+
+    });
+
+    it("displays shortest path between two classrooms on different floors using stairs", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-863');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-643');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+
+      topDirectionsBar.selectIndoorTransportationMode("stairs");
+      floorplan.verifyPathToStairs();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromStairs();
+
     });
 
   });

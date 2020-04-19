@@ -25,17 +25,17 @@ export class TopDirectionsBarComponent extends PageObject {
     selectIndoorTransportationMode(mode: string) {
         switch (mode) {
             case "stairs":
-                const stairsButton = element(by.cssContainingText('ion-button', 'STAIRS '));
+                const stairsButton = element(by.cssContainingText('ion-button', 'STAIRS'));
                 stairsButton.click();
                 break;
         
             case "escalator":
-                const escalatorButton = element(by.cssContainingText('ion-button', 'ESCALATORS '));
+                const escalatorButton = element(by.cssContainingText('ion-button', 'ESCALATORS'));
                 escalatorButton.click();
                 break;
 
             case "elevator":
-                const elevatorButton = element(by.cssContainingText('ion-button', 'ELEVATORS '));
+                const elevatorButton = element(by.cssContainingText('ion-button', 'ELEVATORS'));
                 elevatorButton.click();
                 break;
 
