@@ -29,19 +29,15 @@ describe("outdoor navigation", () => {
 
   describe("user interactions on outdoor map", () => {
     it("button to toggle to SGW campus is clickable", () => {
-      const sgwButton = element(by.cssContainingText('ion-label', 'SGW'));
-      expect(ExpectedConditions.elementToBeClickable(sgwButton)).toEqual(true);
-
+      expect(outdoorMap.isSGWClickable()).toEqual(true);
     });
 
     it("button to toggle to Loyola campus is clickable", () => {
-      const loyButton = element(by.cssContainingText('ion-label', 'Loyola'));
-      expect(ExpectedConditions.elementToBeClickable(loyButton)).toEqual(true);
+      expect(outdoorMap.isLoyolaClickable()).toEqual(true);
     });
 
     it("button to locate user is clickable", () => {
-      const locateMe = element(by.css('ion-fab-button.locate-me-btn'));
-      expect(ExpectedConditions.elementToBeClickable(locateMe));
+      expect(outdoorMap.isLocateMeClickable()).toEqual(true);
     });
 
   });
