@@ -1,3 +1,12 @@
+<ion-header>
+  <ion-item button (click)="inCampus(this.currentPos)" class="inCampusBtn">
+    <ion-label>
+      <h3 id="btn">{{insideMSG}}</h3>
+    </ion-label>
+    <ion-icon name="refresh" slot="end"></ion-icon>
+  </ion-item>
+</ion-header>
+
 <div>
   <ion-segment (ionChange)="toggleCampus($event)" *ngIf="mapInitialised && !hasRoute" class="campusTgl">
     <ion-segment-button value="sgw" class="btn" id="sgw-button">
