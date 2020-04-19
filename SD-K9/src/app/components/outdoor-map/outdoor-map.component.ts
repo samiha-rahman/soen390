@@ -87,7 +87,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places,geometry&callback=initMap';
       document.body.appendChild(script);
     } else {
       this._initMap();
@@ -151,10 +151,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
-      
+
       //check if user is inside building initially
       this.inCampus(this.currentPos);
-      
+
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
