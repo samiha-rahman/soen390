@@ -20,7 +20,7 @@ describe("indoor navigation", () => {
     // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
     topDirectionsBar.enterStart();
     locationSearch.goBack();
-    browser.sleep(5000);
+    browser.sleep(10000);
   });
 
   beforeEach(() => {
@@ -43,7 +43,9 @@ describe("indoor navigation", () => {
       topDirectionsBar.enterStart();
       locationSearch.enterLocation('H-820');
       locationSearch.searchAnyway();
+      topDirectionsBar.waitUntilVisible();
       topDirectionsBar.enterDestination();
+      locationSearch.waitUntilVisible();
       locationSearch.enterLocation('H-860');
       locationSearch.searchAnyway();
       floorplan.waitUntilVisible();
@@ -70,7 +72,7 @@ describe("indoor navigation", () => {
       locationSearch.searchAnyway();
       topDirectionsBar.enterDestination();
       locationSearch.enterLocation('H-620');
-      locationSearch.searchAnyway();
+      locationSearch.chooseFromList();
       floorplan.waitUntilVisible();
       expect(floorplan.rootElement().isDisplayed()).toEqual(true);
     });
@@ -127,12 +129,45 @@ describe("indoor navigation", () => {
       floorplan.waitUntilVisible();
       mapBox.waitUntilPresent();
 
-      // TODO: complete when indoor navigation modes are completed
-      // topDirectionsBar.selectIndoorTransportationMode("escalator");
+      topDirectionsBar.selectIndoorTransportationMode("escalator");
 
       floorplan.verifyPathToEscalator();
       mapBox.clickNextMap();
       floorplan.verifyPathFromEscalator();
+    });
+
+    it("displays shortest path between two classrooms on different floors using elevator", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-863');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-643');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+
+      topDirectionsBar.selectIndoorTransportationMode("elevator");
+      floorplan.verifyPathToElevator();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromElevator();
+
+    });
+
+    it("displays shortest path between two classrooms on different floors using stairs", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-863');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-643');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+      mapBox.waitUntilPresent();
+
+      topDirectionsBar.selectIndoorTransportationMode("stairs");
+      floorplan.verifyPathToStairs();
+      mapBox.clickNextMap();
+      floorplan.verifyPathFromStairs();
+
     });
 
   });
@@ -159,11 +194,11 @@ describe("indoor navigation", () => {
       mapBox.clickNextMap();
 
       // outdoor portion of the route will be displayed
-      browser.sleep(5000);
-      mapBox.clickNextMap();
+      browser.sleep(3000);
+      browser.driver.findElement(by.css("app-map-box #nextmap-button")).click();
       
       // verify that the indoor floorplan for loyola loads and displays shortest path to CC-101
-      floorplan.waitUntilVisible();
+      browser.sleep(3000);
       floorplan.verifyPathToLoyolaClass();
 
     });

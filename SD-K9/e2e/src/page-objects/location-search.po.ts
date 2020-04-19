@@ -7,21 +7,27 @@ export class LocationSearchPage extends PageObject {
     }
 
     enterLocation(location: string) {
-        this.enterInputText(' ion-searchbar#location-searchbar', location);
+        this.slowType(' ion-searchbar#location-searchbar', location, 100);
     }
 
-    // TODO: be able to click from a list of options 
     chooseFromList() {
-        // element(by.cssContainingText('ion-label', `${location}`)).click();
-        this.clickButton(' ion-label');     // currently, only one option is displayed, so can select using ion-label
+        this.clickButton(' ion-label#list-item');    
+    }
+
+    choosePlacesFromList() {
+        this.clickButton(' ion-label#places-item')
     }
 
     searchAnyway() {
-        this.clickButton(' ion-button');
+        this.clickButton(' ion-button#searchanyway-button');
     }
 
     goBack() {
         this.clickButton(' ion-fab-button#back-button');
+    }
+
+    clickLocationSearchbar() {
+        this.clickButton(' ion-searchbar#location-searchbar')
     }
 
 }

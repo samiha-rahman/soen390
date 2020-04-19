@@ -7,7 +7,7 @@ import { RouteStore } from 'src/app/providers/state-stores/route-store.service';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
 import { BuildingInfoStore } from '../../providers/state-stores/building-info-store.service';
-import { BuildingInfoState } from 'src/app/interfaces/building-info-state';
+import { BuildingInfoState } from 'src/app/interfaces/states/building-info-state';
 import * as campusData from '../../../local-configs/campus.json';
 import { environment } from '../../../environments/environment';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
@@ -78,7 +78,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
       document.body.appendChild(script);
     } else {
       this._initMap();

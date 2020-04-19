@@ -5,6 +5,7 @@ import { SVG } from '@svgdotjs/svg.js';
 import { Observable } from 'rxjs';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
 import { forEach } from '@angular-devkit/schematics';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 @Injectable({
   providedIn: 'root'
@@ -75,7 +76,7 @@ export class SVGManager {
    */
   public drawSVGPath(coordinates: SVGCoordinate[], isFocused: boolean) {
     const draw = SVG()
-      .addTo('#floorplan');
+      .addTo('#floorplan .svg-pan-zoom_viewport');
     let path = '';
 
     const color = isFocused ? '#3880ff' : '#85b1ff';
@@ -115,27 +116,27 @@ export class SVGManager {
    * @param floor is the floor on which the classroom is located
    */
   public getSVGCoordFromID(locationID: string, building: string, floor: number) {
-      return this.getSVG(`${building}/${floor}`)
-          .pipe(
-              map(svgFile => {
-                  // return svgFile
-                  const vtransports = SVG(svgFile).find('circle');
-                  const vtransport = vtransports.filter((element) => element.node.id === locationID)[0];
-                  const node: SVGCircleElement = vtransport.node as any;
-                  return {
-                      id: node.id,
-                      x: parseInt(node.cx.baseVal.value.toString()),
-                      y: parseInt(node.cy.baseVal.value.toString()),
-                      building,
-                      floor
-                  };
-              })
-          )
-          .toPromise();
+    return this.getSVG(`${building}/${floor}`)
+      .pipe(
+        map(svgFile => {
+          // return svgFile
+          const vtransports = SVG(svgFile).find('circle');
+          const vtransport = vtransports.filter((element) => element.node.id === locationID)[0];
+          const node: SVGCircleElement = vtransport.node as any;
+          return {
+            id: node.id,
+            x: parseInt(node.cx.baseVal.value.toString()),
+            y: parseInt(node.cy.baseVal.value.toString()),
+            building,
+            floor
+          };
+        })
+      )
+      .toPromise();
   }
 
   public getClosestVerticalTransportationId(
-    mode: string,
+    mode: VerticalTransport,
     direction: string,
     svgCoordinate: SVGCoordinate) {
     return this.getSVG(`${svgCoordinate.building}/${svgCoordinate.floor}`)
@@ -143,13 +144,13 @@ export class SVGManager {
         map(svgFile => {
           // return svgFile
           let vtransports;
-          if (mode === 'stairs') {
-            vtransports = SVG(svgFile).find(`g#${mode} circle.${direction}`);
+          if (mode === VerticalTransport.STAIRS) {
+            vtransports = SVG(svgFile).find(`g#${mode.toLowerCase()} circle.${direction}`);
           } else {
-            vtransports = SVG(svgFile).find(`g#${mode} circle`);
+            vtransports = SVG(svgFile).find(`g#${mode.toLowerCase()} circle`);
           }
           let vtransport;
-          if (mode === 'escalators') {
+          if (mode === VerticalTransport.ESCALATORS) {
             vtransport = vtransports.filter((element) => element.node.id.includes(direction))[0];
           } else {
             let minOption = 0;

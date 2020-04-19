@@ -183,6 +183,8 @@
 </g>
 <g id="path" style="display:none;" distance-between-neighbors="8">
 	<circle class="node" style="display:inline;fill:#FF0000;" cx="79.622" cy="104.161" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FF0000;" cx="355.332" cy="354.125" r="0.5"/>
+	<circle class="node" style="display:inline;fill:#FF0000;" cx="360.332" cy="354.125" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FE0000;" cx="79.622" cy="100.341" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="83.708" cy="96.521" r="0.5"/>
 	<circle class="node" style="display:inline;fill:#FC0000;" cx="87.794" cy="96.521" r="0.5"/>

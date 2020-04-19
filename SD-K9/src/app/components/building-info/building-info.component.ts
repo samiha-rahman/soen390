@@ -12,6 +12,7 @@ import { MapModeStore } from '../../providers/state-stores/map-mode-store.servic
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 
 import * as campusData from '../../../local-configs/campus.json';
+import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
 
 @Component({
   selector: 'app-building-info',
@@ -46,13 +47,14 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   currentBuildingInfo: string;
   buildingInfoCardIsShown: boolean;
 
-
   private _unsubscribe: UnsubscribeCallback;
   private _campusConfig: any;
 
   constructor(
     private _buildingInfoStore: BuildingInfoStore,
-    private _mapModeStore: MapModeStore
+    private _mapModeStore: MapModeStore,
+    private _directionFormStore: DirectionFormStore
+
   ) {
     this._unsubscribe = this._buildingInfoStore.subscribe(() => {
       this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
@@ -75,6 +77,15 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     else {
       this.buildingInfoCardIsShown = false;
     }
+  }
+  setStartLocation(){
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setSource(fullName);
+  }
+
+  setDestinationLocation(){
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setDestination(fullName);
   }
 
   goInside(buildingSlug: string) {
@@ -102,6 +113,8 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   hideBuildingInfoCard(event) {
     this.buildingInfoCardIsShown = false;
+
+    //Makes clickable buildings more reliable
     this._buildingInfoStore.clearBuildingInfo();
   }
 

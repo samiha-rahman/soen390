@@ -18,18 +18,25 @@ export class TopDirectionsBarComponent extends PageObject {
         this.clickButton(' ion-button.clear-btn');
     }
 
+    clickStart() {
+        this.clickButton(' ion-button#start-button');
+    }
+
     selectIndoorTransportationMode(mode: string) {
         switch (mode) {
             case "stairs":
-                this.clickButton(' ion-segment-button#stairs-button');
+                const stairsButton = element(by.cssContainingText('ion-button', 'STAIRS'));
+                stairsButton.click();
                 break;
         
             case "escalator":
-                this.clickButton(' ion-segment-button#escalator-button');
+                const escalatorButton = element(by.cssContainingText('ion-button', 'ESCALATORS'));
+                escalatorButton.click();
                 break;
 
             case "elevator":
-                this.clickButton(' ion-segment-button#elevator-button');
+                const elevatorButton = element(by.cssContainingText('ion-button', 'ELEVATORS'));
+                elevatorButton.click();
                 break;
 
             default:

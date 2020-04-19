@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { StateReducer } from '../../interfaces/state-reducer';
-import { StateAction } from '../../interfaces/state-action';
+import { StateReducer } from '../../interfaces/states/state-reducer';
+import { StateAction } from '../../interfaces/states/state-action';
 import { StateStore } from '../../helpers/state-store';
 import { DirectionForm } from '../../interfaces/direction-form';
 import { Action } from 'rxjs/internal/scheduler/Action';
@@ -13,7 +13,7 @@ import { VerticalTransport } from 'src/app/models/vertical-transport.enum.model'
     providedIn: 'root'
 })
 export class DirectionFormStore {
-    private _newDirectionForm: DirectionForm = { sourceDestination: { source: '', destination: '' }, transport: Transport.TRANSIT, verticalTransport: VerticalTransport.ESCALATOR };
+    private _newDirectionForm: DirectionForm = { sourceDestination: { source: '', destination: '' }, transport: Transport.TRANSIT, verticalTransport: VerticalTransport.ESCALATORS };
     private _SET_SOURCE: string = "SET_SOURCE";
     private _SET_DESTINATION: string = "SET_DESTINATION";
     private _SET_TRANSPORT: string = "SET_TRANSPORT";

@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { SVGManager } from './svg-manager.service';
 import { SVGCoordinate } from '../models/svg-coordinate.model';
+import { VerticalTransport } from '../models/vertical-transport.enum.model';
 
 describe('SVGManager', () => {
     let service: SVGManager;
@@ -147,7 +148,7 @@ describe('SVGManager', () => {
 
         const expectedVerticalTransport = 'stair-2';
 
-        service.getClosestVerticalTransportationId('stairs', 'up', currentLocation)
+        service.getClosestVerticalTransportationId(VerticalTransport.STAIRS, 'up', currentLocation)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
             })
@@ -168,7 +169,7 @@ describe('SVGManager', () => {
 
         const expectedVerticalTransport = 'up-escalator-1';
 
-        service.getClosestVerticalTransportationId('escalators', 'up', currentLocation)
+        service.getClosestVerticalTransportationId(VerticalTransport.ESCALATORS, 'up', currentLocation)
             .then(vt => {
                 expect(vt).toEqual(expectedVerticalTransport);
             })

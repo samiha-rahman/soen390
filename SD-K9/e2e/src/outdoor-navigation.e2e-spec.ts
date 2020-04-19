@@ -34,19 +34,4 @@ describe("outdoor navigation", () => {
     });
   });
 
-//   describe("accepts user input and displays outdoor map directions", () => {
-//       it("when start and end location are outdoors", () => {
-//         topDirectionsBar.enterStart();
-//         locationSearch.enterLocation('1515 Saint-Catherine St W');
-//         locationSearch.searchAnyway();
-//         topDirectionsBar.enterDestination();
-//         locationSearch.enterLocation('1410 Peel St');
-//         locationSearch.searchAnyway();
-//         topDirectionsBar.selectOutdoorTransportationMode("walk");
-
-//       });
-
-//   });
-  
-
 });
