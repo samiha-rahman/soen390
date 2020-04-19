@@ -18,6 +18,12 @@
   </ion-card>
 
   <div>
+
+    <ion-item button (click)="getCurrentPos()">
+      <ion-icon name="compass"></ion-icon>
+      <ion-label class="ion-padding">My Location</ion-label>
+    </ion-item>
+
     <div *ngIf="itemList && itemList.length > 0">
       <ion-item-divider>
         <ion-label>

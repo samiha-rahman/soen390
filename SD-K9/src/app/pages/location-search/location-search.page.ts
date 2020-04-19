@@ -22,7 +22,7 @@ export class LocationSearchPage implements OnInit {
   itemList: string[];
 
   currentMapState: any;
-  map: any;
+  latlng: any;
   marker: any;
   coder: any;
 
@@ -94,6 +94,23 @@ export class LocationSearchPage implements OnInit {
     this._navController.navigateBack("home");
   }
 
+  getCurrentPos(){
+    this.currentMapState = this._googleStore.getGoogleMapState();
+    let currentPos = this.currentMapState.currentpos;
+    let self = this;
+    this.latlng = {lat: currentPos.lat(), lng:  currentPos.lng()};
+    this.coder = this.currentMapState.geocoder; 
+
+    self.enterQuery(' '); 
+    this.coder.geocode({'location': this.latlng}, function(results, status) 
+    {
+      if(status === "OK"){
+        self.enterQuery(results[0].formatted_address);
+      } else{
+        console.error( 'Geocode was not successful for the following reason: ' + status );
+      }
+    });
+  }
   //TODO: for future implementation, move this function to OutDoor-Map Component
   //      because manipulation of the map should be done there.
   moveMap(query: string) {
