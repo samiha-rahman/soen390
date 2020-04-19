@@ -20,8 +20,6 @@ export class LocationSearchPage implements OnInit {
   itemList: string[];
 
   currentMapState: any;
-  map: any;
-  geocoder: any;
   latlng: any;
   marker: any;
   coder: any;
@@ -92,11 +90,11 @@ export class LocationSearchPage implements OnInit {
   }
 
   getCurrentPos(){
-    let currentMapState = this._googleStore.getGoogleMapState();
-    let currentPos = currentMapState.currentpos;
+    this.currentMapState = this._googleStore.getGoogleMapState();
+    let currentPos = this.currentMapState.currentpos;
     let self = this;
     this.latlng = {lat: currentPos.lat(), lng:  currentPos.lng()};
-    this.coder = currentMapState.geocoder; 
+    this.coder = this.currentMapState.geocoder; 
 
     self.enterQuery(' '); 
     this.coder.geocode({'location': this.latlng}, function(results, status) 
