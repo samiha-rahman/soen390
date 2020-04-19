@@ -2,8 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { DirectionFormStore } from '../../providers/state-stores/direction-form-store.service';
 import { ActivatedRoute } from '@angular/router';
-import { GoogleStore } from 'src/app/providers/state-stores/google-store.service';
-import { UnsubscribeCallback } from 'src/app/interfaces/unsubscribe-callback';
+import { GoogleStore } from '../../providers/state-stores/google-store.service';
+import { UnsubscribeCallback } from '../../interfaces/unsubscribe-callback';
+import { classrooms } from '../../../local-configs/classrooms'
+import { MapCoordinator } from 'src/app/providers/map-coordinator.service';
 
 declare var google;
 
@@ -29,14 +31,14 @@ export class LocationSearchPage implements OnInit {
   private _unsubscribe: UnsubscribeCallback;
   private _googleAutocomplete: any;
 
-  public currentQuery: string;
   public placesSearchResults = new Array<any>();
 
   constructor(
     private _navController: NavController,
     private _activatedRoute: ActivatedRoute,
     private _directionFormStore: DirectionFormStore,
-    private _googleStore: GoogleStore
+    private _googleStore: GoogleStore,
+    private _mapCoordinator: MapCoordinator
   ) {
     this._activatedRoute.queryParams.subscribe(params => {
       this._queryType = params['query'];
@@ -47,9 +49,7 @@ export class LocationSearchPage implements OnInit {
   }
 
   ngOnInit() {
-    // setTimeout(() => { this.searchbar.setFocus(); }, 150);
-    // TODO: get from config once available
-    this._itemList = ['H-811', 'H-815', 'H-817', 'H-819', 'H-821', 'CC-101', 'H-617'];
+    this._itemList = classrooms;
   }
 
   goToHomePage() {
@@ -62,17 +62,22 @@ export class LocationSearchPage implements OnInit {
     };
 
     this.itemList = [];
-    this._googleAutocomplete = new google.maps.places.AutocompleteService();
-    this._googleAutocomplete.getPlacePredictions({ input: this.query }, predictions => {
-      console.log(predictions)
-      this.placesSearchResults = predictions;
-    });
-
     for (const item of this._itemList) {
       if (item.toUpperCase().includes(this.query.toUpperCase())) {
         this.itemList.push(item);
       }
     }
+    if (this.itemList.length == 0 && !this._mapCoordinator.isClassroomFormat(this.query)) {
+      this.searchPlaces();
+    }
+  }
+
+  searchPlaces() {
+    console.log("searching places")
+    this._googleAutocomplete = new google.maps.places.AutocompleteService();
+    this._googleAutocomplete.getPlacePredictions({ input: this.query }, predictions => {
+      this.placesSearchResults = predictions;
+    });
   }
 
   enterQuery(query: string) {
@@ -108,29 +113,29 @@ export class LocationSearchPage implements OnInit {
   }
   //TODO: for future implementation, move this function to OutDoor-Map Component
   //      because manipulation of the map should be done there.
-  moveMap(query: string){
+  moveMap(query: string) {
     this.currentMapState = this._googleStore.getGoogleMapState();
     let map = this.currentMapState.map;
     this.coder = this.currentMapState.geocoder;
 
-    this.coder.geocode( { 'address' : query }, function( results, status ) {
-        if( status == google.maps.GeocoderStatus.OK ) {
-          //move map to selected address
-          map.setCenter( results[0].geometry.location );
-          
-          //removes old marker if exist
-          if (typeof this.marker !== 'undefined'){
-            this.marker.setMap(null);
-          }
-          
-          this.marker = new google.maps.Marker( {
-            map     : map,
-            position: results[0].geometry.location
-          } );
-        } else {
-            console.error( 'Geocode was not successful for the following reason: ' + status );
+    this.coder.geocode({ 'address': query }, function (results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+        //move map to selected address
+        map.setCenter(results[0].geometry.location);
+
+        //removes old marker if exist
+        if (typeof this.marker !== 'undefined') {
+          this.marker.setMap(null);
         }
-    } );
+
+        this.marker = new google.maps.Marker({
+          map: map,
+          position: results[0].geometry.location
+        });
+      } else {
+        console.error('Geocode was not successful for the following reason: ' + status);
+      }
+    });
     this._googleStore.updateGoogleMap(this.currentMapState);
   }
 

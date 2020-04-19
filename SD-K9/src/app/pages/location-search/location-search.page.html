@@ -3,7 +3,7 @@
     <ion-grid>
       <ion-row>
         <ion-col size="1.5">
-          <ion-fab-button class="no-shadow" color="medium" (click)="goToHomePage()">
+          <ion-fab-button class="no-shadow" color="medium" (click)="goToHomePage()" id="back-button">
             <ion-icon name="arrow-back" color="dark"></ion-icon>
           </ion-fab-button>
         </ion-col>
@@ -23,21 +23,6 @@
       <ion-icon name="compass"></ion-icon>
       <ion-label class="ion-padding">My Location</ion-label>
     </ion-item>
-    <ion-card>
-      <ion-card-header *ngIf="!itemList">
-        <ion-card-content>Start typing to search for a location</ion-card-content>
-      </ion-card-header>
-    </ion-card>
-    <ion-card>
-      <ion-card-header *ngIf="itemList && itemList.length == 0">
-        <ion-card-title>No Results were found</ion-card-title>
-        <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
-        <ion-card-content>
-          <ion-button expand="block" (click)="enterQuery(currentQuery)" id="searchanyway-button">Search Anyway
-          </ion-button>
-        </ion-card-content>
-      </ion-card-header>
-    </ion-card>
 
     <div *ngIf="itemList && itemList.length > 0">
       <ion-item-divider>
@@ -48,7 +33,7 @@
 
       <ion-list>
         <ion-item *ngFor="let item of itemList">
-          <ion-label (click)="enterQuery(item)">{{ item }}</ion-label>
+          <ion-label (click)="enterQuery(item)" id="list-item">{{ item }}</ion-label>
         </ion-item>
       </ion-list>
     </div>
@@ -62,10 +47,27 @@
 
       <ion-list>
         <ion-item *ngFor="let item of placesSearchResults">
-          <ion-label (click)="enterQuery(item.description); moveMap(item.description)">{{ item.description }}</ion-label>
+          <ion-label (click)="enterQuery(item.description); moveMap(item.description)" id="places-item">{{ item.description }}
+          </ion-label>
         </ion-item>
       </ion-list>
     </div>
+
+    <ion-card>
+      <ion-card-header *ngIf="!itemList">
+        <ion-card-content>Start typing to search for a location</ion-card-content>
+      </ion-card-header>
+    </ion-card>
+    <ion-card>
+      <ion-card-header *ngIf="itemList && itemList.length == 0">
+        <ion-card-title>Can't find what you are looking for?</ion-card-title>
+        <ion-card-subtitle>Searching anyway may lead to inaccurate location.</ion-card-subtitle>
+        <ion-card-content>
+          <ion-button expand="block" (click)="enterQuery(query)" id="searchanyway-button">Search Anyway
+          </ion-button>
+        </ion-card-content>
+      </ion-card-header>
+    </ion-card>
   </div>
 
 </ion-content>

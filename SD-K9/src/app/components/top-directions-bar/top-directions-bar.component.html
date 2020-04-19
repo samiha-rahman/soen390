@@ -41,23 +41,23 @@
 
       <div *ngIf="hasOutdoors">
         <ion-segment scrollable value="TRANSIT" (ionChange)="transportSegmentChanged($event)" color="primary">
-          <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top">
+          <ion-segment-button value={{transportEnum.DRIVING}} layout="icon-top" id="drive-button">
             <ion-label>Drive</ion-label>
             <ion-icon name="car"></ion-icon>
           </ion-segment-button>
-          <ion-segment-button value={{transportEnum.WALKING}} layout="icon-top">
+          <ion-segment-button value={{transportEnum.WALKING}} layout="icon-top" id="walk-button">
             <ion-label>Walk</ion-label>
             <ion-icon name="walk"></ion-icon>
           </ion-segment-button>
-          <ion-segment-button value={{transportEnum.TRANSIT}} layout="icon-top">
+          <ion-segment-button value={{transportEnum.TRANSIT}} layout="icon-top" id="transit-button">
             <ion-label>Transit</ion-label>
             <ion-icon name="bus"></ion-icon>
           </ion-segment-button>
-          <ion-segment-button value={{transportEnum.BICYCLING}} layout="icon-top">
+          <ion-segment-button value={{transportEnum.BICYCLING}} layout="icon-top" id= "bike-button">
             <ion-label>Bike</ion-label>
             <ion-icon name="bicycle"></ion-icon>
           </ion-segment-button>
-          <ion-segment-button value={{transportEnum.SHUTTLE}} layout="icon-top">
+          <ion-segment-button value={{transportEnum.SHUTTLE}} layout="icon-top" id= "shuttle-button">
             <ion-label>Shuttle</ion-label>
             <ion-icon name="school"></ion-icon>
           </ion-segment-button>
@@ -65,6 +65,6 @@
       </div>
     </div>
   </ion-toolbar>
-  <ion-button *ngIf="directionSent && isExpanded" expand="full" color="primary" (click)="startRoute()">Start
+  <ion-button *ngIf="directionSent && isExpanded" expand="full" color="primary" (click)="startRoute()" id="start-button">Start
   </ion-button>
 </ion-header>
