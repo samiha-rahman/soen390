@@ -12,6 +12,8 @@ interface ThemeStyle {
   value: string;
 }
 
+//use injectable to inject the CSS components into the document and be able to dynamically change them
+
 @Injectable({
   providedIn: 'root'
 })
