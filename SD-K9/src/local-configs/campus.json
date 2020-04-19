@@ -5,13 +5,15 @@
       "lng": -73.5805984
     },
     "buildings": {
-      "EV building": {
+      "Ev Building": {
+        "fullName": "EV building",
         "markerText": "EV",
         "markerPos": {
           "lat": 45.495575,
           "lng": -73.578012
         },
-        "info": "this is EV building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/ginacody.html\">Gina Cody School of Engineering and Computer Science<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/ginacody\/electrical-computer-eng.html\">Electrical and Computer Engineering<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/ginacody\/building-civil-environmental-eng.html\">Building, Civil and Environmental Engineering<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/ginacody\/computer-science-software-eng.html\">Computer Science and Software Engineering<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/ginacody\/mechanical-industrial-aerospace-eng.html\">Mechanical, Industrial and Aerospace Engineering<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/design.html\">Design and Computation Arts<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts.html\">Faculty of Fine Arts<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/studio-arts.html\">Studio Arts<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/art-education.html\">Art Education<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/art-history.html\">Art History<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/dance.html\">Comtemporary Dance<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/campus-life\/recreation.html\">Recreation and Athletics<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/research\/zero-energy-building.html\">Zero Energy Building Studies, Centre for<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/research\/cenparmi.html\">Centre for Pattern Recognition and Machine Intelligence (CENPARMI)<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/research\/composites.html\">Center for Composites (CONCOM)<\/a><\/li><\/ul>",
+        "services": "<ul><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/campus-life\/recreation\/facilities\/le-gym.html\">LeGym<\/a><\/li><li><a href=\"https:\/\/www.concordia.cahttps:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/facilities\/fofa-gallery.html\">FOFA Gallery<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.495176,
             "lng": -73.577883
@@ -38,13 +40,15 @@
           }
         ]
       },
-      "jmsb": {
-        "markerText": "JMSB",
+      "jsmb": {
+        "fullName": "John Molson School of Business",
+        "markerText": "MB",
         "markerPos": {
           "lat": 45.495265,
           "lng": -73.579034
         },
-        "info": "this is JMSB building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/about\/departments\/accountancy\">Accountancy<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/about\/departments\/supply-chain-business-technology-management\">Supply Chain &amp; Business Technology Management<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/about\/departments\/finance\">Finance<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/about\/departments\/management\">Management<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/about\/departments\/marketing\">Marketing<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/mba-cfa\">Goodman Institute of Investment Management<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/emba\">Executive MBA Program<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/music\">Music<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/theatre\">Theatre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/dance\">Contemporary Dance<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/career\">Career Management Services<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/jmsb\/programs\/executive-centre\">John Molson Executive Centre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/facilities\/performing-arts\">Performing Arts Facilities<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.495558,
             "lng": -73.579222
@@ -64,13 +68,15 @@
         ]
       },
       "hall": {
+        "fullName": "Hall Building",
         "buildingSlug": "hall",
-        "markerText": "HALL",
+        "markerText": "H",
         "markerPos": {
           "lat": 45.497250,
           "lng": -73.578942
         },
-        "info": "this is Hall building info",
+        "departments": "<ul><li><a href=\"http:\/\/gpe.concordia.ca\/\">Geography, Planning and Environment<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/academics\/departments.html\">Political Science, Sociology and Anthropology, Economics<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/irish-studies\">School of Irish Studies<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/success\/mentoring.html\">Welcome Crew Office<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/arts\/venues\/db-clarke-theatre.html\">DB Clarke Theatre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/dean-students\">Dean of Students<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/asrc\">Aboriginal Student Resource Centre<\/a><\/li><li><a href=\"https:\/\/www.csu.qc.ca\/\">Concordia Student Union<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/it\">IT Service Desk<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/campus-life\/security\">Security Office<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/student-success-centre\">Student Success Centre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/facilities.html\">Mail Services<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/archives.html\">Archives<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/success\/career-planning-services\">Career and Planning Services<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/conduct\/sexual-assault\">Sexual Assault Resource Centre (SARC)<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.497166,
             "lng": -73.579556
@@ -90,12 +96,14 @@
         ]
       },
       "library": {
-        "markerText": "WL",
+        "fullName":"Webster Concordia",
+        "markerText": "LB",
         "markerPos": {
           "lat": 45.496777,
           "lng": -73.577939
         },
-        "info": "this is library building info",
+        "departments": "<ul><li><a href=\"http:\/\/english.concordia.ca\/\">English<\/a><\/li><li><a href=\"http:\/\/history.concordia.ca\/\">History<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/francais\">\u00C9tudes fran\u00E7aises<\/a><\/li><li><a href=\"http:\/\/www.mathstat.concordia.ca\/\">Mathematics and Statistics<\/a><\/li><li><a href=\"http:\/\/doe.concordia.ca\/\">Education<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/cissc.html\">Centre for Interdisciplinary Studies in Society and Culture (CISSC)<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/learning-performance\">Centre for the Study of Learning and Performance<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/library\">R. Howard Webster Library<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/birks\/welcome-centre\">Welcome Centre<\/a><\/li><li><a href=\"http:\/\/ellengallery.concordia.ca\/\">Leonard and Bina Ellen Art Gallery<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/it\/services\/cinemas\">J.A. De S\u00E8ve Cinema<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/birks\">Birks Student Service Centre<\/a><\/li><li><a href=\"https:\/\/stores.concordia.ca\/\">Campus Stores<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/it\">Instructional &amp; Information Technology Services (IITS)<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/next-gen\/4th-space\">4TH SPACE<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.496701,
             "lng": -73.578605
@@ -123,12 +131,14 @@
         ]
       },
       "fg": {
+        "fullName":"Faubourg Building",
         "markerText": "FG",
         "markerPos": {
           "lat": 45.494198,
           "lng": -73.578343
         },
-        "info": "this is Faubourg building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/cmll\">Classics, Modern Languages &amp; Linguistics<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/cce\">Concordia Continuing Education<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/finearts\/cinema\">Mel Hoppenheim School of Cinema<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/migs\">Montreal Institute for Genocide and Human Rights Studies (MIGS)<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/d3center\">District 3 Innovation Center<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/hr\">Human Resources<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/registrar\">Enrolment Services \/ Office of the Registrar \/ Student Recruitment<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/exams\">Examinations Office<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/admissions\/seniors\">Senior non-credit program<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.494704,
             "lng": -73.577998
@@ -156,12 +166,14 @@
     },
     "buildings": {
       "communications": {
+        "fullName":"Communications & Journalism Concordia building",
         "markerText": "CJ",
         "markerPos": {
           "lat": 45.457472,
           "lng": -73.640418
         },
-        "info": "this is Communications building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/coms\">Communication Studies<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/journalism-old\">Journalism<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"http:\/\/retail.concordia.ca\/\">Campus Retail Stores<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.457643,
             "lng": -73.640025
@@ -180,13 +192,14 @@
           }
         ]
       },
-      "ge": {
+     "ge": {
+        "fullName":"Centre for Structural and Functional Genomics Concordia",
         "markerText": "GE",
         "markerPos": {
           "lat": 45.456953,
           "lng": -73.640515
         },
-        "info": "this is GE building info",
+        "services": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/genomics\">Centre for Structural and Functional Genomics<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.457144,
             "lng": -73.640623
@@ -206,12 +219,14 @@
         ]
       },
       "sp": {
+        "fullName":"SP Loyola Building",
         "markerText": "SP",
         "markerPos": {
           "lat": 45.457570,
           "lng": -73.641694
         },
-        "info": "this is SP building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/biology\">Biology<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/chemistry\">Chemistry and Biochemistry<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/health-kinesiology-physiology\">Health, Kinesiology &amp; Applied Physiology<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/physics\">Physics<\/a><\/li><li><a href=\"http:\/\/psychology.concordia.ca\/\">Psychology<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/mass-spec\">Centre for Biological Applications of Mass Spectrometry<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/nanoscience\">Centre for NanoScience Research<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/neuroscience\">Center for Studies in Behavioral Neurobiology<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/molecular-modeling\">Centre for Research in Molecular Modeling<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/science-college\">Science College<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/students\/technical-centre.html\">Science Technical Centre<\/a><\/li><li><a href=\"\">Animal Care Facilities<\/a><\/li><li><a href=\"\">Security Office<\/a><\/li><li><a href=\"\">Caf\u00E9<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.458328,
             "lng": -73.641344
@@ -239,12 +254,13 @@
         ]
       },
       "rf": {
+        "fullName":"Loyola Jesuit Hall and Conference Centre Concordia",
         "markerText": "RF",
         "markerPos": {
           "lat": 45.458593,
           "lng": -73.641049
         },
-        "info": "this is RF building info",
+        "services": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/hospitality\/hospitality-venues\/loyola-jesuit-hall-conference-centre.html\">Loyola Jesuit Hall and Conference Centre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/hospitality.html\">Conference services<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.458482,
             "lng": -73.641315
@@ -264,13 +280,14 @@
         ]
       },
       "cc": {
+        "fullName":"Loyola Concordia",
         "buildingSlug":"cc",
         "markerText": "CC",
         "markerPos": {
           "lat": 45.458224,
           "lng": -73.640352
         },
-        "info": "this is CC building info",
+        "services": "<ul><li><a href=\"https:\/\/www.csu.qc.ca\/\">Concordia Student Union<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/loyola-college-diversity-sustainability.html\">Loyola College for Diversity and Sustainability and Loyola<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.458305,
             "lng": -73.640847
@@ -290,12 +307,14 @@
         ]
       },
       "ad": {
+        "fullName":"Loyola Campus Administration Building",
         "markerText": "AD",
         "markerPos": {
           "lat": 45.458016,
           "lng": -73.639776
         },
-        "info": "this is AD building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci.html\">Faculty of Arts &amp; Science<\/a><\/li><\/ul>",
+        "services":"<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/success\/mentoring.html\">Welcome Crew Office<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/ctl.html\">Centre for Teaching &amp; Learning<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/loyola-college-diversity-sustainability.html \">Loyola International College<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/provost.html \">Provost and VP, Academic<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/dean-students.html\">Dean of Students<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/spirituality\">Concordia Multi-Faith and Spirituality Centre<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/advocacy.html\">Advocacy &amp; Support Services<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/acsd.html\">Access Centre for Students with Disabilities<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/offices\/cdev.html\">Counselling and Development<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/health.html\">Health Services<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.457823,
             "lng": -73.640129
@@ -315,12 +334,13 @@
         ]
       },
       "py": {
+        "fullName":"Loyola Psychology Concordia",
         "markerText": "PY",
         "markerPos": {
           "lat": 45.458909,
           "lng": -73.640518
         },
-        "info": "this is PY building info",
+        "departments": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/artsci\/psychology.html\">Psychology<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/research\/clinical-research-health.html\">Centre for clinical research in health (CCRH)<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.458791,
             "lng": -73.640832
@@ -340,12 +360,13 @@
         ]
       },
       "fc": {
+        "fullName":"F.C. Smith Auditorium",
         "markerText": "FC",
         "markerPos": {
           "lat": 45.458509,
           "lng": -73.639352
         },
-        "info": "this is FC building info",
+        "services": "<ul><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/arts\/venues\/fc-smith-auditorium\">F.C. Smith Auditorium<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/arts\/venues\/cazalet\">Cazalet Theater<\/a><\/li><li><a href=\"https:\/\/www.concordia.ca\/content\/concordia\/en\/students\/spirituality\">Concordia Multi-Faith and Spirituality Centre<\/a><\/li><\/ul>",
         "bounds": [{
             "lat": 45.458530,
             "lng": -73.639679

@@ -7,6 +7,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationMock } from '../../test-helpers/mock-geolocation';
 import { OutdoorRouteBuilder } from 'src/app/providers/outdoor-route-builder.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { By } from '@angular/platform-browser';
+
+declare var google;
 
 describe('OutdoorMapComponent', () => {
   let component: OutdoorMapComponent;
@@ -30,7 +33,7 @@ describe('OutdoorMapComponent', () => {
     component = fixture.componentInstance;
     component.data = {id: 1, building: 'hall', floor: 8};
     fixture.detectChanges();
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   }));
 
   it('should create', () => {
@@ -94,6 +97,26 @@ describe('OutdoorMapComponent', () => {
     component.clickToMark(coords);
     expect(component.infowindow).toBeDefined();
     expect(component.clickMarker).toBeDefined();
+  });
+
+  it('#inCampus button should tell you are in campus', async() => {
+    await delay(10000);
+    const defaultButtonText = "You are not inside any campus building";
+    let coords = new google.maps.LatLng(60, -60);
+    component.inCampus(coords);
+    fixture.detectChanges();
+    const button = fixture.debugElement.query(By.css('#btn'));
+    expect(button.nativeElement.textContent.trim()).toBe(defaultButtonText);
+  });
+
+  it('#inCampus button should tell you are in hall building', async() => {
+    await delay(10000);
+    const defaultButtonText = "You are in hall building";
+    let coords = new google.maps.LatLng(45.497307, -73.578971);
+    component.inCampus(coords);
+    fixture.detectChanges();
+    const button = fixture.debugElement.query(By.css('#btn'));
+    expect(button.nativeElement.textContent.trim()).toBe(defaultButtonText);
   });
 
 });

@@ -30,6 +30,7 @@ describe('GoogleCalendarComponent', () => {
     fixture = TestBed.createComponent(GoogleCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   }));
 
   it('should create', () => {
@@ -51,7 +52,7 @@ describe('GoogleCalendarComponent', () => {
   it('#getEvents should call `getEvents` method from `GoogleCalendarService`', async() => {
     component.calendarList = [{id: 'test@gmail.com', checked: true}];
     component.getEvents();
-    
+
     expect(googleCalendarMock.getEvents).toHaveBeenCalled();
   })
 });

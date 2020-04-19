@@ -29,13 +29,19 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   clickMarker: any;
   markerLatLng: any;
   buildingMarkers: any[] = [];
+  buildingPolygons: any[] = [];
   userMarker: any;
   campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = environment.apiKey;
   hasRoute: boolean;
-  private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  private _unsubscribeGoogleStore: UnsubscribeCallback;  
+  private _campusConfig: any;
+  // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  currentCampus: string;
+  currentBuilding: string;
+  insideMSG = "You are not inside any campus building"; //Default value 
 
   constructor(
     private _geolocation: Geolocation,
@@ -49,12 +55,15 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     // subscribe to mapstore
     this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
       this._addRouteIfExist();
+      this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
+      this.currentCampus = this._buildingInfoStore.getBuildingInfo().campus;
     });
   }
 
   ngOnInit() {
     this._loadGMaps();
     this.hasRoute = false;
+    this._campusConfig = campusData["default"];
   }
 
   private _addRouteIfExist() {
@@ -78,7 +87,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       }
       let script = document.createElement("script");
       script.id = "googleMaps";
-      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&callback=initMap';
+      script.src = 'http://maps.google.com/maps/api/js?key=' + this.apiKey + '&libraries=places&callback=initMap';
       document.body.appendChild(script);
     } else {
       this._initMap();
@@ -101,14 +110,15 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-      this.geocoder = new google.maps.Geocoder();
+      //we will need this to convert adresses to coordinates
+      this.geocoder = new google.maps.Geocoder();     
 
       //update or load from google map state
       if (this.data.id && !this._routeStore.getRoute(this.data.id)) {
-        this._googleStore.storeMap({ id: this.data.id, google: google, map: this.map, geocoder:this.geocoder, route: false });        // new map state
+        this._googleStore.storeMap({ id: this.data.id, google: google, map: this.map, currentpos: this.currentPos, geocoder: this.geocoder, route: false });        // new map state
       }
       else {
-        this._googleStore.updateGoogleMap({ id: this.data.id, google: google, map: this.map, geocoder:this.geocoder, route: true }); // reload old map state
+        this._googleStore.updateGoogleMap({ id: this.data.id, google: google, map: this.map, currentpos: this.currentPos, geocoder: this.geocoder, route: true }); // reload old map state
       }
 
       //add a marker on the current position
@@ -129,20 +139,22 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
-      google.maps.event.addListener(this.map, 'zoom_changed', function () {
+      google.maps.event.addListener(this.map, 'zoom_changed', function() {
         _self._hideShowMarkers(_self);
       });
 
       //click on the map to add a Marker that can set the destination for routing
-      let self = this;
       google.maps.event.addListener(this.map, 'click', function(event) {
-        self.clickToMark(event.latLng);
-        self.markerLatLng = event.latLng;
+        _self.clickToMark(event.latLng);
+        _self.markerLatLng = event.latLng;
       });
 
       //switch flag to load map nav components
       this.mapInitialised = true;
-
+      
+      //check if user is inside building initially
+      this.inCampus(this.currentPos);
+      
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -153,6 +165,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
   private _drawBuildings() {
     //loop through both campus and all the buildings in each campus from the config file
+    let counter = 0; //counter for polygonArr
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
@@ -172,7 +185,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           currentBuildingInfo: this.campusConfig[campus]["buildings"][building]["info"],
           buildingSlug: buildingSlug
         });
-
+        //store all polygons inside array
+        this.buildingPolygons[counter++] = overlay;
         //add the overlay to the map
         overlay.setMap(this.map);
 
@@ -193,7 +207,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
         //show building info when clicked
         let _self = this;
-        google.maps.event.addListener(overlay, 'click', function () {
+        google.maps.event.addListener(overlay, 'click', function() {
           let buildingInfoState: BuildingInfoState = {
             campus: this.currentCampus,
             building: this.currentBuilding,
@@ -210,7 +224,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  toggleCampus(event) {
+  toggleCampus(event : any) {
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
     this._hideShowMarkers(this);
@@ -233,7 +247,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  clickToMark(position){
+  clickToMark(position) {
     let infowindowContent;
 
     if (typeof this.infowindow == 'undefined') {
@@ -251,17 +265,17 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       this.map.panTo(position);
     }
     else {
-      this.clickMarker.setPosition(position); 
+      this.clickMarker.setPosition(position);
     }
     this.infowindow.open(this.map, this.clickMarker);
   }
 
   reverseGeocode(latlng, callback) {
-    this.geocoder.geocode({'location': latlng}, function(results, status) {
-      if(status === "OK"){
+    this.geocoder.geocode({ 'location': latlng }, function(results, status) {
+      if (status === "OK") {
         callback(results[0].formatted_address); //using callback to return address value because async
-      } else{
-        console.error( 'Geocode was not successful for the following reason: ' + status );
+      } else {
+        console.error('Geocode was not successful for the following reason: ' + status);
       }
     });
   }
@@ -270,7 +284,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let self = this;
     self._directionFormStore.setSource(' '); //added this placeholder so that user don't have to click button twice because async
 
-    this.reverseGeocode(this.markerLatLng, function(address){
+    this.reverseGeocode(this.markerLatLng, function(address) {
       self._directionFormStore.setSource(address);
     });
   }
@@ -279,7 +293,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let self = this;
     self._directionFormStore.setDestination(' '); //added this placeholder so that user don't have to click button twice because async
 
-    this.reverseGeocode(this.markerLatLng, function(address){
+    this.reverseGeocode(this.markerLatLng, function(address) {
       self._directionFormStore.setDestination(address);
     });
   }
@@ -288,4 +302,28 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     this._unsubscribeGoogleStore();    // release listener to google-store
   }
 
+  
+
+  inCampus(coordinates){ 
+    let isInside = false; 
+    let building = "";
+    let polygonArr: any[] = [];
+    polygonArr = this.buildingPolygons;
+    //verify if user location is inside any campus building
+    for(var i = 0; i < polygonArr.length; i++){
+      isInside = google.maps.geometry.poly.containsLocation(coordinates, polygonArr[i]);
+      if(isInside){
+        building = polygonArr[i].currentBuilding;
+        break;
+      }
+    }
+
+    if(isInside){
+      //display you are inside a campus building
+      this.insideMSG = `You are in ${building} building`;
+    }else{
+      //display you are not in campus
+      this.insideMSG  = "You are not inside any campus building";
+    };
+  }
 }

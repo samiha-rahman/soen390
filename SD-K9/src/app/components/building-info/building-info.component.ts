@@ -12,6 +12,7 @@ import { MapModeStore } from '../../providers/state-stores/map-mode-store.servic
 import { ViewMode } from 'src/app/models/view-mode.enum.model';
 
 import * as campusData from '../../../local-configs/campus.json';
+import { DirectionFormStore } from 'src/app/providers/state-stores/direction-form-store.service';
 
 @Component({
   selector: 'app-building-info',
@@ -43,16 +44,20 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   currentBuilding: string;
   currentCampus: string;
   buildingSlug: string = '';
-  currentBuildingInfo: string;
+  currentBuildingDepartmentsInfo: string;
+  currentBuildingServicesInfo: string;
   buildingInfoCardIsShown: boolean;
-
+  showDepartments: boolean = true;
+  showServices: boolean = false;
 
   private _unsubscribe: UnsubscribeCallback;
   private _campusConfig: any;
 
   constructor(
     private _buildingInfoStore: BuildingInfoStore,
-    private _mapModeStore: MapModeStore
+    private _mapModeStore: MapModeStore,
+    private _directionFormStore: DirectionFormStore
+
   ) {
     this._unsubscribe = this._buildingInfoStore.subscribe(() => {
       this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
@@ -69,12 +74,28 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   private _displayCard() {
     if (this.currentCampus !== '' && this.currentBuilding !== '') {
-      this.currentBuildingInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['info'];
+      this.currentBuildingDepartmentsInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['departments'];
+      this.currentBuildingServicesInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['services'];
+      if (this.currentBuildingDepartmentsInfo == undefined) {
+        this.currentBuildingDepartmentsInfo = "no information to show";
+      }
+      if (this.currentBuildingServicesInfo == undefined) {
+        this.currentBuildingServicesInfo = "no information to show";
+      }
       this.buildingInfoCardIsShown = true;
     }
     else {
       this.buildingInfoCardIsShown = false;
     }
+  }
+  setStartLocation(){
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setSource(fullName);
+  }
+
+  setDestinationLocation(){
+    let fullName=this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['fullName'];
+    this._directionFormStore.setDestination(fullName);
   }
 
   goInside(buildingSlug: string) {
@@ -100,8 +121,21 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  hideBuildingInfoCard(event) {
+  toggleBuildingInfoCardTabs(event : any){
+    let toShow = event.detail.value;
+    if(toShow == "departments"){
+      this.showDepartments = true;
+      this.showServices = false;
+    }else{
+      this.showDepartments = false;
+      this.showServices = true;
+    }
+  }
+
+  hideBuildingInfoCard() {
     this.buildingInfoCardIsShown = false;
+
+    //Makes clickable buildings more reliable
     this._buildingInfoStore.clearBuildingInfo();
   }
 
