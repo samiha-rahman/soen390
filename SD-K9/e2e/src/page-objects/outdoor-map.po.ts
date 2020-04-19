@@ -13,4 +13,9 @@ export class OutdoorMapComponent extends PageObject {
     goToLoyola() {
         this.clickButton(' ionic-segment-button#cc-button')
     }
+
+    loadMap() {
+        const el = element(by.css('ion-fab-button.locate-me-btn'))
+        browser.wait(ExpectedConditions.visibilityOf(el), 30000);
+    }
 }

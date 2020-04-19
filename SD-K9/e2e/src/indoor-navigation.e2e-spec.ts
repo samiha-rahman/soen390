@@ -20,7 +20,7 @@ describe("indoor navigation", () => {
     // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
     topDirectionsBar.enterStart();
     locationSearch.goBack();
-    browser.sleep(10000);
+    outdoorMap.loadMap();
   });
 
   beforeEach(() => {
