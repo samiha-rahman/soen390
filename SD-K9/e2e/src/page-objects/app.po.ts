@@ -33,7 +33,7 @@ export class PageObject {
   }
 
   waitUntilVisible() {
-    browser.wait(ExpectedConditions.visibilityOf(this.rootElement()), 3000);
+    browser.wait(ExpectedConditions.visibilityOf(this.rootElement()), 10000);
   }
 
   getTitle() {
@@ -44,6 +44,15 @@ export class PageObject {
     const el = element(by.css(`${this.tag}${sel}`));
     const inp = el.element(by.css('input'));
     inp.sendKeys(text);
+  }
+
+  protected slowType(sel: string, text: string, delay: number) {
+    const el = element(by.css(`${this.tag}${sel}`));
+    const inp = el.element(by.css('input'));
+    for (var i = 0; i < text.length; i++) {
+      inp.sendKeys(text[i])
+      browser.sleep(delay)
+    }
   }
 
   protected enterTextareaText(sel: string, text: string) {

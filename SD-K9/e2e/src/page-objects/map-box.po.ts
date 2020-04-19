@@ -7,11 +7,11 @@ export class MapBoxComponent extends PageObject {
   }
   
   clickNextMap() {
-    this.clickButton('#nextmap-button');
+    this.clickButton(' ion-button#nextmap-button');
   }
 
   clickPrevMap() {
-    this.clickButton('#prevmap-button');
+    this.clickButton(' ion-button#prevmap-button');
   }
 
 }
