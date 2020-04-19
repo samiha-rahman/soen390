@@ -95,7 +95,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   private _initMap() {
-
+    this.refresh();
     this._geolocation.getCurrentPosition().then((position) => {
 
       this.currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
