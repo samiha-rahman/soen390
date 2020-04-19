@@ -130,15 +130,14 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //check if we should show/hide the building markers when the user zooms in/out
       let _self = this;
-      google.maps.event.addListener(this.map, 'zoom_changed', function () {
+      google.maps.event.addListener(this.map, 'zoom_changed', function() {
         _self._hideShowMarkers(_self);
       });
 
       //click on the map to add a Marker that can set the destination for routing
-      let self = this;
       google.maps.event.addListener(this.map, 'click', function(event) {
-        self.clickToMark(event.latLng);
-        self.markerLatLng = event.latLng;
+        _self.clickToMark(event.latLng);
+        _self.markerLatLng = event.latLng;
       });
 
       //switch flag to load map nav components
@@ -194,7 +193,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
         //show building info when clicked
         let _self = this;
-        google.maps.event.addListener(overlay, 'click', function () {
+        google.maps.event.addListener(overlay, 'click', function() {
           let buildingInfoState: BuildingInfoState = {
             campus: this.currentCampus,
             building: this.currentBuilding,
@@ -211,7 +210,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  toggleCampus(event) {
+  toggleCampus(event : any) {
     let currentCampus = this.campusConfig[event.detail.value];
     this.map.panTo(new google.maps.LatLng(currentCampus["coords"]));
     this._hideShowMarkers(this);
@@ -234,7 +233,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     }
   }
 
-  clickToMark(position){
+  clickToMark(position) {
     let infowindowContent;
 
     if (typeof this.infowindow == 'undefined') {
@@ -252,17 +251,17 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
       this.map.panTo(position);
     }
     else {
-      this.clickMarker.setPosition(position); 
+      this.clickMarker.setPosition(position);
     }
     this.infowindow.open(this.map, this.clickMarker);
   }
 
   reverseGeocode(latlng, callback) {
-    this.geocoder.geocode({'location': latlng}, function(results, status) {
-      if(status === "OK"){
+    this.geocoder.geocode({ 'location': latlng }, function(results, status) {
+      if (status === "OK") {
         callback(results[0].formatted_address); //using callback to return address value because async
-      } else{
-        console.error( 'Geocode was not successful for the following reason: ' + status );
+      } else {
+        console.error('Geocode was not successful for the following reason: ' + status);
       }
     });
   }
@@ -271,7 +270,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let self = this;
     self._directionFormStore.setSource(' '); //added this placeholder so that user don't have to click button twice because async
 
-    this.reverseGeocode(this.markerLatLng, function(address){
+    this.reverseGeocode(this.markerLatLng, function(address) {
       self._directionFormStore.setSource(address);
     });
   }
@@ -280,7 +279,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     let self = this;
     self._directionFormStore.setDestination(' '); //added this placeholder so that user don't have to click button twice because async
 
-    this.reverseGeocode(this.markerLatLng, function(address){
+    this.reverseGeocode(this.markerLatLng, function(address) {
       self._directionFormStore.setDestination(address);
     });
   }
