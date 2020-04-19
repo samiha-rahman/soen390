@@ -1,4 +1,4 @@
-import { browser, element, by } from "protractor"; 
+import { browser, element, by, ExpectedConditions } from "protractor"; 
 import { PageObject } from './page-objects/app.po';
 import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
@@ -27,11 +27,23 @@ describe("outdoor navigation", () => {
     home.load();
   });
 
-  describe("campus and building information", () => {
-    it("campus buildings are highlighted", () => {
-        outdoorMap.goToSGW();
+  describe("user interactions on outdoor map", () => {
+    it("button to toggle to SGW campus is clickable", () => {
+      const sgwButton = element(by.cssContainingText('ion-label', 'SGW'));
+      expect(ExpectedConditions.elementToBeClickable(sgwButton)).toEqual(true);
 
     });
+
+    it("button to toggle to Loyola campus is clickable", () => {
+      const loyButton = element(by.cssContainingText('ion-label', 'Loyola'));
+      expect(ExpectedConditions.elementToBeClickable(loyButton)).toEqual(true);
+    });
+
+    it("button to locate user is clickable", () => {
+      const locateMe = element(by.css('ion-fab-button.locate-me-btn'));
+      expect(ExpectedConditions.elementToBeClickable(locateMe));
+    });
+
   });
 
 });

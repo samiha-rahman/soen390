@@ -14,6 +14,10 @@ export class OutdoorMapComponent extends PageObject {
         this.clickButton(' ionic-segment-button#cc-button')
     }
 
+    locateMe() {
+        this.clickButton(' ion-fab-button.locate-me-btn');
+    }
+
     loadMap() {
         const el = element(by.css('ion-fab-button.locate-me-btn'))
         browser.wait(ExpectedConditions.visibilityOf(el), 30000);
