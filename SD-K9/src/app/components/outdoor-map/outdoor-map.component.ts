@@ -236,7 +236,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   refresh() {
-    this._changeDetectorRef.detectChanges();
+    if (!this._changeDetectorRef['destroyed']){
+      this._changeDetectorRef.detectChanges();
+    }
   }
 
   private _hideShowMarkers(self) {
