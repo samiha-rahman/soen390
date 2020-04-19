@@ -25,4 +25,14 @@ describe('PullupComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+
+  it('should collapse when hidePullUpBar is called', () =>{
+    component.pullUpBarVisible = true;
+    component.hidePullupbar();
+    expect(component.pullUpBarVisible).not.toBeTruthy();
+  }
+  );
+
+
 });
