@@ -9,7 +9,7 @@
 
 <div>
   <ion-segment (ionChange)="toggleCampus($event)" *ngIf="mapInitialised && !hasRoute" class="campusTgl">
-    <ion-segment-button value="sgw" id="btnToTest" class="btn" id="sgw-button">
+    <ion-segment-button value="sgw" class="btn" id="sgw-button">
       <ion-label>SGW</ion-label>
     </ion-segment-button>
     <ion-segment-button value="loy" class="btn" id="cc-button">
@@ -28,6 +28,6 @@
 
   <ion-fab *ngIf="mapInitialised" class="locate-me-btn-wrapper">
     <ion-fab-button (ionFocus)="locateUser()" color="light" class="locate-me-btn"><img src="assets/images/map-pin.png"
-        width="20px" /></ion-fab-button>
+        alt="map pin" width="20px" /></ion-fab-button>
   </ion-fab>
 </div>

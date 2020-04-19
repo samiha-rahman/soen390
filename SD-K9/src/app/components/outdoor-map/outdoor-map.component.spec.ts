@@ -33,7 +33,7 @@ describe('OutdoorMapComponent', () => {
     component = fixture.componentInstance;
     component.data = {id: 1, building: 'hall', floor: 8};
     fixture.detectChanges();
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   }));
 
   it('should create', () => {

@@ -44,8 +44,11 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
   currentBuilding: string;
   currentCampus: string;
   buildingSlug: string = '';
-  currentBuildingInfo: string;
+  currentBuildingDepartmentsInfo: string;
+  currentBuildingServicesInfo: string;
   buildingInfoCardIsShown: boolean;
+  showDepartments: boolean = true;
+  showServices: boolean = false;
 
   private _unsubscribe: UnsubscribeCallback;
   private _campusConfig: any;
@@ -71,7 +74,14 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
 
   private _displayCard() {
     if (this.currentCampus !== '' && this.currentBuilding !== '') {
-      this.currentBuildingInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['info'];
+      this.currentBuildingDepartmentsInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['departments'];
+      this.currentBuildingServicesInfo = this._campusConfig[this.currentCampus]["buildings"][this.currentBuilding]['services'];
+      if (this.currentBuildingDepartmentsInfo == undefined) {
+        this.currentBuildingDepartmentsInfo = "no information to show";
+      }
+      if (this.currentBuildingServicesInfo == undefined) {
+        this.currentBuildingServicesInfo = "no information to show";
+      }
       this.buildingInfoCardIsShown = true;
     }
     else {
@@ -111,7 +121,18 @@ export class BuildingInfoComponent implements OnInit, OnDestroy {
     return true;
   }
 
-  hideBuildingInfoCard(event) {
+  toggleBuildingInfoCardTabs(event : any){
+    let toShow = event.detail.value;
+    if(toShow == "departments"){
+      this.showDepartments = true;
+      this.showServices = false;
+    }else{
+      this.showDepartments = false;
+      this.showServices = true;
+    }
+  }
+
+  hideBuildingInfoCard() {
     this.buildingInfoCardIsShown = false;
 
     //Makes clickable buildings more reliable
