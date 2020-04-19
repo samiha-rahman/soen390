@@ -33,11 +33,15 @@ export class MapCoordinator {
 
     ngOnInit() { }
 
+    public isClassroomFormat(location: string) {
+        return !(location == this._parseLocation(location))
+    }
+
     private _parseLocation(location: string): FloorPlanIdentifier | string {
         if (location && location.indexOf("-") !== -1) {
             let sliceIndex: number = location.indexOf("-");
             let floorIndex: number = sliceIndex + 1;
-            switch (location.slice(0, sliceIndex)) {
+            switch (location.slice(0, sliceIndex).toUpperCase()) {
                 case 'H': {
                     let floorPlanIdentifier: FloorPlanIdentifier = { id: 1, building: 'hall', floor: +location.substr(floorIndex, 1) };
                     return floorPlanIdentifier;
@@ -268,7 +272,7 @@ export class MapCoordinator {
     private _buildingPostalCode(building: string): string {
         switch (building) {
             case 'hall':
-                return "h3g1m8";
+                return "45.497304, -73.578326";
             case 'cc':
                 return "h4b1r6";
         }
