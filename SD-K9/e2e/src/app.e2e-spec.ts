@@ -1,4 +1,4 @@
-import { browser, element, by } from "protractor"; 
+import { browser, element, by, ExpectedConditions } from "protractor"; 
 import { PageObject } from './page-objects/app.po';
 import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
@@ -46,6 +46,25 @@ describe("general application", () => {
 
     it("the page displays an area prompting user to enter destination", () => {
       expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isDisplayed()).toEqual(true);
+    });
+
+  });
+
+  describe("navigation", () => {
+    it("hides top directions bar when clicking 'start'", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-821');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('H-617');
+      locationSearch.chooseFromList();
+      topDirectionsBar.clickStart();
+      browser.wait(
+        ExpectedConditions.not(ExpectedConditions.presenceOf(element(by.css('top-directions-bar ion-searchbar#start-searchbar')))),
+        3000
+      );
+      expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isPresent()).toEqual(false);
+      expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isPresent()).toEqual(false);
     });
 
   });
