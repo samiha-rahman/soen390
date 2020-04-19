@@ -30,7 +30,7 @@ describe('GoogleCalendarComponent', () => {
     fixture = TestBed.createComponent(GoogleCalendarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    jasmine.DEFAULT_TIMEOUT_INTERVAL = 1000000;
+    jasmine.DEFAULT_TIMEOUT_INTERVAL = 60000;
   }));
 
   it('should create', () => {
