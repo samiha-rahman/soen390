@@ -29,13 +29,19 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   clickMarker: any;
   markerLatLng: any;
   buildingMarkers: any[] = [];
+  buildingPolygons: any[] = [];
   userMarker: any;
   campusConfig: any = campusData["default"];
   mapInitialised: boolean = false;
   currentPos: GoogleCoordinate;
   apiKey: string = environment.apiKey;
   hasRoute: boolean;
-  private _unsubscribeGoogleStore: UnsubscribeCallback;                        // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  private _unsubscribeGoogleStore: UnsubscribeCallback;  
+  private _campusConfig: any;
+  // when "cancel route" is implemeted, simply update route by using GoogleStore.setRoute() and remove route from RouteStore
+  currentCampus: string;
+  currentBuilding: string;
+  insideMSG = "You are not inside any campus building"; //Default value 
 
   constructor(
     private _geolocation: Geolocation,
@@ -49,12 +55,15 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     // subscribe to mapstore
     this._unsubscribeGoogleStore = this._googleStore.subscribe(() => {
       this._addRouteIfExist();
+      this.currentBuilding = this._buildingInfoStore.getBuildingInfo().building;
+      this.currentCampus = this._buildingInfoStore.getBuildingInfo().campus;
     });
   }
 
   ngOnInit() {
     this._loadGMaps();
     this.hasRoute = false;
+    this._campusConfig = campusData["default"];
   }
 
   private _addRouteIfExist() {
@@ -142,7 +151,10 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
       //switch flag to load map nav components
       this.mapInitialised = true;
-
+      
+      //check if user is inside building initially
+      this.inCampus(this.currentPos);
+      
       //need to tell angular we changed something for ngIf to reload on template
       this.refresh();
 
@@ -153,6 +165,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
 
   private _drawBuildings() {
     //loop through both campus and all the buildings in each campus from the config file
+    let counter = 0; //counter for polygonArr
     for (const campus in this.campusConfig) {
       for (const building in this.campusConfig[campus]["buildings"]) {
         let polygonBounds = this.campusConfig[campus]["buildings"][building]["bounds"];
@@ -172,7 +185,8 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
           currentBuildingInfo: this.campusConfig[campus]["buildings"][building]["info"],
           buildingSlug: buildingSlug
         });
-
+        //store all polygons inside array
+        this.buildingPolygons[counter++] = overlay;
         //add the overlay to the map
         overlay.setMap(this.map);
 
@@ -288,4 +302,28 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
     this._unsubscribeGoogleStore();    // release listener to google-store
   }
 
+  
+
+  inCampus(coordinates){ 
+    let isInside = false; 
+    let building = "";
+    let polygonArr: any[] = [];
+    polygonArr = this.buildingPolygons;
+    //verify if user location is inside any campus building
+    for(var i = 0; i < polygonArr.length; i++){
+      isInside = google.maps.geometry.poly.containsLocation(coordinates, polygonArr[i]);
+      if(isInside){
+        building = polygonArr[i].currentBuilding;
+        break;
+      }
+    }
+
+    if(isInside){
+      //display you are inside a campus building
+      this.insideMSG = `You are in ${building} building`;
+    }else{
+      //display you are not in campus
+      this.insideMSG  = "You are not inside any campus building";
+    };
+  }
 }
