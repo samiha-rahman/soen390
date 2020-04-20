@@ -81,7 +81,7 @@ export class MapCoordinator {
 
         if (typeof parsedSource == "string" && typeof parsedDestination == "string") {          // Outdoor to Outdoor
             this._outdoorRouteBuilder.buildRoute(directionForm)
-            this._prepareOutdoor(maps, parsedSource, parsedSource, directionForm.transport);
+            this._prepareOutdoor(maps, parsedSource, parsedDestination, directionForm.transport);
         }
         else if (typeof parsedSource == "string" && typeof parsedDestination != "string") {     // Outdoor to Indoor
             /*

@@ -95,7 +95,7 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   private _initMap() {
-
+    this.refresh();
     this._geolocation.getCurrentPosition().then((position) => {
 
       this.currentPos = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
@@ -236,7 +236,9 @@ export class OutdoorMapComponent implements OnInit, OnDestroy, Map {
   }
 
   refresh() {
-    this._changeDetectorRef.detectChanges();
+    if (!this._changeDetectorRef['destroyed']){
+      this._changeDetectorRef.detectChanges();
+    }
   }
 
   private _hideShowMarkers(self) {
