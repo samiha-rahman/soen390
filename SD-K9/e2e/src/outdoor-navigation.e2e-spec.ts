@@ -3,6 +3,8 @@ import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
 import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
 import { LocationSearchPage } from './page-objects/location-search.po';
+import { FloorplanComponent } from './page-objects/floor-plan.po';
+import { MapBoxComponent } from './page-objects/map-box.po';
 
 
 describe("outdoor navigation", () => {
@@ -10,6 +12,8 @@ describe("outdoor navigation", () => {
   const topDirectionsBar = new TopDirectionsBarComponent();
   const outdoorMap = new OutdoorMapComponent();
   const locationSearch = new LocationSearchPage();
+  const floorplan = new FloorplanComponent();
+  const mapBox = new MapBoxComponent();
 
   beforeAll(() => {
     home.load();
@@ -38,5 +42,23 @@ describe("outdoor navigation", () => {
     });
 
   });
+
+  describe("different outdoor transportation methods", () => {
+    it("has all options for outdoor navigation", () => {
+      topDirectionsBar.enterStart();
+      locationSearch.enterLocation('H-109');
+      locationSearch.chooseFromList();
+      topDirectionsBar.enterDestination();
+      locationSearch.enterLocation('CC-101');
+      locationSearch.chooseFromList();
+      floorplan.waitUntilVisible();
+
+      expect(topDirectionsBar.selectOutdoorTransportationMode("bicycle")).toEqual(true);
+      expect(topDirectionsBar.selectOutdoorTransportationMode("walk")).toEqual(true);
+      expect(topDirectionsBar.selectOutdoorTransportationMode("drive")).toEqual(true);
+      expect(topDirectionsBar.selectOutdoorTransportationMode("transit")).toEqual(true);
+      expect(topDirectionsBar.selectOutdoorTransportationMode("shuttle")).toEqual(true);
+    })
+  })
 
 });
