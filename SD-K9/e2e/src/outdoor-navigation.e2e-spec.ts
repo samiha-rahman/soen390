@@ -51,7 +51,8 @@ describe("outdoor navigation", () => {
       topDirectionsBar.enterDestination();
       locationSearch.enterLocation('CC-101');
       locationSearch.chooseFromList();
-      floorplan.waitUntilVisible();
+
+      browser.sleep(3000);
 
       expect(topDirectionsBar.selectOutdoorTransportationMode("bicycle")).toEqual(true);
       expect(topDirectionsBar.selectOutdoorTransportationMode("walk")).toEqual(true);

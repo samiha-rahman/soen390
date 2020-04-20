@@ -25,10 +25,6 @@ describe("general application", () => {
   });
 
   describe("after launching the application", () => {
-    it("displays the home page", () => {
-      expect(home.rootElement().isPresent()).toEqual(true);
-    });
-
     it("displays the outdoor map", () => {
       expect(outdoorMap.rootElement().isDisplayed()).toEqual(true);
     })
@@ -69,13 +65,15 @@ describe("general application", () => {
     it("contains a page for the shuttle bus schedule", () => {
       pullUp.openMenu();
       pullUp.viewShuttleSchedule();
+      browser.sleep(3000);
       expect(browser.driver.findElement(by.css('app-bus.ion-page')).isDisplayed()).toEqual(true);
     });
 
     it("contains a page for the app settings", () => {
       pullUp.openMenu();
       pullUp.viewAppSettings();
-      expect(browser.driver.findElement(by.css('app-settings')).isDisplayed()).toEqual(true);
+      browser.sleep(3000);
+      expect(browser.driver.findElement(by.css('app-settings.ion-page')).isDisplayed()).toEqual(true);
     })
 
   });
