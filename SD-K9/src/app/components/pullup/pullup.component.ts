@@ -21,6 +21,7 @@ export class PullupComponent implements OnInit {
   private _googleAutocomplete: any;
   private _nearMeMarkers:any[] = [];
   private _markerAddress:any;
+  pullUpBarVisible: boolean;
 
 
 constructor(
@@ -55,16 +56,19 @@ constructor(
   }
 
   ngOnInit() {
+    this.pullUpBarVisible = false;
     this.footerState = IonPullUpFooterState.Collapsed;
   }
 
     // optional capture events
     footerExpanded() {
+      this.pullUpBarVisible = true;
         console.log('Footer expanded!');
     }
 
     // optional capture events
     footerCollapsed() {
+      this.pullUpBarVisible = false;
         console.log('Footer collapsed!');
     }
 
@@ -159,4 +163,13 @@ constructor(
       this._placeNearMeMarkers(request,map);
       this.toggleFooter();
     }
+
+
+//testing
+
+  hidePullupbar() {
+    this.pullUpBarVisible = false;
+    this.footerState = IonPullUpFooterState.Collapsed;
+  }
+
 }
