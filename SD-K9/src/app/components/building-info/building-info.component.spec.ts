@@ -44,4 +44,10 @@ describe('BuildingInfoComponent', () => {
     expect(component.showDepartments).toBeTruthy();
   });
 
+
+  it('#viewInsideDisabled should be true on init', () => {
+    expect(component.viewInsideDisabled()).toBeTruthy();
+  });
+
+
 });

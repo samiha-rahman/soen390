@@ -108,16 +108,16 @@ constructor(
             // fetch btns from DOM
             let startBtn = document.getElementById('setPOIasStart');
             let destBtn = document.getElementById('setPOIasDest');
-            startBtn.style.display = 'block';
-            destBtn.style.display = 'block';
 
             // We need to make deep clones of the elements since we place them in the infowindow via Node (vs via string, which does not allow listeners)
-            let startBtnClone = startBtn.cloneNode(true);
-            let destBtnClone = destBtn.cloneNode(true);
+            let startBtnClone = <HTMLElement>startBtn.cloneNode(true);
+            let destBtnClone = <HTMLElement>destBtn.cloneNode(true);
 
             // add listeners to btns
             startBtnClone.addEventListener("click",function(){_self.setPOIasStartingPoint(_self)});
             destBtnClone.addEventListener("click",function(){_self.setPOIasDestination(_self)});
+            startBtnClone.style.display = 'block';
+            destBtnClone.style.display = 'block';
 
             // create the info window as a node with content and btns to navigate
             let infowWindowNode = document.createElement('div');
