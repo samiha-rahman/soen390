@@ -13,7 +13,6 @@ import { QueuedRoute } from '../../interfaces/queued-route';
 
 export class QueuedRouteStore {
     private _emptyQueuedRouteState: QueuedRouteState = {routes: []};
- 
     private _CLEAR: string = 'CLEAR';
     private _ADD: string = 'ADD';
 
