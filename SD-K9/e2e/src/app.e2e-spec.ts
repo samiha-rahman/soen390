@@ -1,26 +1,23 @@
 import { browser, element, by, ExpectedConditions } from "protractor"; 
-import { PageObject } from './page-objects/app.po';
 import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
 import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
 import { LocationSearchPage } from './page-objects/location-search.po';
-import { FloorplanComponent } from './page-objects/floor-plan.po';
-import { MapBoxComponent } from './page-objects/map-box.po';
+import { PullUpComponent } from './page-objects/pullup.po';
 
 describe("general application", () => {
   const home = new HomePage();
   const topDirectionsBar = new TopDirectionsBarComponent();
   const outdoorMap = new OutdoorMapComponent();
   const locationSearch = new LocationSearchPage();
-  const floorplan = new FloorplanComponent();
-  const mapBox = new MapBoxComponent();
+  const pullUp = new PullUpComponent();
 
   beforeAll(() => {
     home.load();
     // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
     topDirectionsBar.enterStart();
     locationSearch.goBack();
-    browser.sleep(5000);
+    outdoorMap.loadMap();
   });
 
   beforeEach(() => {
@@ -66,6 +63,20 @@ describe("general application", () => {
       expect(element(by.css('top-directions-bar ion-searchbar#start-searchbar')).isPresent()).toEqual(false);
       expect(element(by.css('top-directions-bar ion-searchbar#destination-searchbar')).isPresent()).toEqual(false);
     });
+  });
+
+  describe("pull up menu", () => {
+    it("contains a page for the shuttle bus schedule", () => {
+      pullUp.openMenu();
+      pullUp.viewShuttleSchedule();
+      expect(browser.driver.findElement(by.css('app-bus.ion-page')).isDisplayed()).toEqual(true);
+    });
+
+    it("contains a page for the app settings", () => {
+      pullUp.openMenu();
+      pullUp.viewAppSettings();
+      expect(browser.driver.findElement(by.css('app-settings')).isDisplayed()).toEqual(true);
+    })
 
   });
 });

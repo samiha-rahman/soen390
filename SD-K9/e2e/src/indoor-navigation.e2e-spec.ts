@@ -1,5 +1,4 @@
 import { browser, element, by } from "protractor"; 
-import { PageObject } from './page-objects/app.po';
 import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
 import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
@@ -20,7 +19,7 @@ describe("indoor navigation", () => {
     // in order for the indoor map to visibly appear during the test run, the outdoor map has to properly be loaded before executing any tests
     topDirectionsBar.enterStart();
     locationSearch.goBack();
-    browser.sleep(10000);
+    outdoorMap.loadMap();
   });
 
   beforeEach(() => {

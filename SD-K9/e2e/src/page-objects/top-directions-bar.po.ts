@@ -45,28 +45,45 @@ export class TopDirectionsBarComponent extends PageObject {
         }
     }
 
-    selectOutdoorTransportationMode(mode: string) {
+    async selectOutdoorTransportationMode(mode: string) {
+        var clickable: boolean;
         switch (mode) {
             case "bicycle":
-                this.clickButton(' ion-segment-button#bike-button');
+                await element(by.css('ion-segment-button#bike-button')).click().then(function (fnct){
+                    clickable = true;
+                });
                 break;
         
             case "drive":
-                this.clickButton(' ion-segment-button#drive-button');
+                await element(by.css('ion-segment-button#drive-button')).click().then(function (fnct){
+                    clickable = true;
+                });
                 break;
 
             case "walk":
-                this.clickButton(' ion-segment-button#walk-button');
+                await element(by.css('ion-segment-button#walk-button')).click().then(function (fnct){
+                    clickable = true;
+                });
                 break;
 
             case "transit":
-                this.clickButton(' ion-segment-button#transit-button');
-                break;     
+                await element(by.css('ion-segment-button#transit-button')).click().then(function (fnct){
+                    clickable = true;
+                });
+                break;    
+                
+            case "shuttle":
+                await element(by.css('ion-segment-button#shuttlebus-button')).click().then(function (fnct){
+                    clickable = true;
+                });
+                break;
 
             default:
                 fail("could not find transportation mode");
                 break;
         }
+
+        return clickable;
     }
 
 }

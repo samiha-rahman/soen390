@@ -7,15 +7,18 @@ export class PullUpComponent extends PageObject {
   }
 
   openMenu() {
-      this.clickButton(' ion-toolbar')
+    browser.driver.findElement(by.css('div.footer')).click();
+    browser.sleep(3000);
   }
 
-  viewShuttleSchedule() {
-      this.clickButton(' ion-button #shuttle-button')
+  async viewShuttleSchedule() {
+    await browser.driver.findElement(by.css('ion-button#shuttle-button')).click();
+    browser.sleep(3000);
   }
 
-  viewAppSettings() {
-      this.clickButton(' ion-button #settings-button')
+  async viewAppSettings() {
+    await browser.driver.findElement(by.css('ion-button#settings-button')).click();
+    browser.sleep(3000);
   }
   
 }

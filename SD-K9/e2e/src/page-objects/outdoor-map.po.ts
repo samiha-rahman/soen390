@@ -6,11 +6,48 @@ export class OutdoorMapComponent extends PageObject {
         super('app-outdoor-map');
     }
 
+    loadMap() {
+        const el = element(by.css('ion-fab-button.locate-me-btn'))
+        browser.wait(ExpectedConditions.visibilityOf(el), 30000);
+    }
+
     goToSGW() {
-        this.clickButton(' ionic-segment-button#sgw-button');
+        browser.driver.findElement(by.id('sgw-button')).click();
+    }
+
+    async isSGWClickable() {
+        var clickable: boolean;
+        await browser.driver.findElement(by.id('sgw-button')).click().then(function (fnct) {
+        clickable = true;
+      });
+
+      return clickable;
     }
 
     goToLoyola() {
-        this.clickButton(' ionic-segment-button#cc-button')
+        browser.driver.findElement(by.id('cc-button')).click();
     }
+
+    async isLoyolaClickable() {
+        var clickable: boolean;
+        await browser.driver.findElement(by.id('cc-button')).click().then(function (fnct) {
+        clickable = true;
+      });
+
+      return clickable;
+    }
+
+    locateMe() {
+        browser.driver.findElement(by.css('ion-fab-button.locate-me-btn')).click();
+    }
+
+    async isLocateMeClickable() {
+        var clickable: boolean;
+        await browser.driver.findElement(by.css('ion-fab-button.locate-me-btn')).click().then(function (fnct) {
+        clickable = true;
+      });
+
+      return clickable;
+    }
+
 }
