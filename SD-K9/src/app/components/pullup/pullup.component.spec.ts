@@ -31,8 +31,15 @@ describe('PullupComponent', () => {
     component.pullUpBarVisible = true;
     component.hidePullupbar();
     expect(component.pullUpBarVisible).not.toBeTruthy();
-  }
-  );
+  });
 
+  it('#footerCollapsed should change visibility status', () =>{
+    component.footerCollapsed();
+    expect(component.pullUpBarVisible).not.toBeTruthy();
+  });
 
+  it('#footerExpanded should change visibility status', () =>{
+    component.footerExpanded();
+    expect(component.pullUpBarVisible).toBeTruthy();
+  });
 });
