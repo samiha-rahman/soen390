@@ -1,5 +1,4 @@
 import { browser, element, by } from "protractor"; 
-import { PageObject } from './page-objects/app.po';
 import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
 import { OutdoorMapComponent } from './page-objects/outdoor-map.po';

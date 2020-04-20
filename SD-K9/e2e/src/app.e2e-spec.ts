@@ -3,8 +3,6 @@ import { HomePage } from './page-objects/home.po';
 import { TopDirectionsBarComponent } from './page-objects/top-directions-bar.po';
 import { OutdoorMapComponent } from './page-objects/outdoor-map.po';
 import { LocationSearchPage } from './page-objects/location-search.po';
-import { FloorplanComponent } from './page-objects/floor-plan.po';
-import { MapBoxComponent } from './page-objects/map-box.po';
 import { PullUpComponent } from './page-objects/pullup.po';
 
 describe("general application", () => {
@@ -12,8 +10,6 @@ describe("general application", () => {
   const topDirectionsBar = new TopDirectionsBarComponent();
   const outdoorMap = new OutdoorMapComponent();
   const locationSearch = new LocationSearchPage();
-  const floorplan = new FloorplanComponent();
-  const mapBox = new MapBoxComponent();
   const pullUp = new PullUpComponent();
 
   beforeAll(() => {

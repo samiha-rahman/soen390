@@ -6,6 +6,11 @@ export class OutdoorMapComponent extends PageObject {
         super('app-outdoor-map');
     }
 
+    loadMap() {
+        const el = element(by.css('ion-fab-button.locate-me-btn'))
+        browser.wait(ExpectedConditions.visibilityOf(el), 30000);
+    }
+
     goToSGW() {
         browser.driver.findElement(by.id('sgw-button')).click();
     }
@@ -45,8 +50,4 @@ export class OutdoorMapComponent extends PageObject {
       return clickable;
     }
 
-    loadMap() {
-        const el = element(by.css('ion-fab-button.locate-me-btn'))
-        browser.wait(ExpectedConditions.visibilityOf(el), 30000);
-    }
 }
